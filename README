@@ -1,0 +1,6 @@
+Elijah Cordova
+1425119
+
+BUILD : make
+TEST : make test
+CLEAN : make clean

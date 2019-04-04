@@ -11,6 +11,11 @@ build : ${OBJS}
 %.o : %.cpp
 	${CPP} -c $<
 
+test : build
+	./$(EXECNAME)
+
+
+
 clean :
 	rm ${OBJS} ${EXECNAME}
 
