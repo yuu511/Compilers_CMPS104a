@@ -1,0 +1,8 @@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: starting findmap.cpp
+findmap.cpp:
+     $Id: findmap.cpp,v 1.2 2018-11-07 11:46:09-08 - - $
+cpplint.py.perl findmap.cpp
+Done processing findmap.cpp
+g++ -g -O0 -Wall -Wextra -fdiagnostics-color=never -std=gnu++17 -Wold-style-cast findmap.cpp -o findmap -lm
+rm -f findmap.o
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: finished findmap.cpp

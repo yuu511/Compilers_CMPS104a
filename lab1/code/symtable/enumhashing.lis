@@ -1,0 +1,17 @@
+0 = void
+1 = int
+2 = null
+3 = string
+4 = struct
+5 = array
+6 = function
+7 = variable
+8 = field
+9 = typeid
+10 = param
+11 = lval
+12 = const
+13 = vreg
+14 = vaddr
+15 = bitset_size
+invalid_argument: const string to_string(attr): 1024

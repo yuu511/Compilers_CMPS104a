@@ -1,0 +1,10 @@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: starting macros.cpp
+checksource macros.cpp
+ident macros.cpp
+macros.cpp:
+     $Id: macros.cpp,v 1.1 2018-01-22 14:07:15-08 - - $
+cpplint.py.perl macros.cpp
+Done processing macros.cpp
+g++ -g -O0 -Wall -Wextra -Werror -Wpedantic -Wshadow -fdiagnostics-color=never -std=gnu++17 -Wold-style-cast macros.cpp -o macros -lm
+rm -f macros.o
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: finished macros.cpp

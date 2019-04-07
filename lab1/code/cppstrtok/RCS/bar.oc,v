@@ -1,0 +1,26 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2017.09.21.22.52.37;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@// $Id: bar.oc,v 1.2 2017-09-21 15:52:07-07 - - $
+#include "nofile.h"
+a = b + c;
+@

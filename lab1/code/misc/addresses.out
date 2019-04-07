@@ -1,0 +1,43 @@
+sysname  = "Linux"
+nodename = "unix4.lt.ucsc.edu"
+release  = "3.10.0-693.11.6.el7.x86_64"
+version  = "#1 SMP Thu Jan 4 01:06:37 UTC 2018"
+machine  = "x86_64"
+sizeof (char**) = 8
+sizeof (uintptr_t) = 8
+
+Addresses of some stack variables:
+  0x7fffd7d1c71c: &level: address of a stack variable at level 5
+  0x7fffd7d1c74c: &level: address of a stack variable at level 4
+  0x7fffd7d1c77c: &level: address of a stack variable at level 3
+  0x7fffd7d1c7ac: &level: address of a stack variable at level 2
+  0x7fffd7d1c7dc: &level: address of a stack variable at level 1
+  0x7fffd7d1c814: &main_local: address of a local variable in main
+  0x7fffd7d1c80c: &argc: address of argc
+  0x7fffd7d1c800: &argv: address of argv
+  0x7fffd7d1c918: argv: address of arg vector
+  0x7fffd7d1c928: environ: address of environ vector
+  0x7fffd7d1efeb: stack_bottom (environ): byte at bottom of stack
+
+Addresses of some static variables:
+        0x4006e0: printf: (text) address of the printf() function
+        0x400760: &_start: start of program text
+        0x400a28: main: (text) address of the main() function
+        0x400d7d: &_etext: end of program text
+        0x6020a0: &init_var: address of an init static variable
+        0x6020c0: &_edata: end of init data segment
+        0x6020e0: &uninit_var1: address of an uninit static variable1
+        0x6030e0: &uninit_var2: address of an uninit static variable2
+        0x6040e0: &_end: end of uninit data segment
+
+Addresses of some heap variables:
+        0x618010: heap_variable: heap variable  0
+        0x619020: heap_variable: heap variable  1
+        0x61a030: heap_variable: heap variable  2
+        0x61b040: heap_variable: heap variable  3
+        0x61c050: heap_variable: heap variable  4
+        0x61d060: heap_variable: heap variable  5
+        0x61e070: heap_variable: heap variable  6
+        0x61f080: heap_variable: heap variable  7
+        0x620090: heap_variable: heap variable  8
+        0x6210a0: heap_variable: heap variable  9

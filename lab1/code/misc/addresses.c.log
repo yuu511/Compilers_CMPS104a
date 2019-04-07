@@ -1,0 +1,20 @@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: starting addresses.c
+checksource addresses.c
+ident addresses.c
+addresses.c:
+     $Id: addresses.c,v 1.4 2019-04-03 17:19:51-07 - - $
+gcc -g -O0 -Wall -Wextra -Werror -Wpedantic -Wshadow -fdiagnostics-color=never -std=gnu11 addresses.c -o addresses -lm
+addresses.c: In function 'main':
+addresses.c:13:20: error: ISO C forbids conversion of function pointer to object pointer type [-Werror=pedantic]
+                    (void*) SYMBOL, #SYMBOL, DESCR); \
+                    ^
+addresses.c:82:4: note: in expansion of macro 'PRINT'
+    PRINT (printf, "(text) address of the printf() function");
+    ^~~~~
+addresses.c:13:20: error: ISO C forbids conversion of function pointer to object pointer type [-Werror=pedantic]
+                    (void*) SYMBOL, #SYMBOL, DESCR); \
+                    ^
+addresses.c:84:4: note: in expansion of macro 'PRINT'
+    PRINT (main, "(text) address of the main() function");
+    ^~~~~
+cc1: all warnings being treated as errors

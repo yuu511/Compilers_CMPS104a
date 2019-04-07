@@ -1,0 +1,185 @@
+head	1.6;
+access;
+symbols;
+locks;
+comment	@// @;
+
+
+1.6
+date	2018.11.07.19.44.47;	author -;	state -;
+branches;
+next	1.5;
+
+1.5
+date	2018.11.07.19.44.20;	author -;	state -;
+branches;
+next	1.4;
+
+1.4
+date	2018.11.07.19.44.02;	author -;	state -;
+branches;
+next	1.3;
+
+1.3
+date	2018.11.07.19.43.48;	author -;	state -;
+branches;
+next	1.2;
+
+1.2
+date	2018.11.07.19.43.13;	author -;	state -;
+branches;
+next	1.1;
+
+1.1
+date	2018.11.07.19.33.08;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.6
+log
+@-
+@
+text
+@// $Id: enumhashing.cpp,v 1.5 2018-11-07 11:44:20-08 - - $
+
+//
+// Example of how to convert constants of an enum class into strings.
+//
+
+#include <bitset>
+#include <iostream>
+#include <stdexcept>
+#include <unordered_map>
+#include <vector>
+using namespace std;
+
+enum class attr: unsigned {
+       VOID, INT, NULLX, STRING, STRUCT, ARRAY, FUNCTION, VARIABLE,
+       FIELD, TYPEID, PARAM, LVAL, CONST, VREG, VADDR, BITSET_SIZE,
+};
+using attr_bitset = bitset<unsigned(attr::BITSET_SIZE)>;
+
+const string to_string (attr attribute) {
+   static const unordered_map<attr,string> hash {
+      {attr::VOID       , "void"       },
+      {attr::INT        , "int"        },
+      {attr::NULLX      , "null"       },
+      {attr::STRING     , "string"     },
+      {attr::STRUCT     , "struct"     },
+      {attr::ARRAY      , "array"      },
+      {attr::FUNCTION   , "function"   },
+      {attr::VARIABLE   , "variable"   },
+      {attr::FIELD      , "field"      },
+      {attr::TYPEID     , "typeid"     },
+      {attr::PARAM      , "param"      },
+      {attr::LVAL       , "lval"       },
+      {attr::CONST      , "const"      },
+      {attr::VREG       , "vreg"       },
+      {attr::VADDR      , "vaddr"      },
+      {attr::BITSET_SIZE, "bitset_size"},
+   };
+   auto str = hash.find (attribute);
+   if (str == hash.end()) {
+      throw invalid_argument (string (__PRETTY_FUNCTION__) + ": "
+                              + to_string (unsigned (attribute)));
+   }
+   return str->second;
+}
+
+
+int main() {
+   static vector<attr> attrs {
+      attr::VOID, attr::INT, attr::NULLX, attr::STRING, attr::STRUCT,
+      attr::ARRAY, attr::FUNCTION, attr::VARIABLE, attr::FIELD,
+      attr::TYPEID, attr::PARAM, attr::LVAL, attr::CONST, attr::VREG,
+      attr::VADDR, attr::BITSET_SIZE,
+   };
+   for (const auto attrib: attrs) {
+      cout << unsigned(attrib) << " = " << to_string (attrib) << endl;
+   }
+   try {
+      cout << to_string (static_cast<attr> (1024)) << endl;
+   }catch (invalid_argument& what) {
+      cout << "invalid_argument: " << what.what() << endl;
+   }
+}
+
+//TEST// ./enumhashing >enumhashing.lis 2>&1
+//TEST// mkpspdf enumhashing.ps enumhashing.cpp* enumhashing.lis
+
+@
+
+
+1.5
+log
+@-
+@
+text
+@d1 1
+a1 1
+// $Id: enumhashing.cpp,v 1.4 2018-11-07 11:44:02-08 - - $
+d41 1
+a41 1
+      throw invalid_argument (__PRETTY_FUNCTION__ + ": "
+@
+
+
+1.4
+log
+@-
+@
+text
+@d1 1
+a1 1
+// $Id: enumhashing.cpp,v 1.3 2018-11-07 11:43:48-08 - - $
+d42 1
+a42 1
+                              + unsigned (attribute));
+@
+
+
+1.3
+log
+@-
+@
+text
+@d1 1
+a1 1
+// $Id: enumhashing.cpp,v 1.2 2018-11-07 11:43:13-08 - - $
+d42 1
+a42 1
+                              + unsigned (attribute)););
+@
+
+
+1.2
+log
+@-
+@
+text
+@d1 1
+a1 1
+// $Id: enumhashing.cpp,v 1.1 2018-11-07 11:33:08-08 - - $
+d41 2
+a42 1
+      throw invalid_argument (__PRETTY_FUNCTION__ + ": " + attribute););
+@
+
+
+1.1
+log
+@-
+@
+text
+@d1 1
+a1 1
+// $Id: enumhashing.cpp,v 1.10 2018-05-11 14:33:00-07 - - $
+d40 3
+a42 1
+   if (str == hash.end()) throw invalid_argument (__PRETTY_FUNCTION__);
+@

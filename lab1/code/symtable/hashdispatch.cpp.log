@@ -1,0 +1,8 @@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: starting hashdispatch.cpp
+hashdispatch.cpp:
+     $Id: hashdispatch.cpp,v 1.8 2018-11-07 11:46:10-08 - - $
+cpplint.py.perl hashdispatch.cpp
+Done processing hashdispatch.cpp
+g++ -g -O0 -Wall -Wextra -fdiagnostics-color=never -std=gnu++17 -Wold-style-cast hashdispatch.cpp -o hashdispatch -lm
+rm -f hashdispatch.o
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: finished hashdispatch.cpp

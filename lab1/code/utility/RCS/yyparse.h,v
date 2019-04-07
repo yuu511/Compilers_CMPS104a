@@ -1,0 +1,408 @@
+head	1.7;
+access;
+symbols;
+locks;
+comment	@ * @;
+
+
+1.7
+date	2018.10.25.20.08.35;	author -;	state -;
+branches;
+next	1.6;
+
+1.6
+date	2018.10.19.18.27.51;	author -;	state -;
+branches;
+next	1.5;
+
+1.5
+date	2018.04.06.22.14.40;	author -;	state -;
+branches;
+next	1.4;
+
+1.4
+date	2017.10.04.23.00.51;	author -;	state -;
+branches;
+next	1.3;
+
+1.3
+date	2016.09.22.00.29.57;	author -;	state -;
+branches;
+next	1.2;
+
+1.2
+date	2016.04.07.19.59.52;	author -;	state -;
+branches;
+next	1.1;
+
+1.1
+date	2013.10.15.23.31.58;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.7
+log
+@-
+@
+text
+@/* A Bison parser, made by GNU Bison 3.0.4.  */
+
+/* Bison interface for Yacc-like parsers in C
+
+   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+
+/* As a special exception, you may create a larger work that contains
+   part or all of the Bison parser skeleton and distribute that work
+   under terms of your choice, so long as that work isn't itself a
+   parser generator using the skeleton or a modified version thereof
+   as a parser skeleton.  Alternatively, if you modify or redistribute
+   the parser skeleton itself, you may (at your option) remove this
+   special exception, which will cause the skeleton and the resulting
+   Bison output files to be licensed under the GNU General Public
+   License without this special exception.
+
+   This special exception was added by the Free Software Foundation in
+   version 2.2 of Bison.  */
+
+#ifndef YY_YY_YYPARSE_H_INCLUDED
+# define YY_YY_YYPARSE_H_INCLUDED
+/* Debug traces.  */
+#ifndef YYDEBUG
+# define YYDEBUG 1
+#endif
+#if YYDEBUG
+extern int yydebug;
+#endif
+
+/* Token type.  */
+#ifndef YYTOKENTYPE
+# define YYTOKENTYPE
+  enum yytokentype
+  {
+    TOK_VOID = 258,
+    TOK_INT = 259,
+    TOK_STRING = 260,
+    TOK_IF = 261,
+    TOK_ELSE = 262,
+    TOK_WHILE = 263,
+    TOK_RETURN = 264,
+    TOK_STRUCT = 265,
+    TOK_NULL = 266,
+    TOK_NEW = 267,
+    TOK_ARRAY = 268,
+    TOK_ARROW = 269,
+    TOK_EQ = 270,
+    TOK_NE = 271,
+    TOK_LT = 272,
+    TOK_LE = 273,
+    TOK_GT = 274,
+    TOK_GE = 275,
+    TOK_NOT = 276,
+    TOK_IDENT = 277,
+    TOK_INTCON = 278,
+    TOK_CHARCON = 279,
+    TOK_STRINGCON = 280,
+    TOK_ROOT = 281,
+    TOK_BLOCK = 282,
+    TOK_CALL = 283,
+    TOK_IFELSE = 284,
+    TOK_INITDECL = 285,
+    TOK_POS = 286,
+    TOK_NEG = 287,
+    TOK_NEWARRAY = 288,
+    TOK_TYPEID = 289,
+    TOK_FIELD = 290
+  };
+#endif
+
+/* Value type.  */
+#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
+typedef int YYSTYPE;
+# define YYSTYPE_IS_TRIVIAL 1
+# define YYSTYPE_IS_DECLARED 1
+#endif
+
+
+extern YYSTYPE yylval;
+
+int yyparse (void);
+
+#endif /* !YY_YY_YYPARSE_H_INCLUDED  */
+@
+
+
+1.6
+log
+@-
+@
+text
+@d49 32
+a80 33
+    TOK_CHAR = 259,
+    TOK_INT = 260,
+    TOK_STRING = 261,
+    TOK_IF = 262,
+    TOK_ELSE = 263,
+    TOK_WHILE = 264,
+    TOK_RETURN = 265,
+    TOK_STRUCT = 266,
+    TOK_NULL = 267,
+    TOK_NEW = 268,
+    TOK_ARRAY = 269,
+    TOK_ARROW = 270,
+    TOK_EQ = 271,
+    TOK_NE = 272,
+    TOK_LT = 273,
+    TOK_LE = 274,
+    TOK_GT = 275,
+    TOK_GE = 276,
+    TOK_NOT = 277,
+    TOK_IDENT = 278,
+    TOK_INTCON = 279,
+    TOK_CHARCON = 280,
+    TOK_STRINGCON = 281,
+    TOK_ROOT = 282,
+    TOK_BLOCK = 283,
+    TOK_CALL = 284,
+    TOK_IFELSE = 285,
+    TOK_INITDECL = 286,
+    TOK_POS = 287,
+    TOK_NEG = 288,
+    TOK_NEWARRAY = 289,
+    TOK_TYPEID = 290,
+    TOK_FIELD = 291
+@
+
+
+1.5
+log
+@-
+@
+text
+@d67 15
+a81 14
+    TOK_IDENT = 277,
+    TOK_INTCON = 278,
+    TOK_CHARCON = 279,
+    TOK_STRINGCON = 280,
+    TOK_ROOT = 281,
+    TOK_BLOCK = 282,
+    TOK_CALL = 283,
+    TOK_IFELSE = 284,
+    TOK_INITDECL = 285,
+    TOK_POS = 286,
+    TOK_NEG = 287,
+    TOK_NEWARRAY = 288,
+    TOK_TYPEID = 289,
+    TOK_FIELD = 290
+@
+
+
+1.4
+log
+@-
+@
+text
+@d60 21
+a80 22
+    TOK_EQ = 270,
+    TOK_NE = 271,
+    TOK_LT = 272,
+    TOK_LE = 273,
+    TOK_GT = 274,
+    TOK_GE = 275,
+    TOK_IDENT = 276,
+    TOK_INTCON = 277,
+    TOK_CHARCON = 278,
+    TOK_STRINGCON = 279,
+    TOK_BLOCK = 280,
+    TOK_CALL = 281,
+    TOK_IFELSE = 282,
+    TOK_INITDECL = 283,
+    TOK_POS = 284,
+    TOK_NEG = 285,
+    TOK_NEWARRAY = 286,
+    TOK_TYPEID = 287,
+    TOK_FIELD = 288,
+    TOK_ORD = 289,
+    TOK_CHR = 290,
+    TOK_ROOT = 291
+@
+
+
+1.3
+log
+@-
+@
+text
+@d1 1
+a1 1
+/* A Bison parser, made by GNU Bison 2.7.  */
+d4 3
+a6 3
+   
+      Copyright (C) 1984, 1989-1990, 2000-2012 Free Software Foundation, Inc.
+   
+d11 1
+a11 1
+   
+d16 1
+a16 1
+   
+d29 1
+a29 1
+   
+d35 1
+a35 1
+/* Enabling traces.  */
+d43 1
+a43 1
+/* Tokens.  */
+d46 37
+a82 38
+   /* Put the tokens into the symbol table, so that GDB and other debuggers
+      know about them.  */
+   enum yytokentype {
+     TOK_VOID = 258,
+     TOK_CHAR = 259,
+     TOK_INT = 260,
+     TOK_STRING = 261,
+     TOK_IF = 262,
+     TOK_ELSE = 263,
+     TOK_WHILE = 264,
+     TOK_RETURN = 265,
+     TOK_STRUCT = 266,
+     TOK_NULL = 267,
+     TOK_NEW = 268,
+     TOK_ARRAY = 269,
+     TOK_EQ = 270,
+     TOK_NE = 271,
+     TOK_LT = 272,
+     TOK_LE = 273,
+     TOK_GT = 274,
+     TOK_GE = 275,
+     TOK_IDENT = 276,
+     TOK_INTCON = 277,
+     TOK_CHARCON = 278,
+     TOK_STRINGCON = 279,
+     TOK_BLOCK = 280,
+     TOK_CALL = 281,
+     TOK_IFELSE = 282,
+     TOK_INITDECL = 283,
+     TOK_POS = 284,
+     TOK_NEG = 285,
+     TOK_NEWARRAY = 286,
+     TOK_TYPEID = 287,
+     TOK_FIELD = 288,
+     TOK_ORD = 289,
+     TOK_CHR = 290,
+     TOK_ROOT = 291
+   };
+d85 1
+a85 1
+
+a88 1
+# define yystype YYSTYPE /* obsolescent; will be withdrawn */
+d92 1
+a94 8
+#ifdef YYPARSE_PARAM
+#if defined __STDC__ || defined __cplusplus
+int yyparse (void *YYPARSE_PARAM);
+#else
+int yyparse ();
+#endif
+#else /* ! YYPARSE_PARAM */
+#if defined __STDC__ || defined __cplusplus
+a95 4
+#else
+int yyparse ();
+#endif
+#endif /* ! YYPARSE_PARAM */
+@
+
+
+1.2
+log
+@-
+@
+text
+@d50 33
+a82 36
+     TOK_BOOL = 259,
+     TOK_CHAR = 260,
+     TOK_INT = 261,
+     TOK_STRING = 262,
+     TOK_IF = 263,
+     TOK_ELSE = 264,
+     TOK_WHILE = 265,
+     TOK_RETURN = 266,
+     TOK_STRUCT = 267,
+     TOK_FALSE = 268,
+     TOK_TRUE = 269,
+     TOK_NULL = 270,
+     TOK_NEW = 271,
+     TOK_ARRAY = 272,
+     TOK_EQ = 273,
+     TOK_NE = 274,
+     TOK_LT = 275,
+     TOK_LE = 276,
+     TOK_GT = 277,
+     TOK_GE = 278,
+     TOK_IDENT = 279,
+     TOK_INTCON = 280,
+     TOK_CHARCON = 281,
+     TOK_STRINGCON = 282,
+     TOK_BLOCK = 283,
+     TOK_CALL = 284,
+     TOK_IFELSE = 285,
+     TOK_INITDECL = 286,
+     TOK_POS = 287,
+     TOK_NEG = 288,
+     TOK_NEWARRAY = 289,
+     TOK_TYPEID = 290,
+     TOK_FIELD = 291,
+     TOK_ORD = 292,
+     TOK_CHR = 293,
+     TOK_ROOT = 294
+@
+
+
+1.1
+log
+@-
+@
+text
+@d1 1
+d3 1
+a3 3
+/* A Bison parser, made by GNU Bison 2.4.1.  */
+
+/* Skeleton interface for Bison's Yacc-like parsers in C
+d5 1
+a5 2
+      Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
+   Free Software Foundation, Inc.
+d33 9
+a89 1
+
+d99 13
+d113 1
+@

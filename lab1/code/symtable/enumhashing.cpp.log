@@ -1,0 +1,8 @@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: starting enumhashing.cpp
+enumhashing.cpp:
+     $Id: enumhashing.cpp,v 1.6 2018-11-07 11:44:47-08 - - $
+cpplint.py.perl enumhashing.cpp
+Done processing enumhashing.cpp
+g++ -g -O0 -Wall -Wextra -fdiagnostics-color=never -std=gnu++17 -Wold-style-cast enumhashing.cpp -o enumhashing -lm
+rm -f enumhashing.o
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: finished enumhashing.cpp

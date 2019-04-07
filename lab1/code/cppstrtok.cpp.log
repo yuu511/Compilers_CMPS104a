@@ -1,0 +1,10 @@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: starting cppstrtok.cpp
+checksource cppstrtok.cpp
+ident cppstrtok.cpp
+cppstrtok.cpp:
+     $Id: cppstrtok.cpp,v 1.3 2019-04-05 14:28:09-07 - - $
+cpplint.py.perl cppstrtok.cpp
+Done processing cppstrtok.cpp
+g++ -g -O0 -Wall -Wextra -Wpedantic -Wshadow -fdiagnostics-color=never -std=gnu++17 -Wold-style-cast cppstrtok.cpp -o cppstrtok -lm
+rm -f cppstrtok.o
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: finished cppstrtok.cpp

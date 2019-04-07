@@ -1,0 +1,11 @@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: starting arraydispatch.c
+checksource arraydispatch.c
+ident arraydispatch.c
+arraydispatch.c:
+     $Id: arraydispatch.c,v 1.6 2019-04-03 17:26:09-07 - - $
+gcc -g -O0 -Wall -Wextra -Werror -Wpedantic -Wshadow -fdiagnostics-color=never -std=gnu11 arraydispatch.c -o arraydispatch -lm
+arraydispatch.c: In function 'main':
+arraydispatch.c:22:22: error: ISO C forbids conversion of function pointer to object pointer type [-Werror=pedantic]
+       printf ("%p ", (void*) f);
+                      ^
+cc1: all warnings being treated as errors

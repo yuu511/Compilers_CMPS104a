@@ -1,0 +1,10 @@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: starting maxvalues.cpp
+checksource maxvalues.cpp
+ident maxvalues.cpp
+maxvalues.cpp:
+     $Id: maxvalues.cpp,v 1.1 2018-01-22 14:07:16-08 - - $
+cpplint.py.perl maxvalues.cpp
+Done processing maxvalues.cpp
+g++ -g -O0 -Wall -Wextra -Werror -Wpedantic -Wshadow -fdiagnostics-color=never -std=gnu++17 -Wold-style-cast maxvalues.cpp -o maxvalues -lm
+rm -f maxvalues.o
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ mkc: finished maxvalues.cpp
