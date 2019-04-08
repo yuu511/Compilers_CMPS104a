@@ -34,6 +34,7 @@ clean :
 
 spotless : clean
 	- rm ${EXECBIN} ${LISTING} ${LISTING:.ps=.pdf} ${DEPFILE} \
+	- rm *.str
 
 	     test.out misc.lis
 ${DEPFILE} :
