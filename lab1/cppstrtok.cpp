@@ -96,6 +96,10 @@ int main (int argc, char** argv) {
    int opt;
    while ((opt = getopt(argc,argv,"@:D:ly")) != -1 ){  
      switch (opt){ 
+       case 'D':
+         CPP + "-D" + optarg;
+         fprintf (stdout,"flag activated:%c\n yy_flex_debug: %d \n",opt,optarg);
+         break;
        case 'l': 
          yy_flex_debug = 1;
          fprintf (stdout,"flag activated:%c\n yy_flex_debug: %d \n",opt,yy_flex_debug);
@@ -108,6 +112,7 @@ int main (int argc, char** argv) {
          break;
      }
    }
+   // pass the file specified into the preprocessor
    char* filename = argv[argc-1];
    string command = CPP + " " + filename;
    printf ("command=\"%s\"\n", command.c_str());
