@@ -10,7 +10,7 @@ DEPFILE    = Makefile.dep
 SOURCES    = cppstrtok.cpp 
 OBJECTS    = ${SOURCES:.cpp=.o}
 EXECBIN    = cppstrtok
-EXECFLAGS  = -l -y
+EXECFLAGS  = -l -y -D__OCLIBH__
 SRCFILES   = ${SOURCES} ${MKFILE}
 SMALLFILES = ${DEPFILE} foo.oc foo1.oh foo2.oh
 CHECKINS   = ${SRCFILES} ${SMALLFILES}

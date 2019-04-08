@@ -91,14 +91,15 @@ int main (int argc, char** argv) {
    int exit_status = EXIT_SUCCESS;
    int yy_flex_debug = 0;
    int yyparse = 0;
+   string command = CPP;
    // parse command line arguments
    // based off of the example in https://www.gnu.org/software/libc/manual/html_node/Example-of-Getopt.html
    int opt;
    while ((opt = getopt(argc,argv,"@:D:ly")) != -1 ){  
      switch (opt){ 
        case 'D':
-         CPP + "-D" + optarg;
-         fprintf (stdout,"flag activated:%c\n yy_flex_debug: %d \n",opt,optarg);
+         command = command + " -D" + std::string(optarg);
+         fprintf (stdout,"flag activated:%c\nAppended CPP: %s \n",opt,command.c_str());
          break;
        case 'l': 
          yy_flex_debug = 1;
@@ -114,7 +115,7 @@ int main (int argc, char** argv) {
    }
    // pass the file specified into the preprocessor
    char* filename = argv[argc-1];
-   string command = CPP + " " + filename;
+   command = command + " " + filename;
    printf ("command=\"%s\"\n", command.c_str());
    FILE* pipe = popen (command.c_str(), "r");
    if (pipe == nullptr) {
