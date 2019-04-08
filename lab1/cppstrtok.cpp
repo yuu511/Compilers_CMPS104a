@@ -14,6 +14,7 @@ using namespace std;
 #include <string.h>
 #include <wait.h>
 #include <unistd.h>
+#include <stdio.h>
 
 #include "string_set.h"
 
@@ -66,13 +67,13 @@ void cpplines (FILE* pipe, const char* filename) {
       const char* fgets_rc = fgets (buffer, LINESIZE, pipe);
       if (fgets_rc == nullptr) break;
       chomp (buffer, '\n');
-      printf ("%s:line %d: [%s]\n", filename, linenr, buffer);
+      // printf ("%s:line %d: [%s]\n", filename, linenr, buffer);
       // http://gcc.gnu.org/onlinedocs/cpp/Preprocessor-Output.html
       char inputname[LINESIZE];
       int sscanf_rc = sscanf (buffer, "# %d \"%[^\"]\"",
                               &linenr, inputname);
       if (sscanf_rc == 2) {
-         printf ("DIRECTIVE: line %d file \"%s\"\n", linenr, inputname);
+      //   printf ("DIRECTIVE: line %d file \"%s\"\n", linenr, inputname);
          continue;
       }
       char* savepos = nullptr;
@@ -81,9 +82,9 @@ void cpplines (FILE* pipe, const char* filename) {
          char* token = strtok_r (bufptr, " \t\n", &savepos);
          bufptr = nullptr;
          if (token == nullptr) break;
-         printf ("token %d.%d: [%s]\n",
-                 linenr, tokenct, token); 
-         const string* str = string_set::intern(token);
+       //  printf ("token %d.%d: [%s]\n",
+       //          linenr, tokenct, token); 
+       string_set::intern(token);
       }
       ++linenr;
    }
@@ -91,10 +92,14 @@ void cpplines (FILE* pipe, const char* filename) {
 
 int main (int argc, char** argv) {
    const char* execname = basename (argv[0]);
+   char* filename = argv[argc-1];
    int exit_status = EXIT_SUCCESS;
    int yy_flex_debug = 0;
    int yyparse = 0;
    string command = CPP;
+   string input_stripped = string(basename(filename));
+   size_t lastindex = input_stripped.find_last_of(".");
+   input_stripped = input_stripped.substr(0,lastindex);
    // parse command line arguments
    // based off of the example in https://www.gnu.org/software/libc/manual/html_node/Example-of-Getopt.html
    int opt;
@@ -102,24 +107,20 @@ int main (int argc, char** argv) {
      switch (opt){ 
        case 'D':
          command = command + " -D" + std::string(optarg);
-         fprintf (stdout,"flag activated:%c\nAppended CPP: %s \n",opt,command.c_str());
          break;
        case 'l': 
          yy_flex_debug = 1;
-         fprintf (stdout,"flag activated:%c\n yy_flex_debug: %d \n",opt,yy_flex_debug);
          break;
        case 'y':
          yyparse = 1;
-         fprintf (stdout,"flag activated:%c\n yyparse: %d \n",opt,yyparse);
          break;
        case '?':
          break;
      }
    }
    // pass the file specified into the preprocessor
-   char* filename = argv[argc-1];
    command = command + " " + filename;
-   printf ("command=\"%s\"\n", command.c_str());
+   // printf ("command=\"%s\"\n", command.c_str());
    FILE* pipe = popen (command.c_str(), "r");
    if (pipe == nullptr) {
       exit_status = EXIT_FAILURE;
@@ -131,7 +132,24 @@ int main (int argc, char** argv) {
       eprint_status (command.c_str(), pclose_rc);
       if (pclose_rc != 0) exit_status = EXIT_FAILURE;
    }
-   string_set::dump (stdout);
+   // fprintf (stdout,"131: input_stripped : %s",input_stripped.c_str());
+   string append = ".str";
+   // dump the string table into fn.str
+   // string_set::dump(stdout); 
+   FILE *strfp;
+   string fn =(input_stripped+append);
+   strfp = fopen (fn.c_str(),"w");
+   if (strfp == NULL) {
+      exit_status = EXIT_FAILURE;
+      fprintf (stderr, "%s: %s: %s\n",
+               execname, command.c_str(), strerror (errno));
+   }
+   string_set::dump(strfp); 
+   if (pclose(strfp) < 0 ) {
+      exit_status = EXIT_FAILURE;
+      fprintf (stderr, "%s: %s: %s\n",
+               execname, command.c_str(), strerror (errno));
+   }
    return exit_status;
 }
 

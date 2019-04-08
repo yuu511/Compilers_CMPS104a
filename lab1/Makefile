@@ -10,7 +10,7 @@ DEPFILE    = Makefile.dep
 SOURCES    = cppstrtok.cpp string_set.cpp
 HEADERS    = string_set.h
 OBJECTS    = ${SOURCES:.cpp=.o}
-EXECBIN    = cppstrtok
+EXECBIN    = oc
 EXECFLAGS  = -l -y -D__OCLIBH__
 SRCFILES   = ${SOURCES} ${MKFILE}
 SMALLFILES = ${DEPFILE} foo.oc foo1.oh foo2.oh
@@ -46,10 +46,10 @@ dep :
 include Makefile.dep
 
 test : ${EXECBIN}
-	${VALGRIND} ./${EXECBIN} foo.oc 1>test.out 2>&1
+	${VALGRIND} ./${EXECBIN} ./examples/foo.oc 1>test.out 2>&1
 
 testflags : ${EXECBIN}
-	${VALGRIND} ./${EXECBIN} ${EXECFLAGS} foo.oc 1>test.out 2>&1
+	${VALGRIND} ./${EXECBIN} ${EXECFLAGS} ./examples/foo.oc 1>test.out 2>&1
 
 misc.lis : ${DEPFILE} foo.oc foo1.oh foo2.oh
 	catnv ${DEPFILE} foo.oc foo1.oh foo2.oh >misc.lis
