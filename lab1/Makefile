@@ -7,9 +7,10 @@ VALGRIND   = valgrind --leak-check=full --show-reachable=yes
 
 MKFILE     = Makefile
 DEPFILE    = Makefile.dep
-SOURCES    = cppstrtok.cpp
+SOURCES    = cppstrtok.cpp 
 OBJECTS    = ${SOURCES:.cpp=.o}
 EXECBIN    = cppstrtok
+EXECFLAGS  = -l -y
 SRCFILES   = ${SOURCES} ${MKFILE}
 SMALLFILES = ${DEPFILE} foo.oc foo1.oh foo2.oh
 CHECKINS   = ${SRCFILES} ${SMALLFILES}
@@ -32,8 +33,8 @@ clean :
 
 spotless : clean
 	- rm ${EXECBIN} ${LISTING} ${LISTING:.ps=.pdf} ${DEPFILE} \
-	     test.out misc.lis
 
+	     test.out misc.lis
 ${DEPFILE} :
 	${MAKEDEPCPP} ${SOURCES} >${DEPFILE}
 
@@ -44,7 +45,10 @@ dep :
 include Makefile.dep
 
 test : ${EXECBIN}
-	${VALGRIND} ${EXECBIN} foo.oc 1>test.out 2>&1
+	${VALGRIND} ./${EXECBIN} foo.oc 1>test.out 2>&1
+
+testflags : ${EXECBIN}
+	${VALGRIND} ./${EXECBIN} ${EXECFLAGS} foo.oc 1>test.out 2>&1
 
 misc.lis : ${DEPFILE} foo.oc foo1.oh foo2.oh
 	catnv ${DEPFILE} foo.oc foo1.oh foo2.oh >misc.lis

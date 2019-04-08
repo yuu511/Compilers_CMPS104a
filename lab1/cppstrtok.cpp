@@ -13,6 +13,7 @@ using namespace std;
 #include <stdlib.h>
 #include <string.h>
 #include <wait.h>
+#include <unistd.h>
 
 const string CPP = "/usr/bin/cpp -nostdinc";
 constexpr size_t LINESIZE = 1024;
@@ -88,21 +89,38 @@ void cpplines (FILE* pipe, const char* filename) {
 int main (int argc, char** argv) {
    const char* execname = basename (argv[0]);
    int exit_status = EXIT_SUCCESS;
-   for (int argi = 1; argi < argc; ++argi) {
-      char* filename = argv[argi];
-      string command = CPP + " " + filename;
-      printf ("command=\"%s\"\n", command.c_str());
-      FILE* pipe = popen (command.c_str(), "r");
-      if (pipe == nullptr) {
-         exit_status = EXIT_FAILURE;
-         fprintf (stderr, "%s: %s: %s\n",
-                  execname, command.c_str(), strerror (errno));
-      }else {
-         cpplines (pipe, filename);
-         int pclose_rc = pclose (pipe);
-         eprint_status (command.c_str(), pclose_rc);
-         if (pclose_rc != 0) exit_status = EXIT_FAILURE;
-      }
+   int yy_flex_debug = 0;
+   int yyparse = 0;
+   // parse command line arguments
+   // based off of the example in https://www.gnu.org/software/libc/manual/html_node/Example-of-Getopt.html
+   int opt;
+   while ((opt = getopt(argc,argv,"@:D:ly")) != -1 ){  
+     switch (opt){ 
+       case 'l': 
+         yy_flex_debug = 1;
+         fprintf (stdout,"flag activated:%c\n yy_flex_debug: %d \n",opt,yy_flex_debug);
+         break;
+       case 'y':
+         yyparse = 1;
+         fprintf (stdout,"flag activated:%c\n yyparse: %d \n",opt,yyparse);
+         break;
+       case '?':
+         break;
+     }
+   }
+   char* filename = argv[argc-1];
+   string command = CPP + " " + filename;
+   printf ("command=\"%s\"\n", command.c_str());
+   FILE* pipe = popen (command.c_str(), "r");
+   if (pipe == nullptr) {
+      exit_status = EXIT_FAILURE;
+      fprintf (stderr, "%s: %s: %s\n",
+               execname, command.c_str(), strerror (errno));
+   }else {
+      cpplines (pipe, filename);
+      int pclose_rc = pclose (pipe);
+      eprint_status (command.c_str(), pclose_rc);
+      if (pclose_rc != 0) exit_status = EXIT_FAILURE;
    }
    return exit_status;
 }
