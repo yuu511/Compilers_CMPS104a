@@ -7,7 +7,8 @@ VALGRIND   = valgrind --leak-check=full --show-reachable=yes
 
 MKFILE     = Makefile
 DEPFILE    = Makefile.dep
-SOURCES    = cppstrtok.cpp 
+SOURCES    = cppstrtok.cpp string_set.cpp
+HEADERS    = string_set.h
 OBJECTS    = ${SOURCES:.cpp=.o}
 EXECBIN    = cppstrtok
 EXECFLAGS  = -l -y -D__OCLIBH__

@@ -15,6 +15,8 @@ using namespace std;
 #include <wait.h>
 #include <unistd.h>
 
+#include "string_set.h"
+
 const string CPP = "/usr/bin/cpp -nostdinc";
 constexpr size_t LINESIZE = 1024;
 
@@ -80,7 +82,8 @@ void cpplines (FILE* pipe, const char* filename) {
          bufptr = nullptr;
          if (token == nullptr) break;
          printf ("token %d.%d: [%s]\n",
-                 linenr, tokenct, token);
+                 linenr, tokenct, token); 
+         const string* str = string_set::intern(token);
       }
       ++linenr;
    }
@@ -128,6 +131,7 @@ int main (int argc, char** argv) {
       eprint_status (command.c_str(), pclose_rc);
       if (pclose_rc != 0) exit_status = EXIT_FAILURE;
    }
+   string_set::dump (stdout);
    return exit_status;
 }
 
