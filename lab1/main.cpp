@@ -1,3 +1,4 @@
+// Based off of cppstrtok.cpp in the class folder ( https://www2.ucsc.edu/courses/cmps104a-wm/:/Assignments/code/cppstrtok/cppstrtok.cpp )
 // $Id: cppstrtok.cpp,v 1.3 2019-04-05 14:28:09-07 - - $
 
 // Use cpp to scan a file and print line numbers.
@@ -20,6 +21,14 @@ using namespace std;
 
 const string CPP = "/usr/bin/cpp -nostdinc";
 constexpr size_t LINESIZE = 1024;
+
+// strip the file extension any string  
+string strp (char* filename){
+   string input_stripped = string(basename(filename));
+   size_t lastindex = input_stripped.find_last_of(".");
+   input_stripped = input_stripped.substr(0,lastindex);
+   return input_stripped;
+}
 
 // Chomp the last character from a buffer if it is delim.
 void chomp (char* string, char delim) {
@@ -70,12 +79,13 @@ void cpplines (FILE* pipe) {
       // printf ("%s:line %d: [%s]\n", filename, linenr, buffer);
       // http://gcc.gnu.org/onlinedocs/cpp/Preprocessor-Output.html
       char inputname[LINESIZE];
-      int sscanf_rc = sscanf (buffer, "# %d \"%[^\"]\"",
-                              &linenr, inputname);
-      if (sscanf_rc == 2) {
-         // printf ("DIRECTIVE: line %d file \"%s\"\n", linenr, inputname);
-         continue;
-      }
+      // int sscanf_rc = sscanf (buffer, "# %d \"%[^\"]\"",
+      //                         &linenr, inputname);
+      sscanf (buffer, "# %d \"%[^\"]\"",&linenr, inputname);
+      // if (sscanf_rc == 2) {
+      //    printf ("DIRECTIVE: line %d file \"%s\"\n", linenr, inputname);
+      //    continue;
+      // }
       char* savepos = nullptr;
       char* bufptr = buffer;
       for (int tokenct = 1;; ++tokenct) {
@@ -95,14 +105,15 @@ int main (int argc, char** argv) {
    char* filename = argv[argc-1];
    int exit_status = EXIT_SUCCESS;
    string command = CPP;
-   string input_stripped = string(basename(filename));
-   size_t lastindex = input_stripped.find_last_of(".");
-   input_stripped = input_stripped.substr(0,lastindex);
+   string input_stripped = strp(filename);
    // parse command line arguments
    // based off of the example in https://www.gnu.org/software/libc/manual/html_node/Example-of-Getopt.html
    int opt;
    while ((opt = getopt(argc,argv,"@:D:ly")) != -1 ){  
      switch (opt){ 
+       case '@':
+         // todo
+         break;
        case 'D':
          command = command + " -D" + std::string(optarg);
          break;
@@ -132,8 +143,7 @@ int main (int argc, char** argv) {
    }
    // fprintf (stdout,"131: input_stripped : %s",input_stripped.c_str());
    string append = ".str";
-   // dump the string table into fn.str
-   // string_set::dump(stdout); 
+   // dump the string table into *.str
    FILE *strfp;
    string fn =(input_stripped+append);
    strfp = fopen (fn.c_str(),"w");

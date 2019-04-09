@@ -7,7 +7,7 @@ VALGRIND   = valgrind --leak-check=full --show-reachable=yes
 
 MKFILE     = Makefile
 DEPFILE    = Makefile.dep
-SOURCES    = cppstrtok.cpp string_set.cpp
+SOURCES    = main.cpp string_set.cpp
 HEADERS    = string_set.h
 OBJECTS    = ${SOURCES:.cpp=.o}
 EXECBIN    = oc
@@ -30,12 +30,11 @@ ci :
 	checksource ${CHECKINS}
 
 clean :
-	- rm ${OBJECTS} ${EXECBIN} *.str
+	- rm ${OBJECTS} 
 
 spotless : clean
-	- rm ${EXECBIN} ${LISTING} ${LISTING:.ps=.pdf} ${DEPFILE} \
+	- rm  ${EXECBIN} *.str test.out
 
-	     test.out misc.lis
 ${DEPFILE} :
 	${MAKEDEPCPP} ${SOURCES} >${DEPFILE}
 
