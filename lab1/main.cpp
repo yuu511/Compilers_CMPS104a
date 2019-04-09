@@ -69,35 +69,29 @@ void eprint_status (const char* command, int status) {
 
 
 // Run cpp against the lines of the file.
-void cpplines (FILE* pipe) {
+// return the hashed stringset.
+const string* cpplines (FILE* pipe) {
    int linenr = 1;
+   const string* str;
    for (;;) {
       char buffer[LINESIZE];
       const char* fgets_rc = fgets (buffer, LINESIZE, pipe);
       if (fgets_rc == nullptr) break;
       chomp (buffer, '\n');
-      // printf ("%s:line %d: [%s]\n", filename, linenr, buffer);
       // http://gcc.gnu.org/onlinedocs/cpp/Preprocessor-Output.html
       char inputname[LINESIZE];
-      // int sscanf_rc = sscanf (buffer, "# %d \"%[^\"]\"",
-      //                         &linenr, inputname);
       sscanf (buffer, "# %d \"%[^\"]\"",&linenr, inputname);
-      // if (sscanf_rc == 2) {
-      //    printf ("DIRECTIVE: line %d file \"%s\"\n", linenr, inputname);
-      //    continue;
-      // }
       char* savepos = nullptr;
       char* bufptr = buffer;
       for (int tokenct = 1;; ++tokenct) {
-         char* token = strtok_r (bufptr, " \t\n", &savepos);
-         bufptr = nullptr;
-         if (token == nullptr) break;
-       //  printf ("token %d.%d: [%s]\n",
-       //          linenr, tokenct, token); 
-       string_set::intern(token);
+        char* token = strtok_r (bufptr, " \t\n", &savepos);
+        bufptr = nullptr;
+        if (token == nullptr) break;
+        str = string_set::intern(token);
       }
       ++linenr;
    }
+   return str;
 }
 
 int main (int argc, char** argv) {
@@ -106,6 +100,9 @@ int main (int argc, char** argv) {
    int exit_status = EXIT_SUCCESS;
    string command = CPP;
    string input_stripped = strp(filename);
+   // where we'll store the stringset in the future (commenting out to supress warnings)
+   // const string* stringset; 
+
    // parse command line arguments
    // based off of the example in https://www.gnu.org/software/libc/manual/html_node/Example-of-Getopt.html
    int opt;
@@ -136,14 +133,15 @@ int main (int argc, char** argv) {
       fprintf (stderr, "%s: %s: %s\n",
                execname, command.c_str(), strerror (errno));
    }else {
+      // stringset = cpplines(pipe)
       cpplines (pipe);
       int pclose_rc = pclose (pipe);
       eprint_status (command.c_str(), pclose_rc);
       if (pclose_rc != 0) exit_status = EXIT_FAILURE;
    }
-   // fprintf (stdout,"131: input_stripped : %s",input_stripped.c_str());
-   string append = ".str";
+
    // dump the string table into *.str
+   string append = ".str";
    FILE *strfp;
    string fn =(input_stripped+append);
    strfp = fopen (fn.c_str(),"w");
