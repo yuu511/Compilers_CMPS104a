@@ -1,0 +1,2 @@
+cppstrtok.o: cppstrtok.cpp string_set.h
+string_set.o: string_set.cpp string_set.h

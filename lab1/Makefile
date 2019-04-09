@@ -30,11 +30,10 @@ ci :
 	checksource ${CHECKINS}
 
 clean :
-	- rm ${OBJECTS}
+	- rm ${OBJECTS} ${EXECBIN} *.str
 
 spotless : clean
 	- rm ${EXECBIN} ${LISTING} ${LISTING:.ps=.pdf} ${DEPFILE} \
-	- rm *.str
 
 	     test.out misc.lis
 ${DEPFILE} :

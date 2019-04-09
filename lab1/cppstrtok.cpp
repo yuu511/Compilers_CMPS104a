@@ -60,7 +60,7 @@ void eprint_status (const char* command, int status) {
 
 
 // Run cpp against the lines of the file.
-void cpplines (FILE* pipe, const char* filename) {
+void cpplines (FILE* pipe) {
    int linenr = 1;
    for (;;) {
       char buffer[LINESIZE];
@@ -73,7 +73,7 @@ void cpplines (FILE* pipe, const char* filename) {
       int sscanf_rc = sscanf (buffer, "# %d \"%[^\"]\"",
                               &linenr, inputname);
       if (sscanf_rc == 2) {
-      //   printf ("DIRECTIVE: line %d file \"%s\"\n", linenr, inputname);
+         // printf ("DIRECTIVE: line %d file \"%s\"\n", linenr, inputname);
          continue;
       }
       char* savepos = nullptr;
@@ -94,8 +94,6 @@ int main (int argc, char** argv) {
    const char* execname = basename (argv[0]);
    char* filename = argv[argc-1];
    int exit_status = EXIT_SUCCESS;
-   int yy_flex_debug = 0;
-   int yyparse = 0;
    string command = CPP;
    string input_stripped = string(basename(filename));
    size_t lastindex = input_stripped.find_last_of(".");
@@ -109,10 +107,10 @@ int main (int argc, char** argv) {
          command = command + " -D" + std::string(optarg);
          break;
        case 'l': 
-         yy_flex_debug = 1;
+         // yy_flex_debug = 1;
          break;
        case 'y':
-         yyparse = 1;
+         // yyparse = 1;
          break;
        case '?':
          break;
@@ -127,7 +125,7 @@ int main (int argc, char** argv) {
       fprintf (stderr, "%s: %s: %s\n",
                execname, command.c_str(), strerror (errno));
    }else {
-      cpplines (pipe, filename);
+      cpplines (pipe);
       int pclose_rc = pclose (pipe);
       eprint_status (command.c_str(), pclose_rc);
       if (pclose_rc != 0) exit_status = EXIT_FAILURE;
