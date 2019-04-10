@@ -16,6 +16,8 @@ SRCFILES   = ${SOURCES} ${MKFILE}
 SMALLFILES = ${DEPFILE} foo.oc foo1.oh foo2.oh
 CHECKINS   = ${SRCFILES} ${SMALLFILES}
 LISTING    = Listing.ps
+exp = /afs/cats.ucsc.edu/courses/cmps104a-wm/Assignments/code/cppstrtok
+
 
 all : ${EXECBIN}
 
@@ -45,10 +47,11 @@ dep :
 include Makefile.dep
 
 test : ${EXECBIN}
-	${VALGRIND} ./${EXECBIN} ./examples/foo.oc 1>test.out 2>&1
+	${VALGRIND} ./${EXECBIN} ${exp}/foo.oc 1>test.out 2>&1
 
 testflags : ${EXECBIN}
-	${VALGRIND} ./${EXECBIN} ${EXECFLAGS} ./examples/foo.oc 1>test.out 2>&1
+	${VALGRIND} ./${EXECBIN} ${EXECFLAGS}\
+	${exp}/foo.oc 1>test.out 2>&1
 
 misc.lis : ${DEPFILE} foo.oc foo1.oh foo2.oh
 	catnv ${DEPFILE} foo.oc foo1.oh foo2.oh >misc.lis

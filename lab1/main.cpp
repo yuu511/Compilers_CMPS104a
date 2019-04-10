@@ -1,4 +1,5 @@
-// Based off of cppstrtok.cpp in the class folder ( https://www2.ucsc.edu/courses/cmps104a-wm/:/Assignments/code/cppstrtok/cppstrtok.cpp )
+// Based off of cppstrtok.cpp in the class folder
+// /Assignments/code/cppstrtok/cppstrtok.cpp
 // $Id: cppstrtok.cpp,v 1.3 2019-04-05 14:28:09-07 - - $
 
 // Use cpp to scan a file and print line numbers.
@@ -100,11 +101,13 @@ int main (int argc, char** argv) {
    int exit_status = EXIT_SUCCESS;
    string command = CPP;
    string input_stripped = strp(filename);
-   // where we'll store the stringset in the future (commenting out to supress warnings)
+   // where we'll store the stringset in the future
+   // (commenting out to supress warnings)
    // const string* stringset; 
 
    // parse command line arguments
-   // based off of the example in https://www.gnu.org/software/libc/manual/html_node/Example-of-Getopt.html
+   // based off of the example in 
+   // gnu.org/software/libc/manual/html_node/Example-of-Getopt.html
    int opt;
    while ((opt = getopt(argc,argv,"@:D:ly")) != -1 ){  
      switch (opt){ 

@@ -1,0 +1,20 @@
+README: lab1
+Elijah Cordova
+ejcordov / 1425119
+
+Main program is based off of cppstrtok in the class website. 
+The function cpplines is slightly altered from being a void 
+to returning the stringset as a string pointer,as per spec.
+To supress warning messages, the call to cpplines does 
+not store the stringset to a variable in main(). 
+In the future, for the other modules to work off of the stringset,
+the stringset will be stored as a local pointer, 
+name stringset, in main().
+
+Hashing function based off of string_set.cpp 
+in the class website,unaltered.
+
+BUILD: make
+TEST: make test
+note: make test will use the path relative to 
+the unix timeshare to draw examples from.
