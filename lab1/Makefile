@@ -7,7 +7,7 @@ VALGRIND   = valgrind --leak-check=full --show-reachable=yes
 
 MKFILE     = Makefile
 DEPFILE    = Makefile.dep
-SOURCES    = main.cpp string_set.cpp
+SOURCES    = main.cpp string_set.cpp auxlib.cpp
 HEADERS    = string_set.h
 OBJECTS    = ${SOURCES:.cpp=.o}
 EXECBIN    = oc
@@ -35,7 +35,7 @@ clean :
 	- rm ${OBJECTS} 
 
 spotless : clean
-	- rm  ${EXECBIN} *.str test.out
+	- rm  ${EXECBIN} *.str test.out *.oc *.oc.err *.oc.out *.log 
 
 ${DEPFILE} :
 	${MAKEDEPCPP} ${SOURCES} >${DEPFILE}
