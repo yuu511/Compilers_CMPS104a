@@ -25,7 +25,8 @@ constexpr size_t LINESIZE = 1024;
 
 // strip the file extension any string  
 string strp (char* filename){
-   char* token = strtok (filename,".");
+   char* token = basename(filename);
+   token = strtok (token,".");
    printf("stripped token : %s", token);
    // string input_stripped = string(basename(filename));
    // size_t lastindex = input_stripped.find_last_of(".");
