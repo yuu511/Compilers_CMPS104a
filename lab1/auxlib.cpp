@@ -60,7 +60,7 @@ void veprintf (const char* format, va_list args) {
 
 void eprintf (const char* format, ...) {
    if (exec::execname.size() == 0){
-     fprintf (stderr,"\n");
+     fprintf (stderr,"execname.size == 0 !\n");
      exec::exit_status = EXIT_FAILURE; 
      return;
    }

@@ -4,17 +4,23 @@ ejcordov / 1425119
 
 Main program is based off of cppstrtok in the class website. 
 The function cpplines is slightly altered from being a void 
-to returning the stringset as a string pointer,as per spec.
-To supress warning messages, the call to cpplines does 
-not store the stringset to a variable in main(). 
-In the future, for the other modules to work off of the stringset,
-the stringset will be stored as a local pointer, 
-name stringset, in main().
+to returning a pointer to the stringset,as per spec. 
+The pointer to stringset is stored in const* char stringset in main.
+Error handling is now in it's own cpp implementation file, auxlib.
+
+To supress warning messages about unused variables (which
+we will use in future assignments), line 129 has a 
+filler print statement.
 
 Hashing function based off of string_set.cpp 
 in the class website,unaltered.
 
+Error messages handled by auxlib.cpp in the class website.
+Added check in eprintf for insufficient program arguments. (Line 62)
+
+Makefile provided by class website in cppstrtok folder.
+
 BUILD: make
-TEST: make test
-note: make test will use the path relative to 
-the unix timeshare to draw examples from.
+CLEAN:
+  make clean: removes objects
+  make spotless: removes all generated objects
