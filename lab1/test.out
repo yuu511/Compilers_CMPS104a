@@ -1,0 +1,19 @@
+==14834== Memcheck, a memory error detector
+==14834== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==14834== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==14834== Command: ./oc /afs/cats.ucsc.edu/courses/cmps104a-wm/Assignments/code/cppstrtok/foo.oc
+==14834== 
+cpp: error: /afs/cats: No such file or directory
+cpp: warning: ‘-x c’ after last input file has no effect
+cpp: fatal error: no input files
+compilation terminated.
+/usr/bin/cpp -nostdinc /afs/cats: status 0x0100, exit 1
+stripped token : /afs/cats==14834== 
+==14834== HEAP SUMMARY:
+==14834==     in use at exit: 0 bytes in 0 blocks
+==14834==   total heap usage: 10 allocs, 10 frees, 85,914 bytes allocated
+==14834== 
+==14834== All heap blocks were freed -- no leaks are possible
+==14834== 
+==14834== For counts of detected and suppressed errors, rerun with: -v
+==14834== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
