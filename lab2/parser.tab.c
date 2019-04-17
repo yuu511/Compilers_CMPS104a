@@ -73,7 +73,7 @@
 #include "astree.h"
 
 
-#line 77 "yyparse.cpp" /* yacc.c:339  */
+#line 77 "parser.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -92,9 +92,9 @@
 #endif
 
 /* In a future release of Bison, this section will be replaced
-   by #include "yyparse.h".  */
-#ifndef YY_YY_YYPARSE_H_INCLUDED
-# define YY_YY_YYPARSE_H_INCLUDED
+   by #include "parser.tab.h".  */
+#ifndef YY_YY_PARSER_TAB_H_INCLUDED
+# define YY_YY_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 1
@@ -151,11 +151,11 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_YYPARSE_H_INCLUDED  */
+#endif /* !YY_YY_PARSER_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 159 "yyparse.cpp" /* yacc.c:358  */
+#line 159 "parser.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -1263,7 +1263,7 @@ yyreduce:
   switch (yyn)
     {
       
-#line 1267 "yyparse.cpp" /* yacc.c:1646  */
+#line 1267 "parser.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
