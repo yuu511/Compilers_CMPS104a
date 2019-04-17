@@ -27,7 +27,7 @@ LETTER          [A-Za-z_]
 DIGIT           [0-9]
 MANTISSA        ({DIGIT}+\.?{DIGIT}*|\.{DIGIT}+)
 EXPONENT        ([Ee][+-]?{DIGIT}+)
-NUMBER          ({MANTISSA}{EXPONENT}?)
+TOK_INT         ({MANTISSA}{EXPONENT}?)
 NOTNUMBER       ({MANTISSA}[Ee][+-]?)
 IDENT           ({LETTER}({LETTER}|{DIGIT})*)
 
@@ -37,20 +37,25 @@ IDENT           ({LETTER}({LETTER}|{DIGIT})*)
 [ \t]+          { }
 \n              { lexer::newline(); }
 
-{NUMBER}        { return yylval_token (NUMBER); }
+{TOK_INT}       { return yylval_token (TOK_INT); }
 {IDENT}         { return yylval_token (IDENT); }
-"="             { return yylval_token ('='); }
 "+"             { return yylval_token ('+'); }
 "-"             { return yylval_token ('-'); }
 "*"             { return yylval_token ('*'); }
 "/"             { return yylval_token ('/'); }
-"^"             { return yylval_token ('^'); }
+"%"             { return yylval_token ('$'); }
+"="             { return yylval_token ('='); }
+","             { return yylval_token (','); }
+";"             { return yylval_token (';'); }
 "("             { return yylval_token ('('); }
 ")"             { return yylval_token (')'); }
-";"             { return yylval_token (';'); }
+"["             { return yylval_token ('['); }
+"]"             { return yylval_token (']'); }
+"{"             { return yylval_token ('}'); }
+"}"             { return yylval_token ('}'); }
 
 {NOTNUMBER}     { lexer::badtoken (yytext);
-                  return yylval_token (NUMBER); }
+                  return yylval_token (TOK_INT); }
 .               { lexer::badchar (*yytext); }
 
 %%

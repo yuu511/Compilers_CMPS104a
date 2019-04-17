@@ -1,16 +1,15 @@
-# $Id: Makefile,v 1.38 2019-04-10 15:51:41-07 - - $
+# $Id: Makefile,v 1.39 2019-04-17 15:28:08-07 - - $
 
 DEPSFILE  = Makefile.deps
 NOINCLUDE = ci clean spotless
 NEEDINCL  = ${filter ${NOINCLUDE}, ${MAKECMDGOALS}}
 WARNING   = -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast
-CPP       = g++ -std=gnu++17 -g -O0
-CPPWARN   = ${CPP} ${WARNING} -fdiagnostics-color=never
-CPPYY     = ${CPP} -Wno-sign-compare -Wno-register
+GPP       = g++ -std=gnu++17 -g -O0
+GPPWARN   = ${GPP} ${WARNING} -fdiagnostics-color=never
+GPPYY     = ${GPP} -Wno-sign-compare -Wno-register
 MKDEPS    = g++ -std=gnu++17 -MM
 GRIND     = valgrind --leak-check=full --show-reachable=yes
-FLEX      = flex --outfile=${LEXCPP}
-BISON     = bison --defines=${PARSEHDR} --output=${PARSECPP}
+UTILBIN   = /afs/cats.ucsc.edu/courses/cmps104a-wm/bin/
 
 MODULES   = astree lyutils string_set emitter auxlib
 HDRSRC    = ${MODULES:=.h}
@@ -38,33 +37,33 @@ LISTSRC   = ${ALLSRC} ${DEPSFILE} ${PARSEHDR}
 all : ${EXECBIN}
 
 ${EXECBIN} : ${OBJECTS}
-	${CPPWARN} -o${EXECBIN} ${OBJECTS}
+	${GPPWARN} -o${EXECBIN} ${OBJECTS}
 
 yylex.o : yylex.cpp
-	${CPPYY} -c $<
+	${GPPYY} -c $<
 
 yyparse.o : yyparse.cpp
-	${CPPYY} -c $<
+	${GPPYY} -c $<
 
 %.o : %.cpp
-	- cpplint.py.perl $<
-	- checksource $<
-	${CPPWARN} -c $<
+	- ${UTILBIN}/cpplint.py.perl $<
+	- ${UTILBIN}/checksource $<
+	${GPPWARN} -c $<
 
 
 ${LEXCPP} : ${FLEXSRC}
-	${FLEX} ${FLEXSRC}
+	flex --outfile=${LEXCPP} ${FLEXSRC}
 
 ${PARSECPP} ${PARSEHDR} : ${BISONSRC}
-	${BISON} ${BISONSRC}
+	bison --defines=${PARSEHDR} --output=${PARSECPP} ${BISONSRC}
 
 ci : ${ALLSRC} ${TESTINS}
-	- checksource ${ALLSRC}
-	cid + ${ALLSRC} ${TESTINS} test?.inh
+	- ${UTILBIN}/checksource ${ALLSRC}
+	${UTILBIN}/cid + ${ALLSRC} ${TESTINS} test?.inh
 
 lis : ${LISTSRC} tests
-	mkpspdf List.source.ps ${LISTSRC}
-	mkpspdf List.output.ps ${REPORTS} \
+	${UTILBIN}/mkpspdf List.source.ps ${LISTSRC}
+	${UTILBIN}/mkpspdf List.output.ps ${REPORTS} \
 		${foreach test, ${TESTINS:.in=}, \
 		${patsubst %, ${test}.%, in out err log}}
 
@@ -86,7 +85,7 @@ ${DEPSFILE} :
 
 tests : ${EXECBIN}
 	touch ${TESTINS}
-	make --no-print-directory ${TESTINS:.in=.out}
+	gmake --no-print-directory ${TESTINS:.in=.out}
 
 %.out %.err : %.in
 	${GRIND} --log-file=$*.log ${EXECTEST} $< 1>$*.out 2>$*.err; \

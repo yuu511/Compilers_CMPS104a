@@ -45,34 +45,11 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    TOK_VOID = 258,
-    TOK_INT = 259,
-    TOK_STRING = 260,
-    TOK_IF = 261,
-    TOK_ELSE = 262,
-    TOK_WHILE = 263,
-    TOK_RETURN = 264,
-    TOK_STRUCT = 265,
-    TOK_NULLPTR = 266,
-    TOK_ARRAY = 267,
-    TOK_ARROW = 268,
-    TOK_ALLOC = 269,
-    TOK_PTR = 270,
-    TOK_EQ = 271,
-    TOK_NE = 272,
-    TOK_LT = 273,
-    TOK_LE = 274,
-    TOK_GT = 275,
-    TOK_GE = 276,
-    TOK_NOT = 277,
-    TOK_IDENT = 278,
-    TOK_INTCON = 279,
-    TOK_CHARCON = 280,
-    TOK_STRINGCON = 281,
-    TOK_ROOT = 282,
-    TOK_BLOCK = 283,
-    TOK_CALL = 284,
-    TOK_INITDECL = 285
+    ROOT = 258,
+    IDENT = 259,
+    NUMBER = 260,
+    POS = 261,
+    NEG = 262
   };
 #endif
 
