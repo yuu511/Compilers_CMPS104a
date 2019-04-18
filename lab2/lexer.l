@@ -29,7 +29,6 @@ MANTISSA        ({DIGIT}+\.?{DIGIT}*|\.{DIGIT}+)
 EXPONENT        ([Ee][+-]?{DIGIT}+)
 TOK_INT         ({MANTISSA}{EXPONENT}?)
 NOTNUMBER       ({MANTISSA}[Ee][+-]?)
-IDENT           ({LETTER}({LETTER}|{DIGIT})*)
 
 %%
 
@@ -38,12 +37,11 @@ IDENT           ({LETTER}({LETTER}|{DIGIT})*)
 \n              { lexer::newline(); }
 
 {TOK_INT}       { return yylval_token (TOK_INT); }
-{IDENT}         { return yylval_token (IDENT); }
 "+"             { return yylval_token ('+'); }
 "-"             { return yylval_token ('-'); }
 "*"             { return yylval_token ('*'); }
 "/"             { return yylval_token ('/'); }
-"%"             { return yylval_token ('$'); }
+"%"             { return yylval_token ('%'); }
 "="             { return yylval_token ('='); }
 ","             { return yylval_token (','); }
 ";"             { return yylval_token (';'); }

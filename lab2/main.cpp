@@ -23,7 +23,66 @@ using namespace std;
 #include "lyutils.h"
 
 const string CPP = "/usr/bin/cpp -nostdinc";
+string command = CPP;
 constexpr size_t LINESIZE = 1024;
+
+// parse command line arguments
+// based off of the example in 
+// gnu.org/software/libc/manual/html_node/Example-of-Getopt.html
+void parseargs (int argc, char** argv){
+   int opt;
+   while ((opt = getopt(argc,argv,"@:D:ly")) != -1 ){  
+     switch (opt){ 
+       case '@':
+         set_debugflags(optarg); break;
+       case 'D':
+         command = command + " -D" + std::string(optarg); break;
+       case 'l': 
+         yy_flex_debug = 1;      break;
+       case 'y':
+         yydebug = 1;            break;
+       case '?':
+         errprintf("bad option (%c)\n",optopt); break;
+     }
+   }
+   if (optind > argc){
+     errprintf("Usage: %s [-ly] [filename]\n",
+                exec::execname.c_str());    
+     exit (exec::exit_status);
+   }
+}
+
+// calls yylex until yyin reaches EOF.
+void lex_scan(){
+  int chr;
+  for (;;){
+    chr = yylex();
+    if (chr == YYEOF) break;
+  }
+}
+
+// call CPP onto yyin.if successfull, start scanning using yylex.
+void exec_cpp(string filename){
+   // pass the file specified into the preprocessor
+   command = command + " " + filename;
+   yyin = popen (command.c_str(), "r");
+   if (yyin == nullptr) {
+     syserrprintf (command.c_str());
+     exit (exec::exit_status);
+   }else {
+     if (yy_flex_debug){
+       fprintf(stderr,"-- popen (%s),fileno(yyin) = %d\n",
+               command.c_str(),fileno(yyin));
+     }
+     lex_scan();
+   }
+}
+
+void close_cpp() {
+  int close = pclose (yyin);
+  eprint_status (command.c_str(), close);
+  if (close !=0) exec::exit_status = EXIT_FAILURE;
+}
 
 // strip the file extension any string  
 string strp (char* filename){
@@ -42,53 +101,27 @@ void chomp (char* string, char delim) {
 }
 
 int main (int argc, char** argv) {
+   yy_flex_debug = 0;
+   yydebug = 0;
    // const char* execname = basename (argv[0]);
    char* filename = argv[argc-1];
-   int exit_status = EXIT_SUCCESS;
-   string command = CPP;
    string input_stripped = strp(filename);
+   parseargs(argc,argv);
+   exec_cpp(filename);
 
-   // parse command line arguments
-   // based off of the example in 
-   // gnu.org/software/libc/manual/html_node/Example-of-Getopt.html
-   int opt;
-   while ((opt = getopt(argc,argv,"@:D:ly")) != -1 ){  
-     switch (opt){ 
-       case '@':
-         //filler, todo
-         DEBUGF(*optarg,filename,116,filename,filename);
-         break;
-       case 'D':
-         command = command + " -D" + std::string(optarg);
-         break;
-       case 'l': 
-         yy_flex_debug = 1;
-         break;
-       case 'y':
-         yydebug = 1;
-         break;
-       case '?':
-         break;
-     }
-   }
-   if (optind > argc){
-
-   }
-   // pass the file specified into the preprocessor
-   command = command + " " + filename;
-   // printf ("command=\"%s\"\n", command.c_str());
-   yyin = popen (command.c_str(), "r");
-   if (yyin == nullptr) {
-     syserrprintf (command.c_str());
-     exit (exec::exit_status);
-   }else {
-     if (yy_flex_debug){
-       fprintf(stderr,"-- popen (%s),fileno(yyin) = %d\n",
-               command.c_str(),fileno(yyin));
-     }
-     lexer::newfilename (command);
-   }
-
-   return exit_status;
+   // dump it
+   // string append = ".str";
+   // FILE *strfp;
+   // string fn = input_stripped + append;
+   // strfp = fopen (fn.c_str(),"w");
+   // if (strfp == NULL){
+   //   fprintf (stderr, "FAILURE opening file .str for writing.");
+   // }
+   // string_set::dump(strfp);
+   // if (pclose(strfp)<0) {
+   //   exit_status = EXIT_FAILURE;
+   //   fprintf (stderr,"FAILURE closing file .str");
+   // }
+   return exec::exit_status;
 }
 
