@@ -1,5 +1,1 @@
-'open
-"open
-"test\n."
-'\n.'
-'openparen
+"test\0z"

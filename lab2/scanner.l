@@ -28,8 +28,9 @@ DIGIT           [0-9]
 NUMBER          ([1-9]+{DIGIT}*|[0]([xX]({DIGIT}|[A-Fa-f])+)+)
 IDENTIFIER      ({LETTER}+({LETTER}|{DIGIT})*)
 NOT_IDENTIFIER  ({DIGIT}+({LETTER}|{DIGIT})+)
+CHRCONST        (’([^\\’\n]|\\[\\’"0nt])’) 
 STRINGCONST     (\"([^\\"\n]|\\[\\'"0nt])*\")
-NOT_STRINGCONST (\"([^\\"\n]|\\[\\'"0nt])*([^"])  | (\"([^\\"\n]|\\[\\'"nt])*(\\[0])+.\") )
+NOT_STRINGCONST ((\"([^\\"\n]|\\[\\'"nt])*(\\[0])+.\"))
 
 %%
 "#".*           { lexer::include(); }
@@ -70,10 +71,8 @@ NOT_STRINGCONST (\"([^\\"\n]|\\[\\'"0nt])*([^"])  | (\"([^\\"\n]|\\[\\'"nt])*(\\
 
 {NOT_IDENTIFIER} { lexer::badtoken (yytext);
                    return yylval_token (TOK_IDENT);}
-{NOT_CHRCONST}   { lexer::badtoken (yytext);
-                   return yylval_token (TOK_CHARCON);}
 {NOT_STRINGCONST} { lexer::badtoken (yytext);
-                   return yylval_token (TOK_CHARCON);}
+                   return yylval_token (TOK_STRINGCON);}
 
 .               { lexer::badchar (*yytext); }
 %%
