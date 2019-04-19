@@ -15,14 +15,14 @@ BISON     = bison --defines=${PARSEHDR} --output=${PARSECPP}
 MODULES   = astree lyutils string_set auxlib
 HDRSRC    = ${MODULES:=.h}
 CPPSRC    = ${MODULES:=.cpp} main.cpp
-FLEXSRC   = lexer.l
+FLEXSRC   = scanner.l
 BISONSRC  = parser.y
 PARSEHDR  = yyparse.h
 LEXCPP    = yylex.cpp
 PARSECPP  = yyparse.cpp
 CGENS     = ${LEXCPP} ${PARSECPP}
 ALLGENS   = ${PARSEHDR} ${CGENS}
-EXECBIN   = zexprsm
+EXECBIN   = oc
 ALLCSRC   = ${CPPSRC} ${CGENS}
 OBJECTS   = ${ALLCSRC:.cpp=.o}
 LEXOUT    = yylex.output
@@ -94,6 +94,9 @@ tests : ${EXECBIN}
 
 again :
 	gmake --no-print-directory spotless deps ci all lis
+
+test : ${EXECBIN}
+	./${EXECBIN} -l ./examples/test.oc
 	
 ifeq "${NEEDINCL}" ""
 include ${DEPSFILE}

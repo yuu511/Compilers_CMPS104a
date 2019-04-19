@@ -34,15 +34,20 @@ void parseargs (int argc, char** argv){
    while ((opt = getopt(argc,argv,"@:D:ly")) != -1 ){  
      switch (opt){ 
        case '@':
-         set_debugflags(optarg); break;
+         set_debugflags(optarg); 
+	 break;
        case 'D':
-         command = command + " -D" + std::string(optarg); break;
+         command = command + " -D" + std::string(optarg); 
+	 break;
        case 'l': 
-         yy_flex_debug = 1;      break;
+         yy_flex_debug = 1;      
+	 break;
        case 'y':
-         yydebug = 1;            break;
+         yydebug = 1;            
+	 break;
        case '?':
-         errprintf("bad option (%c)\n",optopt); break;
+         errprintf("bad option (%c)\n",optopt); 
+	 break;
      }
    }
    if (optind > argc){
@@ -57,11 +62,12 @@ void lex_scan(){
   int chr;
   for (;;){
     chr = yylex();
+    // printf ("char: %s \n ",yytext);
     if (chr == YYEOF) break;
   }
 }
 
-// call CPP onto yyin.if successfull, start scanning using yylex.
+// call CPP onto yyin.if successful, start scanning using yylex.
 void exec_cpp(string filename){
    // pass the file specified into the preprocessor
    command = command + " " + filename;
@@ -74,6 +80,7 @@ void exec_cpp(string filename){
        fprintf(stderr,"-- popen (%s),fileno(yyin) = %d\n",
                command.c_str(),fileno(yyin));
      }
+     lexer::newfilename (command);
      lex_scan();
    }
 }
@@ -103,11 +110,12 @@ void chomp (char* string, char delim) {
 int main (int argc, char** argv) {
    yy_flex_debug = 0;
    yydebug = 0;
-   // const char* execname = basename (argv[0]);
+   exec::execname = basename (argv[0]);
    char* filename = argv[argc-1];
    string input_stripped = strp(filename);
    parseargs(argc,argv);
    exec_cpp(filename);
+   close_cpp();
 
    // dump it
    // string append = ".str";
@@ -122,6 +130,7 @@ int main (int argc, char** argv) {
    //   exit_status = EXIT_FAILURE;
    //   fprintf (stderr,"FAILURE closing file .str");
    // }
+
    return exec::exit_status;
 }
 
