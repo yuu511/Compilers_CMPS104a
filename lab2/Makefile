@@ -47,8 +47,6 @@ yyparse.o : yyparse.cpp
 	${CPPYY} -c $<
 
 %.o : %.cpp
-	- cpplint.py.perl $<
-	- checksource $<
 	${CPPWARN} -c $<
 
 
@@ -69,7 +67,7 @@ lis : ${LISTSRC} tests
 		${patsubst %, ${test}.%, in out err log}}
 
 clean :
-	- rm ${OBJECTS} ${ALLGENS} ${REPORTS} ${DEPSFILE} core
+	- rm ${OBJECTS} ${ALLGENS} ${REPORTS} ${DEPSFILE} *.str core
 	- rm ${foreach test, ${TESTINS:.in=}, \
 		${patsubst %, ${test}.%, out err log}}
 
@@ -96,7 +94,7 @@ again :
 	gmake --no-print-directory spotless deps ci all lis
 
 test : ${EXECBIN}
-	./${EXECBIN} -l ./examples/test.oc
+	./${EXECBIN} -l ./examples/foo.oc
 	
 ifeq "${NEEDINCL}" ""
 include ${DEPSFILE}

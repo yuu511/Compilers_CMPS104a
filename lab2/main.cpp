@@ -58,13 +58,15 @@ void parseargs (int argc, char** argv){
 }
 
 // calls yylex until yyin reaches EOF.
-void lex_scan(){
+const string* lex_scan(){
   int chr;
+  const string* strset;
   for (;;){
     chr = yylex();
-    // printf ("char: %s \n ",yytext);
     if (chr == YYEOF) break;
+    strset = string_set::intern(yytext);
   }
+  return strset;
 }
 
 // call CPP onto yyin.if successful, start scanning using yylex.
@@ -81,7 +83,6 @@ void exec_cpp(string filename){
                command.c_str(),fileno(yyin));
      }
      lexer::newfilename (command);
-     lex_scan();
    }
 }
 
@@ -112,24 +113,27 @@ int main (int argc, char** argv) {
    yydebug = 0;
    exec::execname = basename (argv[0]);
    char* filename = argv[argc-1];
-   string input_stripped = strp(filename);
    parseargs(argc,argv);
+
+   // Generate the stringset using yylex.
    exec_cpp(filename);
+   const string* stringset = lex_scan();
    close_cpp();
 
-   // dump it
-   // string append = ".str";
-   // FILE *strfp;
-   // string fn = input_stripped + append;
-   // strfp = fopen (fn.c_str(),"w");
-   // if (strfp == NULL){
-   //   fprintf (stderr, "FAILURE opening file .str for writing.");
-   // }
-   // string_set::dump(strfp);
-   // if (pclose(strfp)<0) {
-   //   exit_status = EXIT_FAILURE;
-   //   fprintf (stderr,"FAILURE closing file .str");
-   // }
+   // Dump the stringset to a file.
+   FILE *strfp;
+   string input_stripped = strp(filename);
+   string append = ".str";
+   string fn = input_stripped + append;
+   strfp = fopen (fn.c_str(),"w");
+   if (strfp == NULL){
+     fprintf (stderr, "FAILURE opening file .str for writing.");
+   }
+   string_set::dump(strfp);
+   if (pclose(strfp)<0) {
+     exec::exit_status = EXIT_FAILURE;
+     fprintf (stderr,"FAILURE closing file .str");
+   }
 
    return exec::exit_status;
 }

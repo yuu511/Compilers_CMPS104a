@@ -1,0 +1,18 @@
+// $Id: 13-macros.oc,v 1.2 2019-04-16 13:12:54-07 - - $
+
+#include "oclib.h"
+
+int main (int argc, array<string> argv) {
+   putstr (argv[0]);
+   putstr (" ");
+   putstr (__FILE__);
+   putchr ('[');
+   putint (__LINE__);
+   putstr ("] compiled ");
+   putstr (__DATE__);
+   putstr (" ");
+   putstr (__TIME__);
+   putstr ("\n");
+   return SUCCESS;
+}
+
