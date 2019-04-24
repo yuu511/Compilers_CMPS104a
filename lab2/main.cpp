@@ -27,7 +27,7 @@ using namespace std;
 const string CPP = "/usr/bin/cpp -nostdinc";
 string command = CPP;
 constexpr size_t LINESIZE = 1024;
-int debugtokens = 0;
+int stringsetdebug = 0;
 
 // parse command line arguments
 // based off of the example in 
@@ -37,8 +37,8 @@ void parseargs (int argc, char** argv){
    while ((opt = getopt(argc,argv,"@:D:ly")) != -1 ){  
      switch (opt){ 
        case '@':
-         // set_debugflags(optarg); 
-	 debugtokens = 1; 
+         if (strcmp(optarg,"tok")==0)
+	   stringsetdebug = 1; 
 	 break;
        case 'D':
          command = command + " -D" + std::string(optarg); 
@@ -68,8 +68,10 @@ const string* lex_scan(){
   for (;;){
     chr = yylex();
     if (chr == YYEOF) break;
-    if (debugtokens) { fprintf (stderr,"yytext:%s\ntoken code:%s\n",yytext,parser::get_tname(yylval->symbol)); } 
-    strset = string_set::intern(yytext);
+    if (stringsetdebug) { fprintf (stderr,"yytext:%s\ntoken code:%lu\n"
+                       ,yytext,yylval->lloc.filenr); } 
+    //astree::dump (stdout,yylval);
+    strset = string_set::intern(yylval->lexinfo->c_str());
   }
   return strset;
 }
@@ -78,6 +80,7 @@ const string* lex_scan(){
 void exec_cpp(string filename){
    // pass the file specified into the preprocessor
    command = command + " " + filename;
+   if (stringsetdebug) { fprintf(stderr,"COMMAND:%s\n",command.c_str()); }
    yyin = popen (command.c_str(), "r");
    if (yyin == nullptr) {
      syserrprintf (command.c_str());
