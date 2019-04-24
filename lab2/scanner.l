@@ -25,7 +25,8 @@ int yylval_token (int symbol) {
 
 LETTER          [A-Za-z_]
 DIGIT           [0-9]
-NUMBER          ([1-9]+{DIGIT}*|0([xX]({DIGIT}|[A-Fa-f])+)*)
+NUMBER          ([1-9]+{DIGIT}*|0(([xX]({DIGIT}|[A-Fa-f])+)*|[1-7]*))
+NOT_NUMBER      (0[8-9][0-9]*|0[xX])
 IDENTIFIER      ({LETTER}({LETTER}|{DIGIT})*)
 NOT_IDENTIFIER  ({DIGIT}({LETTER}|{DIGIT})+)
 CHRCONST        ('([^\\'\n]|\\[\\'"0nt])') 
@@ -35,7 +36,7 @@ NOT_STRINGCONST (\"([^\\"\n]|\\[\\'"0nt])*)
 
 %%
 "#".*           { lexer::include(); }
-[ \t]+          { }
+[ \t]+          { /* ignore this token */ }
 \n              { lexer::newline(); }
 
 "if"            { return yylval_token (TOK_IF); }
@@ -53,7 +54,7 @@ NOT_STRINGCONST (\"([^\\"\n]|\\[\\'"0nt])*)
 "void"          { return yylval_token (TOK_VOID); }
 
 
-{NUMBER}        { return yylval_token (TOK_INT); }
+{NUMBER}        { return yylval_token (TOK_INTCON); }
 {IDENTIFIER}    { return yylval_token (TOK_IDENT); } 
 {CHRCONST}      { return yylval_token (TOK_CHARCON); } 
 {STRINGCONST}   { return yylval_token (TOK_STRINGCON); } 
@@ -79,12 +80,11 @@ NOT_STRINGCONST (\"([^\\"\n]|\\[\\'"0nt])*)
 "]"             { return yylval_token (']'); }
 "{"             { return yylval_token ('}'); }
 "}"             { return yylval_token ('}'); }
-{NOT_IDENTIFIER} { lexer::badtoken (yytext);
-                   return yylval_token (TOK_IDENT);}
-{NOT_CHRCONST} { lexer::badtoken (yytext);
-                   return yylval_token (TOK_CHARCON);}
-{NOT_STRINGCONST} { lexer::badtoken (yytext);
-                   return yylval_token (TOK_STRINGCON);}
+
+{NOT_NUMBER}      { lexer::badtoken (yytext); }
+{NOT_IDENTIFIER}  { lexer::badtoken (yytext); }
+{NOT_CHRCONST}    { lexer::badtoken (yytext); }
+{NOT_STRINGCONST} { lexer::badtoken (yytext); }
 .               { lexer::badchar (*yytext); }
 %%
 

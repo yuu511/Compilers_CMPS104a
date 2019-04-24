@@ -34,6 +34,10 @@ ALLSRC    = README ${FLEXSRC} ${BISONSRC} ${MODSRC} ${MISCSRC} Makefile
 TESTINS   = ${wildcard test*.in}
 EXECTEST  = ${EXECBIN} -ly
 LISTSRC   = ${ALLSRC} ${DEPSFILE} ${PARSEHDR}
+THISDIR   = /afs/cats.ucsc.edu/users/g/ejcordov/CMPS104a/cmps104a/lab2/
+DUMP      = ${THISDIR}/DUMP
+TESTFILES = ${THISDIR}/examples/*
+TESTSTRINGSET = ${TESTFILES:.oc = .str}
 
 all : ${EXECBIN}
 
@@ -67,7 +71,7 @@ lis : ${LISTSRC} tests
 		${patsubst %, ${test}.%, in out err log}}
 
 clean :
-	- rm ${OBJECTS} ${ALLGENS} ${REPORTS} ${DEPSFILE} *.str core
+	- rm ${OBJECTS} ${ALLGENS} ${REPORTS} ${DEPSFILE} *.str *.tok core
 	- rm ${foreach test, ${TESTINS:.in=}, \
 		${patsubst %, ${test}.%, out err log}}
 
@@ -94,8 +98,8 @@ again :
 	gmake --no-print-directory spotless deps ci all lis
 
 test : ${EXECBIN}
-	./${EXECBIN} -l ./examples/foo.oc
-	
+	./${EXECBIN} -l ./examples/01-hello.oc
+
 ifeq "${NEEDINCL}" ""
 include ${DEPSFILE}
 endif

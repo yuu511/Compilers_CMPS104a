@@ -21,10 +21,13 @@ using namespace std;
 #include "string_set.h"
 #include "auxlib.h"
 #include "lyutils.h"
+#include "astree.h"
+
 
 const string CPP = "/usr/bin/cpp -nostdinc";
 string command = CPP;
 constexpr size_t LINESIZE = 1024;
+int debugtokens = 0;
 
 // parse command line arguments
 // based off of the example in 
@@ -34,7 +37,8 @@ void parseargs (int argc, char** argv){
    while ((opt = getopt(argc,argv,"@:D:ly")) != -1 ){  
      switch (opt){ 
        case '@':
-         set_debugflags(optarg); 
+         // set_debugflags(optarg); 
+	 debugtokens = 1; 
 	 break;
        case 'D':
          command = command + " -D" + std::string(optarg); 
@@ -64,6 +68,7 @@ const string* lex_scan(){
   for (;;){
     chr = yylex();
     if (chr == YYEOF) break;
+    if (debugtokens) { fprintf (stderr,"yytext:%s\ntoken code:%s\n",yytext,parser::get_tname(yylval->symbol)); } 
     strset = string_set::intern(yytext);
   }
   return strset;
@@ -84,6 +89,17 @@ void exec_cpp(string filename){
      }
      lexer::newfilename (command);
    }
+}
+
+// append a file ending to the basename and open a file with that name
+FILE* appendopen(string basename, string extension){
+   string fn = basename + extension;
+   FILE *s; 
+   s = fopen (fn.c_str(),"w"); 
+   if (s == NULL){
+     fprintf (stderr, "FAILURE opening file %s for writing.",fn.c_str());
+   }
+   return s;
 }
 
 void close_cpp() {
@@ -115,24 +131,29 @@ int main (int argc, char** argv) {
    char* filename = argv[argc-1];
    parseargs(argc,argv);
 
-   // Generate the stringset using yylex.
+   // Generate the stringset using yylex, and determine the token type.
    exec_cpp(filename);
-   const string* stringset = lex_scan();
+   lex_scan();
    close_cpp();
 
    // Dump the stringset to a file.
    FILE *strfp;
    string input_stripped = strp(filename);
    string append = ".str";
-   string fn = input_stripped + append;
-   strfp = fopen (fn.c_str(),"w");
-   if (strfp == NULL){
-     fprintf (stderr, "FAILURE opening file .str for writing.");
-   }
+   strfp = appendopen (input_stripped,append);
    string_set::dump(strfp);
    if (pclose(strfp)<0) {
      exec::exit_status = EXIT_FAILURE;
-     fprintf (stderr,"FAILURE closing file .str");
+     fprintf (stderr,"FAILURE closing file %s",append.c_str());
+   }
+   
+
+   // Generate the astree.
+   append = ".tok";
+   strfp = appendopen (input_stripped,append);
+   if (pclose(strfp)<0) {
+     exec::exit_status = EXIT_FAILURE;
+     fprintf (stderr,"FAILURE closing file %s",append.c_str());
    }
 
    return exec::exit_status;

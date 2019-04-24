@@ -1,0 +1,126 @@
+yytext:void
+token code:TOK_VOID
+yytext:fail
+token code:TOK_IDENT
+yytext:(
+token code:'('
+yytext:string
+token code:TOK_STRING
+yytext:expr
+token code:TOK_IDENT
+yytext:,
+token code:','
+yytext:string
+token code:TOK_STRING
+yytext:file
+token code:TOK_IDENT
+yytext:,
+token code:','
+yytext:int
+token code:TOK_INT
+yytext:line
+token code:TOK_IDENT
+yytext:)
+token code:')'
+yytext:;
+token code:';'
+yytext:void
+token code:TOK_VOID
+yytext:putchr
+token code:TOK_IDENT
+yytext:(
+token code:'('
+yytext:int
+token code:TOK_INT
+yytext:c
+token code:TOK_IDENT
+yytext:)
+token code:')'
+yytext:;
+token code:';'
+yytext:void
+token code:TOK_VOID
+yytext:putint
+token code:TOK_IDENT
+yytext:(
+token code:'('
+yytext:int
+token code:TOK_INT
+yytext:i
+token code:TOK_IDENT
+yytext:)
+token code:')'
+yytext:;
+token code:';'
+yytext:void
+token code:TOK_VOID
+yytext:putstr
+token code:TOK_IDENT
+yytext:(
+token code:'('
+yytext:string
+token code:TOK_STRING
+yytext:s
+token code:TOK_IDENT
+yytext:)
+token code:')'
+yytext:;
+token code:';'
+yytext:int
+token code:TOK_INT
+yytext:getchr
+token code:TOK_IDENT
+yytext:(
+token code:'('
+yytext:)
+token code:')'
+yytext:;
+token code:';'
+yytext:string
+token code:TOK_STRING
+yytext:getstr
+token code:TOK_IDENT
+yytext:(
+token code:'('
+yytext:)
+token code:')'
+yytext:;
+token code:';'
+yytext:string
+token code:TOK_STRING
+yytext:getln
+token code:TOK_IDENT
+yytext:(
+token code:'('
+yytext:)
+token code:')'
+yytext:;
+token code:';'
+yytext:int
+token code:TOK_INT
+yytext:main
+token code:TOK_IDENT
+yytext:(
+token code:'('
+yytext:)
+token code:')'
+yytext:{
+token code:'}'
+yytext:putstr
+token code:TOK_IDENT
+yytext:(
+token code:'('
+yytext:"Hello, world!\n"
+token code:TOK_STRINGCON
+yytext:)
+token code:')'
+yytext:;
+token code:';'
+yytext:return
+token code:TOK_RETURN
+yytext:0
+token code:TOK_INTCON
+yytext:;
+token code:';'
+yytext:}
+token code:'}'
