@@ -1154,12 +1154,12 @@ YY_RULE_SETUP
 case 32:
 YY_RULE_SETUP
 #line 73 "scanner.l"
-{ return yylval_token ('<'); }
+{ return yylval_token (TOK_LT); }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 74 "scanner.l"
-{ return yylval_token ('>'); }
+{ return yylval_token (TOK_GT); }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP

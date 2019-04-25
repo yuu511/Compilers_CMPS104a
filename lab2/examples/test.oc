@@ -1,0 +1,57 @@
+if
+else
+while
+return
+alloc
+nullptr
+not
+int
+string
+struct
+array
+ptr
+void
+
+123123123123
+0123123123213
+0x1231efa1231321
+
+ifx
+elsex
+'c'
+"howdoyoudoxd"
+
+==
+!=
+<=
+>=
+->
++
+-
+*
+/
+%
+=
+<
+>
+,
+;
+(
+)
+[
+]
+{
+}
+
+// BAD TOKENS
+// INVOKE NOTNUMBER
+// 08123123123
+// 09123123213
+// 0x
+// 0X
+
+// INVOKE NOT_CHRCONST
+// 'f
+
+// INVOKE NOT_STRCONST
+// "fu 

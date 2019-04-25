@@ -62,15 +62,21 @@ void parseargs (int argc, char** argv){
 }
 
 // calls yylex until yyin reaches EOF.
-const string* lex_scan(){
+const string* lex_scan(FILE *tokfp){
   int chr;
   const string* strset;
   for (;;){
     chr = yylex();
     if (chr == YYEOF) break;
-    if (stringsetdebug) { fprintf (stderr,"yytext:%s\ntoken code:%lu\n"
-                       ,yytext,yylval->lloc.filenr); } 
-    //astree::dump (stdout,yylval);
+    if (stringsetdebug) { fprintf (stderr,"yytext:%s\ntoken code:%s\n"
+                          ,yytext,parser::get_tname(yylval->symbol)); } 
+    fprintf(tokfp,"%zd %zd.%zd %d %s %s\n", 
+            yylval->lloc.filenr, 
+	    yylval->lloc.linenr, 
+	    yylval->lloc.offset, 
+	    yylval->symbol,
+	    parser::get_tname(yylval->symbol),
+	    yylval->lexinfo->c_str());   
     strset = string_set::intern(yylval->lexinfo->c_str());
   }
   return strset;
@@ -133,32 +139,39 @@ int main (int argc, char** argv) {
    exec::execname = basename (argv[0]);
    char* filename = argv[argc-1];
    parseargs(argc,argv);
+   string input_stripped = strp(filename);
+   string append;
 
-   // Generate the stringset using yylex, and determine the token type.
+   // Open the stringset and tokenset files.
+   FILE *strfp;
+   append = ".str";
+   strfp = appendopen (input_stripped,append);
+   FILE *tokfp;
+   append = ".tok";
+   tokfp = appendopen (input_stripped,append);
+
+   // Run the c preprocessor and pipe the output to yyin.
    exec_cpp(filename);
-   lex_scan();
+
+   // run yylex against the piped output.
+   // Generate the stringset and write lexical information to token file.
+   lex_scan(tokfp);
+
+   // dump the hashed tokenset to file.
+   string_set::dump(strfp);
+
+   // Close the cpreprocessor.
    close_cpp();
 
-   // Dump the stringset to a file.
-   FILE *strfp;
-   string input_stripped = strp(filename);
-   string append = ".str";
-   strfp = appendopen (input_stripped,append);
-   string_set::dump(strfp);
+   // close the stringset and tokenset files.
+   if (pclose(tokfp)<0) {
+     exec::exit_status = EXIT_FAILURE;
+     fprintf (stderr,"FAILURE closing file %s%s",input_stripped.c_str(),append.c_str());
+   }
    if (pclose(strfp)<0) {
      exec::exit_status = EXIT_FAILURE;
-     fprintf (stderr,"FAILURE closing file %s",append.c_str());
+     fprintf (stderr,"FAILURE closing file %s%s",input_stripped.c_str(),append.c_str());
    }
-   
-
-   // Generate the astree.
-   append = ".tok";
-   strfp = appendopen (input_stripped,append);
-   if (pclose(strfp)<0) {
-     exec::exit_status = EXIT_FAILURE;
-     fprintf (stderr,"FAILURE closing file %s",append.c_str());
-   }
-
    return exec::exit_status;
 }
 
