@@ -70,12 +70,12 @@ const string* lex_scan(FILE *tokfp){
     chr = yylex();
     if (chr == YYEOF) break;
     if (yylval->lloc.filenr != fileno){
-       fprintf (tokfp,"# %.2zd \"%s\"\n",yylval->lloc.linenr,lexer::filenames.back().c_str());
+       fprintf (tokfp,"# %3zd \"%s\"\n",yylval->lloc.linenr,lexer::filenames.back().c_str());
        fileno = yylval->lloc.filenr;
     }
     if (stringsetdebug) { fprintf (stderr,"token:%s\ntoken code:%s\n"
                           ,yytext,parser::get_tname(yylval->symbol)); } 
-    fprintf(tokfp,"   %zd %.2zd.%.3zd %.3d %-14s%s\n", 
+    fprintf(tokfp,"  %3zd %3zd.%.3zd %3d %-14s%s\n", 
             yylval->lloc.filenr,
 	    yylval->lloc.linenr, 
 	    yylval->lloc.offset, 
