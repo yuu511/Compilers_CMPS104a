@@ -70,6 +70,7 @@ const string* lex_scan(FILE *tokfp){
     if (chr == YYEOF) break;
     if (stringsetdebug) { fprintf (stderr,"yytext:%s\ntoken code:%s\n"
                           ,yytext,parser::get_tname(yylval->symbol)); } 
+    printf("%s\n",yytext);
     fprintf(tokfp,"%zd %zd.%zd %d %s %s\n", 
             yylval->lloc.filenr, 
 	    yylval->lloc.linenr, 
