@@ -65,26 +65,25 @@ void parseargs (int argc, char** argv){
 const string* lex_scan(FILE *tokfp){
   int chr;
   size_t fileno = -1;
-  int increment = 0;
   const string* strset;
   for (;;){
     chr = yylex();
     if (chr == YYEOF) break;
     if (yylval->lloc.filenr != fileno){
-       ++increment;
-       fprintf (tokfp,"# %s\n",lexer::filenames.back().c_str());
+       fprintf (tokfp,"# %.2zd \"%s\"\n",yylval->lloc.linenr,lexer::filenames.back().c_str());
        fileno = yylval->lloc.filenr;
     }
     if (stringsetdebug) { fprintf (stderr,"token:%s\ntoken code:%s\n"
                           ,yytext,parser::get_tname(yylval->symbol)); } 
-    fprintf(tokfp,"%d %zd.%zd %d %s %s\n", 
-            increment, 
+    fprintf(tokfp,"   %zd %.2zd.%.3zd %.3d %-14s%s\n", 
+            yylval->lloc.filenr,
 	    yylval->lloc.linenr, 
 	    yylval->lloc.offset, 
 	    yylval->symbol,
 	    parser::get_tname(yylval->symbol),
 	    yylval->lexinfo->c_str());   
     strset = string_set::intern(yylval->lexinfo->c_str());
+    destroy(yylval);
   }
   return strset;
 }
@@ -179,6 +178,9 @@ int main (int argc, char** argv) {
      exec::exit_status = EXIT_FAILURE;
      fprintf (stderr,"FAILURE closing file %s%s",input_stripped.c_str(),append.c_str());
    }
+
+   // free memory allocated by lex.
+   yylex_destroy();
    return exec::exit_status;
 }
 

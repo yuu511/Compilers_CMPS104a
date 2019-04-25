@@ -98,7 +98,7 @@ again :
 	gmake --no-print-directory spotless deps ci all lis
 
 test : ${EXECBIN}
-	./${EXECBIN} -l ./examples/01-hello.oc
+	./${EXECBIN} -l -y -@str ./examples/01-hello.oc
 
 ifeq "${NEEDINCL}" ""
 include ${DEPSFILE}

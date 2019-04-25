@@ -30,7 +30,7 @@ NOT_NUMBER      (0[8-9][0-9]*|0[xX])
 IDENTIFIER      ({LETTER}({LETTER}|{DIGIT})*)
 NOT_IDENTIFIER  ({DIGIT}({LETTER}|{DIGIT})+)
 CHRCONST        ('([^\\'\n]|\\[\\'"0nt])') 
-NOT_CHRCONST    ('([^\\'\n]|\\[\\'"0nt])) 
+NOT_CHRCONST    (('([^\\'\n]|\\[\\'"0nt]))|('([^\\'\n]|\\[\\'"0nt]){2,}')) 
 STRINGCONST     (\"([^\\"\n]|\\[\\'"0nt])*\")
 NOT_STRINGCONST (\"([^\\"\n]|\\[\\'"0nt])*)
 
