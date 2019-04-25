@@ -64,15 +64,21 @@ void parseargs (int argc, char** argv){
 // calls yylex until yyin reaches EOF.
 const string* lex_scan(FILE *tokfp){
   int chr;
+  size_t fileno = -1;
+  int increment = 0;
   const string* strset;
   for (;;){
     chr = yylex();
     if (chr == YYEOF) break;
-    if (stringsetdebug) { fprintf (stderr,"yytext:%s\ntoken code:%s\n"
+    if (yylval->lloc.filenr != fileno){
+       ++increment;
+       fprintf (tokfp,"# %s\n",lexer::filenames.back().c_str());
+       fileno = yylval->lloc.filenr;
+    }
+    if (stringsetdebug) { fprintf (stderr,"token:%s\ntoken code:%s\n"
                           ,yytext,parser::get_tname(yylval->symbol)); } 
-    printf("%s\n",yytext);
-    fprintf(tokfp,"%zd %zd.%zd %d %s %s\n", 
-            yylval->lloc.filenr, 
+    fprintf(tokfp,"%d %zd.%zd %d %s %s\n", 
+            increment, 
 	    yylval->lloc.linenr, 
 	    yylval->lloc.offset, 
 	    yylval->symbol,
@@ -97,7 +103,6 @@ void exec_cpp(string filename){
        fprintf(stderr,"-- popen (%s),fileno(yyin) = %d\n",
                command.c_str(),fileno(yyin));
      }
-     lexer::newfilename (command);
    }
 }
 
@@ -153,6 +158,7 @@ int main (int argc, char** argv) {
 
    // Run the c preprocessor and pipe the output to yyin.
    exec_cpp(filename);
+   lexer::newfilename(string(basename(filename)));
 
    // run yylex against the piped output.
    // Generate the stringset and write lexical information to token file.
