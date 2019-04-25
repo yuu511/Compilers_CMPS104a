@@ -23,11 +23,11 @@ using namespace std;
 #include "lyutils.h"
 #include "astree.h"
 
-
 const string CPP = "/usr/bin/cpp -nostdinc";
 string command = CPP;
 constexpr size_t LINESIZE = 1024;
-int stringsetdebug = 0;
+int s_debug = 0;
+int t_debug = 0;
 
 // parse command line arguments
 // based off of the example in 
@@ -37,8 +37,10 @@ void parseargs (int argc, char** argv){
    while ((opt = getopt(argc,argv,"@:D:ly")) != -1 ){  
      switch (opt){ 
        case '@':
+         if (strcmp(optarg,"str")==0)
+	   s_debug = 1; 
          if (strcmp(optarg,"tok")==0)
-	   stringsetdebug = 1; 
+	   t_debug = 1; 
 	 break;
        case 'D':
          command = command + " -D" + std::string(optarg); 
@@ -73,7 +75,7 @@ const string* lex_scan(FILE *tokfp){
        fprintf (tokfp,"# %3zd \"%s\"\n",yylval->lloc.linenr,lexer::filenames.back().c_str());
        fileno = yylval->lloc.filenr;
     }
-    if (stringsetdebug) { fprintf (stderr,"token:%s\ntoken code:%s\n"
+    if (t_debug) { fprintf (stderr,"token:%s\ntoken code:%s\n"
                           ,yytext,parser::get_tname(yylval->symbol)); } 
     fprintf(tokfp,"  %3zd %3zd.%.3zd %3d %-14s%s\n", 
             yylval->lloc.filenr,
@@ -92,7 +94,7 @@ const string* lex_scan(FILE *tokfp){
 void exec_cpp(string filename){
    // pass the file specified into the preprocessor
    command = command + " " + filename;
-   if (stringsetdebug) { fprintf(stderr,"COMMAND:%s\n",command.c_str()); }
+   if (s_debug) { fprintf(stderr,"COMMAND:%s\n",command.c_str()); }
    yyin = popen (command.c_str(), "r");
    if (yyin == nullptr) {
      syserrprintf (command.c_str());
