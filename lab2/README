@@ -3,7 +3,7 @@ Elijah Cordova
 ejcordov / 1425119
 
 invalid string : no end quote
-invalid char   : no end quote, more than one character within quotes 
+invalid char   : no end quote, or more than one character within quotes 
 example: 'ff',
 covers the case where there is a character after an escape (2i)
-arg -@tok reserved for lex debug
+arg -@tok reserved for tokenset debug
