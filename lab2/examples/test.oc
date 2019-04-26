@@ -56,4 +56,6 @@ elsex
 // INVOKE NOT_STRCONST
 "fu 
 'oc'
-'o'o
+'
+""
+'\0t'

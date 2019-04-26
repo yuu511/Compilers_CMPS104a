@@ -80,7 +80,7 @@ NOT_STRINGCONST (\"{VSTRING}*)
 ")"             { return yylval_token (')'); }
 "["             { return yylval_token ('['); }
 "]"             { return yylval_token (']'); }
-"{"             { return yylval_token ('}'); }
+"{"             { return yylval_token ('{'); }
 "}"             { return yylval_token ('}'); }
 
 {NOT_NUMBER}      { lexer::badtoken (yytext); }

@@ -53,7 +53,7 @@
     7   6.005 278 TOK_IDENT     main
     7   6.009  40 '('           (
     7   6.010  41 ')'           )
-    7   6.012 125 '}'           {
+    7   6.012 123 '{'           {
     7   7.004 278 TOK_IDENT     putstr
     7   7.011  40 '('           (
     7   7.012 281 TOK_STRINGCON "Hello, world!\n"
