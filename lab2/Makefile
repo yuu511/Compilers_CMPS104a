@@ -67,13 +67,14 @@ ci : ${ALLSRC} ${TESTINS}
 lis : ${LISTSRC} tests
 	mkpspdf List.source.ps ${LISTSRC}
 	mkpspdf List.output.ps ${REPORTS} \
-		${foreach test, ${TESTINS:.in=}, \
-		${patsubst %, ${test}.%, in out err log}}
+	${foreach test, ${TESTINS:.in=}, \
+	${patsubst %, ${test}.%, in out err log}}
 
 clean :
-	- rm ${OBJECTS} ${ALLGENS} ${REPORTS} ${DEPSFILE} *.str *.tok core
+	- rm ${OBJECTS} ${ALLGENS} ${REPORTS} \
+	${DEPSFILE} *.str *.tok core
 	- rm ${foreach test, ${TESTINS:.in=}, \
-		${patsubst %, ${test}.%, out err log}}
+	${patsubst %, ${test}.%, out err log}}
 
 spotless : clean
 	- rm ${EXECBIN} List.*.ps List.*.pdf

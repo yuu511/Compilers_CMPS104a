@@ -25,14 +25,16 @@ int yylval_token (int symbol) {
 
 LETTER          [A-Za-z_]
 DIGIT           [0-9]
+VCHAR           ([^\\'\n]|\\[\\'"0nt])
+VSTRING         ([^\\"\n]|\\[\\'"0nt])
 NUMBER          ([1-9]+{DIGIT}*|0(([xX]({DIGIT}|[A-Fa-f])+)*|[1-7]*))
 NOT_NUMBER      (0[8-9][0-9]*|0[xX])
 IDENTIFIER      ({LETTER}({LETTER}|{DIGIT})*)
 NOT_IDENTIFIER  ({DIGIT}({LETTER}|{DIGIT})+)
-CHRCONST        ('([^\\'\n]|\\[\\'"0nt])') 
-NOT_CHRCONST    (('([^\\'\n]|\\[\\'"0nt]))|('([^\\'\n]|\\[\\'"0nt]){2,}')) 
-STRINGCONST     (\"([^\\"\n]|\\[\\'"0nt])*\")
-NOT_STRINGCONST (\"([^\\"\n]|\\[\\'"0nt])*)
+CHRCONST        ('{VCHAR}') 
+NOT_CHRCONST    ('{VCHAR}*|'{VCHAR}{2,}') 
+STRINGCONST     (\"{VSTRING}*\")
+NOT_STRINGCONST (\"{VSTRING}*)
 
 %%
 "#".*           { lexer::include(); }

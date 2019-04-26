@@ -37,23 +37,23 @@ void parseargs (int argc, char** argv){
    while ((opt = getopt(argc,argv,"@:D:ly")) != -1 ){  
      switch (opt){ 
        case '@':
-         if (strcmp(optarg,"str")==0)
-	   s_debug = 1; 
+         if (strcmp(optarg,"str")==0) 
+           s_debug = 1; 
          if (strcmp(optarg,"tok")==0)
-	   t_debug = 1; 
-	 break;
+           t_debug = 1; 
+       break;
        case 'D':
          command = command + " -D" + std::string(optarg); 
-	 break;
+         break;
        case 'l': 
          yy_flex_debug = 1;      
-	 break;
+         break;
        case 'y':
          yydebug = 1;            
-	 break;
+         break;
        case '?':
          errprintf("bad option (%c)\n",optopt); 
-	 break;
+         break;
      }
    }
    if (optind > argc){
@@ -72,18 +72,19 @@ const string* lex_scan(FILE *tokfp){
     chr = yylex();
     if (chr == YYEOF) break;
     if (yylval->lloc.filenr != fileno){
-       fprintf (tokfp,"# %3zd \"%s\"\n",yylval->lloc.linenr,lexer::filenames.back().c_str());
+       fprintf (tokfp,"# %3zd \"%s\"\n",yylval->lloc.linenr,
+                lexer::filenames.back().c_str());
        fileno = yylval->lloc.filenr;
     }
     if (t_debug) { fprintf (stderr,"token:%s\ntoken code:%s\n"
                           ,yytext,parser::get_tname(yylval->symbol)); } 
     fprintf(tokfp,"  %3zd %3zd.%.3zd %3d %-14s%s\n", 
             yylval->lloc.filenr,
-	    yylval->lloc.linenr, 
-	    yylval->lloc.offset, 
-	    yylval->symbol,
-	    parser::get_tname(yylval->symbol),
-	    yylval->lexinfo->c_str());   
+            yylval->lloc.linenr, 
+            yylval->lloc.offset, 
+            yylval->symbol,
+            parser::get_tname(yylval->symbol),
+            yylval->lexinfo->c_str());   
     strset = string_set::intern(yylval->lexinfo->c_str());
     destroy(yylval);
   }
@@ -113,7 +114,8 @@ FILE* appendopen(string basename, string extension){
    FILE *s; 
    s = fopen (fn.c_str(),"w"); 
    if (s == NULL){
-     fprintf (stderr, "FAILURE opening file %s for writing.",fn.c_str());
+     fprintf (stderr, "FAILURE opening file %s for writing." 
+              ,fn.c_str());
    }
    return s;
 }
@@ -162,8 +164,12 @@ int main (int argc, char** argv) {
    lexer::newfilename(string(basename(filename)));
 
    // run yylex against the piped output.
-   // Generate the stringset and write lexical information to token file.
-   lex_scan(tokfp);
+   // Generate the stringset and write lexical 
+   // information to token file.
+   const string* sset = lex_scan(tokfp);
+
+   // dummy cast to supress warnings
+   (void) sset;
 
    // dump the hashed tokenset to file.
    string_set::dump(strfp);
@@ -174,11 +180,13 @@ int main (int argc, char** argv) {
    // close the stringset and tokenset files.
    if (pclose(tokfp)<0) {
      exec::exit_status = EXIT_FAILURE;
-     fprintf (stderr,"FAILURE closing file %s%s",input_stripped.c_str(),append.c_str());
+     fprintf (stderr,"FAILURE closing file %s%s",
+              input_stripped.c_str(),append.c_str());
    }
    if (pclose(strfp)<0) {
      exec::exit_status = EXIT_FAILURE;
-     fprintf (stderr,"FAILURE closing file %s%s",input_stripped.c_str(),append.c_str());
+     fprintf (stderr,"FAILURE closing file %s%s",
+              input_stripped.c_str(),append.c_str());
    }
 
    // free memory allocated by lex.

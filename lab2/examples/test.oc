@@ -45,13 +45,15 @@ elsex
 
 // BAD TOKENS
 // INVOKE NOTNUMBER
-// 08123123123
-// 09123123213
-// 0x
-// 0X
+08123123123
+09123123213
+0x
+0X
 
 // INVOKE NOT_CHRCONST
-// 'f
+'f
 
 // INVOKE NOT_STRCONST
-// "fu 
+"fu 
+'oc'
+'o'o

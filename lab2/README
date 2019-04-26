@@ -1,26 +1,9 @@
-README: lab1
+README: lab2
 Elijah Cordova
 ejcordov / 1425119
 
-Main program is based off of cppstrtok in the class website. 
-The function cpplines is slightly altered from being a void 
-to returning a pointer to the stringset,as per spec. 
-The pointer to stringset is stored in const* char stringset in main.
-Error handling is now in it's own cpp implementation file, auxlib.
-
-To supress warning messages about unused variables (which
-we will use in future assignments), line 129 has a 
-filler print statement.
-
-Hashing function based off of string_set.cpp 
-in the class website,unaltered.
-
-Error messages handled by auxlib.cpp in the class website.
-Added check in eprintf for insufficient program arguments. (Line 62)
-
-Makefile provided by class website in cppstrtok folder.
-
-BUILD: make
-CLEAN:
-  make clean: removes objects
-  make spotless: removes all generated objects
+invalid string : no end quote
+invalid char   : no end quote, more than one character within quotes 
+example: 'ff',
+covers the case where there is a character after an escape (2i)
+arg -@tok reserved for lex debug
