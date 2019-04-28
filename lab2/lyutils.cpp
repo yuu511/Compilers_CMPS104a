@@ -90,6 +90,9 @@ int lexer::token(){
      exec::exit_status = EXIT_FAILURE;
      fprintf (stderr,"stringset or tokenset fileptr null!");
    }
+   /* if the filenumber is different than the last 
+    * scanned file number, then print out the name
+    * of the new file and update the coords. (2b) */
    if (yylval->lloc.filenr != last_filenr){
      fprintf (token_fp,"# %3zd \"%s\"\n",yylval->lloc.linenr,
               lexer::filenames.back().c_str());

@@ -4,6 +4,6 @@ ejcordov / 1425119
 
 invalid string : no end quote
 invalid char   : no end quote, or more than one character within quotes 
-example: 'ff',
+examples: 'f , '\0n' , 'fo'
 covers the case where there is a character after an escape (2i)
-arg -@tok reserved for tokenset debug
+arg -@tok reserved for tokenset debug flag, t_debug.
