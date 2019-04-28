@@ -1,3 +1,0 @@
-checksource: line length > 72 characters
-   file "scanner.l": 3 errors: lines 59--61
-checksource: TOTAL COMPLAINTS: 3

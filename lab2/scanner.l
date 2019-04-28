@@ -29,12 +29,12 @@ VCHAR           ([^\\'\n]|\\[\\'"0nt])
 VSTRING         ([^\\"\n]|\\[\\'"0nt])
 NUMBER          ([1-9]+{DIGIT}*|0(([xX]({DIGIT}|[A-Fa-f])+)*|[1-7]*))
 NOT_NUMBER      (0[8-9][0-9]*|0[xX])
-IDENTIFIER      ({LETTER}({LETTER}|{DIGIT})*)
-NOT_IDENTIFIER  ({DIGIT}({LETTER}|{DIGIT})+)
-CHRCONST        ('{VCHAR}') 
-NOT_CHRCONST    ('{VCHAR}*|'{VCHAR}{2,}') 
-STRINGCONST     (\"{VSTRING}*\")
-NOT_STRINGCONST (\"{VSTRING}*)
+IDENT           ({LETTER}({LETTER}|{DIGIT})*)
+NOT_IDENT       ({DIGIT}({LETTER}|{DIGIT})+)
+CCONST          ('{VCHAR}') 
+NOT_CCONST      ('{VCHAR}*|'{VCHAR}{2,}') 
+SCONST          (\"{VSTRING}*\")
+NOT_SCONST      (\"{VSTRING}*)
 
 %%
 "#".*           { lexer::include(); }
@@ -54,11 +54,15 @@ NOT_STRINGCONST (\"{VSTRING}*)
 "array"         { yylval_token (TOK_ARRAY);     return lexer::token(); }
 "ptr"           { yylval_token (TOK_PTR);       return lexer::token(); }
 "void"          { yylval_token (TOK_VOID);      return lexer::token(); }
-                                                                  
-{NUMBER}        { yylval_token (TOK_INTCON);    return lexer::token(); }
-{IDENTIFIER}    { yylval_token (TOK_IDENT);     return lexer::token(); } 
-{CHRCONST}      { yylval_token (TOK_CHARCON);   return lexer::token(); } 
-{STRINGCONST}   { yylval_token (TOK_STRINGCON); return lexer::token(); } 
+
+{NUMBER}        { yylval_token (TOK_INTCON);    
+                  return lexer::token(); }
+{IDENT}         { yylval_token (TOK_IDENT);     
+                  return lexer::token(); } 
+{CCONST}        { yylval_token (TOK_CHARCON);    
+                  return lexer::token(); } 
+{SCONST}        { yylval_token (TOK_STRINGCON); 
+                  return lexer::token(); } 
                                                                   
 "=="            { yylval_token (TOK_EQ);        return lexer::token(); }
 "!="            { yylval_token (TOK_NE);        return lexer::token(); }
@@ -83,9 +87,9 @@ NOT_STRINGCONST (\"{VSTRING}*)
 "}"             { yylval_token ('}');           return lexer::token(); }
 
 {NOT_NUMBER}      { lexer::badtoken (yytext); }
-{NOT_IDENTIFIER}  { lexer::badtoken (yytext); }
-{NOT_CHRCONST}    { lexer::badtoken (yytext); }
-{NOT_STRINGCONST} { lexer::badtoken (yytext); }
+{NOT_IDENT}       { lexer::badtoken (yytext); }
+{NOT_CCONST}      { lexer::badtoken (yytext); }
+{NOT_SCONST}      { lexer::badtoken (yytext); }
 .                 { lexer::badchar (*yytext); }
 %%
 

@@ -52,10 +52,8 @@ elsex
 
 // INVOKE NOT_CHRCONST
 'f
+'oc'
+'\0n'
 
 // INVOKE NOT_STRCONST
 "fu 
-'oc'
-'
-""
-'\0t'
