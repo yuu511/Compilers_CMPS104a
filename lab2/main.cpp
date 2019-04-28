@@ -104,14 +104,14 @@ FILE* appendopen(string basename, string extension){
    return s;
 }
 
-void close_cpp() {
-  int close = pclose (yyin);
+void e_close(FILE* f) {
+  int close = pclose (f);
   eprint_status (command.c_str(), close);
   if (close !=0) exec::exit_status = EXIT_FAILURE;
 }
 
 // strip the file extension any string  
-string strp (char* filename){
+string strp(char* filename){
    string input_stripped = string(basename(filename));
    size_t lastindex = input_stripped.find_last_of(".");
    input_stripped = input_stripped.substr(0,lastindex);
@@ -157,20 +157,10 @@ int main (int argc, char** argv) {
    // dump the hashed tokenset to file.
    string_set::dump(strfp);
 
-   // Close the cpreprocessor.
-   close_cpp();
-
-   // close the stringset and tokenset files.
-   if (pclose(tokfp)<0) {
-     exec::exit_status = EXIT_FAILURE;
-     fprintf (stderr,"FAILURE closing file %s%s",
-              input_stripped.c_str(),append.c_str());
-   }
-   if (pclose(strfp)<0) {
-     exec::exit_status = EXIT_FAILURE;
-     fprintf (stderr,"FAILURE closing file %s%s",
-              input_stripped.c_str(),append.c_str());
-   }
+   // Close the cpreprocessor, the stringset, and the tokenset files.
+   e_close(yyin);
+   e_close(tokfp);
+   e_close(strfp);
 
    // free memory allocated by lex.
    yylex_destroy();
