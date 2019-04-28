@@ -6,4 +6,8 @@ invalid string : no end quote
 invalid char   : no end quote, or more than one character within quotes 
 examples: 'f , '\0n' , 'fo'
 covers the case where there is a character after an escape (2i)
+
 arg -@tok reserved for tokenset debug flag, t_debug.
+
+formatting in scanner.l a bit off in lines 58-65
+to avoid the linesize limit for some tokens.
