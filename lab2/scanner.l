@@ -41,52 +41,51 @@ NOT_STRINGCONST (\"{VSTRING}*)
 [ \t]+          { /* ignore this token */ }
 \n              { lexer::newline(); }
 
-"if"            { return yylval_token (TOK_IF); }
-"else"          { return yylval_token (TOK_ELSE); }
-"while"         { return yylval_token (TOK_WHILE); }
-"return"        { return yylval_token (TOK_RETURN); }
-"alloc"         { return yylval_token (TOK_ALLOC); }
-"nullptr"       { return yylval_token (TOK_NULLPTR); }
-"not"           { return yylval_token (TOK_NOT); }
-"int"           { return yylval_token (TOK_INT); }
-"string"        { return yylval_token (TOK_STRING);}
-"struct"        { return yylval_token (TOK_STRUCT);}
-"array"         { return yylval_token (TOK_ARRAY);}
-"ptr"           { return yylval_token (TOK_PTR); }
-"void"          { return yylval_token (TOK_VOID); }
-
-
-{NUMBER}        { return yylval_token (TOK_INTCON); }
-{IDENTIFIER}    { return yylval_token (TOK_IDENT); } 
-{CHRCONST}      { return yylval_token (TOK_CHARCON); } 
-{STRINGCONST}   { return yylval_token (TOK_STRINGCON); } 
-
-"=="            { return yylval_token (TOK_EQ); }
-"!="            { return yylval_token (TOK_NE); }
-"<="            { return yylval_token (TOK_LE); }
-">="            { return yylval_token (TOK_GE); }
-"->"            { return yylval_token (TOK_ARROW); }
-"+"             { return yylval_token ('+'); }
-"-"             { return yylval_token ('-'); }
-"*"             { return yylval_token ('*'); }
-"/"             { return yylval_token ('/'); }
-"%"             { return yylval_token ('%'); }
-"="             { return yylval_token ('='); }
-"<"             { return yylval_token (TOK_LT); }
-">"             { return yylval_token (TOK_GT); }
-","             { return yylval_token (','); }
-";"             { return yylval_token (';'); }
-"("             { return yylval_token ('('); }
-")"             { return yylval_token (')'); }
-"["             { return yylval_token ('['); }
-"]"             { return yylval_token (']'); }
-"{"             { return yylval_token ('{'); }
-"}"             { return yylval_token ('}'); }
+"if"            { yylval_token (TOK_IF);        return lexer::token(); }
+"else"          { yylval_token (TOK_ELSE);      return lexer::token(); }
+"while"         { yylval_token (TOK_WHILE);     return lexer::token(); }
+"return"        { yylval_token (TOK_RETURN);    return lexer::token(); }
+"alloc"         { yylval_token (TOK_ALLOC);     return lexer::token(); }
+"nullptr"       { yylval_token (TOK_NULLPTR);   return lexer::token(); }
+"not"           { yylval_token (TOK_NOT);       return lexer::token(); }
+"int"           { yylval_token (TOK_INT);       return lexer::token(); }
+"string"        { yylval_token (TOK_STRING);    return lexer::token(); }
+"struct"        { yylval_token (TOK_STRUCT);    return lexer::token(); }
+"array"         { yylval_token (TOK_ARRAY);     return lexer::token(); }
+"ptr"           { yylval_token (TOK_PTR);       return lexer::token(); }
+"void"          { yylval_token (TOK_VOID);      return lexer::token(); }
+                                                                  
+{NUMBER}        { yylval_token (TOK_INTCON);    return lexer::token(); }
+{IDENTIFIER}    { yylval_token (TOK_IDENT);     return lexer::token(); } 
+{CHRCONST}      { yylval_token (TOK_CHARCON);   return lexer::token(); } 
+{STRINGCONST}   { yylval_token (TOK_STRINGCON); return lexer::token(); } 
+                                                                  
+"=="            { yylval_token (TOK_EQ);        return lexer::token(); }
+"!="            { yylval_token (TOK_NE);        return lexer::token(); }
+"<="            { yylval_token (TOK_LE);        return lexer::token(); }
+">="            { yylval_token (TOK_GE);        return lexer::token(); }
+"->"            { yylval_token (TOK_ARROW);     return lexer::token(); }
+"+"             { yylval_token ('+');           return lexer::token(); }
+"-"             { yylval_token ('-');           return lexer::token(); }
+"*"             { yylval_token ('*');           return lexer::token(); }
+"/"             { yylval_token ('/');           return lexer::token(); }
+"%"             { yylval_token ('%');           return lexer::token(); }
+"="             { yylval_token ('=');           return lexer::token(); }
+"<"             { yylval_token (TOK_LT);        return lexer::token(); }
+">"             { yylval_token (TOK_GT);        return lexer::token(); }
+","             { yylval_token (',');           return lexer::token(); }
+";"             { yylval_token (';');           return lexer::token(); }
+"("             { yylval_token ('(');           return lexer::token(); }
+")"             { yylval_token (')');           return lexer::token(); }
+"["             { yylval_token ('[');           return lexer::token(); }
+"]"             { yylval_token (']');           return lexer::token(); }
+"{"             { yylval_token ('{');           return lexer::token(); }
+"}"             { yylval_token ('}');           return lexer::token(); }
 
 {NOT_NUMBER}      { lexer::badtoken (yytext); }
 {NOT_IDENTIFIER}  { lexer::badtoken (yytext); }
 {NOT_CHRCONST}    { lexer::badtoken (yytext); }
 {NOT_STRINGCONST} { lexer::badtoken (yytext); }
-.               { lexer::badchar (*yytext); }
+.                 { lexer::badchar (*yytext); }
 %%
 

@@ -64,31 +64,15 @@ void parseargs (int argc, char** argv){
 }
 
 // calls yylex until yyin reaches EOF.
-const string* lex_scan(FILE *tokfp){
+void lex_scan(){
   int chr;
-  size_t fileno = -1;
-  const string* strset;
   for (;;){
-    chr = yylex();
-    if (chr == YYEOF) break;
-    if (yylval->lloc.filenr != fileno){
-       fprintf (tokfp,"# %3zd \"%s\"\n",yylval->lloc.linenr,
-                lexer::filenames.back().c_str());
-       fileno = yylval->lloc.filenr;
-    }
-    if (t_debug) { fprintf (stderr,"token:%s\ntoken code:%s\n"
-                          ,yytext,parser::get_tname(yylval->symbol)); } 
-    fprintf(tokfp,"  %3zd %3zd.%.3zd %3d %-14s%s\n", 
-            yylval->lloc.filenr,
-            yylval->lloc.linenr, 
-            yylval->lloc.offset, 
-            yylval->symbol,
-            parser::get_tname(yylval->symbol),
-            yylval->lexinfo->c_str());   
-    strset = string_set::intern(yylval->lexinfo->c_str());
-    destroy(yylval);
+     chr = yylex();
+     if (chr == YYEOF) break;
+     if (t_debug) { fprintf (stderr,"token:%s\ntoken code:%s\n"
+                        ,yytext,parser::get_tname(yylval->symbol)); } 
+     destroy(yylval);
   }
-  return strset;
 }
 
 // call CPP onto yyin.if successful, start scanning using yylex.
@@ -155,9 +139,11 @@ int main (int argc, char** argv) {
    FILE *strfp;
    append = ".str";
    strfp = appendopen (input_stripped,append);
+   lexer::stringfp(strfp);
    FILE *tokfp;
    append = ".tok";
    tokfp = appendopen (input_stripped,append);
+   lexer::tokenfp(tokfp);
 
    // Run the c preprocessor and pipe the output to yyin.
    exec_cpp(filename);
@@ -166,10 +152,7 @@ int main (int argc, char** argv) {
    // run yylex against the piped output.
    // Generate the stringset and write lexical 
    // information to token file.
-   const string* sset = lex_scan(tokfp);
-
-   // dummy cast to supress warnings
-   (void) sset;
+   lex_scan();
 
    // dump the hashed tokenset to file.
    string_set::dump(strfp);

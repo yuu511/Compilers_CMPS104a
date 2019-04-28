@@ -8,11 +8,16 @@
 
 #include "auxlib.h"
 #include "lyutils.h"
+#include "string_set.h"
 
 bool lexer::interactive = true;
 location lexer::lloc = {0, 1, 0};
 size_t lexer::last_yyleng = 0;
 vector<string> lexer::filenames;
+size_t lexer::last_filenr = -1;
+FILE* lexer::string_fp = nullptr;
+FILE* lexer::token_fp = nullptr;
+
 
 astree* parser::root = nullptr;
 
@@ -70,6 +75,35 @@ void lexer::include() {
       lexer::lloc.linenr = linenr - 1;
       lexer::newfilename (filename);
    }
+}
+
+void lexer::stringfp(FILE* strfp){
+   string_fp = strfp;
+}
+
+void lexer::tokenfp(FILE* tokfp){
+   token_fp = tokfp;
+}
+
+int lexer::token(){
+   if ((string_fp == nullptr) | (token_fp == nullptr)){
+     exec::exit_status = EXIT_FAILURE;
+     fprintf (stderr,"stringset or tokenset fileptr null!");
+   }
+   if (yylval->lloc.filenr != last_filenr){
+     fprintf (token_fp,"# %3zd \"%s\"\n",yylval->lloc.linenr,
+              lexer::filenames.back().c_str());
+     last_filenr = yylval->lloc.filenr;
+   }
+   fprintf(token_fp,"  %3zd %3zd.%.3zd %3d %-14s%s\n", 
+           yylval->lloc.filenr,
+           yylval->lloc.linenr, 
+           yylval->lloc.offset, 
+           yylval->symbol,
+           parser::get_tname(yylval->symbol),
+           yylval->lexinfo->c_str());   
+           string_set::intern(yylval->lexinfo->c_str());
+   return yylval->symbol;
 }
 
 void yyerror (const char* message) {

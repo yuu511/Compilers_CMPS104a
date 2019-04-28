@@ -13,6 +13,7 @@ using namespace std;
 
 #include "astree.h"
 #include "auxlib.h"
+#include "string_set.h"
 
 #define YYEOF 0
 
@@ -39,6 +40,13 @@ struct lexer {
    static void badchar (unsigned char bad);
    static void badtoken (char* lexeme);
    static void include();
+   /* appended functions and variables */
+   static int token();
+   static size_t last_filenr;
+   static FILE* string_fp; 
+   static FILE* token_fp;
+   static void stringfp(FILE* strfp);
+   static void tokenfp(FILE* tokfp);
 };
 
 struct parser {
