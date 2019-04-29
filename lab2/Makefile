@@ -37,6 +37,8 @@ LISTSRC   = ${ALLSRC} ${DEPSFILE} ${PARSEHDR}
 THISDIR   = /afs/cats.ucsc.edu/users/g/ejcordov/CMPS104a/cmps104a/lab2/
 DUMP      = ${THISDIR}/DUMP
 TESTFILES = ${THISDIR}/examples/*
+SUBMITDIR = cmps104a-wm.s19
+ASGN      = asg2
 TESTSTRINGSET = ${TESTFILES:.oc = .str}
 
 all : ${EXECBIN}
@@ -100,6 +102,9 @@ again :
 
 test : ${EXECBIN}
 	./${EXECBIN} -l -y ./examples/01-hello.oc
+
+submit :
+	submit {SUBMITDIR} {ASGN} {CPPSRC} {HDRSRC} {FLEXSRC} {BISONSRC} Makefile README
 
 ifeq "${NEEDINCL}" ""
 include ${DEPSFILE}
