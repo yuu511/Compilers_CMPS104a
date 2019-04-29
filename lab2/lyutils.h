@@ -38,10 +38,10 @@ struct lexer {
    static void advance();
    static void newline();
    static void badchar (unsigned char bad);
-   static void badtoken (char* lexeme);
+   static int badtoken (int symbol);
    static void include();
    /* appended functions and variables */
-   static int token();
+   static int token(int symbol);
    static size_t last_filenr;
    static FILE* string_fp; 
    static FILE* token_fp;

@@ -56,8 +56,9 @@ void lexer::badchar (unsigned char bad) {
 }
 
 
-void lexer::badtoken (char* lexeme) {
-   errllocprintf (lexer::lloc, "invalid token (%s)\n", lexeme);
+int lexer::badtoken (int symbol) {
+   errllocprintf (lexer::lloc, "invalid token (%s)\n", yytext);
+   return symbol;
 }
 
 void lexer::include() {
@@ -85,7 +86,8 @@ void lexer::tokenfp(FILE* tokfp){
    token_fp = tokfp;
 }
 
-int lexer::token(){
+int lexer::token(int symbol){
+   yylval = new astree (symbol, lexer::lloc, yytext);
    if ((string_fp == nullptr) | (token_fp == nullptr)){
      exec::exit_status = EXIT_FAILURE;
      fprintf (stderr,"stringset or tokenset fileptr null!");
@@ -106,7 +108,7 @@ int lexer::token(){
            parser::get_tname(yylval->symbol),
            yylval->lexinfo->c_str());   
            string_set::intern(yylval->lexinfo->c_str());
-   return yylval->symbol;
+   return symbol;
 }
 
 void yyerror (const char* message) {
