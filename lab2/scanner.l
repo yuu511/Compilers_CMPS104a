@@ -50,9 +50,9 @@ NOT_SCONST      (\"{VSTRING}*)
 "ptr"           {  return lexer::token(TOK_PTR);     }
 "void"          {  return lexer::token(TOK_VOID);    }
 
-{NUMBER}        { return lexer::token(TOK_INTCON); }
-{IDENT}         { return lexer::token(TOK_IDENT); } 
-{CCONST}        { return lexer::token(TOK_CHARCON); } 
+{NUMBER}        { return lexer::token(TOK_INTCON);    }
+{IDENT}         { return lexer::token(TOK_IDENT);     } 
+{CCONST}        { return lexer::token(TOK_CHARCON);   } 
 {SCONST}        { return lexer::token(TOK_STRINGCON); } 
                                                                   
 "=="            {  return lexer::token(TOK_EQ);    }
@@ -77,10 +77,10 @@ NOT_SCONST      (\"{VSTRING}*)
 "{"             {  return lexer::token('{');       }
 "}"             {  return lexer::token('}');       }
 
-{NOT_NUMBER}      { lexer::badtoken (TOK_INTCON); }
-{NOT_IDENT}       { lexer::badtoken (TOK_IDENT); }
-{NOT_CCONST}      { lexer::badtoken (TOK_CHARCON); }
+{NOT_NUMBER}      { lexer::badtoken (TOK_INTCON);    }
+{NOT_IDENT}       { lexer::badtoken (TOK_IDENT);     }
+{NOT_CCONST}      { lexer::badtoken (TOK_CHARCON);   }
 {NOT_SCONST}      { lexer::badtoken (TOK_STRINGCON); }
-.                 { lexer::badchar (*yytext); }
+.                 { lexer::badchar (*yytext);        }
 %%
 
