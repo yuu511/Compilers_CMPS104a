@@ -104,7 +104,7 @@ test : ${EXECBIN}
 	./${EXECBIN} -l -y ./examples/01-hello.oc
 
 submit :
-	submit {SUBMITDIR} {ASGN} {CPPSRC} {HDRSRC} {FLEXSRC} {BISONSRC} Makefile README
+	submit ${SUBMITDIR} ${ASGN} ${CPPSRC} ${HDRSRC} ${FLEXSRC} ${BISONSRC} Makefile README
 
 ifeq "${NEEDINCL}" ""
 include ${DEPSFILE}
