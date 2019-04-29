@@ -1,1 +1,2 @@
-gmake: Nothing to be done for 'all'.
+g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c lyutils.cpp
+g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -ooc astree.o lyutils.o string_set.o auxlib.o main.o yylex.o yyparse.o
