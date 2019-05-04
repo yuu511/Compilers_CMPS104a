@@ -404,9 +404,9 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  5
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  6
+#define YYNRULES  7
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  13
+#define YYNSTATES  14
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -455,7 +455,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    39,    39,    42,    43,    46,    49
+       0,    39,    39,    42,    43,    46,    49,    50
 };
 #endif
 
@@ -501,7 +501,7 @@ static const yytype_uint16 yytoknum[] =
 static const yytype_int8 yypact[] =
 {
      -29,     0,    -9,   -29,   -21,   -29,   -28,   -19,   -27,   -25,
-     -29,   -24,   -29
+     -19,   -24,   -29,   -29
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -509,14 +509,14 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       4,     0,     2,     1,     0,     3,     0,     0,     0,     0,
-       6,     0,     5
+       4,     0,     2,     1,     0,     3,     0,     7,     0,     0,
+       7,     0,     6,     5
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -29,   -29,   -29,   -29,   -29
+     -29,   -29,   -29,   -29,    -5
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -530,12 +530,12 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       3,     4,     6,     7,     8,     0,    10,    11,     0,    12
+       3,     4,     6,     7,     8,    12,    10,    11,     0,    13
 };
 
 static const yytype_int8 yycheck[] =
 {
-       0,    10,    23,    31,    23,    -1,    33,    32,    -1,    33
+       0,    10,    23,    31,    23,    10,    33,    32,    -1,    33
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -543,19 +543,19 @@ static const yytype_int8 yycheck[] =
 static const yytype_uint8 yystos[] =
 {
        0,    35,    36,     0,    10,    37,    23,    31,    23,    38,
-      33,    32,    33
+      33,    32,    38,    33
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    34,    35,    36,    36,    37,    38
+       0,    34,    35,    36,    36,    37,    38,    38
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1,     2,     0,     6,     2
+       0,     2,     1,     2,     0,     6,     3,     0
 };
 
 
@@ -1488,7 +1488,7 @@ yyparse (void)
 #line 20 "parser.y" /* yacc.c:1429  */
 {
   location lloc  = {0, 0, 0 };
-  parser::root = new astree (TOK_ROOT, lloc, "<ROOT>");
+  parser::root = new astree (TOK_ROOT, lloc, "<<ROOT>>");
 }
 
 #line 1495 "yyparse.cpp" /* yacc.c:1429  */
@@ -1672,7 +1672,7 @@ yyreduce:
     {
         case 2:
 #line 39 "parser.y" /* yacc.c:1646  */
-    { parser::root = (yyvsp[0]); }
+    { (yyval) = (yyvsp[0]) = nullptr; }
 #line 1677 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
@@ -1696,7 +1696,7 @@ yyreduce:
 
   case 6:
 #line 49 "parser.y" /* yacc.c:1646  */
-    { (yyval) = (yyvsp[-1]); }
+    { (yyval) = (yyvsp[-2]); }
 #line 1701 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
@@ -1929,7 +1929,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 52 "parser.y" /* yacc.c:1906  */
+#line 53 "parser.y" /* yacc.c:1906  */
  
 
 const char* parser::get_tname (int symbol) {

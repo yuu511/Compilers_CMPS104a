@@ -28,6 +28,7 @@ string command = CPP;
 constexpr size_t LINESIZE = 1024;
 int s_debug = 0;
 int t_debug = 0;
+int a_debug = 0;
 
 // parse command line arguments
 // based off of the example in 
@@ -41,6 +42,8 @@ void parseargs (int argc, char** argv){
            s_debug = 1; 
          if (strcmp(optarg,"tok")==0)
            t_debug = 1; 
+         if (strcmp(optarg,"ast")==0)
+           a_debug = 1; 
        break;
        case 'D':
          command = command + " -D" + std::string(optarg); 
@@ -158,6 +161,9 @@ int main (int argc, char** argv) {
    // dump the hashed tokenset to file.
    string_set::dump(strfp);
 
+   // personal debug flag 
+   if (a_debug)
+     astree::print (stdout,parser::root);
    // Close the cpreprocessor, the stringset, and the tokenset files.
    e_close(yyin);
    e_close(tokfp);

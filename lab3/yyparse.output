@@ -39,7 +39,8 @@ Grammar
 
     4 structdef: TOK_STRUCT TOK_IDENT '{' sargs '}' ';'
 
-    5 sargs: TOK_IDENT ';'
+    5 sargs: TOK_IDENT ';' sargs
+    6      | %empty
 
 
 Terminals, with rules where they appear
@@ -90,7 +91,7 @@ program (36)
 structdef (37)
     on left: 4, on right: 2
 sargs (38)
-    on left: 5, on right: 4
+    on left: 5 6, on right: 4 5
 
 
 State 0
@@ -156,12 +157,14 @@ State 7
 
     TOK_IDENT  shift, and go to state 8
 
+    $default  reduce using rule 6 (sargs)
+
     sargs  go to state 9
 
 
 State 8
 
-    5 sargs: TOK_IDENT . ';'
+    5 sargs: TOK_IDENT . ';' sargs
 
     ';'  shift, and go to state 10
 
@@ -175,19 +178,30 @@ State 9
 
 State 10
 
-    5 sargs: TOK_IDENT ';' .
+    5 sargs: TOK_IDENT ';' . sargs
 
-    $default  reduce using rule 5 (sargs)
+    TOK_IDENT  shift, and go to state 8
+
+    $default  reduce using rule 6 (sargs)
+
+    sargs  go to state 12
 
 
 State 11
 
     4 structdef: TOK_STRUCT TOK_IDENT '{' sargs '}' . ';'
 
-    ';'  shift, and go to state 12
+    ';'  shift, and go to state 13
 
 
 State 12
+
+    5 sargs: TOK_IDENT ';' sargs .
+
+    $default  reduce using rule 5 (sargs)
+
+
+State 13
 
     4 structdef: TOK_STRUCT TOK_IDENT '{' sargs '}' ';' .
 

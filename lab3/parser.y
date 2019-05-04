@@ -19,7 +19,7 @@
 
 %initial-action {
   location lloc  = {0, 0, 0 };
-  parser::root = new astree (TOK_ROOT, lloc, "<ROOT>");
+  parser::root = new astree (TOK_ROOT, lloc, "<<ROOT>>");
 }
 
 %destructor { destroy ($$); } <>
@@ -36,7 +36,7 @@
 
 
 %%
-start    : program            { parser::root = $1; }
+start    : program            { $$ = $1 = nullptr; }
          ;
 
 program  : program structdef  { $$ = $1->adopt ($2); }
@@ -46,7 +46,8 @@ program  : program structdef  { $$ = $1->adopt ($2); }
 structdef : TOK_STRUCT TOK_IDENT '{' sargs '}' ';'  { $$ = $1 ->adopt ($2,$4); }
           ;
 
-sargs : TOK_IDENT ';' { $$ = $1; }
+sargs : TOK_IDENT ';' sargs { $$ = $1; } 
+        |
 	;
 
 %% 
