@@ -1,9 +1,14 @@
-head	1.6;
+head	1.7;
 access;
 symbols;
 locks;
 comment	@ * @;
 
+
+1.7
+date	2019.04.18.20.33.21;	author -;	state -;
+branches;
+next	1.6;
 
 1.6
 date	2017.10.05.23.39.39;	author -;	state -;
@@ -40,12 +45,12 @@ desc
 @@
 
 
-1.6
+1.7
 log
 @-
 @
 text
-@// $Id: lyutils.h,v 1.5 2016-10-20 13:48:57-07 - - $
+@// $Id: lyutils.h,v 1.6 2017-10-05 16:39:39-07 - - $
 
 #ifndef __UTILS_H__
 #define __UTILS_H__
@@ -84,8 +89,9 @@ struct lexer {
    static void advance();
    static void newline();
    static void badchar (unsigned char bad);
-   static void badtoken (char* lexeme);
    static void include();
+   static int token (int symbol);
+   static int badtoken (int symbol);
 };
 
 struct parser {
@@ -99,6 +105,20 @@ typedef astree* YYSTYPE;
 
 #endif
 
+@
+
+
+1.6
+log
+@-
+@
+text
+@d1 1
+a1 1
+// $Id: lyutils.h,v 1.5 2016-10-20 13:48:57-07 - - $
+a39 1
+   static void badtoken (char* lexeme);
+d41 2
 @
 
 

@@ -1,4 +1,4 @@
-// $Id: lyutils.h,v 1.6 2017-10-05 16:39:39-07 - - $
+// $Id: lyutils.h,v 1.7 2019-04-18 13:33:21-07 - - $
 
 #ifndef __UTILS_H__
 #define __UTILS_H__
@@ -20,7 +20,7 @@ extern FILE* yyin;
 extern char* yytext; 
 extern int yy_flex_debug;
 extern int yydebug;
-extern size_t yyleng; 
+extern int yyleng;
 
 int yylex();
 int yylex_destroy();
@@ -37,8 +37,9 @@ struct lexer {
    static void advance();
    static void newline();
    static void badchar (unsigned char bad);
-   static void badtoken (char* lexeme);
    static void include();
+   static int token (int symbol);
+   static int badtoken (int symbol);
 };
 
 struct parser {

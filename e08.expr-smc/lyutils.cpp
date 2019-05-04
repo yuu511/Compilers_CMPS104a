@@ -1,4 +1,4 @@
-// $Id: lyutils.cpp,v 1.4 2019-03-15 14:32:40-07 - - $
+// $Id: lyutils.cpp,v 1.6 2019-04-18 13:35:11-07 - - $
 
 #include <assert.h>
 #include <ctype.h>
@@ -51,10 +51,6 @@ void lexer::badchar (unsigned char bad) {
 }
 
 
-void lexer::badtoken (char* lexeme) {
-   errllocprintf (lexer::lloc, "invalid token (%s)\n", lexeme);
-}
-
 void lexer::include() {
    size_t linenr;
    static char filename[0x1000];
@@ -70,6 +66,16 @@ void lexer::include() {
       lexer::lloc.linenr = linenr - 1;
       lexer::newfilename (filename);
    }
+}
+
+int lexer::token (int symbol) {
+   yylval = new astree (symbol, lexer::lloc, yytext);
+   return symbol;
+}
+
+int lexer::badtoken (int symbol) {
+   errllocprintf (lexer::lloc, "invalid token (%s)\n", yytext);
+   return lexer::token (symbol);
 }
 
 void yyerror (const char* message) {

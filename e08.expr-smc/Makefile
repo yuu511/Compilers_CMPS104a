@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.39 2019-04-17 15:28:08-07 - - $
+# $Id: Makefile,v 1.40 2019-04-18 13:38:03-07 - - $
 
 DEPSFILE  = Makefile.deps
 NOINCLUDE = ci clean spotless
@@ -64,13 +64,13 @@ ci : ${ALLSRC} ${TESTINS}
 lis : ${LISTSRC} tests
 	${UTILBIN}/mkpspdf List.source.ps ${LISTSRC}
 	${UTILBIN}/mkpspdf List.output.ps ${REPORTS} \
-		${foreach test, ${TESTINS:.in=}, \
-		${patsubst %, ${test}.%, in out err log}}
+	      ${foreach test, ${TESTINS:.in=}, \
+	      ${patsubst %, ${test}.%, in out err log}}
 
 clean :
 	- rm ${OBJECTS} ${ALLGENS} ${REPORTS} ${DEPSFILE} core
 	- rm ${foreach test, ${TESTINS:.in=}, \
-		${patsubst %, ${test}.%, out err log}}
+	      ${patsubst %, ${test}.%, out err log}}
 
 spotless : clean
 	- rm ${EXECBIN} List.*.ps List.*.pdf

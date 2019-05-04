@@ -1,15 +1,10 @@
-/* $Id: lexer.l,v 1.8 2019-04-10 14:51:55-07 - - $ */
+/* $Id: lexer.l,v 1.9 2019-04-18 13:33:21-07 - - $ */
 
 %{
 
 #include "lyutils.h"
 
 #define YY_USER_ACTION  { lexer::advance(); }
-
-int yylval_token (int symbol) {
-   yylval = new astree (symbol, lexer::lloc, yytext);
-   return symbol;
-}
 
 %}
 
@@ -37,20 +32,19 @@ IDENT           ({LETTER}({LETTER}|{DIGIT})*)
 [ \t]+          { }
 \n              { lexer::newline(); }
 
-{NUMBER}        { return yylval_token (NUMBER); }
-{IDENT}         { return yylval_token (IDENT); }
-"="             { return yylval_token ('='); }
-"+"             { return yylval_token ('+'); }
-"-"             { return yylval_token ('-'); }
-"*"             { return yylval_token ('*'); }
-"/"             { return yylval_token ('/'); }
-"^"             { return yylval_token ('^'); }
-"("             { return yylval_token ('('); }
-")"             { return yylval_token (')'); }
-";"             { return yylval_token (';'); }
+{NUMBER}        { return lexer::token (NUMBER); }
+{IDENT}         { return lexer::token (IDENT); }
+"="             { return lexer::token ('='); }
+"+"             { return lexer::token ('+'); }
+"-"             { return lexer::token ('-'); }
+"*"             { return lexer::token ('*'); }
+"/"             { return lexer::token ('/'); }
+"^"             { return lexer::token ('^'); }
+"("             { return lexer::token ('('); }
+")"             { return lexer::token (')'); }
+";"             { return lexer::token (';'); }
 
-{NOTNUMBER}     { lexer::badtoken (yytext);
-                  return yylval_token (NUMBER); }
+{NOTNUMBER}     { return lexer::badtoken (NUMBER); }
 .               { lexer::badchar (*yytext); }
 
 %%
