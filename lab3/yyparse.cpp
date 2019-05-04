@@ -404,7 +404,7 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  7
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  14
+#define YYNRULES  15
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  30
 
@@ -455,8 +455,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    39,    39,    42,    43,    46,    50,    51,    54,    55,
-      58,    59,    60,    61,    64
+       0,    39,    39,    42,    43,    46,    50,    51,    52,    55,
+      56,    59,    60,    61,    62,    65
 };
 #endif
 
@@ -511,9 +511,9 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       4,     0,     2,     1,     0,     3,    14,     0,    10,    11,
-      12,     0,     0,     0,     0,     8,    14,    14,     0,     5,
-       0,     0,     0,     0,     6,     0,     9,     0,     7,    13
+       4,     0,     2,     1,     0,     3,    15,     0,    11,    12,
+      13,     0,     0,     0,     0,     9,     8,    15,     0,     5,
+       0,     0,     0,     0,     6,     0,    10,     0,     7,    14
 };
 
   /* YYPGOTO[NTERM-NUM].  */
@@ -559,15 +559,15 @@ static const yytype_uint8 yystos[] =
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    34,    35,    36,    36,    37,    38,    38,    39,    39,
-      40,    40,    40,    40,    40
+       0,    34,    35,    36,    36,    37,    38,    38,    38,    39,
+      39,    40,    40,    40,    40,    40
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1,     2,     0,     3,     4,     6,     1,     4,
-       1,     1,     1,     5,     0
+       0,     2,     1,     2,     0,     3,     4,     6,     3,     1,
+       4,     1,     1,     1,     5,     0
 };
 
 
@@ -1743,20 +1743,20 @@ yyreduce:
     break;
 
   case 8:
-#line 54 "parser.y" /* yacc.c:1646  */
-    { (yyval) = (yyvsp[0]); }
+#line 52 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-2]) ->adopt((yyvsp[-1]));}
 #line 1749 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 9:
 #line 55 "parser.y" /* yacc.c:1646  */
-    { (yyval) = (yyvsp[-3]) -> adopt ((yyvsp[-1])); }
+    { (yyval) = (yyvsp[0]); }
 #line 1755 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 58 "parser.y" /* yacc.c:1646  */
-    { (yyval) = (yyvsp[0]); }
+#line 56 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-3]) -> adopt ((yyvsp[-1])); }
 #line 1761 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
@@ -1774,12 +1774,18 @@ yyreduce:
 
   case 13:
 #line 61 "parser.y" /* yacc.c:1646  */
-    { (yyval) = (yyvsp[-4]) -> adopt ((yyvsp[-1])); }
+    { (yyval) = (yyvsp[0]); }
 #line 1779 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
+  case 14:
+#line 62 "parser.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-4]) -> adopt ((yyvsp[-1])); }
+#line 1785 "yyparse.cpp" /* yacc.c:1646  */
+    break;
 
-#line 1783 "yyparse.cpp" /* yacc.c:1646  */
+
+#line 1789 "yyparse.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2007,7 +2013,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 66 "parser.y" /* yacc.c:1906  */
+#line 67 "parser.y" /* yacc.c:1906  */
  
 
 const char* parser::get_tname (int symbol) {

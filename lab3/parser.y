@@ -48,7 +48,8 @@ structdef : sargs '}' ';'  { $$ = $1; }
 
 
 sargs     : sargs type TOK_IDENT ';'  {$$ = $1 ->adopt($2);}
-          | TOK_STRUCT TOK_IDENT '{' type TOK_IDENT ';' { $$ = $1 ->adopt($2,$4); }
+          | TOK_STRUCT TOK_IDENT '{' type TOK_IDENT ';' { $$ = $1 ->adopt($2,$4); } 
+	  | TOK_STRUCT TOK_IDENT '{' { $$ = $1 ->adopt($2);}
 	  ;
 
 type      : plaintype                         { $$ = $1; }
