@@ -43,7 +43,7 @@ program   : program structdef  { $$ = $1->adopt ($2); }
 	  |                    { $$ = parser::root; }
 	  ;
 	
-structdef : sargs '}' ';'  { $$ = $1 ->adopt ($2); }
+structdef : sargs '}' ';'  { $$ = $1; }
           ;
 
 

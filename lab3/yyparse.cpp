@@ -1726,7 +1726,7 @@ yyreduce:
 
   case 5:
 #line 46 "parser.y" /* yacc.c:1646  */
-    { (yyval) = (yyvsp[-2]) ->adopt ((yyvsp[-1])); }
+    { (yyval) = (yyvsp[-2]); }
 #line 1731 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
