@@ -107,6 +107,10 @@ submit :
 	submit ${SUBMITDIR} ${ASGN} ${CPPSRC} \
 	${HDRSRC} ${FLEXSRC} ${BISONSRC} Makefile README
 
+vim :
+	vim $(ALLSRC) 
+
+
 ifeq "${NEEDINCL}" ""
 include ${DEPSFILE}
 endif

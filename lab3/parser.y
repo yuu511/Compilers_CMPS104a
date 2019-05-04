@@ -1,11 +1,13 @@
+// $Id: parser.y,v 1.14 2016-10-06 16:26:41-07 - - $
+
 %{
-// $Id: parser.y,v 1.21 2019-04-15 15:41:31-07 - - $
-// Dummy parser for scanner project.
 
-#include <cassert>
+#include <assert.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include "lyutils.h"
 #include "astree.h"
+#include "lyutils.h"
 
 %}
 
@@ -15,6 +17,13 @@
 %token-table
 %verbose
 
+%destructor { destroy ($$); } <>
+%printer { astree::dump (yyoutput, $$); } <>
+
+%initial-action {
+   parser::root = new astree (ROOT, {0, 0, 0}, "<<ROOT>>");
+}
+
 %token TOK_VOID TOK_INT TOK_STRING
 %token TOK_IF TOK_ELSE TOK_WHILE TOK_RETURN TOK_STRUCT
 %token TOK_NULLPTR TOK_ARRAY TOK_ARROW TOK_ALLOC TOK_PTR
@@ -22,29 +31,27 @@
 %token TOK_IDENT TOK_INTCON TOK_CHARCON TOK_STRINGCON
 %token TOK_ROOT TOK_BLOCK TOK_CALL TOK_INITDECL
 
-%start program
+%right  '='
+%left   '+' '-'
+%left   '*' '/'
+%right  '^'
+%right  POS NEG
 
-%%
+%start  program
 
-program : program token | ;
-token   : '(' | ')' | '[' | ']' | '{' | '}' | ';' | ','
-        | '=' | '+' | '-' | '*' | '/' | '%' | TOK_NOT | TOK_PTR
-        | TOK_ROOT TOK_VOID | TOK_INT | TOK_STRING
-        | TOK_IF | TOK_ELSE | TOK_WHILE | TOK_RETURN | TOK_STRUCT
-        | TOK_NULLPTR | TOK_ARRAY | TOK_ARROW | TOK_ALLOC
-        | TOK_EQ | TOK_NE | TOK_LT | TOK_LE | TOK_GT | TOK_GE
-        | TOK_IDENT | TOK_INTCON | TOK_CHARCON | TOK_STRINGCON
-        ;
-
-%%
 
+%%
+start    :program            { yyparse_astree = $1; };
 
-const char *parser::get_tname (int symbol) {
+program  :program structdef  { $$ = $1->adopt ($2); }
+         |program function   { $$ = $1->adopt ($2); }
+	 |program statement  { $$ = $1->adopt ($2); }
+	 |program error ’}’  { $$ = $1; }
+	 |program error ’;’  { $$ = $1; }
+	 |                   { $$ = parser::root; };
+
+
+const char* parser::get_tname (int symbol) {
    return yytname [YYTRANSLATE (symbol)];
-}
-
-
-bool is_defined_token (int symbol) {
-   return YYTRANSLATE (symbol) > YYUNDEFTOK;
 }
 
