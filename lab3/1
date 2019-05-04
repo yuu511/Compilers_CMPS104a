@@ -43,12 +43,12 @@ program   : program structdef  { $$ = $1->adopt ($2); }
 	  |                    { $$ = parser::root; }
 	  ;
 	
-structdef : sargs '}' ';'  { $$ = $1 ->adopt ($2); }
+structdef : TOK_STRUCT TOK_IDENT '{' sargs '}' ';'  { $$ = $1 ->adopt ($2,$4); astree::print (stdout,$$); }
           ;
 
 
-sargs     : sargs type TOK_IDENT ';'  {$$ = $1 ->adopt($2);}
-          | TOK_STRUCT TOK_IDENT '{' type TOK_IDENT ';' { $$ = $1 ->adopt($2,$4); }
+sargs     : type TOK_IDENT ';' sargs  { $$ = $1; } 
+          |
 	  ;
 
 type      : plaintype                         { $$ = $1; }
@@ -58,7 +58,7 @@ type      : plaintype                         { $$ = $1; }
 plaintype : TOK_VOID                                   { $$ = $1; }
           | TOK_INT                                    { $$ = $1; }
           | TOK_STRING                                 { $$ = $1; }
-          | TOK_PTR TOK_LT TOK_STRUCT TOK_IDENT TOK_GT { $$ = $1 -> adopt ($4); }
+          | TOK_PTR TOK_LT TOK_STRUCT TOK_IDENT TOK_GT { $$ = $1 -> adopt ($4);}
 	  ;
 
 plaintype : 

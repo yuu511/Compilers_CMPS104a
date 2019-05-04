@@ -107,7 +107,6 @@ int lexer::token(int symbol){
            yylval->symbol,
            parser::get_tname(yylval->symbol),
            yylval->lexinfo->c_str());   
-           string_set::intern(yylval->lexinfo->c_str());
    return symbol;
 }
 

@@ -1,9 +1,13 @@
-string_set[   0]:    3729804957429652673 0x13d87d8->"<<ROOT>>"
-                      21606623943142546 0x13d8738->"{"
-string_set[   1]:   13686721134187162920 0x13dcbd8->"}"
-string_set[   3]:   13945322250941355849 0x13dc898->"struct"
-string_set[   4]:    5344662657899890615 0x13dcca8->";"
-string_set[   6]:   15118982290295364091 0x13d87f8->"test"
-load_factor = 0.545
+string_set[   0]:    3729804957429652673 0xd397d8->"<<ROOT>>"
+                      21606623943142546 0xd39738->"{"
+string_set[   1]:   13686721134187162920 0xd3dd88->"}"
+string_set[   2]:    1621811044694185061 0xd3dea8->"fk"
+string_set[   3]:    8099311713233197625 0xd3dca8->"no"
+                   12597418120160561823 0xd3dbd8->"int"
+                   13945322250941355849 0xd3d898->"struct"
+string_set[   4]:    5344662657899890615 0xd3dd48->";"
+string_set[   5]:   13497578857207247412 0xd3dd68->"string"
+string_set[   9]:   11474628671133349555 0xd397f8->"bar"
+load_factor = 0.909
 bucket_count = 11
-max_bucket_size = 2
+max_bucket_size = 3

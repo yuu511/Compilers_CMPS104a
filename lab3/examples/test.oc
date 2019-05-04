@@ -1,1 +1,3 @@
-struct test{};
+// struct fuck { };
+struct bar { int no;string fk; };
+// struct fuck { string foo; int bar; void lol; ptr <struct homura>};
