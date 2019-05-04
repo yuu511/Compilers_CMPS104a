@@ -50,6 +50,12 @@ program  :program structdef  { $$ = $1->adopt ($2); }
 	 |program error ';'  { $$ = $1; }
 	 |                   { $$ = parser::root; }
 	 ;
+	
+structdef : {}
+
+function : {}
+
+statement : {}
 
 %% 
 
