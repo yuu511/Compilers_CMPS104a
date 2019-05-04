@@ -12,7 +12,7 @@
 
 bool lexer::interactive = true;
 location lexer::lloc = {0, 1, 0};
-size_t lexer::last_yyleng = 0;
+int lexer::last_yyleng = 0;
 vector<string> lexer::filenames;
 size_t lexer::last_filenr = -1;
 FILE* lexer::string_fp = nullptr;

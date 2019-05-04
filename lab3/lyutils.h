@@ -21,7 +21,7 @@ extern FILE* yyin;
 extern char* yytext; 
 extern int yy_flex_debug;
 extern int yydebug;
-extern size_t yyleng; 
+extern int yyleng; 
 
 int yylex();
 int yylex_destroy();
@@ -31,7 +31,7 @@ void yyerror (const char* message);
 struct lexer {
    static bool interactive;
    static location lloc;
-   static size_t last_yyleng;
+   static int last_yyleng;
    static vector<string> filenames;
    static const string* filename (int filenr);
    static void newfilename (const string& filename);
