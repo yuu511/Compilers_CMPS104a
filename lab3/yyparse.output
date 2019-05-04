@@ -1,0 +1,194 @@
+Terminals unused in grammar
+
+   TOK_VOID
+   TOK_INT
+   TOK_STRING
+   TOK_IF
+   TOK_ELSE
+   TOK_WHILE
+   TOK_RETURN
+   TOK_NULLPTR
+   TOK_ARRAY
+   TOK_ARROW
+   TOK_ALLOC
+   TOK_PTR
+   TOK_EQ
+   TOK_NE
+   TOK_LT
+   TOK_LE
+   TOK_GT
+   TOK_GE
+   TOK_NOT
+   TOK_INTCON
+   TOK_CHARCON
+   TOK_STRINGCON
+   TOK_ROOT
+   TOK_BLOCK
+   TOK_CALL
+   TOK_INITDECL
+
+
+Grammar
+
+    0 $accept: start $end
+
+    1 start: program
+
+    2 program: program structdef
+    3        | %empty
+
+    4 structdef: TOK_STRUCT TOK_IDENT '{' sargs '}' ';'
+
+    5 sargs: TOK_IDENT ';'
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+';' (59) 4 5
+'{' (123) 4
+'}' (125) 4
+error (256)
+TOK_VOID (258)
+TOK_INT (259)
+TOK_STRING (260)
+TOK_IF (261)
+TOK_ELSE (262)
+TOK_WHILE (263)
+TOK_RETURN (264)
+TOK_STRUCT (265) 4
+TOK_NULLPTR (266)
+TOK_ARRAY (267)
+TOK_ARROW (268)
+TOK_ALLOC (269)
+TOK_PTR (270)
+TOK_EQ (271)
+TOK_NE (272)
+TOK_LT (273)
+TOK_LE (274)
+TOK_GT (275)
+TOK_GE (276)
+TOK_NOT (277)
+TOK_IDENT (278) 4 5
+TOK_INTCON (279)
+TOK_CHARCON (280)
+TOK_STRINGCON (281)
+TOK_ROOT (282)
+TOK_BLOCK (283)
+TOK_CALL (284)
+TOK_INITDECL (285)
+
+
+Nonterminals, with rules where they appear
+
+$accept (34)
+    on left: 0
+start (35)
+    on left: 1, on right: 0
+program (36)
+    on left: 2 3, on right: 1 2
+structdef (37)
+    on left: 4, on right: 2
+sargs (38)
+    on left: 5, on right: 4
+
+
+State 0
+
+    0 $accept: . start $end
+
+    $default  reduce using rule 3 (program)
+
+    start    go to state 1
+    program  go to state 2
+
+
+State 1
+
+    0 $accept: start . $end
+
+    $end  shift, and go to state 3
+
+
+State 2
+
+    1 start: program .
+    2 program: program . structdef
+
+    TOK_STRUCT  shift, and go to state 4
+
+    $default  reduce using rule 1 (start)
+
+    structdef  go to state 5
+
+
+State 3
+
+    0 $accept: start $end .
+
+    $default  accept
+
+
+State 4
+
+    4 structdef: TOK_STRUCT . TOK_IDENT '{' sargs '}' ';'
+
+    TOK_IDENT  shift, and go to state 6
+
+
+State 5
+
+    2 program: program structdef .
+
+    $default  reduce using rule 2 (program)
+
+
+State 6
+
+    4 structdef: TOK_STRUCT TOK_IDENT . '{' sargs '}' ';'
+
+    '{'  shift, and go to state 7
+
+
+State 7
+
+    4 structdef: TOK_STRUCT TOK_IDENT '{' . sargs '}' ';'
+
+    TOK_IDENT  shift, and go to state 8
+
+    sargs  go to state 9
+
+
+State 8
+
+    5 sargs: TOK_IDENT . ';'
+
+    ';'  shift, and go to state 10
+
+
+State 9
+
+    4 structdef: TOK_STRUCT TOK_IDENT '{' sargs . '}' ';'
+
+    '}'  shift, and go to state 11
+
+
+State 10
+
+    5 sargs: TOK_IDENT ';' .
+
+    $default  reduce using rule 5 (sargs)
+
+
+State 11
+
+    4 structdef: TOK_STRUCT TOK_IDENT '{' sargs '}' . ';'
+
+    ';'  shift, and go to state 12
+
+
+State 12
+
+    4 structdef: TOK_STRUCT TOK_IDENT '{' sargs '}' ';' .
+
+    $default  reduce using rule 4 (structdef)

@@ -1,0 +1,10 @@
+string_set[   0]:      21606623943142546 0x13b7738->"{"
+string_set[   1]:   13686721134187162920 0x13bbd48->"}"
+string_set[   3]:    4925549294928897407 0x13b77d8->"<ROOT>"
+                   13945322250941355849 0x13bb898->"struct"
+string_set[   4]:    5344662657899890615 0x13bbca8->";"
+string_set[   6]:    9377288075726880040 0x13bbbd8->"fuck"
+                   15118982290295364091 0x13b77f8->"test"
+load_factor = 0.636
+bucket_count = 11
+max_bucket_size = 2

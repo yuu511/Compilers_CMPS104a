@@ -63,7 +63,7 @@ void parseargs (int argc, char** argv){
    }
 }
 
-// calls yylex until yyin reaches EOF.
+// calls yylex until yyin reaches EOF. (deprecated function)
 void lex_scan(){
   int chr;
   for (;;){
@@ -152,7 +152,8 @@ int main (int argc, char** argv) {
    // run yylex against the piped output.
    // Generate the stringset and write lexical 
    // information to token file.
-   lex_scan();
+   // lex_scan();
+   yyparse();
 
    // dump the hashed tokenset to file.
    string_set::dump(strfp);

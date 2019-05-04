@@ -17,12 +17,13 @@
 %token-table
 %verbose
 
+%initial-action {
+  location lloc  = {0, 0, 0 };
+  parser::root = new astree (TOK_ROOT, lloc, "<ROOT>");
+}
+
 %destructor { destroy ($$); } <>
 %printer { astree::dump (yyoutput, $$); } <>
-
-%initial-action {
-   parser::root = new astree (ROOT, {0, 0, 0}, "<<ROOT>>");
-}
 
 %token TOK_VOID TOK_INT TOK_STRING
 %token TOK_IF TOK_ELSE TOK_WHILE TOK_RETURN TOK_STRUCT
@@ -31,31 +32,22 @@
 %token TOK_IDENT TOK_INTCON TOK_CHARCON TOK_STRINGCON
 %token TOK_ROOT TOK_BLOCK TOK_CALL TOK_INITDECL
 
-%right  '='
-%left   '+' '-'
-%left   '*' '/'
-%right  '^'
-%right  POS NEG
-
 %start  start
 
 
 %%
-start    : program            { yyparse_astree = $1; };
+start    : program            { parser::root = $1; }
+         ;
 
 program  : program structdef  { $$ = $1->adopt ($2); }
-         | program function   { $$ = $1->adopt ($2); }
-	 | program statement  { $$ = $1->adopt ($2); }
-	 | program error '}'  { $$ = $1; }
-	 | program error ';'  { $$ = $1; }
-	 |                   { $$ = parser::root; }
+	 |                    { $$ = parser::root; }
 	 ;
 	
-structdef : {}
+structdef : TOK_STRUCT TOK_IDENT '{' sargs '}' ';'  { $$ = $1 ->adopt ($2,$4); }
+          ;
 
-function : {}
-
-statement : {}
+sargs : TOK_IDENT ';' { $$ = $1; }
+	;
 
 %% 
 

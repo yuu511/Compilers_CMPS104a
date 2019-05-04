@@ -101,7 +101,7 @@ again :
 	gmake --no-print-directory spotless deps ci all lis
 
 test : ${EXECBIN}
-	./${EXECBIN} -l -y ./examples/01-hello.oc
+	./${EXECBIN} -y ./examples/test.oc
 
 submit :
 	submit ${SUBMITDIR} ${ASGN} ${CPPSRC} \
