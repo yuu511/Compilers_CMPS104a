@@ -1,6 +1,1 @@
-struct test { };
-struct bar { int no;string fk; };
-struct thing { string foo; int bar; void lol; ptr <struct homura> foo;};
-int yes;
-int maki;
-int sayaka;
+struct test {};
