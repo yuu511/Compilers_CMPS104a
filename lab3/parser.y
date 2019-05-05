@@ -67,10 +67,13 @@ structdef : sargs '}' ';'                    { $$ = $1;
 							 destroy($5);}
           ;
 
-sargs     : sargs type TOK_IDENT ';'                    { $$ = $1 ->adopt($2,$3);    
-                                                          destroy($4);          }
-          | TOK_STRUCT TOK_IDENT '{' type TOK_IDENT ';' { $1->adopt($2,$4);
-	                                                  $$ = $1->adopt($5);
+sargs     : sargs type TOK_IDENT ';'                    { astree* tid = new astree(TOK_TYPE_ID, $2->lloc,"");
+                                                          tid ->adopt($2,$3);    
+							  $$ = $1->adopt(tid);
+                                                          destroy($4);                                      }
+          | TOK_STRUCT TOK_IDENT '{' type TOK_IDENT ';' { astree* tid = new astree(TOK_TYPE_ID, $4->lloc,"");
+	                                                  tid->adopt($4,$5);
+							  $$ = $1->adopt($2,tid);
 	                                                  destroy ($3);
 							  destroy ($6);     } 
 	  ;
@@ -93,7 +96,8 @@ plaintype : TOK_VOID                                   { $$ = $1; }
 statement : vardecl { $$ = $1; }
           ;
 
-vardecl  : type TOK_IDENT ';'      { $$ = $1 -> adopt($2); 
+vardecl  : type TOK_IDENT ';'      { astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
+				     $$ = tid->adopt($1,$2);
                                      destroy ($3); }
          | type TOK_IDENT '=' expr { $2 -> adopt_sym($3,TOK_VARDECL); 
 	                             $2 -> adopt($4); 
