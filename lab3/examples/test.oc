@@ -1,10 +1,16 @@
-struct trivial {};
-stuct onearg { int trivial;};
-// struct testptr { ptr <struct test > homura; );
-// struct testarray { array <ptr <struct test >> sayaka; };
-// struct allofem { int one;
-//                  string two;
-// 		 void three;
-//                  ptr <struct test > homura; 
-//                  array <ptr <struct test >> sayaka;
-// 	        };
+// structure tests
+struct test{};
+struct onearg{int trivial;};
+struct testptr { ptr <struct test > homura; };
+struct testarray { array <ptr <struct test >> sayaka; };
+struct allofem { int one;
+                 string two;
+		 void three;
+                 ptr <struct test > homura; 
+                 array <ptr <struct test >> sayaka;
+	        };
+
+// vardecl tests
+int one;
+
+// function tests
