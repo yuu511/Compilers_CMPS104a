@@ -1,9 +1,0 @@
-string_set[   0]:    3729804957429652673 0xce17d8->"<<ROOT>>"
-                      21606623943142546 0xce1738->"{"
-string_set[   1]:   13686721134187162920 0xce5bd8->"}"
-string_set[   3]:   13945322250941355849 0xce5898->"struct"
-string_set[   4]:    5344662657899890615 0xce5ca8->";"
-string_set[   6]:   15118982290295364091 0xce17f8->"test"
-load_factor = 0.545
-bucket_count = 11
-max_bucket_size = 2

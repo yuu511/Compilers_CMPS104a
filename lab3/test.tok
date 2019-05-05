@@ -2,5 +2,10 @@
     4   1.001 265 TOK_STRUCT    struct
     4   1.008 278 TOK_IDENT     test
     4   1.013 123 '{'           {
+<<<<<<< Updated upstream
     4   1.014 125 '}'           }
     4   1.015  59 ';'           ;
+=======
+    4   1.015 125 '}'           }
+    4   1.016  59 ';'           ;
+>>>>>>> Stashed changes
