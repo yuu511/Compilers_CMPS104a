@@ -72,8 +72,8 @@ void lex_scan(){
   for (;;){
      chr = yylex();
      if (chr == YYEOF) break;
-     if (t_debug) { fprintf (stderr,"token:%s\ntoken code:%s\n"
-                        ,yytext,parser::get_tname(yylval->symbol)); } 
+     if (t_debug) { errprintf ( "token:%s\ntoken code:%s\n",yytext,
+                                parser::get_tname(yylval->symbol)); } 
      destroy(yylval);
   }
 }
@@ -82,15 +82,15 @@ void lex_scan(){
 void exec_cpp(string filename){
    // pass the file specified into the preprocessor
    command = command + " " + filename;
-   if (s_debug) { fprintf(stderr,"COMMAND:%s\n",command.c_str()); }
+   if (s_debug) { errprintf("COMMAND:%s\n",command.c_str()); }
    yyin = popen (command.c_str(), "r");
    if (yyin == nullptr) {
      syserrprintf (command.c_str());
      exit (exec::exit_status);
    }else {
      if (yy_flex_debug){
-       fprintf(stderr,"-- popen (%s),fileno(yyin) = %d\n",
-               command.c_str(),fileno(yyin));
+       errprintf("-- popen (%s),fileno(yyin) = %d\n",
+                 command.c_str(),fileno(yyin));
      }
    }
 }
@@ -101,8 +101,7 @@ FILE* appendopen(string basename, string extension){
    FILE *s; 
    s = fopen (fn.c_str(),"w"); 
    if (s == NULL){
-     fprintf (stderr, "FAILURE opening file %s for writing." 
-              ,fn.c_str());
+     errprintf ("FAILURE opening file %s for writing.",fn.c_str());
    }
    return s;
 }
@@ -156,7 +155,7 @@ int main (int argc, char** argv) {
    // Generate the stringset and write lexical 
    // information to token file.
    // lex_scan();
-   yyparse();
+   int parse_rc = yyparse();
 
    // dump the hashed tokenset to file.
    string_set::dump(strfp);
@@ -169,9 +168,14 @@ int main (int argc, char** argv) {
    e_close(tokfp);
    e_close(strfp);
    
-   // free memory allocated by lex.
-   destroy(parser::root);
    yylex_destroy();
+   // free memory 
+   if (parse_rc) {
+      errprintf ("parse failed (%d)\n", parse_rc);
+   }else {
+      astree::print (stdout, parser::root);
+      delete parser::root;
+   }
    return exec::exit_status;
 }
 

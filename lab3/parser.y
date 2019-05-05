@@ -33,11 +33,13 @@
 %token TOK_ROOT TOK_BLOCK TOK_CALL TOK_INITDECL
 %token TOK_TYPE_ID TOK_VARDECL
 
-// %right  '='
-// %left   TOK_EQ TOK_NE TOK_LT TOK_LE TOK_GT TOK_GE
-// %left   '+' '-'
-// %left   '*' '/' '%'
-// %right  UPLUS UMINUS TOK_NOT
+%right  '='
+%left   TOK_EQ TOK_NE TOK_LT TOK_LE TOK_GT TOK_GE
+%left   '+' '-'
+%left   '*' '/' '%'
+%right  U_PLUS U_MINUS TOK_NOT
+%left   '[' TOK_ARROW TOK_ALLOC
+
 
 %start  start
 
