@@ -34,9 +34,8 @@ ALLSRC    = README ${FLEXSRC} ${BISONSRC} ${MODSRC} ${MISCSRC} Makefile
 TESTINS   = ${wildcard test*.in}
 EXECTEST  = ${EXECBIN} -ly
 LISTSRC   = ${ALLSRC} ${DEPSFILE} ${PARSEHDR}
-THISDIR   = /afs/cats.ucsc.edu/users/g/ejcordov/CMPS104a/cmps104a/lab2/
-DUMP      = ${THISDIR}/DUMP
 TESTFILES = ${THISDIR}/examples/*
+TESTOC = ./examples/test.oc	
 SUBMITDIR = cmps104a-wm.s19
 ASGN      = asg2
 TESTSTRINGSET = ${TESTFILES:.oc = .str}
@@ -101,14 +100,17 @@ again :
 	gmake --no-print-directory spotless deps ci all lis
 
 test : ${EXECBIN}
-	./${EXECBIN} -@ast -y ./examples/test.oc
+	./${EXECBIN} -@ast -y ${TESTOC}
+
+valgrind : ${EXECBIN}
+	 valgrind ./${EXECBIN} -@ast -y ${TESTOC}
 
 submit :
 	submit ${SUBMITDIR} ${ASGN} ${CPPSRC} \
 	${HDRSRC} ${FLEXSRC} ${BISONSRC} Makefile README
 
 vim :
-	vim $(ALLSRC) 
+	vim $(ALLSRC) ${TESTOC}
 
 
 ifeq "${NEEDINCL}" ""
