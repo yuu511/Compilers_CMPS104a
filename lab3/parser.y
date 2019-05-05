@@ -31,38 +31,76 @@
 %token TOK_EQ TOK_NE TOK_LT TOK_LE TOK_GT TOK_GE TOK_NOT
 %token TOK_IDENT TOK_INTCON TOK_CHARCON TOK_STRINGCON
 %token TOK_ROOT TOK_BLOCK TOK_CALL TOK_INITDECL
+%token TOK_TYPE_ID TOK_VARDECL
+
+%right  '='
+%left   TOK_EQ TOK_NE TOK_LT TOK_LE TOK_GT TOK_GE
+%left   '+' '-'
+%left   '*' '/' '%'
+%right  UPLUS UMINUS TOK_NOT
 
 %start  start
 
 
 %%
+
 start     : program            { $$ = $1 = nullptr; }
           ;
 
-program   : program structdef  { $$ = $1->adopt ($2); }
+program   : program structdef  { $$ = $1->adopt($2); }
+          | program statement  { $$ = $1->adopt($2); }
+          | program error '}'  { $$ = $1; 
+	                         destroy ($3);}
+          | program error ';'  { $$ = $1; 
+	                         destroy ($3);}
 	  |                    { $$ = parser::root; }
 	  ;
 	
-structdef : sargs '}' ';'  { $$ = $1; }
+structdef : sargs '}' ';'  { $$ = $1;
+                             destroy ($2);
+			     destroy ($3); }
           ;
 
-
-sargs     : sargs type TOK_IDENT ';'  {$$ = $1 ->adopt($2);}
-          | TOK_STRUCT TOK_IDENT '{' type TOK_IDENT ';' { $$ = $1 ->adopt($2,$4); } 
-	  | TOK_STRUCT TOK_IDENT '{' { $$ = $1 ->adopt($2);}
+sargs     : sargs type TOK_IDENT ';'                    { $$ = $1 ->adopt($2,$3);    
+                                                          destroy($4); }
+          | TOK_STRUCT TOK_IDENT '{' type TOK_IDENT ';' { $1->adopt($2,$4);
+	                                                  $$ = $1->adopt($5);
+	                                                  destroy ($3);
+							  destroy ($6);} 
+	  | TOK_STRUCT TOK_IDENT '{'                    { $$ = $1 ->adopt($2);    
+	                                                  destroy ($3); }
 	  ;
 
 type      : plaintype                         { $$ = $1; }
-          | TOK_ARRAY TOK_LT plaintype TOK_GT { $$ = $1 -> adopt ($3); }
+          | TOK_ARRAY '<' plaintype '>'       { $$ = $1 -> adopt ($3); 
+	                                        destroy($2);
+						destroy($4); }
 	  ;
 
 plaintype : TOK_VOID                                   { $$ = $1; }
           | TOK_INT                                    { $$ = $1; }
           | TOK_STRING                                 { $$ = $1; }
-          | TOK_PTR TOK_LT TOK_STRUCT TOK_IDENT TOK_GT { $$ = $1 -> adopt ($4); }
+          | TOK_PTR '<' TOK_STRUCT TOK_IDENT '>'       { $$ = $1 -> adopt($4); 
+	                                                 destroy ($3);
+	                                                 destroy ($2); 
+							 destroy ($5); }
 	  ;
 
-plaintype : 
+statement : vardecl { $$ = $1; }
+          ;
+
+vardecl  : type TOK_IDENT ';'      { $$ = $1 -> adopt($2); 
+                                     destroy ($3); }
+         | type TOK_IDENT '=' expr { $2 -> adopt_sym($3,TOK_VARDECL); 
+	                             $2 -> adopt($4); 
+                                     $$ = $1 -> adopt ($2); }                            
+	 ;
+
+expr     : 
+         ;
+
+	                                
+         
 
 %% 
 

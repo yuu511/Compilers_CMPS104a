@@ -168,8 +168,9 @@ int main (int argc, char** argv) {
    e_close(yyin);
    e_close(tokfp);
    e_close(strfp);
-
+   
    // free memory allocated by lex.
+   destroy(parser::root);
    yylex_destroy();
    return exec::exit_status;
 }

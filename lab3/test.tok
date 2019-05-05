@@ -28,11 +28,20 @@
     4   3.042 278 TOK_IDENT     lol
     4   3.045  59 ';'           ;
     4   3.047 270 TOK_PTR       ptr
-    4   3.051 273 TOK_LT        <
+    4   3.051  60 '<'           <
     4   3.052 265 TOK_STRUCT    struct
     4   3.059 278 TOK_IDENT     homura
-    4   3.065 275 TOK_GT        >
+    4   3.065  62 '>'           >
     4   3.067 278 TOK_IDENT     foo
     4   3.070  59 ';'           ;
     4   3.071 125 '}'           }
     4   3.072  59 ';'           ;
+    4   4.001 259 TOK_INT       int
+    4   4.005 278 TOK_IDENT     yes
+    4   4.008  59 ';'           ;
+    4   5.001 259 TOK_INT       int
+    4   5.005 278 TOK_IDENT     maki
+    4   5.009  59 ';'           ;
+    4   6.001 259 TOK_INT       int
+    4   6.005 278 TOK_IDENT     sayaka
+    4   6.011  59 ';'           ;

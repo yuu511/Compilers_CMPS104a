@@ -66,8 +66,8 @@ NOT_SCONST      (\"{VSTRING}*)
 "/"             {  return lexer::token('/');       }
 "%"             {  return lexer::token('%');       }
 "="             {  return lexer::token('=');       }
-"<"             {  return lexer::token(TOK_LT);    }
-">"             {  return lexer::token(TOK_GT);    }
+"<"             {  return lexer::token('<');       }
+">"             {  return lexer::token('>');       }
 ","             {  return lexer::token(',');       }
 ";"             {  return lexer::token(';');       }
 "("             {  return lexer::token('(');       }

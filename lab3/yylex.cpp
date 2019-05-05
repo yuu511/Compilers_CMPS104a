@@ -1148,12 +1148,12 @@ YY_RULE_SETUP
 case 32:
 YY_RULE_SETUP
 #line 69 "scanner.l"
-{  return lexer::token(TOK_LT);    }
+{  return lexer::token('<');       }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 70 "scanner.l"
-{  return lexer::token(TOK_GT);    }
+{  return lexer::token('>');       }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP

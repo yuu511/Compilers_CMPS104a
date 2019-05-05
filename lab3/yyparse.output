@@ -9,7 +9,9 @@ Terminals unused in grammar
    TOK_ALLOC
    TOK_EQ
    TOK_NE
+   TOK_LT
    TOK_LE
+   TOK_GT
    TOK_GE
    TOK_NOT
    TOK_INTCON
@@ -19,9 +21,18 @@ Terminals unused in grammar
    TOK_BLOCK
    TOK_CALL
    TOK_INITDECL
+   TOK_TYPE_ID
+   TOK_VARDECL
+   '+'
+   '-'
+   '*'
+   '/'
+   '%'
+   UPLUS
+   UMINUS
 
 
-State 16 conflicts: 5 shift/reduce, 1 reduce/reduce
+State 25 conflicts: 5 shift/reduce
 
 
 Grammar
@@ -31,52 +42,69 @@ Grammar
     1 start: program
 
     2 program: program structdef
-    3        | %empty
+    3        | program statement
+    4        | program error '}'
+    5        | program error ';'
+    6        | %empty
 
-    4 structdef: sargs '}' ';'
+    7 structdef: sargs '}' ';'
 
-    5 sargs: sargs type TOK_IDENT ';'
-    6      | TOK_STRUCT TOK_IDENT '{' type TOK_IDENT ';'
-    7      | TOK_STRUCT TOK_IDENT '{'
+    8 sargs: sargs type TOK_IDENT ';'
+    9      | TOK_STRUCT TOK_IDENT '{' type TOK_IDENT ';'
+   10      | TOK_STRUCT TOK_IDENT '{'
 
-    8 type: plaintype
-    9     | TOK_ARRAY TOK_LT plaintype TOK_GT
+   11 type: plaintype
+   12     | TOK_ARRAY '<' plaintype '>'
 
-   10 plaintype: TOK_VOID
-   11          | TOK_INT
-   12          | TOK_STRING
-   13          | TOK_PTR TOK_LT TOK_STRUCT TOK_IDENT TOK_GT
-   14          | %empty
+   13 plaintype: TOK_VOID
+   14          | TOK_INT
+   15          | TOK_STRING
+   16          | TOK_PTR '<' TOK_STRUCT TOK_IDENT '>'
+
+   17 statement: vardecl
+
+   18 vardecl: type TOK_IDENT ';'
+   19        | type TOK_IDENT '=' expr
+
+   20 expr: %empty
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
-';' (59) 4 5 6
-'{' (123) 6 7
-'}' (125) 4
-error (256)
-TOK_VOID (258) 10
-TOK_INT (259) 11
-TOK_STRING (260) 12
+'%' (37)
+'*' (42)
+'+' (43)
+'-' (45)
+'/' (47)
+';' (59) 5 7 8 9 18
+'<' (60) 12 16
+'=' (61) 19
+'>' (62) 12 16
+'{' (123) 9 10
+'}' (125) 4 7
+error (256) 4 5
+TOK_VOID (258) 13
+TOK_INT (259) 14
+TOK_STRING (260) 15
 TOK_IF (261)
 TOK_ELSE (262)
 TOK_WHILE (263)
 TOK_RETURN (264)
-TOK_STRUCT (265) 6 7 13
+TOK_STRUCT (265) 9 10 16
 TOK_NULLPTR (266)
-TOK_ARRAY (267) 9
+TOK_ARRAY (267) 12
 TOK_ARROW (268)
 TOK_ALLOC (269)
-TOK_PTR (270) 13
+TOK_PTR (270) 16
 TOK_EQ (271)
 TOK_NE (272)
-TOK_LT (273) 9 13
+TOK_LT (273)
 TOK_LE (274)
-TOK_GT (275) 9 13
+TOK_GT (275)
 TOK_GE (276)
 TOK_NOT (277)
-TOK_IDENT (278) 5 6 7 13
+TOK_IDENT (278) 8 9 10 16 18 19
 TOK_INTCON (279)
 TOK_CHARCON (280)
 TOK_STRINGCON (281)
@@ -84,31 +112,41 @@ TOK_ROOT (282)
 TOK_BLOCK (283)
 TOK_CALL (284)
 TOK_INITDECL (285)
+TOK_TYPE_ID (286)
+TOK_VARDECL (287)
+UPLUS (288)
+UMINUS (289)
 
 
 Nonterminals, with rules where they appear
 
-$accept (34)
+$accept (46)
     on left: 0
-start (35)
+start (47)
     on left: 1, on right: 0
-program (36)
-    on left: 2 3, on right: 1 2
-structdef (37)
-    on left: 4, on right: 2
-sargs (38)
-    on left: 5 6 7, on right: 4 5
-type (39)
-    on left: 8 9, on right: 5 6
-plaintype (40)
-    on left: 10 11 12 13 14, on right: 8 9
+program (48)
+    on left: 2 3 4 5 6, on right: 1 2 3 4 5
+structdef (49)
+    on left: 7, on right: 2
+sargs (50)
+    on left: 8 9 10, on right: 7 8
+type (51)
+    on left: 11 12, on right: 8 9 18 19
+plaintype (52)
+    on left: 13 14 15 16, on right: 11 12
+statement (53)
+    on left: 17, on right: 3
+vardecl (54)
+    on left: 18 19, on right: 17
+expr (55)
+    on left: 20, on right: 19
 
 
 State 0
 
     0 $accept: . start $end
 
-    $default  reduce using rule 3 (program)
+    $default  reduce using rule 6 (program)
 
     start    go to state 1
     program  go to state 2
@@ -125,13 +163,26 @@ State 2
 
     1 start: program .
     2 program: program . structdef
+    3        | program . statement
+    4        | program . error '}'
+    5        | program . error ';'
 
-    TOK_STRUCT  shift, and go to state 4
+    error       shift, and go to state 4
+    TOK_VOID    shift, and go to state 5
+    TOK_INT     shift, and go to state 6
+    TOK_STRING  shift, and go to state 7
+    TOK_STRUCT  shift, and go to state 8
+    TOK_ARRAY   shift, and go to state 9
+    TOK_PTR     shift, and go to state 10
 
-    $default  reduce using rule 1 (start)
+    $end  reduce using rule 1 (start)
 
-    structdef  go to state 5
-    sargs      go to state 6
+    structdef  go to state 11
+    sargs      go to state 12
+    type       go to state 13
+    plaintype  go to state 14
+    statement  go to state 15
+    vardecl    go to state 16
 
 
 State 3
@@ -143,218 +194,289 @@ State 3
 
 State 4
 
-    6 sargs: TOK_STRUCT . TOK_IDENT '{' type TOK_IDENT ';'
-    7      | TOK_STRUCT . TOK_IDENT '{'
+    4 program: program error . '}'
+    5        | program error . ';'
 
-    TOK_IDENT  shift, and go to state 7
+    '}'  shift, and go to state 17
+    ';'  shift, and go to state 18
 
 
 State 5
+
+   13 plaintype: TOK_VOID .
+
+    $default  reduce using rule 13 (plaintype)
+
+
+State 6
+
+   14 plaintype: TOK_INT .
+
+    $default  reduce using rule 14 (plaintype)
+
+
+State 7
+
+   15 plaintype: TOK_STRING .
+
+    $default  reduce using rule 15 (plaintype)
+
+
+State 8
+
+    9 sargs: TOK_STRUCT . TOK_IDENT '{' type TOK_IDENT ';'
+   10      | TOK_STRUCT . TOK_IDENT '{'
+
+    TOK_IDENT  shift, and go to state 19
+
+
+State 9
+
+   12 type: TOK_ARRAY . '<' plaintype '>'
+
+    '<'  shift, and go to state 20
+
+
+State 10
+
+   16 plaintype: TOK_PTR . '<' TOK_STRUCT TOK_IDENT '>'
+
+    '<'  shift, and go to state 21
+
+
+State 11
 
     2 program: program structdef .
 
     $default  reduce using rule 2 (program)
 
 
-State 6
-
-    4 structdef: sargs . '}' ';'
-    5 sargs: sargs . type TOK_IDENT ';'
-
-    TOK_VOID    shift, and go to state 8
-    TOK_INT     shift, and go to state 9
-    TOK_STRING  shift, and go to state 10
-    TOK_ARRAY   shift, and go to state 11
-    TOK_PTR     shift, and go to state 12
-    '}'         shift, and go to state 13
-
-    $default  reduce using rule 14 (plaintype)
-
-    type       go to state 14
-    plaintype  go to state 15
-
-
-State 7
-
-    6 sargs: TOK_STRUCT TOK_IDENT . '{' type TOK_IDENT ';'
-    7      | TOK_STRUCT TOK_IDENT . '{'
-
-    '{'  shift, and go to state 16
-
-
-State 8
-
-   10 plaintype: TOK_VOID .
-
-    $default  reduce using rule 10 (plaintype)
-
-
-State 9
-
-   11 plaintype: TOK_INT .
-
-    $default  reduce using rule 11 (plaintype)
-
-
-State 10
-
-   12 plaintype: TOK_STRING .
-
-    $default  reduce using rule 12 (plaintype)
-
-
-State 11
-
-    9 type: TOK_ARRAY . TOK_LT plaintype TOK_GT
-
-    TOK_LT  shift, and go to state 17
-
-
 State 12
 
-   13 plaintype: TOK_PTR . TOK_LT TOK_STRUCT TOK_IDENT TOK_GT
+    7 structdef: sargs . '}' ';'
+    8 sargs: sargs . type TOK_IDENT ';'
 
-    TOK_LT  shift, and go to state 18
+    TOK_VOID    shift, and go to state 5
+    TOK_INT     shift, and go to state 6
+    TOK_STRING  shift, and go to state 7
+    TOK_ARRAY   shift, and go to state 9
+    TOK_PTR     shift, and go to state 10
+    '}'         shift, and go to state 22
+
+    type       go to state 23
+    plaintype  go to state 14
 
 
 State 13
 
-    4 structdef: sargs '}' . ';'
+   18 vardecl: type . TOK_IDENT ';'
+   19        | type . TOK_IDENT '=' expr
 
-    ';'  shift, and go to state 19
+    TOK_IDENT  shift, and go to state 24
 
 
 State 14
 
-    5 sargs: sargs type . TOK_IDENT ';'
+   11 type: plaintype .
 
-    TOK_IDENT  shift, and go to state 20
+    $default  reduce using rule 11 (type)
 
 
 State 15
 
-    8 type: plaintype .
+    3 program: program statement .
 
-    $default  reduce using rule 8 (type)
+    $default  reduce using rule 3 (program)
 
 
 State 16
 
-    6 sargs: TOK_STRUCT TOK_IDENT '{' . type TOK_IDENT ';'
-    7      | TOK_STRUCT TOK_IDENT '{' .
+   17 statement: vardecl .
 
-    TOK_VOID    shift, and go to state 8
-    TOK_INT     shift, and go to state 9
-    TOK_STRING  shift, and go to state 10
-    TOK_ARRAY   shift, and go to state 11
-    TOK_PTR     shift, and go to state 12
-
-    TOK_VOID    [reduce using rule 7 (sargs)]
-    TOK_INT     [reduce using rule 7 (sargs)]
-    TOK_STRING  [reduce using rule 7 (sargs)]
-    TOK_ARRAY   [reduce using rule 7 (sargs)]
-    TOK_PTR     [reduce using rule 7 (sargs)]
-    TOK_IDENT   reduce using rule 7 (sargs)
-    TOK_IDENT   [reduce using rule 14 (plaintype)]
-    $default    reduce using rule 7 (sargs)
-
-    type       go to state 21
-    plaintype  go to state 15
+    $default  reduce using rule 17 (statement)
 
 
 State 17
 
-    9 type: TOK_ARRAY TOK_LT . plaintype TOK_GT
+    4 program: program error '}' .
 
-    TOK_VOID    shift, and go to state 8
-    TOK_INT     shift, and go to state 9
-    TOK_STRING  shift, and go to state 10
-    TOK_PTR     shift, and go to state 12
-
-    $default  reduce using rule 14 (plaintype)
-
-    plaintype  go to state 22
+    $default  reduce using rule 4 (program)
 
 
 State 18
 
-   13 plaintype: TOK_PTR TOK_LT . TOK_STRUCT TOK_IDENT TOK_GT
+    5 program: program error ';' .
 
-    TOK_STRUCT  shift, and go to state 23
+    $default  reduce using rule 5 (program)
 
 
 State 19
 
-    4 structdef: sargs '}' ';' .
+    9 sargs: TOK_STRUCT TOK_IDENT . '{' type TOK_IDENT ';'
+   10      | TOK_STRUCT TOK_IDENT . '{'
 
-    $default  reduce using rule 4 (structdef)
+    '{'  shift, and go to state 25
 
 
 State 20
 
-    5 sargs: sargs type TOK_IDENT . ';'
+   12 type: TOK_ARRAY '<' . plaintype '>'
 
-    ';'  shift, and go to state 24
+    TOK_VOID    shift, and go to state 5
+    TOK_INT     shift, and go to state 6
+    TOK_STRING  shift, and go to state 7
+    TOK_PTR     shift, and go to state 10
+
+    plaintype  go to state 26
 
 
 State 21
 
-    6 sargs: TOK_STRUCT TOK_IDENT '{' type . TOK_IDENT ';'
+   16 plaintype: TOK_PTR '<' . TOK_STRUCT TOK_IDENT '>'
 
-    TOK_IDENT  shift, and go to state 25
+    TOK_STRUCT  shift, and go to state 27
 
 
 State 22
 
-    9 type: TOK_ARRAY TOK_LT plaintype . TOK_GT
-
-    TOK_GT  shift, and go to state 26
-
-
-State 23
-
-   13 plaintype: TOK_PTR TOK_LT TOK_STRUCT . TOK_IDENT TOK_GT
-
-    TOK_IDENT  shift, and go to state 27
-
-
-State 24
-
-    5 sargs: sargs type TOK_IDENT ';' .
-
-    $default  reduce using rule 5 (sargs)
-
-
-State 25
-
-    6 sargs: TOK_STRUCT TOK_IDENT '{' type TOK_IDENT . ';'
+    7 structdef: sargs '}' . ';'
 
     ';'  shift, and go to state 28
 
 
+State 23
+
+    8 sargs: sargs type . TOK_IDENT ';'
+
+    TOK_IDENT  shift, and go to state 29
+
+
+State 24
+
+   18 vardecl: type TOK_IDENT . ';'
+   19        | type TOK_IDENT . '=' expr
+
+    '='  shift, and go to state 30
+    ';'  shift, and go to state 31
+
+
+State 25
+
+    9 sargs: TOK_STRUCT TOK_IDENT '{' . type TOK_IDENT ';'
+   10      | TOK_STRUCT TOK_IDENT '{' .
+
+    TOK_VOID    shift, and go to state 5
+    TOK_INT     shift, and go to state 6
+    TOK_STRING  shift, and go to state 7
+    TOK_ARRAY   shift, and go to state 9
+    TOK_PTR     shift, and go to state 10
+
+    TOK_VOID    [reduce using rule 10 (sargs)]
+    TOK_INT     [reduce using rule 10 (sargs)]
+    TOK_STRING  [reduce using rule 10 (sargs)]
+    TOK_ARRAY   [reduce using rule 10 (sargs)]
+    TOK_PTR     [reduce using rule 10 (sargs)]
+    $default    reduce using rule 10 (sargs)
+
+    type       go to state 32
+    plaintype  go to state 14
+
+
 State 26
 
-    9 type: TOK_ARRAY TOK_LT plaintype TOK_GT .
+   12 type: TOK_ARRAY '<' plaintype . '>'
 
-    $default  reduce using rule 9 (type)
+    '>'  shift, and go to state 33
 
 
 State 27
 
-   13 plaintype: TOK_PTR TOK_LT TOK_STRUCT TOK_IDENT . TOK_GT
+   16 plaintype: TOK_PTR '<' TOK_STRUCT . TOK_IDENT '>'
 
-    TOK_GT  shift, and go to state 29
+    TOK_IDENT  shift, and go to state 34
 
 
 State 28
 
-    6 sargs: TOK_STRUCT TOK_IDENT '{' type TOK_IDENT ';' .
+    7 structdef: sargs '}' ';' .
 
-    $default  reduce using rule 6 (sargs)
+    $default  reduce using rule 7 (structdef)
 
 
 State 29
 
-   13 plaintype: TOK_PTR TOK_LT TOK_STRUCT TOK_IDENT TOK_GT .
+    8 sargs: sargs type TOK_IDENT . ';'
 
-    $default  reduce using rule 13 (plaintype)
+    ';'  shift, and go to state 35
+
+
+State 30
+
+   19 vardecl: type TOK_IDENT '=' . expr
+
+    $default  reduce using rule 20 (expr)
+
+    expr  go to state 36
+
+
+State 31
+
+   18 vardecl: type TOK_IDENT ';' .
+
+    $default  reduce using rule 18 (vardecl)
+
+
+State 32
+
+    9 sargs: TOK_STRUCT TOK_IDENT '{' type . TOK_IDENT ';'
+
+    TOK_IDENT  shift, and go to state 37
+
+
+State 33
+
+   12 type: TOK_ARRAY '<' plaintype '>' .
+
+    $default  reduce using rule 12 (type)
+
+
+State 34
+
+   16 plaintype: TOK_PTR '<' TOK_STRUCT TOK_IDENT . '>'
+
+    '>'  shift, and go to state 38
+
+
+State 35
+
+    8 sargs: sargs type TOK_IDENT ';' .
+
+    $default  reduce using rule 8 (sargs)
+
+
+State 36
+
+   19 vardecl: type TOK_IDENT '=' expr .
+
+    $default  reduce using rule 19 (vardecl)
+
+
+State 37
+
+    9 sargs: TOK_STRUCT TOK_IDENT '{' type TOK_IDENT . ';'
+
+    ';'  shift, and go to state 39
+
+
+State 38
+
+   16 plaintype: TOK_PTR '<' TOK_STRUCT TOK_IDENT '>' .
+
+    $default  reduce using rule 16 (plaintype)
+
+
+State 39
+
+    9 sargs: TOK_STRUCT TOK_IDENT '{' type TOK_IDENT ';' .
+
+    $default  reduce using rule 9 (sargs)
