@@ -33,11 +33,11 @@
 %token TOK_ROOT TOK_BLOCK TOK_CALL TOK_INITDECL
 %token TOK_TYPE_ID TOK_VARDECL
 
-%right  '='
-%left   TOK_EQ TOK_NE TOK_LT TOK_LE TOK_GT TOK_GE
-%left   '+' '-'
-%left   '*' '/' '%'
-%right  UPLUS UMINUS TOK_NOT
+// %right  '='
+// %left   TOK_EQ TOK_NE TOK_LT TOK_LE TOK_GT TOK_GE
+// %left   '+' '-'
+// %left   '*' '/' '%'
+// %right  UPLUS UMINUS TOK_NOT
 
 %start  start
 
@@ -56,19 +56,21 @@ program   : program structdef  { $$ = $1->adopt($2); }
 	  |                    { $$ = parser::root; }
 	  ;
 	
-structdef : sargs '}' ';'  { $$ = $1;
-                             destroy ($2);
-			     destroy ($3); }
+structdef : sargs '}' ';'                    { $$ = $1;
+                                               destroy ($2);
+			                       destroy ($3); }
+	  | TOK_STRUCT TOK_IDENT '{' '}' ';' { $$ = $1 ->adopt($2);    
+	                                                 destroy($3);      
+	                                                 destroy($4);
+							 destroy($5);}
           ;
 
 sargs     : sargs type TOK_IDENT ';'                    { $$ = $1 ->adopt($2,$3);    
-                                                          destroy($4); }
+                                                          destroy($4);          }
           | TOK_STRUCT TOK_IDENT '{' type TOK_IDENT ';' { $1->adopt($2,$4);
 	                                                  $$ = $1->adopt($5);
 	                                                  destroy ($3);
-							  destroy ($6);} 
-	  | TOK_STRUCT TOK_IDENT '{'                    { $$ = $1 ->adopt($2);    
-	                                                  destroy ($3); }
+							  destroy ($6);     } 
 	  ;
 
 type      : plaintype                         { $$ = $1; }
@@ -96,7 +98,7 @@ vardecl  : type TOK_IDENT ';'      { $$ = $1 -> adopt($2);
                                      $$ = $1 -> adopt ($2); }                            
 	 ;
 
-expr     : 
+expr     :
          ;
 
 	                                

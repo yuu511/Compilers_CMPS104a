@@ -74,9 +74,7 @@ extern int yydebug;
     TOK_CALL = 284,
     TOK_INITDECL = 285,
     TOK_TYPE_ID = 286,
-    TOK_VARDECL = 287,
-    UPLUS = 288,
-    UMINUS = 289
+    TOK_VARDECL = 287
   };
 #endif
 
