@@ -173,6 +173,7 @@ int main (int argc, char** argv) {
    if (parse_rc) {
       errprintf ("parse failed (%d)\n", parse_rc);
    }else {
+      astree::print (stdout, parser::root);
       delete parser::root;
    }
    return exec::exit_status;

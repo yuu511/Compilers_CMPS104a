@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-# Makefile.deps created Sun May  5 03:03:54 PDT 2019 by make
-=======
-# Makefile.deps created Sun May  5 02:59:55 PDT 2019 by make
->>>>>>> Stashed changes
+# Makefile.deps created Sat 04 May 2019 09:21:36 PM PDT by make
 astree.o: astree.cpp astree.h auxlib.h string_set.h lyutils.h yyparse.h
 lyutils.o: lyutils.cpp auxlib.h lyutils.h astree.h string_set.h yyparse.h
 string_set.o: string_set.cpp auxlib.h string_set.h
