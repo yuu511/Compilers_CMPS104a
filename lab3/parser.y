@@ -34,12 +34,11 @@
 %token TOK_TYPE_ID TOK_VARDECL
 
 %right  '='
-%left   TOK_EQ TOK_NE TOK_LT TOK_LE TOK_GT TOK_GE
+%left   TOK_EQ TOK_NE '<' TOK_LE '>' TOK_GE
 %left   '+' '-'
 %left   '*' '/' '%'
 %right  U_PLUS U_MINUS TOK_NOT
 %left   '[' TOK_ARROW TOK_ALLOC
-
 
 %start  start
 
@@ -84,8 +83,8 @@ type      : plaintype                         { $$ = $1; }
 						destroy($4); }
 	  ;
 
-plaintype : TOK_VOID                                   { $$ = $1; }
-          | TOK_INT                                    { $$ = $1; }
+plaintype : TOK_INT                                    { $$ = $1; }
+          | TOK_VOID                                   { $$ = $1; }
           | TOK_STRING                                 { $$ = $1; }
           | TOK_PTR '<' TOK_STRUCT TOK_IDENT '>'       { $$ = $1 -> adopt($4); 
 	                                                 destroy ($3);
@@ -96,16 +95,39 @@ plaintype : TOK_VOID                                   { $$ = $1; }
 statement : vardecl { $$ = $1; }
           ;
 
-vardecl  : type TOK_IDENT ';'      { astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
-				     $$ = tid->adopt($1,$2);
-                                     destroy ($3); }
-         | type TOK_IDENT '=' expr { $2 -> adopt_sym($3,TOK_VARDECL); 
-	                             $2 -> adopt($4); 
-                                     $$ = $1 -> adopt ($2); }                            
+vardecl : type TOK_IDENT '=' expr ';' { astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
+                                         tid->adopt($1,$2);
+			                 $3->adopt_sym(tid,TOK_VARDECL);
+				         $$ = $3->adopt($4);
+				         destroy($5);}
+	| type TOK_IDENT ';'          { astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
+	                                $$ = tid->adopt ($1,$2);
+				        destroy($3);}
 	 ;
 
-expr     :
-         ;
+expr    : expr '=' expr              { $$ = $2->adopt ($1, $3); }
+        | expr '+' expr              { $$ = $2->adopt ($1, $3); }
+        | expr '-' expr              { $$ = $2->adopt ($1, $3); }
+        | expr '*' expr              { $$ = $2->adopt ($1, $3); }
+        | expr '/' expr              { $$ = $2->adopt ($1, $3); }
+        | expr '%' expr              { $$ = $2->adopt ($1, $3); }
+        | expr TOK_EQ expr           { $$ = $2->adopt ($1, $3); }
+        | expr TOK_NE expr           { $$ = $2->adopt ($1, $3); }
+        | expr TOK_LE expr           { $$ = $2->adopt ($1, $3); }
+        | expr TOK_GE expr           { $$ = $2->adopt ($1, $3); }
+        | expr '<' expr              { $$ = $2->adopt_sym ($1,TOK_LT); 
+	                               $2->adopt($3); }
+        | expr '>' expr              { $$ = $2->adopt_sym ($1,TOK_GT); 
+	                               $2->adopt($3); }
+	| constant                   { $$ = $1; }
+        ;
+
+constant : TOK_INTCON    { $$ = $1; }
+         | TOK_CHARCON   { $$ = $1; }  
+	 | TOK_STRINGCON { $$ = $1; }
+	 | TOK_NULLPTR   { $$ = $1; }
+	 | TOK_IDENT     { $$ = $1; }
+	 ;
 
 	                                
          
