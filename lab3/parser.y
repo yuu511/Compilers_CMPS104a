@@ -126,6 +126,7 @@ expr    : expr '=' expr              { $$ = $2->adopt($1, $3); }
 	| '(' expr ')'               { $$ = $2; 
 	                               destroy ($1);
 				       destroy ($3);}
+	| call                       { $$ = $1; }
 	| variable                   { $$ = $1; }
 	| constant                   { $$ = $1; }
         ;
@@ -150,6 +151,17 @@ allocator : TOK_ALLOC '<' TOK_STRINGCON '>' '(' expr ')'               { $$ = $1
 									 destroy($7);
 									 destroy($8);
 									 destroy($10); }
+
+call : cargs ')' { $$ = $1; 
+                   destroy($2); }
+     | TOK_IDENT '(' ')' { $$ = $2->adopt_sym($1,TOK_CALL);
+                           destroy($3);}
+     ;
+
+cargs : TOK_IDENT '(' expr { $2->adopt_sym($1,TOK_CALL); 
+                             $$ = $2->adopt($3); }
+      | cargs ',' expr     { $$ = $1->adopt($3);
+                             destroy($2); }
 
 variable : TOK_IDENT                { $$ = $1; }
          | expr '[' expr ']'        { $$ = $2->adopt_sym($1,TOK_INDEX);
