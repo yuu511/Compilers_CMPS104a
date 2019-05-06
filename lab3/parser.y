@@ -38,7 +38,8 @@
 %left   '+' '-'
 %left   '*' '/' '%'
 %right  U_PLUS U_MINUS TOK_NOT
-%left   '[' TOK_ARROW TOK_ALLOC
+%left   '[' TOK_ARROW TOK_CALL TOK_ALLOC
+%nonassoc '('
 
 %start  start
 
