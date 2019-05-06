@@ -62,26 +62,26 @@ structdef : sargs '}' ';'                    { $$ = $1;
                                                destroy ($2);
 			                       destroy ($3); }
 	  | TOK_STRUCT TOK_IDENT '{' '}' ';' { $$ = $1 ->adopt($2);    
-	                                                 destroy($3);      
-	                                                 destroy($4);
-							 destroy($5);}
+	                                       destroy($3);      
+	                                       destroy($4);
+					       destroy($5); }
           ;
 
 sargs     : sargs type TOK_IDENT ';'                    { astree* tid = new astree(TOK_TYPE_ID, $2->lloc,"");
                                                           tid ->adopt($2,$3);    
 							  $$ = $1->adopt(tid);
-                                                          destroy($4);                                      }
+                                                          destroy($4); }
           | TOK_STRUCT TOK_IDENT '{' type TOK_IDENT ';' { astree* tid = new astree(TOK_TYPE_ID, $4->lloc,"");
 	                                                  tid->adopt($4,$5);
 							  $$ = $1->adopt($2,tid);
 	                                                  destroy ($3);
-							  destroy ($6);     } 
+							  destroy ($6); } 
 	  ;
 
-type      : plaintype                         { $$ = $1; }
-          | TOK_ARRAY '<' plaintype '>'       { $$ = $1 -> adopt ($3); 
-	                                        destroy($2);
-						destroy($4); }
+type      : plaintype                   { $$ = $1; }
+          | TOK_ARRAY '<' plaintype '>' { $$ = $1 -> adopt ($3); 
+	                                  destroy($2);
+					  destroy($4); }
 	  ;
 
 plaintype : TOK_INT                                    { $$ = $1; }
@@ -100,10 +100,10 @@ vardecl : type TOK_IDENT '=' expr ';' { astree* tid = new astree(TOK_TYPE_ID, $1
                                          tid->adopt($1,$2);
 			                 $3->adopt_sym(tid,TOK_VARDECL);
 				         $$ = $3->adopt($4);
-				         destroy($5);}
+				         destroy($5); }
 	| type TOK_IDENT ';'          { astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
 	                                $$ = tid->adopt ($1,$2);
-				        destroy($3);}
+				        destroy($3); }
 	 ;
 
 expr    : expr '=' expr              { $$ = $2->adopt ($1, $3); }
@@ -121,15 +121,21 @@ expr    : expr '=' expr              { $$ = $2->adopt ($1, $3); }
         | expr '>' expr              { $$ = $2->adopt_sym ($1,TOK_GT); 
 	                               $2->adopt($3); }
 	| constant                   { $$ = $1; }
+	| variable                   { $$ = $1; }
         ;
+
 
 constant : TOK_INTCON    { $$ = $1; }
          | TOK_CHARCON   { $$ = $1; }  
 	 | TOK_STRINGCON { $$ = $1; }
 	 | TOK_NULLPTR   { $$ = $1; }
-	 | TOK_IDENT     { $$ = $1; }
 	 ;
 
+variable : TOK_IDENT           { $$ = $1; }
+         | expr '[' expr ']'   { $$ = $2 ->adopt ($1,$3);
+	                         delete ($4); }
+	 | expr TOK_ARROW TOK_IDENT { $$ = $2 -> adopt ($1,$3); }
+         ;
 	                                
          
 
