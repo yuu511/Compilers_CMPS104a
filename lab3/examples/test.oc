@@ -21,8 +21,23 @@
 // string test5 = alloc < array<string> > (5);
 // int test = (-5+5)*3;
 // int test = -5+5*3;
-int test = homu();
-int test2 = homu(5+5,-5,alloc < "hehexd" >(5), alloc < struct homura >(),alloc < array<string> > (5) , meta(), (5*5), test, test[5], test->homura, 5, 'c', "stringcon", nullptr);
+int test = ami();
+// test a wide range of expr .. 
+int test2 = homu(5+5,
+                 -5,
+		 alloc < "hehexd" >(5), 
+		 alloc < struct homura >(),
+		 alloc < array<string> > (5),
+		 meta(), 
+		 (5*5), 
+		 test, 
+		 test[5],
+		 test->homura, 
+		 5, 
+		 'c', 
+		 "stringcon", 
+		 nullptr
+		);
 
 
 
