@@ -12,6 +12,7 @@
 
 // vardecl tests
 int one;
-int two = 5*3+5;
+int two = 5*3+0xDEADBEEF/5%01231235;
+int test = test -> fk;
 
 // function tests

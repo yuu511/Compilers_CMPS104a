@@ -75,8 +75,9 @@ extern int yydebug;
     TOK_INITDECL = 285,
     TOK_TYPE_ID = 286,
     TOK_VARDECL = 287,
-    U_PLUS = 288,
-    U_MINUS = 289
+    TOK_INDEX = 288,
+    U_PLUS = 289,
+    U_MINUS = 290
   };
 #endif
 

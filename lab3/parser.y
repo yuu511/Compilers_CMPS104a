@@ -31,7 +31,7 @@
 %token TOK_EQ TOK_NE TOK_LT TOK_LE TOK_GT TOK_GE TOK_NOT
 %token TOK_IDENT TOK_INTCON TOK_CHARCON TOK_STRINGCON
 %token TOK_ROOT TOK_BLOCK TOK_CALL TOK_INITDECL
-%token TOK_TYPE_ID TOK_VARDECL
+%token TOK_TYPE_ID TOK_VARDECL TOK_INDEX
 
 %right  '='
 %left   TOK_EQ TOK_NE '<' TOK_LE '>' TOK_GE
@@ -104,7 +104,7 @@ vardecl : type TOK_IDENT '=' expr ';' { astree* tid = new astree(TOK_TYPE_ID, $1
 	| type TOK_IDENT ';'          { astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
 	                                $$ = tid->adopt ($1,$2);
 				        destroy($3); }
-	 ;
+	;
 
 expr    : expr '=' expr              { $$ = $2->adopt ($1, $3); }
         | expr '+' expr              { $$ = $2->adopt ($1, $3); }
@@ -120,6 +120,8 @@ expr    : expr '=' expr              { $$ = $2->adopt ($1, $3); }
 	                               $2->adopt($3); }
         | expr '>' expr              { $$ = $2->adopt_sym ($1,TOK_GT); 
 	                               $2->adopt($3); }
+	| '-' expr %prec U_MINUS     { $$ = $1->adopt($2); }
+	| '+' expr %prec U_PLUS      { $$ = $1->adopt($2); }
 	| constant                   { $$ = $1; }
 	| variable                   { $$ = $1; }
         ;
@@ -131,9 +133,10 @@ constant : TOK_INTCON    { $$ = $1; }
 	 | TOK_NULLPTR   { $$ = $1; }
 	 ;
 
-variable : TOK_IDENT           { $$ = $1; }
-         | expr '[' expr ']'   { $$ = $2 ->adopt ($1,$3);
-	                         delete ($4); }
+variable : TOK_IDENT                { $$ = $1; }
+         | expr '[' expr ']'        { $$ = $2 ->adopt_sym($1,TOK_INDEX);
+	                              $$ = $2 ->adopt ($3);
+	                              delete ($4); }
 	 | expr TOK_ARROW TOK_IDENT { $$ = $2 -> adopt ($1,$3); }
          ;
 	                                
