@@ -123,23 +123,12 @@ expr    : expr '=' expr              { $$ = $2->adopt($1, $3); }
 	| '-' expr %prec U_MINUS     { $$ = $1->adopt($2); }
 	| '+' expr %prec U_PLUS      { $$ = $1->adopt($2); }
 	| allocator                  { $$ = $1; }
-	| constant                   { $$ = $1; }
+	| '(' expr ')'               { $$ = $2; 
+	                               destroy ($1);
+				       destroy ($3);}
 	| variable                   { $$ = $1; }
+	| constant                   { $$ = $1; }
         ;
-
-
-constant : TOK_INTCON    { $$ = $1; }
-         | TOK_CHARCON   { $$ = $1; }  
-	 | TOK_STRINGCON { $$ = $1; }
-	 | TOK_NULLPTR   { $$ = $1; }
-	 ;
-
-variable : TOK_IDENT                { $$ = $1; }
-         | expr '[' expr ']'        { $$ = $2->adopt_sym($1,TOK_INDEX);
-	                              $$ = $2->adopt($3);
-	                              destroy($4); }
-	 | expr TOK_ARROW TOK_IDENT { $$ = $2->adopt($1,$3); }
-         ;
 
 allocator : TOK_ALLOC '<' TOK_STRINGCON '>' '(' expr ')'               { $$ = $1->adopt($3,$6);
                                                                          destroy($2);
@@ -161,6 +150,19 @@ allocator : TOK_ALLOC '<' TOK_STRINGCON '>' '(' expr ')'               { $$ = $1
 									 destroy($7);
 									 destroy($8);
 									 destroy($10); }
+
+variable : TOK_IDENT                { $$ = $1; }
+         | expr '[' expr ']'        { $$ = $2->adopt_sym($1,TOK_INDEX);
+	                              $$ = $2->adopt($3);
+	                              destroy($4); }
+	 | expr TOK_ARROW TOK_IDENT { $$ = $2->adopt($1,$3); }
+         ;
+
+constant : TOK_INTCON    { $$ = $1; }
+         | TOK_CHARCON   { $$ = $1; }  
+	 | TOK_STRINGCON { $$ = $1; }
+	 | TOK_NULLPTR   { $$ = $1; }
+	 ;
 
 %% 
 
