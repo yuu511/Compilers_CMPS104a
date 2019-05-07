@@ -180,14 +180,14 @@ constant : TOK_INTCON    { $$ = $1; }
 	 ;
 
 
-block : bargs '}' { $$ = $1->adopt_sym($2,TOK_BLOCK);
+block : bargs '}' { $$ = $1;
                      destroy($2); } 
-      | '{' '}'    { $$ = $1; 
-                     destroy($2);}
-      | ';'        { $$ = $1; }
+      | '{''}'    { $$ = $1->adopt_sym(nullptr,TOK_BLOCK);
+                    destroy($2); }
+      | ';'       { $$ = $1; }
       ;
 
-bargs : '{' statement   { $$ = $1-> adopt($2); }
+bargs : '{' statement   { $$ = $1-> adopt_sym($2,TOK_BLOCK); }
       | bargs statement { $$ = $1-> adopt($2); }   
       ;
 
