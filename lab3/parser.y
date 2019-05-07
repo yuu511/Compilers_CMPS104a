@@ -79,10 +79,24 @@ sargs     : sargs type TOK_IDENT ';'                    { astree* tid = new astr
 							  destroy($6); } 
 	  ;
 
-statement : vardecl { $$ = $1; }
-          | block   { $$ = $1; }
-	  | while   { $$ = $1; }
+statement : vardecl  { $$ = $1; }
+          | block    { $$ = $1; }
+	  | while    { $$ = $1; }
+	  | expr ';' { $$ = $1; 
+	               destroy ($2); }
+          | ifelse   { $$ = $1; }
+	  | return   { $$ = $1; }
           ;
+
+vardecl : type TOK_IDENT '=' expr ';' { astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
+                                         tid->adopt($1,$2);
+			                 $3->adopt_sym(tid,TOK_VARDECL);
+				         $$ = $3->adopt($4);
+				         destroy($5); }
+	| type TOK_IDENT ';'          { astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
+	                                $$ = tid->adopt($1,$2);
+				        destroy($3); }
+	;
 
 type      : plaintype                   { $$ = $1; }
           | TOK_ARRAY '<' plaintype '>' { $$ = $1->adopt($3); 
@@ -99,15 +113,6 @@ plaintype : TOK_INT                                    { $$ = $1; }
 							 destroy($5); }
 	  ;
 
-vardecl : type TOK_IDENT '=' expr ';' { astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
-                                         tid->adopt($1,$2);
-			                 $3->adopt_sym(tid,TOK_VARDECL);
-				         $$ = $3->adopt($4);
-				         destroy($5); }
-	| type TOK_IDENT ';'          { astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
-	                                $$ = tid->adopt($1,$2);
-				        destroy($3); }
-	;
 
 expr    : expr '=' expr              { $$ = $2->adopt($1, $3); }
         | expr '+' expr              { $$ = $2->adopt($1, $3); }
@@ -196,8 +201,21 @@ while :  TOK_WHILE '(' expr ')' statement { $$ = $1->adopt($3,$5);
 					    destroy($4); }
       ;
 
+ifelse : TOK_IF '(' expr ')' statement TOK_ELSE statement { $1->adopt($3,$5); 
+                                                            $$ = $1->adopt($7);
+							    destroy($2);
+							    destroy($4);
+							    destroy($6); }
+       | TOK_IF '(' expr ')' statement %prec TOK_ELSE     { $$ = $1->adopt($3,$5);
+                                                            destroy($2);
+				                            destroy($4); }
+       ;
 
-
+return : TOK_RETURN expr ';' { $$= $1->adopt($2);
+                               destroy($3); }
+       | TOK_RETURN ';'      { $$ = $1; 
+                               destroy($2); } 
+       ;
 
 %% 
 
