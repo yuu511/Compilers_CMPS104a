@@ -33,6 +33,7 @@
 %token TOK_ROOT TOK_BLOCK TOK_CALL TOK_INITDECL
 %token TOK_TYPE_ID TOK_VARDECL TOK_INDEX
 
+%right  TOK_IF TOK_ELSE
 %right  '='
 %left   TOK_EQ TOK_NE '<' TOK_LE '>' TOK_GE
 %left   '+' '-'
@@ -78,6 +79,11 @@ sargs     : sargs type TOK_IDENT ';'                    { astree* tid = new astr
 							  destroy($6); } 
 	  ;
 
+statement : vardecl { $$ = $1; }
+          | block   { $$ = $1; }
+	  | while   { $$ = $1; }
+          ;
+
 type      : plaintype                   { $$ = $1; }
           | TOK_ARRAY '<' plaintype '>' { $$ = $1->adopt($3); 
 	                                  destroy($2);
@@ -92,9 +98,6 @@ plaintype : TOK_INT                                    { $$ = $1; }
 	                                                 destroy($2); 
 							 destroy($5); }
 	  ;
-
-statement : vardecl { $$ = $1; }
-          ;
 
 vardecl : type TOK_IDENT '=' expr ';' { astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
                                          tid->adopt($1,$2);
@@ -175,6 +178,26 @@ constant : TOK_INTCON    { $$ = $1; }
 	 | TOK_STRINGCON { $$ = $1; }
 	 | TOK_NULLPTR   { $$ = $1; }
 	 ;
+
+
+block : bargs '}' { $$ = $1->adopt_sym($2,TOK_BLOCK);
+                     destroy($2); } 
+      | '{' '}'    { $$ = $1; 
+                     destroy($2);}
+      | ';'        { $$ = $1; }
+      ;
+
+bargs : '{' statement   { $$ = $1-> adopt($2); }
+      | bargs statement { $$ = $1-> adopt($2); }   
+      ;
+
+while :  TOK_WHILE '(' expr ')' statement { $$ = $1->adopt($3,$5); 
+                                            destroy($2);
+					    destroy($4); }
+      ;
+
+
+
 
 %% 
 
