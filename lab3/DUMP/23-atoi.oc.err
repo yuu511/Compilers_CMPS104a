@@ -1,4 +1,2 @@
-(¿:6.9: syntax error, unexpected TOK_IDENT
-(¿:15.12: syntax error, unexpected TOK_IDENT
-(¿:28.4: syntax error, unexpected '}'
-(¿:30.1: syntax error, unexpected '}'
+8œ:9.9: syntax error, unexpected TOK_NOT
+8œ:30.1: syntax error, unexpected '}'

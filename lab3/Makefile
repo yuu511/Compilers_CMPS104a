@@ -37,7 +37,7 @@ LISTSRC   = ${ALLSRC} ${DEPSFILE} ${PARSEHDR}
 TESTFILES = ${THISDIR}/examples/*
 TESTOC = ./examples/test.oc
 SUBMITDIR = cmps104a-wm.s19
-ASGN      = asg2
+ASGN      = asg3
 TESTSTRINGSET = ${TESTFILES:.oc = .str}
 
 all : ${EXECBIN}
@@ -106,8 +106,7 @@ valgrind : ${EXECBIN}
 	 valgrind ./${EXECBIN} -@ast -y ${TESTOC}
 
 submit :
-	submit ${SUBMITDIR} ${ASGN} ${CPPSRC} \
-	${HDRSRC} ${FLEXSRC} ${BISONSRC} Makefile README
+	submit ${SUBMITDIR} ${ASGN} ${ALLSRC} 
 
 vim :
 	vim $(ALLSRC) ${TESTOC}

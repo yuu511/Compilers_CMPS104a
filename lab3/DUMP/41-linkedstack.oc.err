@@ -1,5 +1,10 @@
-XΨ:36.12: syntax error, unexpected TOK_NOT
-XΨ:39.1: syntax error, unexpected '}'
-XΨ:48.11: syntax error, unexpected TOK_NOT
-XΨ:51.4: syntax error, unexpected '}'
-XΨ:53.1: syntax error, unexpected '}'
+θη®:15.9: syntax error, unexpected TOK_NOT
+θη®:17.1: syntax error, unexpected '}'
+θη®:27.9: syntax error, unexpected TOK_NOT
+θη®:31.1: syntax error, unexpected '}'
+θη®:35.9: syntax error, unexpected TOK_NOT
+θη®:36.9: syntax error, unexpected TOK_NOT
+θη®:39.1: syntax error, unexpected '}'
+θη®:48.11: syntax error, unexpected TOK_NOT
+θη®:51.4: syntax error, unexpected '}'
+θη®:53.1: syntax error, unexpected '}'
