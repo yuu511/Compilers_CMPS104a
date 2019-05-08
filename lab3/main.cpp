@@ -67,6 +67,7 @@ void parseargs (int argc, char** argv){
 }
 
 // calls yylex until yyin reaches EOF. (deprecated function)
+// call yyparse() instead.
 void lex_scan(){
   int chr;
   for (;;){
@@ -112,7 +113,7 @@ void e_close(FILE* f) {
   if (close !=0) exec::exit_status = EXIT_FAILURE;
 }
 
-// strip the file extension any string  
+// remove the file extension and path from a filename 
 string strp(char* filename){
    string input_stripped = string(basename(filename));
    size_t lastindex = input_stripped.find_last_of(".");
@@ -146,6 +147,9 @@ int main (int argc, char** argv) {
    append = ".tok";
    tokfp = appendopen (input_stripped,append);
    lexer::tokenfp(tokfp);
+   FILE *astfp;
+   append = ".ast";
+   astfp = appendopen (input_stripped,append);
 
    // Run the c preprocessor and pipe the output to yyin.
    exec_cpp(filename);
@@ -154,26 +158,29 @@ int main (int argc, char** argv) {
    // run yylex against the piped output.
    // Generate the stringset and write lexical 
    // information to token file.
-   // lex_scan();
    int parse_rc = yyparse();
 
    // dump the hashed tokenset to file.
    string_set::dump(strfp);
 
+   // dump the astree
+   astree::draw(astfp,parser::root);
+
    // personal debug flag 
    if (a_debug)
-     astree::print (stdout,parser::root);
+     astree::print (stderr,parser::root);
    // Close the cpreprocessor, the stringset, and the tokenset files.
    e_close(yyin);
    e_close(tokfp);
    e_close(strfp);
+   e_close(astfp);
    
-   yylex_destroy();
    // free memory 
+   yylex_destroy();
    if (parse_rc) {
-      errprintf ("parse failed (%d)\n", parse_rc);
+      errprintf("parse failed (%d)\n", parse_rc);
    }else {
-      delete parser::root;
+      destroy(parser::root);
    }
    return exec::exit_status;
 }

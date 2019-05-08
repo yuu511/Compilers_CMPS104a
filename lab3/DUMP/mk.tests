@@ -8,7 +8,7 @@ cp $OCDIR/*.h $OCDIR/*.oc .
 
 for ocfile in *.oc
 do
-   $PROG $ocfile 1>$ocfile.out 2>$ocfile.err
+   $PROG -D__OCLIB_H__ $ocfile 1>$ocfile.out 2>$ocfile.err
 done
 
 $PROG nosuch.oc 1>nosuch.oc.out 2>nosuch.oc.err

@@ -1,10 +1,5 @@
-¨E=:15.9: syntax error, unexpected TOK_NOT
-¨E=:17.1: syntax error, unexpected '}'
-¨E=:27.9: syntax error, unexpected TOK_NOT
-¨E=:31.1: syntax error, unexpected '}'
-¨E=:35.9: syntax error, unexpected TOK_NOT
-¨E=:36.9: syntax error, unexpected TOK_NOT
-¨E=:39.1: syntax error, unexpected '}'
-¨E=:48.11: syntax error, unexpected TOK_NOT
-¨E=:51.4: syntax error, unexpected '}'
-¨E=:53.1: syntax error, unexpected '}'
+XØ:36.12: syntax error, unexpected TOK_NOT
+XØ:39.1: syntax error, unexpected '}'
+XØ:48.11: syntax error, unexpected TOK_NOT
+XØ:51.4: syntax error, unexpected '}'
+XØ:53.1: syntax error, unexpected '}'

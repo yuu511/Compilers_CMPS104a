@@ -32,6 +32,7 @@ struct astree {
    void dump_tree (FILE*, int depth = 0);
    static void dump (FILE* outfile, astree* tree);
    static void print (FILE* outfile, astree* tree, int depth = 0);
+   static void draw (FILE* outfile, astree* tree, int depth = 0);
 };
 
 void destroy (astree* tree1, astree* tree2 = nullptr);
