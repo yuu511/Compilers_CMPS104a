@@ -1,14 +1,14 @@
 #!/bin/bash
 # $Id: mk.tests,v 1.3 2019-04-15 12:41:35-07 - - $
 export PATH=$PATH:/afs/cats.ucsc.edu/courses/cmps104a-wm/bin
-PROG=../oc
+PROG=oc
 
 OCDIR=/afs/cats.ucsc.edu/courses/cmps104a-wm/Assignments/oc-programs
 cp $OCDIR/*.h $OCDIR/*.oc .
 
 for ocfile in *.oc
 do
-   $PROG -D__OCLIB_H__ $ocfile 1>$ocfile.out 2>$ocfile.err
+   $PROG $ocfile 1>$ocfile.out 2>$ocfile.err
 done
 
 $PROG nosuch.oc 1>nosuch.oc.out 2>nosuch.oc.err

@@ -1,7 +1,7 @@
 #!/bin/bash
 # $Id: mk.tests,v 1.3 2019-04-15 12:41:35-07 - - $
 export PATH=$PATH:/afs/cats.ucsc.edu/courses/cmps104a-wm/bin
-PROG=../oc
+PROG=oc
 
 OCDIR=/afs/cats.ucsc.edu/courses/cmps104a-wm/Assignments/oc-programs
 cp $OCDIR/*.h $OCDIR/*.oc .

@@ -35,7 +35,7 @@ TESTINS   = ${wildcard test*.in}
 EXECTEST  = ${EXECBIN} -ly
 LISTSRC   = ${ALLSRC} ${DEPSFILE} ${PARSEHDR}
 TESTFILES = ${THISDIR}/examples/*
-TESTOC = ./examples/test.oc	
+TESTOC = ./examples/test.oc
 SUBMITDIR = cmps104a-wm.s19
 ASGN      = asg2
 TESTSTRINGSET = ${TESTFILES:.oc = .str}
