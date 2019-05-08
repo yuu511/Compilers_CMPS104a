@@ -135,6 +135,7 @@ expr    : expr '=' expr          { $$ = $2->adopt($1, $3); }
                                    $2->adopt($3); }
         | '-' expr %prec U_MINUS { $$ = $1->adopt($2); }
         | '+' expr %prec U_PLUS  { $$ = $1->adopt($2); }
+        | TOK_NOT expr           { $$ = $1->adopt($2); }
         | allocator              { $$ = $1; }
         | '(' expr ')'           { $$ = $2; 
                                    destroy ($1);
@@ -144,7 +145,7 @@ expr    : expr '=' expr          { $$ = $2->adopt($1, $3); }
         | constant               { $$ = $1; }
         ;
 
-allocator : TOK_ALLOC '<' TOK_STRINGCON '>' '(' expr ')' { 
+allocator : TOK_ALLOC '<' TOK_STRING '>' '(' expr ')' { 
               $$ = $1->adopt($3,$6);
               destroy($2);
               destroy($4); 
