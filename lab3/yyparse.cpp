@@ -2825,10 +2825,10 @@ yyreduce:
   case 73:
 #line 259 "parser.y" /* yacc.c:1646  */
     { 
-        astree* tid = new astree(TOK_TYPE_ID, (yyvsp[-1])->lloc,"");
-        tid->adopt((yyvsp[-1]),(yyvsp[0]));
-        (yyval) = (yyvsp[-3])->adopt(tid);
-        destroy((yyvsp[-2])); }
+          astree* tid = new astree(TOK_TYPE_ID, (yyvsp[-1])->lloc,"");
+          tid->adopt((yyvsp[-1]),(yyvsp[0]));
+          (yyval) = (yyvsp[-3])->adopt(tid);
+          destroy((yyvsp[-2])); }
 #line 2833 "yyparse.cpp" /* yacc.c:1646  */
     break;
 

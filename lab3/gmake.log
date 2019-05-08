@@ -1,7 +1,1 @@
-bison --defines=yyparse.h --output=yyparse.cpp parser.y
-g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c astree.cpp
-g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c lyutils.cpp
-g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c main.cpp
-g++ -std=gnu++17 -g -O0 -Wno-sign-compare -Wno-register -c yylex.cpp
-g++ -std=gnu++17 -g -O0 -Wno-sign-compare -Wno-register -c yyparse.cpp
-g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -ooc astree.o lyutils.o string_set.o auxlib.o main.o yylex.o yyparse.o
+gmake: Nothing to be done for 'all'.
