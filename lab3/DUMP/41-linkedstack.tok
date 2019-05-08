@@ -56,32 +56,34 @@
     7   6.011 278 TOK_IDENT     data
     7   6.015  59 ';'           ;
     7   7.004 270 TOK_PTR       ptr
-    7   7.007 273 TOK_LT        <
-    7   7.008 278 TOK_IDENT     node
-    7   7.012 275 TOK_GT        >
-    7   7.014 278 TOK_IDENT     link
-    7   7.018  59 ';'           ;
+    7   7.008  60 '<'           <
+    7   7.009 265 TOK_STRUCT    struct
+    7   7.016 278 TOK_IDENT     node
+    7   7.020  62 '>'           >
+    7   7.022 278 TOK_IDENT     link
+    7   7.026  59 ';'           ;
     7   8.001 125 '}'           }
     7   8.002  59 ';'           ;
     7  10.001 265 TOK_STRUCT    struct
     7  10.008 278 TOK_IDENT     stack
     7  10.014 123 '{'           {
     7  11.004 270 TOK_PTR       ptr
-    7  11.007 273 TOK_LT        <
-    7  11.008 278 TOK_IDENT     node
-    7  11.012 275 TOK_GT        >
-    7  11.014 278 TOK_IDENT     top
-    7  11.017  59 ';'           ;
+    7  11.008  60 '<'           <
+    7  11.009 265 TOK_STRUCT    struct
+    7  11.016 278 TOK_IDENT     node
+    7  11.020  62 '>'           >
+    7  11.022 278 TOK_IDENT     top
+    7  11.025  59 ';'           ;
     7  12.001 125 '}'           }
     7  12.002  59 ';'           ;
     7  14.001 259 TOK_INT       int
     7  14.005 278 TOK_IDENT     empty
     7  14.011  40 '('           (
     7  14.012 270 TOK_PTR       ptr
-    7  14.015 273 TOK_LT        <
+    7  14.015  60 '<'           <
     7  14.016 265 TOK_STRUCT    struct
     7  14.023 278 TOK_IDENT     stack
-    7  14.028 275 TOK_GT        >
+    7  14.028  62 '>'           >
     7  14.030 278 TOK_IDENT     stack
     7  14.035  41 ')'           )
     7  14.037 123 '{'           {
@@ -115,26 +117,26 @@
     7  16.032  59 ';'           ;
     7  17.001 125 '}'           }
     7  19.001 270 TOK_PTR       ptr
-    7  19.004 273 TOK_LT        <
+    7  19.004  60 '<'           <
     7  19.005 265 TOK_STRUCT    struct
     7  19.012 278 TOK_IDENT     stack
-    7  19.017 275 TOK_GT        >
+    7  19.017  62 '>'           >
     7  19.019 278 TOK_IDENT     new_stack
     7  19.028  40 '('           (
     7  19.029  41 ')'           )
     7  19.031 123 '{'           {
     7  20.004 270 TOK_PTR       ptr
-    7  20.007 273 TOK_LT        <
+    7  20.007  60 '<'           <
     7  20.008 265 TOK_STRUCT    struct
     7  20.015 278 TOK_IDENT     stack
-    7  20.020 275 TOK_GT        >
+    7  20.020  62 '>'           >
     7  20.022 278 TOK_IDENT     stack
     7  20.028  61 '='           =
     7  20.030 269 TOK_ALLOC     alloc
-    7  20.035 273 TOK_LT        <
+    7  20.035  60 '<'           <
     7  20.036 265 TOK_STRUCT    struct
     7  20.043 278 TOK_IDENT     stack
-    7  20.048 275 TOK_GT        >
+    7  20.048  62 '>'           >
     7  20.049  40 '('           (
     7  20.050  41 ')'           )
     7  20.051  59 ';'           ;
@@ -152,10 +154,10 @@
     7  25.006 278 TOK_IDENT     push
     7  25.011  40 '('           (
     7  25.012 270 TOK_PTR       ptr
-    7  25.015 273 TOK_LT        <
+    7  25.015  60 '<'           <
     7  25.016 265 TOK_STRUCT    struct
     7  25.023 278 TOK_IDENT     stack
-    7  25.028 275 TOK_GT        >
+    7  25.028  62 '>'           >
     7  25.030 278 TOK_IDENT     stack
     7  25.035  44 ','           ,
     7  25.037 260 TOK_STRING    string
@@ -163,18 +165,20 @@
     7  25.047  41 ')'           )
     7  25.049 123 '{'           {
     7  26.004 270 TOK_PTR       ptr
-    7  26.007 273 TOK_LT        <
-    7  26.008 278 TOK_IDENT     node
-    7  26.012 275 TOK_GT        >
-    7  26.014 278 TOK_IDENT     tmp
-    7  26.018  61 '='           =
-    7  26.020 269 TOK_ALLOC     alloc
-    7  26.025 273 TOK_LT        <
-    7  26.026 278 TOK_IDENT     node
-    7  26.030 275 TOK_GT        >
-    7  26.031  40 '('           (
-    7  26.032  41 ')'           )
-    7  26.033  59 ';'           ;
+    7  26.008  60 '<'           <
+    7  26.009 265 TOK_STRUCT    struct
+    7  26.016 278 TOK_IDENT     node
+    7  26.020  62 '>'           >
+    7  26.022 278 TOK_IDENT     tmp
+    7  26.026  61 '='           =
+    7  26.028 269 TOK_ALLOC     alloc
+    7  26.033  60 '<'           <
+    7  26.034 265 TOK_STRUCT    struct
+    7  26.041 278 TOK_IDENT     node
+    7  26.045  62 '>'           >
+    7  26.046  40 '('           (
+    7  26.047  41 ')'           )
+    7  26.048  59 ';'           ;
     7  27.004 123 '{'           {
     7  27.005 261 TOK_IF        if
     7  27.008  40 '('           (
@@ -221,10 +225,10 @@
     7  33.008 278 TOK_IDENT     pop
     7  33.012  40 '('           (
     7  33.013 270 TOK_PTR       ptr
-    7  33.016 273 TOK_LT        <
+    7  33.016  60 '<'           <
     7  33.017 265 TOK_STRUCT    struct
     7  33.024 278 TOK_IDENT     stack
-    7  33.029 275 TOK_GT        >
+    7  33.029  62 '>'           >
     7  33.031 278 TOK_IDENT     stack
     7  33.036  41 ')'           )
     7  33.038 123 '{'           {
@@ -302,9 +306,9 @@
     7  41.015 278 TOK_IDENT     argc
     7  41.019  44 ','           ,
     7  41.021 267 TOK_ARRAY     array
-    7  41.026 273 TOK_LT        <
+    7  41.026  60 '<'           <
     7  41.027 260 TOK_STRING    string
-    7  41.033 275 TOK_GT        >
+    7  41.033  62 '>'           >
     7  41.035 278 TOK_IDENT     argv
     7  41.039  41 ')'           )
     7  41.041 123 '{'           {
@@ -314,10 +318,10 @@
     7  42.015 279 TOK_INTCON    0
     7  42.016  59 ';'           ;
     7  43.004 270 TOK_PTR       ptr
-    7  43.007 273 TOK_LT        <
+    7  43.007  60 '<'           <
     7  43.008 265 TOK_STRUCT    struct
     7  43.015 278 TOK_IDENT     stack
-    7  43.020 275 TOK_GT        >
+    7  43.020  62 '>'           >
     7  43.022 278 TOK_IDENT     stack
     7  43.028  61 '='           =
     7  43.030 278 TOK_IDENT     new_stack
@@ -327,7 +331,7 @@
     7  44.004 263 TOK_WHILE     while
     7  44.010  40 '('           (
     7  44.011 278 TOK_IDENT     argi
-    7  44.016 273 TOK_LT        <
+    7  44.016  60 '<'           <
     7  44.018 278 TOK_IDENT     argc
     7  44.022  41 ')'           )
     7  44.024 123 '{'           {

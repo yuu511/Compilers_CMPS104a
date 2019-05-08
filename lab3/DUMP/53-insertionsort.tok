@@ -156,10 +156,10 @@
     7  26.026 278 TOK_IDENT     size
     7  26.030  44 ','           ,
     7  26.032 267 TOK_ARRAY     array
-    7  26.037 273 TOK_LT        <
+    7  26.037  60 '<'           <
     7  26.038 260 TOK_STRING    string
-    7  26.044 275 TOK_GT        >
-    7  26.046 267 TOK_ARRAY     array
+    7  26.044  62 '>'           >
+    7  26.046 278 TOK_IDENT     words
     7  26.051  41 ')'           )
     7  26.053 123 '{'           {
     7  27.004 259 TOK_INT       int
@@ -185,7 +185,7 @@
     7  31.004 263 TOK_WHILE     while
     7  31.010  40 '('           (
     7  31.011 278 TOK_IDENT     sorted
-    7  31.018 273 TOK_LT        <
+    7  31.018  60 '<'           <
     7  31.020 278 TOK_IDENT     size
     7  31.024  41 ')'           )
     7  31.026 123 '{'           {
@@ -195,7 +195,7 @@
     7  32.020  59 ';'           ;
     7  33.007 278 TOK_IDENT     element
     7  33.015  61 '='           =
-    7  33.017 267 TOK_ARRAY     array
+    7  33.017 278 TOK_IDENT     words
     7  33.022  91 '['           [
     7  33.023 278 TOK_IDENT     slot
     7  33.027  93 ']'           ]
@@ -226,7 +226,7 @@
     7  38.019  40 '('           (
     7  38.020 278 TOK_IDENT     strcmp
     7  38.027  40 '('           (
-    7  38.028 267 TOK_ARRAY     array
+    7  38.028 278 TOK_IDENT     words
     7  38.033  91 '['           [
     7  38.034 278 TOK_IDENT     slot
     7  38.039  45 '-'           -
@@ -246,12 +246,12 @@
     7  40.010 125 '}'           }
     7  40.011 262 TOK_ELSE      else
     7  40.016 123 '{'           {
-    7  41.013 267 TOK_ARRAY     array
+    7  41.013 278 TOK_IDENT     words
     7  41.018  91 '['           [
     7  41.019 278 TOK_IDENT     slot
     7  41.023  93 ']'           ]
     7  41.025  61 '='           =
-    7  41.027 267 TOK_ARRAY     array
+    7  41.027 278 TOK_IDENT     words
     7  41.032  91 '['           [
     7  41.033 278 TOK_IDENT     slot
     7  41.038  45 '-'           -
@@ -266,7 +266,7 @@
     7  42.028  59 ';'           ;
     7  43.010 125 '}'           }
     7  44.007 125 '}'           }
-    7  45.007 267 TOK_ARRAY     array
+    7  45.007 278 TOK_IDENT     words
     7  45.012  91 '['           [
     7  45.013 278 TOK_IDENT     slot
     7  45.017  93 ']'           ]
@@ -288,10 +288,10 @@
     7  51.023 278 TOK_IDENT     size
     7  51.027  44 ','           ,
     7  51.029 267 TOK_ARRAY     array
-    7  51.034 273 TOK_LT        <
+    7  51.034  60 '<'           <
     7  51.035 260 TOK_STRING    string
-    7  51.041 275 TOK_GT        >
-    7  51.043 267 TOK_ARRAY     array
+    7  51.041  62 '>'           >
+    7  51.043 278 TOK_IDENT     words
     7  51.048  41 ')'           )
     7  51.050 123 '{'           {
     7  52.004 259 TOK_INT       int
@@ -302,13 +302,13 @@
     7  53.004 263 TOK_WHILE     while
     7  53.010  40 '('           (
     7  53.011 278 TOK_IDENT     index
-    7  53.017 273 TOK_LT        <
+    7  53.017  60 '<'           <
     7  53.019 278 TOK_IDENT     size
     7  53.023  41 ')'           )
     7  53.025 123 '{'           {
     7  54.007 278 TOK_IDENT     putstr
     7  54.014  40 '('           (
-    7  54.015 267 TOK_ARRAY     array
+    7  54.015 278 TOK_IDENT     words
     7  54.020  91 '['           [
     7  54.021 278 TOK_IDENT     index
     7  54.026  93 ']'           ]
@@ -334,9 +334,9 @@
     7  60.021 278 TOK_IDENT     size
     7  60.025  44 ','           ,
     7  60.027 267 TOK_ARRAY     array
-    7  60.032 273 TOK_LT        <
+    7  60.032  60 '<'           <
     7  60.033 260 TOK_STRING    string
-    7  60.039 275 TOK_GT        >
+    7  60.039  62 '>'           >
     7  60.041 278 TOK_IDENT     words
     7  60.046  41 ')'           )
     7  60.048 123 '{'           {
@@ -405,18 +405,18 @@
     7  73.016 279 TOK_INTCON    100
     7  73.019  59 ';'           ;
     7  74.004 267 TOK_ARRAY     array
-    7  74.009 273 TOK_LT        <
+    7  74.009  60 '<'           <
     7  74.010 260 TOK_STRING    string
-    7  74.016 275 TOK_GT        >
+    7  74.016  62 '>'           >
     7  74.018 278 TOK_IDENT     words
     7  74.024  61 '='           =
     7  74.026 269 TOK_ALLOC     alloc
-    7  74.031 273 TOK_LT        <
+    7  74.031  60 '<'           <
     7  74.032 267 TOK_ARRAY     array
-    7  74.037 273 TOK_LT        <
+    7  74.037  60 '<'           <
     7  74.038 260 TOK_STRING    string
-    7  74.044 275 TOK_GT        >
-    7  74.045 275 TOK_GT        >
+    7  74.044  62 '>'           >
+    7  74.045  62 '>'           >
     7  74.046  40 '('           (
     7  74.047 278 TOK_IDENT     count
     7  74.052  41 ')'           )

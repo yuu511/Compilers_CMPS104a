@@ -56,9 +56,9 @@
     7   5.014 278 TOK_IDENT     argc
     7   5.018  44 ','           ,
     7   5.020 267 TOK_ARRAY     array
-    7   5.025 273 TOK_LT        <
+    7   5.025  60 '<'           <
     7   5.026 260 TOK_STRING    string
-    7   5.032 275 TOK_GT        >
+    7   5.032  62 '>'           >
     7   5.034 278 TOK_IDENT     argv
     7   5.038  41 ')'           )
     7   5.040 123 '{'           {
@@ -70,14 +70,14 @@
     7   7.004 263 TOK_WHILE     while
     7   7.010  40 '('           (
     7   7.011 278 TOK_IDENT     argi
-    7   7.016 273 TOK_LT        <
+    7   7.016  60 '<'           <
     7   7.018 278 TOK_IDENT     argc
     7   7.022  41 ')'           )
     7   7.024 123 '{'           {
     7   8.007 261 TOK_IF        if
     7   8.010  40 '('           (
     7   8.011 278 TOK_IDENT     argi
-    7   8.016 275 TOK_GT        >
+    7   8.016  62 '>'           >
     7   8.018 279 TOK_INTCON    1
     7   8.019  41 ')'           )
     7   8.021 278 TOK_IDENT     putchr

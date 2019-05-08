@@ -1,4 +1,4 @@
-// $Id: 53-insertionsort.oc,v 1.4 2019-04-18 14:06:21-07 - - $
+// $Id: 53-insertionsort.oc,v 1.5 2019-05-06 12:15:43-07 - - $
 //
 // Use insertion sort to print argv in sorted order.
 //
@@ -23,35 +23,35 @@ int strcmp (string s1, string s2) {
    return 0;
 }
 
-void insertion_sort (int size, array<string> array) {
+void insertion_sort (int size, array<string> words) {
    int sorted = 1;
    int slot = 0;
    string element = nullptr;
    BOOL contin = FALSE;
    while (sorted < size) {
       slot = sorted;
-      element = array[slot];
+      element = words[slot];
       contin = TRUE;
       while (contin) {
          if (slot == 0) {
             contin = FALSE;
-         }else if (strcmp (array[slot - 1], element) <= 0) {
+         }else if (strcmp (words[slot - 1], element) <= 0) {
             contin = FALSE;
          }else {
-            array[slot] = array[slot - 1];
+            words[slot] = words[slot - 1];
             slot = slot - 1;
          }
       }
-      array[slot] = element;
+      words[slot] = element;
       sorted = sorted + 1;
    }
 }
 
 
-void print_array (int size, array<string> array) {
+void print_array (int size, array<string> words) {
    int index = 0;
    while (index < size) {
-      putstr (array[index]);
+      putstr (words[index]);
       putchr ('\n');
       index = index + 1;
    }

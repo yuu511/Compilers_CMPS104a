@@ -1,14 +1,14 @@
-// $Id: 41-linkedstack.oc,v 1.2 2019-04-17 13:23:14-07 - - $
+// $Id: 41-linkedstack.oc,v 1.4 2019-05-06 12:54:55-07 - - $
 
 #include "oclib.h"
 
 struct node {
    string data;
-   ptr<node> link;
+   ptr <struct node> link;
 };
 
 struct stack {
-   ptr<node> top;
+   ptr <struct node> top;
 };
 
 int empty (ptr<struct stack> stack) {
@@ -23,7 +23,7 @@ ptr<struct stack> new_stack() {
 }
 
 void push (ptr<struct stack> stack, string str) {
-   ptr<node> tmp = alloc<node>();
+   ptr <struct node> tmp = alloc<struct node>();
    assert (stack != nullptr);
    tmp->data = str;
    tmp->link = stack->top;
