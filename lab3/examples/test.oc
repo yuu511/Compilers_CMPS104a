@@ -1,67 +1,67 @@
 /* structure tests */
 
-struct test{};
-struct onearg{int trivial;};
-struct testptr { ptr <struct test > homura; };
-struct testarray { array <ptr <struct test >> sayaka; };
-struct allofem { int one;
-                 string two;
-                 void three;
-                 ptr <struct test > homura; 
-                 array <ptr <struct test >> sayaka;
-	        };
+// struct test{};
+// struct onearg{int trivial;};
+// struct testptr { ptr <struct test > homura; };
+// struct testarray { array <ptr <struct test >> sayaka; };
+// struct allofem { int one;
+//                  string two;
+//                  void three;
+//                  ptr <struct test > homura; 
+//                  array <ptr <struct test >> sayaka;
+// 	        };
 
 /* vardecl tests */
 
-int one;
-int two = -5*+3+0xDEADBEEF/5%01231235;
-int test = test -> fk;
-int test2 = ye;
-int test3 = test[5];
-string test4 = alloc < "hehexd" > (5);
-string test5 = alloc < struct homura > ();
-string test5 = alloc < array<string> > (5);
-int test = (-5+5)*3;
-int test = -5+5*3;
-int test = ami();
+// int one;
+// int two = -5*+3+0xDEADBEEF/5%01231235;
+// int test = test -> fk;
+// int test2 = ye;
+// int test3 = test[5];
+// string test4 = alloc < "hehexd" > (5);
+// string test5 = alloc < struct homura > ();
+// string test5 = alloc < array<string> > (5);
+// int test = (-5+5)*3;
+// int test = -5+5*3;
+// int test = ami();
 
 /* test a wide range of expressions in a function call  */
 
-int test2 = homu(
-         5+5,
-         -5,
-		 alloc < "hehexd" >(5), 
-		 alloc < struct homura >(),
-		 alloc < array<string> > (5),
-		 meta(5,"stringcon"), 
-		 (5*5), 
-		 test, 
-		 test[5],
-		 test->homura, 
-		 5, 
-		 'c', 
-		 "stringcon", 
-		 nullptr
-		);
+// int test2 = homu(
+//          5+5,
+//          -5,
+// 		 alloc < "hehexd" >(5), 
+// 		 alloc < struct homura >(),
+// 		 alloc < array<string> > (5),
+// 		 meta(5,"stringcon"), 
+// 		 (5*5), 
+// 		 test, 
+// 		 test[5],
+// 		 test->homura, 
+// 		 5, 
+// 		 'c', 
+// 		 "stringcon", 
+// 		 nullptr
+// 		);
 
 /* block tests */
 
-{}
-{;}
-{
-  int one;
-  int two = -5*+3+0xDEADBEEF/5%01231235;
-  int test = test -> fk;
-  int test2 = ye;
-  int test3 = test[5];
-}
+// {}
+// {;}
+// {
+//   int one;
+//   int two = -5*+3+0xDEADBEEF/5%01231235;
+//   int test = test -> fk;
+//   int test2 = ye;
+//   int test3 = test[5];
+// }
 
 /* statement tests */
 
 // while (test==5 ) { 5 =  5 + 5;}
-// if (argc == 1) putstr ("one");
-// if (test == fk) putstr ("test");
-// else putstr ("two");
+if (argc == 1) 
+if (test == aident) putstr("test");
+else putstr ("three");
 
 /* function tests */
 
@@ -70,6 +70,7 @@ int test2 = homu(
 //   int one;
 //   int two = -5*+3+0xDEADBEEF/5%01231235;
 // }
+
 
 // int parameters (int test, string foo, int ye) {
 //   int one;
