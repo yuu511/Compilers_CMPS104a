@@ -33,7 +33,7 @@
 %token TOK_ROOT TOK_BLOCK TOK_CALL TOK_INITDECL
 %token TOK_TYPE_ID TOK_VARDECL TOK_INDEX TOK_FUNCTION
 
-%right  TOK_ELSE
+%right  TOK_IF TOK_ELSE
 %right  '='
 %left   TOK_EQ TOK_NE '<' TOK_LE '>' TOK_GE
 %left   '+' '-'
