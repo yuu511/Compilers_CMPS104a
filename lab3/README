@@ -1,15 +1,7 @@
-README: lab2
+README: lab3
 Elijah Cordova
 ejcordov / 1425119
 
-astree::destroy(yylval) is called after parsing the 
-string and token information to ensure there are no memory leaks. 
-this function will be removed for lab3.
 
-invalid string : no end quote
-invalid char   : no end quote, or more than one character within quotes 
-examples: 'f , '\0n' , 'fo'
-covers the case where there is a character after an escape (2i)
-
-arg -@tok reserved for personal tokenset debug flag, t_debug.
+arg -@{str,tok,ast} reserved as personal debug flag
 
