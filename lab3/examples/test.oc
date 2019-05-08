@@ -54,8 +54,44 @@
 
 // statement tests
 // while (test==5 ) { 5 =  5 + 5;}
+// if (argc == 1) putstr ("one");
+// if (test == fk) putstr ("test");
+// else putstr ("two");
+// else putstr ("two");
+
 // function tests
-if (argc == 1) putstr ("one");
-if (test == fk) putstr ("test");
-else putstr ("two");
-else putstr ("two");
+// int trivial () {}
+// int test () {
+//   int one;
+//   int two = -5*+3+0xDEADBEEF/5%01231235;
+// }
+
+int parameters (int test, string foo, int ye) {
+  int one;
+  int two = -5*+3+0xDEADBEEF/5%01231235;
+  int test = test -> fk;
+  int test2 = ye;
+  int test3 = test[5];
+  string test4 = alloc < "hehexd" > (5);
+  string test5 = alloc < struct homura > ();
+  string test5 = alloc < array<string> > (5);
+  int test = (-5+5)*3;
+  int test = -5+5*3;
+  int test = ami();
+  // test a wide range of expr .. 
+  int test2 = homu(5+5,
+                   -5,
+  		 alloc < "hehexd" >(5), 
+  		 alloc < struct homura >(),
+  		 alloc < array<string> > (5),
+  		 meta(5,"stringcon"), 
+  		 (5*5), 
+  		 test, 
+  		 test[5],
+  		 test->homura, 
+  		 5, 
+  		 'c', 
+  		 "stringcon", 
+  		 nullptr
+  		);
+}
