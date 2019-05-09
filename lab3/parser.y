@@ -253,12 +253,11 @@ function : fargs block {
          ;
 
 fargs : type TOK_IDENT fargs2 ')' { 
-            astree* func = new astree(TOK_FUNCTION, $1->lloc,"");
-            astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
-            tid->adopt($1,$2);
-            $$ = func->adopt(tid,$3);
-            destroy($4);
-          }
+          astree* func = new astree(TOK_FUNCTION, $1->lloc,"");
+          astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
+          tid->adopt($1,$2);
+          $$ = func->adopt(tid,$3);
+          destroy($4); }
       ;
 
 fargs2 : '(' type TOK_IDENT {
