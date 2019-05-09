@@ -31,7 +31,7 @@
 %token TOK_EQ TOK_NE TOK_LT TOK_LE TOK_GT TOK_GE TOK_NOT
 %token TOK_IDENT TOK_INTCON TOK_CHARCON TOK_STRINGCON
 %token TOK_ROOT TOK_BLOCK TOK_CALL TOK_INITDECL
-%token TOK_TYPE_ID TOK_VARDECL TOK_INDEX TOK_FUNCTION
+%token TOK_TYPE_ID TOK_INDEX TOK_FUNCTION TOK_PARAM
 
 %right  TOK_IF TOK_ELSE
 %right  '='
@@ -94,13 +94,13 @@ statement : vardecl  { $$ = $1; }
 vardecl : type TOK_IDENT '=' expr ';' { 
             astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
             tid->adopt($1,$2);
-            $3->adopt_sym(tid,TOK_VARDECL);
-            $$ = $3->adopt($4);
+            $$ = tid->adopt($4);
+            destroy($3); 
             destroy($5); }
         | type TOK_IDENT ';' { 
             astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
-            tid->adopt($1,$2);
-            $$ = $3->adopt_sym(tid,TOK_VARDECL); }
+            $$ = tid->adopt($1,$2);
+            destroy($3); }
         ;
 
 type : plaintype                   { $$ = $1; }
@@ -239,30 +239,39 @@ return : TOK_RETURN expr ';' {
            destroy($2); } 
        ;
 
-function : fargs ')' block { 
-             $$ = $1->adopt($3); 
-             destroy($2); }
+function : fargs block { 
+               $$ = $1->adopt($2); 
+             }
          | type TOK_IDENT '(' ')' block { 
+             astree* func = new astree(TOK_FUNCTION, $1->lloc,"");
              astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
              tid->adopt($1,$2);
-             $3->adopt_sym(tid,TOK_FUNCTION);
-             $$ = $3->adopt ($5);
+             $3->adopt_sym(nullptr,TOK_PARAM);
+             func->adopt(tid);
+             $$ = func->adopt ($3,$5);
              destroy($4);}
          ;
 
-fargs : type TOK_IDENT '(' type TOK_IDENT { 
-          astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
-          tid->adopt($1,$2);
-          $3->adopt_sym(tid,TOK_FUNCTION); 
-          tid = new astree(TOK_TYPE_ID, $4->lloc,"");
-          tid->adopt($4,$5);
-          $$ = $3->adopt(tid); }
-      | fargs ',' type TOK_IDENT { 
-          astree* tid = new astree(TOK_TYPE_ID, $3->lloc,"");
-          tid->adopt($3,$4);
-          $$ = $1->adopt(tid);
-          destroy($2); }
+fargs : type TOK_IDENT fargs2 ')' { 
+            astree* func = new astree(TOK_FUNCTION, $1->lloc,"");
+            astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
+            tid->adopt($1,$2);
+            $$ = func->adopt(tid,$3);
+            destroy($4);
+          }
       ;
+
+fargs2 : '(' type TOK_IDENT {
+         astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
+         tid->adopt($2,$3);
+         $$ = $1->adopt_sym(tid,TOK_PARAM); }
+       | fargs2 ',' type TOK_IDENT {
+           astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
+           tid->adopt($3,$4);
+           $$ = $1->adopt(tid); 
+           destroy($2); }
+       ;  
+
 %% 
 
 const char* parser::get_tname (int symbol) {

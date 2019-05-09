@@ -7,9 +7,9 @@ Terminals unused in grammar
    TOK_CALL
    TOK_INITDECL
    TOK_TYPE_ID
-   TOK_VARDECL
    TOK_INDEX
    TOK_FUNCTION
+   TOK_PARAM
 
 
 Grammar
@@ -104,22 +104,24 @@ Grammar
    68 return: TOK_RETURN expr ';'
    69       | TOK_RETURN ';'
 
-   70 function: fargs ')' block
+   70 function: fargs block
    71         | type TOK_IDENT '(' ')' block
 
-   72 fargs: type TOK_IDENT '(' type TOK_IDENT
-   73      | fargs ',' type TOK_IDENT
+   72 fargs: type TOK_IDENT fargs2 ')'
+
+   73 fargs2: '(' type TOK_IDENT
+   74       | fargs2 ',' type TOK_IDENT
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 '%' (37) 31
-'(' (40) 42 46 47 48 50 51 65 66 67 71 72
-')' (41) 42 46 47 48 49 50 65 66 67 70 71
+'(' (40) 42 46 47 48 50 51 65 66 67 71 73
+')' (41) 42 46 47 48 49 50 65 66 67 71 72
 '*' (42) 29
 '+' (43) 27 39
-',' (44) 52 73
+',' (44) 52 74
 '-' (45) 28 38
 '/' (47) 30
 ';' (59) 5 7 8 9 10 17 18 19 62 68 69
@@ -151,7 +153,7 @@ TOK_LE (274) 34
 TOK_GT (275)
 TOK_GE (276) 35
 TOK_NOT (277) 40
-TOK_IDENT (278) 8 9 10 18 19 25 47 50 51 53 55 71 72 73
+TOK_IDENT (278) 8 9 10 18 19 25 47 50 51 53 55 71 72 73 74
 TOK_INTCON (279) 56
 TOK_CHARCON (280) 57
 TOK_STRINGCON (281) 58
@@ -160,9 +162,9 @@ TOK_BLOCK (283)
 TOK_CALL (284)
 TOK_INITDECL (285)
 TOK_TYPE_ID (286)
-TOK_VARDECL (287)
-TOK_INDEX (288)
-TOK_FUNCTION (289)
+TOK_INDEX (287)
+TOK_FUNCTION (288)
+TOK_PARAM (289)
 U_PLUS (290)
 U_MINUS (291)
 
@@ -184,7 +186,7 @@ statement (58)
 vardecl (59)
     on left: 18 19, on right: 11
 type (60)
-    on left: 20 21, on right: 9 10 18 19 71 72 73
+    on left: 20 21, on right: 9 10 18 19 71 72 73 74
 plaintype (61)
     on left: 22 23 24 25, on right: 20 21 48
 expr (62)
@@ -214,7 +216,9 @@ return (72)
 function (73)
     on left: 70 71, on right: 16
 fargs (74)
-    on left: 72 73, on right: 70 73
+    on left: 72, on right: 70
+fargs2 (75)
+    on left: 73 74, on right: 72 74
 
 
 State 0
@@ -622,7 +626,7 @@ State 30
    18 vardecl: type . TOK_IDENT '=' expr ';'
    19        | type . TOK_IDENT ';'
    71 function: type . TOK_IDENT '(' ')' block
-   72 fargs: type . TOK_IDENT '(' type TOK_IDENT
+   72 fargs: type . TOK_IDENT fargs2 ')'
 
     TOK_IDENT  shift, and go to state 64
 
@@ -789,11 +793,13 @@ State 43
 
 State 44
 
-   70 function: fargs . ')' block
-   73 fargs: fargs . ',' type TOK_IDENT
+   70 function: fargs . block
 
-    ')'  shift, and go to state 84
-    ','  shift, and go to state 85
+    ';'  shift, and go to state 24
+    '{'  shift, and go to state 25
+
+    block  go to state 84
+    bargs  go to state 39
 
 
 State 45
@@ -826,7 +832,7 @@ State 47
     '-'            shift, and go to state 22
     '('            shift, and go to state 23
 
-    expr       go to state 86
+    expr       go to state 85
     allocator  go to state 33
     call       go to state 34
     cargs      go to state 35
@@ -849,7 +855,7 @@ State 48
     '-'            shift, and go to state 22
     '('            shift, and go to state 23
 
-    expr       go to state 87
+    expr       go to state 86
     allocator  go to state 33
     call       go to state 34
     cargs      go to state 35
@@ -896,7 +902,7 @@ State 50
     '/'        shift, and go to state 76
     '%'        shift, and go to state 77
     '['        shift, and go to state 78
-    ';'        shift, and go to state 88
+    ';'        shift, and go to state 87
 
 
 State 51
@@ -904,7 +910,7 @@ State 51
     8 structdef: TOK_STRUCT TOK_IDENT . '{' '}' ';'
    10 sargs: TOK_STRUCT TOK_IDENT . '{' type TOK_IDENT ';'
 
-    '{'  shift, and go to state 89
+    '{'  shift, and go to state 88
 
 
 State 52
@@ -916,7 +922,7 @@ State 52
     TOK_STRING  shift, and go to state 7
     TOK_PTR     shift, and go to state 15
 
-    plaintype  go to state 90
+    plaintype  go to state 89
 
 
 State 53
@@ -925,16 +931,16 @@ State 53
    47          | TOK_ALLOC '<' . TOK_STRUCT TOK_IDENT '>' '(' ')'
    48          | TOK_ALLOC '<' . TOK_ARRAY '<' plaintype '>' '>' '(' expr ')'
 
-    TOK_STRING  shift, and go to state 91
-    TOK_STRUCT  shift, and go to state 92
-    TOK_ARRAY   shift, and go to state 93
+    TOK_STRING  shift, and go to state 90
+    TOK_STRUCT  shift, and go to state 91
+    TOK_ARRAY   shift, and go to state 92
 
 
 State 54
 
    25 plaintype: TOK_PTR '<' . TOK_STRUCT TOK_IDENT '>'
 
-    TOK_STRUCT  shift, and go to state 94
+    TOK_STRUCT  shift, and go to state 93
 
 
 State 55
@@ -976,9 +982,9 @@ State 56
     '+'            shift, and go to state 21
     '-'            shift, and go to state 22
     '('            shift, and go to state 23
-    ')'            shift, and go to state 95
+    ')'            shift, and go to state 94
 
-    expr       go to state 96
+    expr       go to state 95
     allocator  go to state 33
     call       go to state 34
     cargs      go to state 35
@@ -1066,7 +1072,7 @@ State 59
     '/'        shift, and go to state 76
     '%'        shift, and go to state 77
     '['        shift, and go to state 78
-    ')'        shift, and go to state 97
+    ')'        shift, and go to state 96
 
 
 State 60
@@ -1087,14 +1093,14 @@ State 62
 
     7 structdef: sargs '}' . ';'
 
-    ';'  shift, and go to state 98
+    ';'  shift, and go to state 97
 
 
 State 63
 
     9 sargs: sargs type . TOK_IDENT ';'
 
-    TOK_IDENT  shift, and go to state 99
+    TOK_IDENT  shift, and go to state 98
 
 
 State 64
@@ -1102,11 +1108,13 @@ State 64
    18 vardecl: type TOK_IDENT . '=' expr ';'
    19        | type TOK_IDENT . ';'
    71 function: type TOK_IDENT . '(' ')' block
-   72 fargs: type TOK_IDENT . '(' type TOK_IDENT
+   72 fargs: type TOK_IDENT . fargs2 ')'
 
-    '='  shift, and go to state 100
-    '('  shift, and go to state 101
-    ';'  shift, and go to state 102
+    '='  shift, and go to state 99
+    '('  shift, and go to state 100
+    ';'  shift, and go to state 101
+
+    fargs2  go to state 102
 
 
 State 65
@@ -1468,30 +1476,12 @@ State 83
 
 State 84
 
-   70 function: fargs ')' . block
+   70 function: fargs block .
 
-    ';'  shift, and go to state 24
-    '{'  shift, and go to state 25
-
-    block  go to state 118
-    bargs  go to state 39
+    $default  reduce using rule 70 (function)
 
 
 State 85
-
-   73 fargs: fargs ',' . type TOK_IDENT
-
-    TOK_VOID    shift, and go to state 5
-    TOK_INT     shift, and go to state 6
-    TOK_STRING  shift, and go to state 7
-    TOK_ARRAY   shift, and go to state 13
-    TOK_PTR     shift, and go to state 15
-
-    type       go to state 119
-    plaintype  go to state 31
-
-
-State 86
 
    26 expr: expr . '=' expr
    27     | expr . '+' expr
@@ -1524,10 +1514,10 @@ State 86
     '/'        shift, and go to state 76
     '%'        shift, and go to state 77
     '['        shift, and go to state 78
-    ')'        shift, and go to state 120
+    ')'        shift, and go to state 118
 
 
-State 87
+State 86
 
    26 expr: expr . '=' expr
    27     | expr . '+' expr
@@ -1559,17 +1549,17 @@ State 87
     '/'        shift, and go to state 76
     '%'        shift, and go to state 77
     '['        shift, and go to state 78
-    ')'        shift, and go to state 121
+    ')'        shift, and go to state 119
 
 
-State 88
+State 87
 
    68 return: TOK_RETURN expr ';' .
 
     $default  reduce using rule 68 (return)
 
 
-State 89
+State 88
 
     8 structdef: TOK_STRUCT TOK_IDENT '{' . '}' ';'
    10 sargs: TOK_STRUCT TOK_IDENT '{' . type TOK_IDENT ';'
@@ -1579,55 +1569,55 @@ State 89
     TOK_STRING  shift, and go to state 7
     TOK_ARRAY   shift, and go to state 13
     TOK_PTR     shift, and go to state 15
-    '}'         shift, and go to state 122
+    '}'         shift, and go to state 120
 
-    type       go to state 123
+    type       go to state 121
     plaintype  go to state 31
+
+
+State 89
+
+   21 type: TOK_ARRAY '<' plaintype . '>'
+
+    '>'  shift, and go to state 122
 
 
 State 90
 
-   21 type: TOK_ARRAY '<' plaintype . '>'
+   46 allocator: TOK_ALLOC '<' TOK_STRING . '>' '(' expr ')'
 
-    '>'  shift, and go to state 124
+    '>'  shift, and go to state 123
 
 
 State 91
 
-   46 allocator: TOK_ALLOC '<' TOK_STRING . '>' '(' expr ')'
+   47 allocator: TOK_ALLOC '<' TOK_STRUCT . TOK_IDENT '>' '(' ')'
 
-    '>'  shift, and go to state 125
+    TOK_IDENT  shift, and go to state 124
 
 
 State 92
 
-   47 allocator: TOK_ALLOC '<' TOK_STRUCT . TOK_IDENT '>' '(' ')'
+   48 allocator: TOK_ALLOC '<' TOK_ARRAY . '<' plaintype '>' '>' '(' expr ')'
 
-    TOK_IDENT  shift, and go to state 126
+    '<'  shift, and go to state 125
 
 
 State 93
 
-   48 allocator: TOK_ALLOC '<' TOK_ARRAY . '<' plaintype '>' '>' '(' expr ')'
+   25 plaintype: TOK_PTR '<' TOK_STRUCT . TOK_IDENT '>'
 
-    '<'  shift, and go to state 127
+    TOK_IDENT  shift, and go to state 126
 
 
 State 94
-
-   25 plaintype: TOK_PTR '<' TOK_STRUCT . TOK_IDENT '>'
-
-    TOK_IDENT  shift, and go to state 128
-
-
-State 95
 
    50 call: TOK_IDENT '(' ')' .
 
     $default  reduce using rule 50 (call)
 
 
-State 96
+State 95
 
    26 expr: expr . '=' expr
    27     | expr . '+' expr
@@ -1663,28 +1653,28 @@ State 96
     $default  reduce using rule 51 (cargs)
 
 
-State 97
+State 96
 
    42 expr: '(' expr ')' .
 
     $default  reduce using rule 42 (expr)
 
 
-State 98
+State 97
 
     7 structdef: sargs '}' ';' .
 
     $default  reduce using rule 7 (structdef)
 
 
-State 99
+State 98
 
     9 sargs: sargs type TOK_IDENT . ';'
 
-    ';'  shift, and go to state 129
+    ';'  shift, and go to state 127
 
 
-State 100
+State 99
 
    18 vardecl: type TOK_IDENT '=' . expr ';'
 
@@ -1699,7 +1689,7 @@ State 100
     '-'            shift, and go to state 22
     '('            shift, and go to state 23
 
-    expr       go to state 130
+    expr       go to state 128
     allocator  go to state 33
     call       go to state 34
     cargs      go to state 35
@@ -1707,27 +1697,36 @@ State 100
     constant   go to state 37
 
 
-State 101
+State 100
 
    71 function: type TOK_IDENT '(' . ')' block
-   72 fargs: type TOK_IDENT '(' . type TOK_IDENT
+   73 fargs2: '(' . type TOK_IDENT
 
     TOK_VOID    shift, and go to state 5
     TOK_INT     shift, and go to state 6
     TOK_STRING  shift, and go to state 7
     TOK_ARRAY   shift, and go to state 13
     TOK_PTR     shift, and go to state 15
-    ')'         shift, and go to state 131
+    ')'         shift, and go to state 129
 
-    type       go to state 132
+    type       go to state 130
     plaintype  go to state 31
 
 
-State 102
+State 101
 
    19 vardecl: type TOK_IDENT ';' .
 
     $default  reduce using rule 19 (vardecl)
+
+
+State 102
+
+   72 fargs: type TOK_IDENT fargs2 . ')'
+   74 fargs2: fargs2 . ',' type TOK_IDENT
+
+    ')'  shift, and go to state 131
+    ','  shift, and go to state 132
 
 
 State 103
@@ -2146,22 +2145,52 @@ State 117
 
 State 118
 
-   70 function: fargs ')' block .
+   66 ifelse: TOK_IF '(' expr ')' . statement TOK_ELSE statement
+   67       | TOK_IF '(' expr ')' . statement
 
-    $default  reduce using rule 70 (function)
+    TOK_VOID       shift, and go to state 5
+    TOK_INT        shift, and go to state 6
+    TOK_STRING     shift, and go to state 7
+    TOK_IF         shift, and go to state 8
+    TOK_WHILE      shift, and go to state 9
+    TOK_RETURN     shift, and go to state 10
+    TOK_NULLPTR    shift, and go to state 12
+    TOK_ARRAY      shift, and go to state 13
+    TOK_ALLOC      shift, and go to state 14
+    TOK_PTR        shift, and go to state 15
+    TOK_NOT        shift, and go to state 16
+    TOK_IDENT      shift, and go to state 17
+    TOK_INTCON     shift, and go to state 18
+    TOK_CHARCON    shift, and go to state 19
+    TOK_STRINGCON  shift, and go to state 20
+    '+'            shift, and go to state 21
+    '-'            shift, and go to state 22
+    '('            shift, and go to state 23
+    ';'            shift, and go to state 24
+    '{'            shift, and go to state 25
+
+    statement  go to state 134
+    vardecl    go to state 29
+    type       go to state 30
+    plaintype  go to state 31
+    expr       go to state 32
+    allocator  go to state 33
+    call       go to state 34
+    cargs      go to state 35
+    variable   go to state 36
+    constant   go to state 37
+    block      go to state 38
+    bargs      go to state 39
+    while      go to state 40
+    ifelse     go to state 41
+    return     go to state 42
+    function   go to state 43
+    fargs      go to state 44
 
 
 State 119
 
-   73 fargs: fargs ',' type . TOK_IDENT
-
-    TOK_IDENT  shift, and go to state 134
-
-
-State 120
-
-   66 ifelse: TOK_IF '(' expr ')' . statement TOK_ELSE statement
-   67       | TOK_IF '(' expr ')' . statement
+   65 while: TOK_WHILE '(' expr ')' . statement
 
     TOK_VOID       shift, and go to state 5
     TOK_INT        shift, and go to state 6
@@ -2203,86 +2232,42 @@ State 120
     fargs      go to state 44
 
 
-State 121
-
-   65 while: TOK_WHILE '(' expr ')' . statement
-
-    TOK_VOID       shift, and go to state 5
-    TOK_INT        shift, and go to state 6
-    TOK_STRING     shift, and go to state 7
-    TOK_IF         shift, and go to state 8
-    TOK_WHILE      shift, and go to state 9
-    TOK_RETURN     shift, and go to state 10
-    TOK_NULLPTR    shift, and go to state 12
-    TOK_ARRAY      shift, and go to state 13
-    TOK_ALLOC      shift, and go to state 14
-    TOK_PTR        shift, and go to state 15
-    TOK_NOT        shift, and go to state 16
-    TOK_IDENT      shift, and go to state 17
-    TOK_INTCON     shift, and go to state 18
-    TOK_CHARCON    shift, and go to state 19
-    TOK_STRINGCON  shift, and go to state 20
-    '+'            shift, and go to state 21
-    '-'            shift, and go to state 22
-    '('            shift, and go to state 23
-    ';'            shift, and go to state 24
-    '{'            shift, and go to state 25
-
-    statement  go to state 136
-    vardecl    go to state 29
-    type       go to state 30
-    plaintype  go to state 31
-    expr       go to state 32
-    allocator  go to state 33
-    call       go to state 34
-    cargs      go to state 35
-    variable   go to state 36
-    constant   go to state 37
-    block      go to state 38
-    bargs      go to state 39
-    while      go to state 40
-    ifelse     go to state 41
-    return     go to state 42
-    function   go to state 43
-    fargs      go to state 44
-
-
-State 122
+State 120
 
     8 structdef: TOK_STRUCT TOK_IDENT '{' '}' . ';'
 
-    ';'  shift, and go to state 137
+    ';'  shift, and go to state 136
 
 
-State 123
+State 121
 
    10 sargs: TOK_STRUCT TOK_IDENT '{' type . TOK_IDENT ';'
 
-    TOK_IDENT  shift, and go to state 138
+    TOK_IDENT  shift, and go to state 137
 
 
-State 124
+State 122
 
    21 type: TOK_ARRAY '<' plaintype '>' .
 
     $default  reduce using rule 21 (type)
 
 
-State 125
+State 123
 
    46 allocator: TOK_ALLOC '<' TOK_STRING '>' . '(' expr ')'
 
-    '('  shift, and go to state 139
+    '('  shift, and go to state 138
 
 
-State 126
+State 124
 
    47 allocator: TOK_ALLOC '<' TOK_STRUCT TOK_IDENT . '>' '(' ')'
 
-    '>'  shift, and go to state 140
+    '>'  shift, and go to state 139
 
 
-State 127
+State 125
 
    48 allocator: TOK_ALLOC '<' TOK_ARRAY '<' . plaintype '>' '>' '(' expr ')'
 
@@ -2291,24 +2276,24 @@ State 127
     TOK_STRING  shift, and go to state 7
     TOK_PTR     shift, and go to state 15
 
-    plaintype  go to state 141
+    plaintype  go to state 140
 
 
-State 128
+State 126
 
    25 plaintype: TOK_PTR '<' TOK_STRUCT TOK_IDENT . '>'
 
-    '>'  shift, and go to state 142
+    '>'  shift, and go to state 141
 
 
-State 129
+State 127
 
     9 sargs: sargs type TOK_IDENT ';' .
 
     $default  reduce using rule 9 (sargs)
 
 
-State 130
+State 128
 
    18 vardecl: type TOK_IDENT '=' expr . ';'
    26 expr: expr . '=' expr
@@ -2340,25 +2325,46 @@ State 130
     '/'        shift, and go to state 76
     '%'        shift, and go to state 77
     '['        shift, and go to state 78
-    ';'        shift, and go to state 143
+    ';'        shift, and go to state 142
 
 
-State 131
+State 129
 
    71 function: type TOK_IDENT '(' ')' . block
 
     ';'  shift, and go to state 24
     '{'  shift, and go to state 25
 
-    block  go to state 144
+    block  go to state 143
     bargs  go to state 39
+
+
+State 130
+
+   73 fargs2: '(' type . TOK_IDENT
+
+    TOK_IDENT  shift, and go to state 144
+
+
+State 131
+
+   72 fargs: type TOK_IDENT fargs2 ')' .
+
+    $default  reduce using rule 72 (fargs)
 
 
 State 132
 
-   72 fargs: type TOK_IDENT '(' type . TOK_IDENT
+   74 fargs2: fargs2 ',' . type TOK_IDENT
 
-    TOK_IDENT  shift, and go to state 145
+    TOK_VOID    shift, and go to state 5
+    TOK_INT     shift, and go to state 6
+    TOK_STRING  shift, and go to state 7
+    TOK_ARRAY   shift, and go to state 13
+    TOK_PTR     shift, and go to state 15
+
+    type       go to state 145
+    plaintype  go to state 31
 
 
 State 133
@@ -2370,13 +2376,6 @@ State 133
 
 State 134
 
-   73 fargs: fargs ',' type TOK_IDENT .
-
-    $default  reduce using rule 73 (fargs)
-
-
-State 135
-
    66 ifelse: TOK_IF '(' expr ')' statement . TOK_ELSE statement
    67       | TOK_IF '(' expr ')' statement .
 
@@ -2385,28 +2384,28 @@ State 135
     $default  reduce using rule 67 (ifelse)
 
 
-State 136
+State 135
 
    65 while: TOK_WHILE '(' expr ')' statement .
 
     $default  reduce using rule 65 (while)
 
 
-State 137
+State 136
 
     8 structdef: TOK_STRUCT TOK_IDENT '{' '}' ';' .
 
     $default  reduce using rule 8 (structdef)
 
 
-State 138
+State 137
 
    10 sargs: TOK_STRUCT TOK_IDENT '{' type TOK_IDENT . ';'
 
     ';'  shift, and go to state 147
 
 
-State 139
+State 138
 
    46 allocator: TOK_ALLOC '<' TOK_STRING '>' '(' . expr ')'
 
@@ -2429,46 +2428,53 @@ State 139
     constant   go to state 37
 
 
-State 140
+State 139
 
    47 allocator: TOK_ALLOC '<' TOK_STRUCT TOK_IDENT '>' . '(' ')'
 
     '('  shift, and go to state 149
 
 
-State 141
+State 140
 
    48 allocator: TOK_ALLOC '<' TOK_ARRAY '<' plaintype . '>' '>' '(' expr ')'
 
     '>'  shift, and go to state 150
 
 
-State 142
+State 141
 
    25 plaintype: TOK_PTR '<' TOK_STRUCT TOK_IDENT '>' .
 
     $default  reduce using rule 25 (plaintype)
 
 
-State 143
+State 142
 
    18 vardecl: type TOK_IDENT '=' expr ';' .
 
     $default  reduce using rule 18 (vardecl)
 
 
-State 144
+State 143
 
    71 function: type TOK_IDENT '(' ')' block .
 
     $default  reduce using rule 71 (function)
 
 
+State 144
+
+   73 fargs2: '(' type TOK_IDENT .
+
+    $default  reduce using rule 73 (fargs2)
+
+
 State 145
 
-   72 fargs: type TOK_IDENT '(' type TOK_IDENT .
+   74 fargs2: fargs2 ',' type . TOK_IDENT
 
-    $default  reduce using rule 72 (fargs)
+    TOK_IDENT  shift, and go to state 151
 
 
 State 146
@@ -2496,7 +2502,7 @@ State 146
     ';'            shift, and go to state 24
     '{'            shift, and go to state 25
 
-    statement  go to state 151
+    statement  go to state 152
     vardecl    go to state 29
     type       go to state 30
     plaintype  go to state 31
@@ -2554,52 +2560,59 @@ State 148
     '/'        shift, and go to state 76
     '%'        shift, and go to state 77
     '['        shift, and go to state 78
-    ')'        shift, and go to state 152
+    ')'        shift, and go to state 153
 
 
 State 149
 
    47 allocator: TOK_ALLOC '<' TOK_STRUCT TOK_IDENT '>' '(' . ')'
 
-    ')'  shift, and go to state 153
+    ')'  shift, and go to state 154
 
 
 State 150
 
    48 allocator: TOK_ALLOC '<' TOK_ARRAY '<' plaintype '>' . '>' '(' expr ')'
 
-    '>'  shift, and go to state 154
+    '>'  shift, and go to state 155
 
 
 State 151
+
+   74 fargs2: fargs2 ',' type TOK_IDENT .
+
+    $default  reduce using rule 74 (fargs2)
+
+
+State 152
 
    66 ifelse: TOK_IF '(' expr ')' statement TOK_ELSE statement .
 
     $default  reduce using rule 66 (ifelse)
 
 
-State 152
+State 153
 
    46 allocator: TOK_ALLOC '<' TOK_STRING '>' '(' expr ')' .
 
     $default  reduce using rule 46 (allocator)
 
 
-State 153
+State 154
 
    47 allocator: TOK_ALLOC '<' TOK_STRUCT TOK_IDENT '>' '(' ')' .
 
     $default  reduce using rule 47 (allocator)
 
 
-State 154
+State 155
 
    48 allocator: TOK_ALLOC '<' TOK_ARRAY '<' plaintype '>' '>' . '(' expr ')'
 
-    '('  shift, and go to state 155
+    '('  shift, and go to state 156
 
 
-State 155
+State 156
 
    48 allocator: TOK_ALLOC '<' TOK_ARRAY '<' plaintype '>' '>' '(' . expr ')'
 
@@ -2614,7 +2627,7 @@ State 155
     '-'            shift, and go to state 22
     '('            shift, and go to state 23
 
-    expr       go to state 156
+    expr       go to state 157
     allocator  go to state 33
     call       go to state 34
     cargs      go to state 35
@@ -2622,7 +2635,7 @@ State 155
     constant   go to state 37
 
 
-State 156
+State 157
 
    26 expr: expr . '=' expr
    27     | expr . '+' expr
@@ -2654,10 +2667,10 @@ State 156
     '/'        shift, and go to state 76
     '%'        shift, and go to state 77
     '['        shift, and go to state 78
-    ')'        shift, and go to state 157
+    ')'        shift, and go to state 158
 
 
-State 157
+State 158
 
    48 allocator: TOK_ALLOC '<' TOK_ARRAY '<' plaintype '>' '>' '(' expr ')' .
 
