@@ -1,4 +1,4 @@
-// $Id: 44-dot-product.oc,v 1.2 2019-04-23 15:22:03-07 - - $
+// $Id: 44-dot-product.oc,v 1.1 2019-04-16 12:14:45-07 - - $
 
 #include "oclib.h"
 
@@ -17,11 +17,11 @@ int dot_product (int size, array<int> vec1, array<int> vec2) {
 int main() {
    array<int> vec1 = alloc<array<int>> (SIZE);
    array<int> vec2 = alloc<array<int>> (SIZE);
-   int index = 0;
-   while (index < SIZE) {
-      vec1[index] = index + 10;
-      vec2[index] = index * 10;
-      index = index + 1;
+   int i = 0;
+   while (i < SIZE) {
+      vec1[i] = i + 10;
+      vec2[i] = i * 10;
+      i = i + 1;
    }
    putint (dot_product (SIZE, vec1, vec2));
    putchr ('\n');
