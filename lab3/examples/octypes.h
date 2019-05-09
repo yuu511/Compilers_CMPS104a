@@ -1,4 +1,4 @@
-// $Id: octypes.h,v 1.2 2019-04-17 18:52:54-07 - - $
+// $Id: octypes.h,v 1.3 2019-04-22 13:46:03-07 - - $
 
 // Type definitiions to compile oc programs with c++ compiler.
 
@@ -10,7 +10,7 @@
 using string = char*;
 
 template <typename type>
-using ptr = type*;
+using ptr = std::enable_if_t<std::is_class<type>::value,type*>;
 
 template <typename type>
 struct array {
@@ -23,7 +23,7 @@ struct array {
 };
 
 template <typename type>
-typename std::enable_if<std::is_class<type>::value,ptr<type>>::type
+std::enable_if_t<std::is_class<type>::value,ptr<type>>
 alloc() {
    return new type();
 }
@@ -37,7 +37,7 @@ alloc (int size) {
 }
 
 template <typename type>
-typename std::enable_if<std::is_same<type,string>::value,string>::type
+std::enable_if_t<std::is_same<type,string>::value,string>
 alloc (int size) {
    return new char[size] {};
 }

@@ -469,7 +469,7 @@ static const yytype_uint16 yyrline[] =
      137,   138,   139,   140,   143,   144,   145,   148,   154,   161,
      172,   175,   180,   183,   188,   189,   193,   196,   197,   198,
      199,   203,   206,   209,   212,   213,   216,   222,   228,   234,
-     237,   242,   245,   255,   264,   268
+     237,   242,   245,   255,   263,   267
 };
 #endif
 
@@ -2843,36 +2843,35 @@ yyreduce:
   case 73:
 #line 255 "parser.y" /* yacc.c:1646  */
     { 
-            astree* func = new astree(TOK_FUNCTION, (yyvsp[-3])->lloc,"");
-            astree* tid = new astree(TOK_TYPE_ID, (yyvsp[-3])->lloc,"");
-            tid->adopt((yyvsp[-3]),(yyvsp[-2]));
-            (yyval) = func->adopt(tid,(yyvsp[-1]));
-            destroy((yyvsp[0]));
-          }
-#line 2853 "yyparse.cpp" /* yacc.c:1646  */
+          astree* func = new astree(TOK_FUNCTION, (yyvsp[-3])->lloc,"");
+          astree* tid = new astree(TOK_TYPE_ID, (yyvsp[-3])->lloc,"");
+          tid->adopt((yyvsp[-3]),(yyvsp[-2]));
+          (yyval) = func->adopt(tid,(yyvsp[-1]));
+          destroy((yyvsp[0])); }
+#line 2852 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 264 "parser.y" /* yacc.c:1646  */
+#line 263 "parser.y" /* yacc.c:1646  */
     {
-           astree* tid = new astree(TOK_TYPE_ID, (yyvsp[-2])->lloc,"");
+           astree* tid = new astree(TOK_TYPE_ID, (yyvsp[-1])->lloc,"");
            tid->adopt((yyvsp[-1]),(yyvsp[0]));
            (yyval) = (yyvsp[-2])->adopt_sym(tid,TOK_PARAM); }
-#line 2862 "yyparse.cpp" /* yacc.c:1646  */
+#line 2861 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 268 "parser.y" /* yacc.c:1646  */
+#line 267 "parser.y" /* yacc.c:1646  */
     {
-           astree* tid = new astree(TOK_TYPE_ID, (yyvsp[-3])->lloc,"");
+           astree* tid = new astree(TOK_TYPE_ID, (yyvsp[-1])->lloc,"");
            tid->adopt((yyvsp[-1]),(yyvsp[0]));
            (yyval) = (yyvsp[-3])->adopt(tid); 
            destroy((yyvsp[-2])); }
-#line 2872 "yyparse.cpp" /* yacc.c:1646  */
+#line 2871 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
 
-#line 2876 "yyparse.cpp" /* yacc.c:1646  */
+#line 2875 "yyparse.cpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -3100,7 +3099,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 275 "parser.y" /* yacc.c:1906  */
+#line 274 "parser.y" /* yacc.c:1906  */
  
 
 const char* parser::get_tname (int symbol) {
