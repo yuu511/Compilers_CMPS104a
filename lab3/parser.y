@@ -87,6 +87,7 @@ statement : vardecl  { $$ = $1; }
           | ifelse   { $$ = $1; }
           | return   { $$ = $1; }
           | function { $$ = $1; }
+          | ';'      { $$ = $1; }
           | expr ';' { $$ = $1; 
                        destroy ($2); }
           ;
@@ -206,7 +207,6 @@ block : bargs '}' {
       | '{''}' { 
           $$ = $1->adopt_sym(nullptr,TOK_BLOCK);
           destroy($2); }
-      | ';' { $$ = $1; }
       ;
 
 bargs : '{' statement   { $$ = $1-> adopt_sym($2,TOK_BLOCK); }
@@ -239,10 +239,15 @@ return : TOK_RETURN expr ';' {
            destroy($2); } 
        ;
 
-function : fargs block { 
-               $$ = $1->adopt($2); 
-             }
-         | type TOK_IDENT '(' ')' block { 
+
+function : type TOK_IDENT fargs2 ')' fend { 
+             astree* func = new astree(TOK_FUNCTION, $1->lloc,"");
+             astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
+             tid->adopt($1,$2);
+             func->adopt($5);
+             $$ = func->adopt(tid,$3);
+             destroy($4); }
+         | type TOK_IDENT '(' ')' fend { 
              astree* func = new astree(TOK_FUNCTION, $1->lloc,"");
              astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
              tid->adopt($1,$2);
@@ -250,14 +255,6 @@ function : fargs block {
              func->adopt(tid);
              $$ = func->adopt ($3,$5);
              destroy($4);}
-         ;
-
-fargs : type TOK_IDENT fargs2 ')' { 
-          astree* func = new astree(TOK_FUNCTION, $1->lloc,"");
-          astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
-          tid->adopt($1,$2);
-          $$ = func->adopt(tid,$3);
-          destroy($4); }
       ;
 
 fargs2 : '(' type TOK_IDENT {
@@ -270,6 +267,9 @@ fargs2 : '(' type TOK_IDENT {
            $$ = $1->adopt(tid); 
            destroy($2); }
        ;  
+
+fend : ';' { $$ = nullptr; destroy ($1); }
+     | block { $$ = $1; }
 
 %% 
 
