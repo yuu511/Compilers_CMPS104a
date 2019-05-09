@@ -262,9 +262,9 @@ fargs : type TOK_IDENT fargs2 ')' {
       ;
 
 fargs2 : '(' type TOK_IDENT {
-         astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
-         tid->adopt($2,$3);
-         $$ = $1->adopt_sym(tid,TOK_PARAM); }
+           astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
+           tid->adopt($2,$3);
+           $$ = $1->adopt_sym(tid,TOK_PARAM); }
        | fargs2 ',' type TOK_IDENT {
            astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
            tid->adopt($3,$4);

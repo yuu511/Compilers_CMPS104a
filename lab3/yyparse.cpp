@@ -2855,9 +2855,9 @@ yyreduce:
   case 74:
 #line 264 "parser.y" /* yacc.c:1646  */
     {
-         astree* tid = new astree(TOK_TYPE_ID, (yyvsp[-2])->lloc,"");
-         tid->adopt((yyvsp[-1]),(yyvsp[0]));
-         (yyval) = (yyvsp[-2])->adopt_sym(tid,TOK_PARAM); }
+           astree* tid = new astree(TOK_TYPE_ID, (yyvsp[-2])->lloc,"");
+           tid->adopt((yyvsp[-1]),(yyvsp[0]));
+           (yyval) = (yyvsp[-2])->adopt_sym(tid,TOK_PARAM); }
 #line 2862 "yyparse.cpp" /* yacc.c:1646  */
     break;
 
