@@ -1,109 +1,118 @@
-ROOT "<<ROOT>>" (0.0.0)
-| FUNCTION "(" (6.25.11)
-| | TYPE_ID "" (6.25.1)
-| | | VOID "void" (6.25.1)
-| | | IDENT "fail" (6.25.6)
-| | TYPE_ID "" (6.25.12)
-| | | STRING "string" (6.25.12)
-| | | IDENT "expr" (6.25.19)
-| | TYPE_ID "" (6.25.25)
-| | | STRING "string" (6.25.25)
-| | | IDENT "file" (6.25.32)
-| | TYPE_ID "" (6.25.38)
-| | | INT "int" (6.25.38)
-| | | IDENT "line" (6.25.42)
-| | ';' ";" (6.25.47)
-| FUNCTION "(" (6.27.13)
-| | TYPE_ID "" (6.27.1)
-| | | VOID "void" (6.27.1)
-| | | IDENT "putchr" (6.27.6)
-| | TYPE_ID "" (6.27.14)
-| | | INT "int" (6.27.14)
-| | | IDENT "c" (6.27.18)
-| | ';' ";" (6.27.20)
-| FUNCTION "(" (6.28.13)
-| | TYPE_ID "" (6.28.1)
-| | | VOID "void" (6.28.1)
-| | | IDENT "putint" (6.28.6)
-| | TYPE_ID "" (6.28.14)
-| | | INT "int" (6.28.14)
-| | | IDENT "i" (6.28.18)
-| | ';' ";" (6.28.20)
-| FUNCTION "(" (6.29.13)
-| | TYPE_ID "" (6.29.1)
-| | | VOID "void" (6.29.1)
-| | | IDENT "putstr" (6.29.6)
-| | TYPE_ID "" (6.29.14)
-| | | STRING "string" (6.29.14)
-| | | IDENT "s" (6.29.21)
-| | ';' ";" (6.29.23)
-| FUNCTION "(" (6.31.11)
-| | TYPE_ID "" (6.31.1)
-| | | INT "int" (6.31.1)
-| | | IDENT "getchr" (6.31.5)
-| | ';' ";" (6.31.13)
-| FUNCTION "(" (6.32.14)
-| | TYPE_ID "" (6.32.1)
-| | | STRING "string" (6.32.1)
-| | | IDENT "getstr" (6.32.8)
-| | ';' ";" (6.32.16)
-| FUNCTION "(" (6.33.13)
-| | TYPE_ID "" (6.33.1)
-| | | STRING "string" (6.33.1)
-| | | IDENT "getln" (6.33.8)
-| | ';' ";" (6.33.15)
-| FUNCTION "(" (7.2.9)
-| | TYPE_ID "" (7.2.1)
-| | | INT "int" (7.2.1)
-| | | IDENT "fac" (7.2.5)
-| | TYPE_ID "" (7.2.10)
-| | | INT "int" (7.2.10)
-| | | IDENT "n" (7.2.14)
-| | BLOCK "{" (7.2.17)
-| | | TYPE_ID "" (7.3.3)
-| | | | INT "int" (7.3.3)
-| | | | IDENT "f" (7.3.7)
-| | | | INTCON "1" (7.3.11)
-| | | WHILE "while" (7.4.3)
-| | | | GT ">" (7.4.12)
-| | | | | IDENT "n" (7.4.10)
-| | | | | INTCON "1" (7.4.14)
-| | | | BLOCK "{" (7.4.17)
-| | | | | '=' "=" (7.5.6)
-| | | | | | IDENT "f" (7.5.5)
-| | | | | | '*' "*" (7.5.8)
-| | | | | | | IDENT "f" (7.5.7)
-| | | | | | | IDENT "n" (7.5.9)
-| | | | | '=' "=" (7.6.6)
-| | | | | | IDENT "n" (7.6.5)
-| | | | | | '-' "-" (7.6.8)
-| | | | | | | IDENT "n" (7.6.7)
-| | | | | | | INTCON "1" (7.6.9)
-| | | RETURN "return" (7.8.3)
-| | | | IDENT "f" (7.8.10)
-| FUNCTION "(" (7.11.9)
-| | TYPE_ID "" (7.11.1)
-| | | INT "int" (7.11.1)
-| | | IDENT "main" (7.11.5)
-| | BLOCK "{" (7.11.12)
-| | | TYPE_ID "" (7.12.3)
-| | | | INT "int" (7.12.3)
-| | | | IDENT "n" (7.12.7)
-| | | | INTCON "1" (7.12.11)
-| | | WHILE "while" (7.13.3)
-| | | | LE "<=" (7.13.11)
-| | | | | IDENT "n" (7.13.9)
-| | | | | INTCON "5" (7.13.14)
-| | | | BLOCK "{" (7.13.17)
-| | | | | CALL "(" (7.14.11)
-| | | | | | IDENT "putint" (7.14.5)
-| | | | | | CALL "(" (7.14.16)
-| | | | | | | IDENT "fac" (7.14.12)
-| | | | | | | IDENT "n" (7.14.17)
-| | | | | '=' "=" (7.15.7)
-| | | | | | IDENT "n" (7.15.5)
-| | | | | | '+' "+" (7.15.11)
-| | | | | | | IDENT "n" (7.15.9)
-| | | | | | | INTCON "1" (7.15.13)
-| | | RETURN "return" (7.17.3)
-| | | | IDENT "EXIT_SUCCESS" (7.17.10)
+ROOT "<<ROOT>>" 0.0.0
+| FUNCTION "" 6.25.1
+| | TYPE_ID "" 6.25.1
+| | | VOID "void" 6.25.1
+| | | IDENT "fail" 6.25.6
+| | PARAM "(" 6.25.11
+| | | TYPE_ID "" 6.25.11
+| | | | STRING "string" 6.25.12
+| | | | IDENT "expr" 6.25.19
+| | | TYPE_ID "" 6.25.11
+| | | | STRING "string" 6.25.25
+| | | | IDENT "file" 6.25.32
+| | | TYPE_ID "" 6.25.11
+| | | | INT "int" 6.25.38
+| | | | IDENT "line" 6.25.42
+| | ';' ";" 6.25.47
+| FUNCTION "" 6.27.1
+| | TYPE_ID "" 6.27.1
+| | | VOID "void" 6.27.1
+| | | IDENT "putchr" 6.27.6
+| | PARAM "(" 6.27.13
+| | | TYPE_ID "" 6.27.13
+| | | | INT "int" 6.27.14
+| | | | IDENT "c" 6.27.18
+| | ';' ";" 6.27.20
+| FUNCTION "" 6.28.1
+| | TYPE_ID "" 6.28.1
+| | | VOID "void" 6.28.1
+| | | IDENT "putint" 6.28.6
+| | PARAM "(" 6.28.13
+| | | TYPE_ID "" 6.28.13
+| | | | INT "int" 6.28.14
+| | | | IDENT "i" 6.28.18
+| | ';' ";" 6.28.20
+| FUNCTION "" 6.29.1
+| | TYPE_ID "" 6.29.1
+| | | VOID "void" 6.29.1
+| | | IDENT "putstr" 6.29.6
+| | PARAM "(" 6.29.13
+| | | TYPE_ID "" 6.29.13
+| | | | STRING "string" 6.29.14
+| | | | IDENT "s" 6.29.21
+| | ';' ";" 6.29.23
+| FUNCTION "" 6.31.1
+| | TYPE_ID "" 6.31.1
+| | | INT "int" 6.31.1
+| | | IDENT "getchr" 6.31.5
+| | PARAM "(" 6.31.11
+| | ';' ";" 6.31.13
+| FUNCTION "" 6.32.1
+| | TYPE_ID "" 6.32.1
+| | | STRING "string" 6.32.1
+| | | IDENT "getstr" 6.32.8
+| | PARAM "(" 6.32.14
+| | ';' ";" 6.32.16
+| FUNCTION "" 6.33.1
+| | TYPE_ID "" 6.33.1
+| | | STRING "string" 6.33.1
+| | | IDENT "getln" 6.33.8
+| | PARAM "(" 6.33.13
+| | ';' ";" 6.33.15
+| FUNCTION "" 7.2.1
+| | TYPE_ID "" 7.2.1
+| | | INT "int" 7.2.1
+| | | IDENT "fac" 7.2.5
+| | PARAM "(" 7.2.9
+| | | TYPE_ID "" 7.2.9
+| | | | INT "int" 7.2.10
+| | | | IDENT "n" 7.2.14
+| | BLOCK "{" 7.2.17
+| | | TYPE_ID "" 7.3.3
+| | | | INT "int" 7.3.3
+| | | | IDENT "f" 7.3.7
+| | | | INTCON "1" 7.3.11
+| | | WHILE "while" 7.4.3
+| | | | GT ">" 7.4.12
+| | | | | IDENT "n" 7.4.10
+| | | | | INTCON "1" 7.4.14
+| | | | BLOCK "{" 7.4.17
+| | | | | '=' "=" 7.5.6
+| | | | | | IDENT "f" 7.5.5
+| | | | | | '*' "*" 7.5.8
+| | | | | | | IDENT "f" 7.5.7
+| | | | | | | IDENT "n" 7.5.9
+| | | | | '=' "=" 7.6.6
+| | | | | | IDENT "n" 7.6.5
+| | | | | | '-' "-" 7.6.8
+| | | | | | | IDENT "n" 7.6.7
+| | | | | | | INTCON "1" 7.6.9
+| | | RETURN "return" 7.8.3
+| | | | IDENT "f" 7.8.10
+| FUNCTION "" 7.11.1
+| | TYPE_ID "" 7.11.1
+| | | INT "int" 7.11.1
+| | | IDENT "main" 7.11.5
+| | PARAM "(" 7.11.9
+| | BLOCK "{" 7.11.12
+| | | TYPE_ID "" 7.12.3
+| | | | INT "int" 7.12.3
+| | | | IDENT "n" 7.12.7
+| | | | INTCON "1" 7.12.11
+| | | WHILE "while" 7.13.3
+| | | | LE "<=" 7.13.11
+| | | | | IDENT "n" 7.13.9
+| | | | | INTCON "5" 7.13.14
+| | | | BLOCK "{" 7.13.17
+| | | | | CALL "(" 7.14.11
+| | | | | | IDENT "putint" 7.14.5
+| | | | | | CALL "(" 7.14.16
+| | | | | | | IDENT "fac" 7.14.12
+| | | | | | | IDENT "n" 7.14.17
+| | | | | '=' "=" 7.15.7
+| | | | | | IDENT "n" 7.15.5
+| | | | | | '+' "+" 7.15.11
+| | | | | | | IDENT "n" 7.15.9
+| | | | | | | INTCON "1" 7.15.13
+| | | RETURN "return" 7.17.3
+| | | | IDENT "EXIT_SUCCESS" 7.17.10
