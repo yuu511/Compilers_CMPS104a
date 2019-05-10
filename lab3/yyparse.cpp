@@ -2821,8 +2821,8 @@ yyreduce:
              astree* func = new astree(TOK_FUNCTION, (yyvsp[-4])->lloc,"");
              astree* tid = new astree(TOK_TYPE_ID, (yyvsp[-4])->lloc,"");
              tid->adopt((yyvsp[-4]),(yyvsp[-3]));
-             func->adopt((yyvsp[0]));
-             (yyval) = func->adopt(tid,(yyvsp[-2]));
+             func->adopt(tid);
+             (yyval) = func->adopt((yyvsp[-2]),(yyvsp[0]));
              destroy((yyvsp[-1])); }
 #line 2828 "yyparse.cpp" /* yacc.c:1646  */
     break;
@@ -2833,8 +2833,8 @@ yyreduce:
              astree* func = new astree(TOK_FUNCTION, (yyvsp[-4])->lloc,"");
              astree* tid = new astree(TOK_TYPE_ID, (yyvsp[-4])->lloc,"");
              tid->adopt((yyvsp[-4]),(yyvsp[-3]));
-             (yyvsp[-2])->adopt_sym(nullptr,TOK_PARAM);
              func->adopt(tid);
+             (yyvsp[-2])->adopt_sym(nullptr,TOK_PARAM);
              (yyval) = func->adopt ((yyvsp[-2]),(yyvsp[0]));
              destroy((yyvsp[-1]));}
 #line 2841 "yyparse.cpp" /* yacc.c:1646  */

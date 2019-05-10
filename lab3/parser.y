@@ -244,15 +244,15 @@ function : type TOK_IDENT fargs2 ')' fend {
              astree* func = new astree(TOK_FUNCTION, $1->lloc,"");
              astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
              tid->adopt($1,$2);
-             func->adopt($5);
-             $$ = func->adopt(tid,$3);
+             func->adopt(tid);
+             $$ = func->adopt($3,$5);
              destroy($4); }
          | type TOK_IDENT '(' ')' fend { 
              astree* func = new astree(TOK_FUNCTION, $1->lloc,"");
              astree* tid = new astree(TOK_TYPE_ID, $1->lloc,"");
              tid->adopt($1,$2);
-             $3->adopt_sym(nullptr,TOK_PARAM);
              func->adopt(tid);
+             $3->adopt_sym(nullptr,TOK_PARAM);
              $$ = func->adopt ($3,$5);
              destroy($4);}
       ;
