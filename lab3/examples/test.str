@@ -1,14 +1,12 @@
-string_set[   2]:   13497578857207247412 0x1504ac8->"string"
-string_set[   3]:   11597697714117577063 0x1500938->"="
-                    5344662657899890615 0x1504f08->";"
-string_set[   5]:   12105445142823403535 0x1505208->"notvalid"
-string_set[   6]:    3729804957429652673 0x15009d8->"<<ROOT>>"
-string_set[   9]:    1424352880893879007 0x1504e38->""aaaa\0\n\t\\bbbbbb""
-string_set[  11]:    5455662675227556583 0x1505148->""asdffadasdffasfjkjzj""
-                    6591452447834799156 0x1504fb8->"notclosed"
-string_set[  14]:    6142509188972423790 0x1504f78->""
-string_set[  17]:   15118982290295364091 0x15009f8->"test"
-string_set[  19]:   16216353769738537139 0x1504f98->"ok"
-load_factor = 0.478
-bucket_count = 23
+string_set[   0]:    5455662675227556583 0x23e7148->""asdffadasdffasfjkjzj""
+                    3729804957429652673 0x23e29d8->"<<ROOT>>"
+string_set[   1]:   11597697714117577063 0x23e2938->"="
+string_set[   4]:    5344662657899890615 0x23e6f08->";"
+string_set[   5]:    1424352880893879007 0x23e6e38->""aaaa\0\n\t\\bbbbbb""
+                   13497578857207247412 0x23e6ac8->"string"
+string_set[   6]:    6142509188972423790 0x23e6f78->""
+                   15118982290295364091 0x23e29f8->"test"
+string_set[  10]:   16216353769738537139 0x23e6f98->"ok"
+load_factor = 0.818
+bucket_count = 11
 max_bucket_size = 2

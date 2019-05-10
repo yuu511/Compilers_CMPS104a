@@ -1,3 +1,3 @@
-ò:4.9: syntax error, unexpected ';'
-ò:6.8: syntax error, unexpected TOK_IDENT
-ò:7.10: invalid source character (.)
+ò[ù:4.9: syntax error, unexpected ';'
+ò[ù:6.8: syntax error, unexpected TOK_IDENT
+ò[ù:7.10: invalid source character (.)

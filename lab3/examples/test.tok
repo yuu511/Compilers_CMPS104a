@@ -9,11 +9,3 @@
     5  17.011  61 '='           =
     5  17.013 281 TOK_STRINGCON "asdffadasdffasfjkjzj"
     5  17.035  59 ';'           ;
-# 127 "test.oc"
-    6 127.001 260 TOK_STRING    string
-    6 127.008 278 TOK_IDENT     notclosed
-    6 127.018  61 '='           =
-    6 128.001 260 TOK_STRING    string
-    6 128.008 278 TOK_IDENT     notvalid
-    6 128.017  61 '='           =
-    6 128.033  59 ';'           ;
