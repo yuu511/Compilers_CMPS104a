@@ -1,9 +1,0 @@
-ROOT "<<ROOT>>" 0.0.0
-| TYPE_ID "" 5.16.1
-| | STRING "string" 5.16.1
-| | IDENT "test" 5.16.8
-| | STRINGCON ""aaaa\0\n\t\\bbbbbb"" 5.16.15
-| TYPE_ID "" 5.17.1
-| | STRING "string" 5.17.1
-| | IDENT "ok" 5.17.8
-| | STRINGCON ""asdffadasdffasfjkjzj"" 5.17.13
