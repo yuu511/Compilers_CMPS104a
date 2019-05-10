@@ -1,0 +1,112 @@
+** 90-c8q.oc.err output:**
+àkù:1.6: syntax error, unexpected TOK_IDENT
+àkù:1.19: syntax error, unexpected '{'
+àkù:2.2: invalid source character (|)
+àkù:2.15: syntax error, unexpected ';'
+àkù:2.19: invalid source character (?)
+àkù:2.20: invalid source character (!)
+àkù:2.21: syntax error, unexpected TOK_IDENT
+àkù:2.33: invalid source character (:)
+àkù:3.14: invalid source character (&)
+àkù:3.16: invalid source character (|)
+àkù:3.18: invalid source character (&)
+àkù:3.20: invalid source character (|)
+àkù:3.21: invalid source character (|)
+àkù:3.29: invalid source character (|)
+àkù:3.33: invalid source character (|)
+àkù:4.18: syntax error, unexpected '{'
+àkù:4.36: syntax error, unexpected '}'
+
+** 91-typecheck.oc.err output:**
+8r:9.4: syntax error, unexpected '[', expecting TOK_IDENT
+8r:10.11: syntax error, unexpected ']'
+8r:13.14: syntax error, unexpected '[', expecting TOK_IDENT
+8r:16.1: syntax error, unexpected TOK_INT, expecting ';'
+8r:31.1: syntax error, unexpected '}'
+
+** 92-uncomment.oc.err output:**
+92-uncomment.oc:1:1: error: unterminated comment
+ /*
+ ^
+/usr/bin/cpp -nostdinc 92-uncomment.oc: status 0x0100, exit 1
+
+** 93-semantics.oc.err output:**
+ò+å:4.4: syntax error, unexpected '[', expecting TOK_IDENT
+
+** 94-syntax.oc.err output:**
+ò:4.9: syntax error, unexpected ';'
+ò:6.8: syntax error, unexpected TOK_IDENT
+ò:7.10: invalid source character (.)
+
+** 95-cobol.oc.err output:**
+òªO:3.1: invalid token (000100)
+òªO:3.23: syntax error, unexpected TOK_IDENT
+òªO:3.31: invalid source character (.)
+òªO:4.1: invalid token (000200)
+òªO:4.18: invalid source character (.)
+òªO:4.30: invalid source character (.)
+òªO:5.1: invalid token (000300)
+òªO:6.1: invalid token (000400)
+òªO:7.1: invalid token (000500)
+òªO:7.28: invalid source character (.)
+òªO:8.1: invalid token (000600)
+òªO:8.29: invalid source character (.)
+òªO:9.1: invalid token (000700)
+òªO:9.23: invalid source character (.)
+òªO:9.33: invalid source character (.)
+òªO:10.1: invalid token (000800)
+òªO:10.23: invalid source character (.)
+òªO:10.33: invalid source character (.)
+òªO:11.1: invalid token (000900)
+òªO:12.1: invalid token (001000)
+òªO:12.21: invalid source character (.)
+òªO:13.1: invalid token (001100)
+òªO:13.20: invalid source character (.)
+òªO:14.1: invalid token (001200)
+òªO:15.26: invalid source character (.)
+òªO:17.26: invalid source character (.)
+òªO:18.13: invalid source character (.)
+òªO:19.47: invalid source character (.)
+òªO:20.50: invalid source character (.)
+òªO:21.16: invalid source character (.)
+òªO:22.23: invalid source character (.)
+òªO:23.12: invalid source character (.)
+parse failed (1)
+
+** 96-unterminated.oc.err output:**
+96-unterminated.oc:6:15: warning: missing terminating " character [enabled by default]
+    string s = "abc;
+               ^
+96-unterminated.oc:7:13: warning: missing terminating ' character [enabled by default]
+    char c = 'a;
+             ^
+96-unterminated.oc:8:8: warning: missing terminating " character [enabled by default]
+    s = "abcd\";
+        ^
+96-unterminated.oc:9:8: warning: missing terminating " character [enabled by default]
+    s = "abc|\
+        ^
+®˚√:5.15: invalid token ("\*/")
+®˚√:5.20: syntax error, unexpected ';'
+®˚√:6.15: invalid token ("abc;)
+®˚√:7.9: syntax error, unexpected TOK_IDENT
+®˚√:7.13: invalid token ('a;)
+®˚√:8.8: invalid token ("abcd\";)
+®˚√:9.8: invalid token ("abc|   ;)
+®˚√:11.8: invalid token (23foobar)
+
+** nosuch.oc.err output:**
+cpp: error: nosuch.oc: No such file or directory
+cpp: warning: ‚Äò-x c‚Äô after last input file has no effect
+cpp: fatal error: no input files
+compilation terminated.
+/usr/bin/cpp -nostdinc nosuch.oc: status 0x0400, exit 4
+
+** test.oc.err output:**
+test.oc:127:20: warning: missing terminating " character [enabled by default]
+ string notclosed = "a;
+                    ^
+XRP:127.20: invalid token ("a;)
+XRP:128.1: syntax error, unexpected TOK_STRING
+XRP:128.19: invalid token ("\a\basdffdsk")
+
