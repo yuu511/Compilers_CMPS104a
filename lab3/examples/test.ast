@@ -7,3 +7,27 @@ ROOT "<<ROOT>>" 0.0.0
 | | STRING "string" 5.17.1
 | | IDENT "ok" 5.17.8
 | | STRINGCON ""asdffadasdffasfjkjzj"" 5.17.13
+| TYPE_ID "" 5.18.1
+| | INT "int" 5.18.1
+| | IDENT "test2" 5.18.5
+| | CHARCON "'\\'" 5.18.13
+| TYPE_ID "" 5.19.1
+| | INT "int" 5.19.1
+| | IDENT "test2" 5.19.5
+| | CHARCON "'\''" 5.19.13
+| TYPE_ID "" 5.20.1
+| | INT "int" 5.20.1
+| | IDENT "test3" 5.20.5
+| | CHARCON "'\"'" 5.20.13
+| TYPE_ID "" 5.21.1
+| | INT "int" 5.21.1
+| | IDENT "test4" 5.21.5
+| | CHARCON "'\0'" 5.21.13
+| TYPE_ID "" 5.22.1
+| | INT "int" 5.22.1
+| | IDENT "test5" 5.22.5
+| | CHARCON "'\n'" 5.22.13
+| TYPE_ID "" 5.23.1
+| | INT "int" 5.23.1
+| | IDENT "test6" 5.23.5
+| | CHARCON "'\t'" 5.23.13

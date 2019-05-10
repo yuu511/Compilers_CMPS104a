@@ -27,7 +27,7 @@ NOT_NUMBER   (0[8-9][0-9]*|0[xX])
 IDENT        ({LETTER}({LETTER}|{DIGIT})*)
 NOT_IDENT    ({DIGIT}({LETTER}|{DIGIT})+)
 CCONST       ('{VCHAR}') 
-NOT_CCONST   ('{VCHAR}*|'{VCHAR}{2,}') 
+NOT_CCONST   ('{VCHAR}*|'{VCHAR}{2,}'|'\\[^\\'"0nt]') 
 SCONST       (\"{VSTRING}*\")
 NOT_SCONST   ((\"{VSTRING}*)|(\"{VSTRING}*(\\[^\\'"0nt])+{VSTRING}*\"))
 

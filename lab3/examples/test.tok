@@ -9,3 +9,33 @@
     5  17.011  61 '='           =
     5  17.013 281 TOK_STRINGCON "asdffadasdffasfjkjzj"
     5  17.035  59 ';'           ;
+    5  18.001 259 TOK_INT       int
+    5  18.005 278 TOK_IDENT     test2
+    5  18.011  61 '='           =
+    5  18.013 280 TOK_CHARCON   '\\'
+    5  18.017  59 ';'           ;
+    5  19.001 259 TOK_INT       int
+    5  19.005 278 TOK_IDENT     test2
+    5  19.011  61 '='           =
+    5  19.013 280 TOK_CHARCON   '\''
+    5  19.017  59 ';'           ;
+    5  20.001 259 TOK_INT       int
+    5  20.005 278 TOK_IDENT     test3
+    5  20.011  61 '='           =
+    5  20.013 280 TOK_CHARCON   '\"'
+    5  20.017  59 ';'           ;
+    5  21.001 259 TOK_INT       int
+    5  21.005 278 TOK_IDENT     test4
+    5  21.011  61 '='           =
+    5  21.013 280 TOK_CHARCON   '\0'
+    5  21.017  59 ';'           ;
+    5  22.001 259 TOK_INT       int
+    5  22.005 278 TOK_IDENT     test5
+    5  22.011  61 '='           =
+    5  22.013 280 TOK_CHARCON   '\n'
+    5  22.017  59 ';'           ;
+    5  23.001 259 TOK_INT       int
+    5  23.005 278 TOK_IDENT     test6
+    5  23.011  61 '='           =
+    5  23.013 280 TOK_CHARCON   '\t'
+    5  23.017  59 ';'           ;

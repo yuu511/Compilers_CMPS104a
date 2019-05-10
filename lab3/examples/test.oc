@@ -15,6 +15,12 @@
 
 string test = "aaaa\0\n\t\\bbbbbb";
 string ok = "asdffadasdffasfjkjzj";
+int test2 = '\\';
+int test2 = '\'';
+int test3 = '\"';
+int test4 = '\0';
+int test5 = '\n';
+int test6 = '\t';
 // int one;
 // int two = -5*+3+0xDEADBEEF/5%01231235;
 // int test = test -> fk;
@@ -126,3 +132,4 @@ string ok = "asdffadasdffasfjkjzj";
 /* error throwing stuff */
 // string notclosed = "a;
 // string notvalid = "\a\basdffdsk";
+// char test = '\a';
