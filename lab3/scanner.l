@@ -18,18 +18,18 @@
 %option warn
 /*%option verbose*/
 
-LETTER          [A-Za-z_]
-DIGIT           [0-9]
-VCHAR           ([^\\'\n]|\\[\\'"0nt])
-VSTRING         ([^\\"\n]|\\[\\'"0nt])
-NUMBER          ([1-9]+{DIGIT}*|0(([xX]({DIGIT}|[A-Fa-f])+)*|[1-7]*))
-NOT_NUMBER      (0[8-9][0-9]*|0[xX])
-IDENT           ({LETTER}({LETTER}|{DIGIT})*)
-NOT_IDENT       ({DIGIT}({LETTER}|{DIGIT})+)
-CCONST          ('{VCHAR}') 
-NOT_CCONST      ('{VCHAR}*|'{VCHAR}{2,}') 
-SCONST          (\"{VSTRING}*\")
-NOT_SCONST      (\"{VSTRING}*)
+LETTER       [A-Za-z_]
+DIGIT        [0-9]
+VCHAR        ([^\\'\n]|\\[\\'"0nt])
+VSTRING      ([^\\"\n]|\\[\\'"0nt])
+NUMBER       ([1-9]+{DIGIT}*|0(([xX]({DIGIT}|[A-Fa-f])+)*|[1-7]*))
+NOT_NUMBER   (0[8-9][0-9]*|0[xX])
+IDENT        ({LETTER}({LETTER}|{DIGIT})*)
+NOT_IDENT    ({DIGIT}({LETTER}|{DIGIT})+)
+CCONST       ('{VCHAR}') 
+NOT_CCONST   ('{VCHAR}*|'{VCHAR}{2,}') 
+SCONST       (\"{VSTRING}*\")
+NOT_SCONST   ((\"{VSTRING}*)|(\"{VSTRING}*(\\[^\\'"0nt])+{VSTRING}*\"))
 
 %%
 "#".*           { lexer::include(); }
