@@ -255,7 +255,7 @@ function : type TOK_IDENT fargs2 ')' fend {
              $3->adopt_sym(nullptr,TOK_PARAM);
              $$ = func->adopt ($3,$5);
              destroy($4);}
-      ;
+         ;
 
 fargs2 : '(' type TOK_IDENT {
            astree* tid = new astree(TOK_TYPE_ID, $2->lloc,"");
@@ -270,6 +270,7 @@ fargs2 : '(' type TOK_IDENT {
 
 fend : ';' { $$ = nullptr; destroy ($1); }
      | block { $$ = $1; }
+     ;
 
 %% 
 
