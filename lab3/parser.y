@@ -268,7 +268,9 @@ fargs2 : '(' type TOK_IDENT {
            destroy($2); }
        ;  
 
-fend : ';' { $$ = nullptr; destroy ($1); }
+fend : ';' { 
+         $$ = nullptr; 
+         destroy ($1); }
      | block { $$ = $1; }
      ;
 

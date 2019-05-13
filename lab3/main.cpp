@@ -134,11 +134,11 @@ int main (int argc, char** argv) {
    yydebug = 0;
    exec::execname = basename (argv[0]);
    char* filename = argv[argc-1];
-   parseargs(argc,argv);
    string input_stripped = strp(filename);
    string append;
+   parseargs(argc,argv);
 
-   // Open the stringset and tokenset files.
+   // Open str,tok,ast files.
    FILE *strfp;
    append = ".str";
    strfp = appendopen (input_stripped,append);
@@ -169,7 +169,7 @@ int main (int argc, char** argv) {
    // personal debug flag 
    if (a_debug)
      astree::print (stderr,parser::root);
-   // Close the cpreprocessor, the stringset, and the tokenset files.
+   // Close all files.
    e_close(yyin);
    e_close(tokfp);
    e_close(strfp);
