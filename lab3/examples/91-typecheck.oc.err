@@ -1,5 +1,5 @@
-8Å:9.4: syntax error, unexpected '[', expecting TOK_IDENT
-8Å:10.11: syntax error, unexpected ']'
-8Å:13.14: syntax error, unexpected '[', expecting TOK_IDENT
-8Å:16.1: syntax error, unexpected TOK_INT, expecting ';'
-8Å:31.1: syntax error, unexpected '}'
+8{T:9.4: syntax error, unexpected '[', expecting TOK_IDENT
+8{T:10.11: syntax error, unexpected ']'
+8{T:13.14: syntax error, unexpected '[', expecting TOK_IDENT
+8{T:16.1: syntax error, unexpected TOK_INT, expecting ';'
+8{T:31.1: syntax error, unexpected '}'

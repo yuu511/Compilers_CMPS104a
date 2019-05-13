@@ -87,13 +87,13 @@ ROOT "<<ROOT>>" 0.0.0
 | | | | STRINGCON ""] compiled "" 7.11.12
 | | | CALL "(" 7.12.11
 | | | | IDENT "putstr" 7.12.4
-| | | | STRINGCON ""May  9 2019"" 7.12.12
+| | | | STRINGCON ""May 13 2019"" 7.12.12
 | | | CALL "(" 7.13.11
 | | | | IDENT "putstr" 7.13.4
 | | | | STRINGCON "" "" 7.13.12
 | | | CALL "(" 7.14.11
 | | | | IDENT "putstr" 7.14.4
-| | | | STRINGCON ""23:25:08"" 7.14.12
+| | | | STRINGCON ""12:45:34"" 7.14.12
 | | | CALL "(" 7.15.11
 | | | | IDENT "putstr" 7.15.4
 | | | | STRINGCON ""\n"" 7.15.12

@@ -1,33 +1,24 @@
 ROOT "<<ROOT>>" 0.0.0
-| TYPE_ID "" 5.16.1
-| | STRING "string" 5.16.1
-| | IDENT "test" 5.16.8
-| | STRINGCON ""aaaa\0\n\t\\bbbbbb"" 5.16.15
-| TYPE_ID "" 5.17.1
-| | STRING "string" 5.17.1
-| | IDENT "ok" 5.17.8
-| | STRINGCON ""asdffadasdffasfjkjzj"" 5.17.13
-| TYPE_ID "" 5.18.1
-| | INT "int" 5.18.1
-| | IDENT "test2" 5.18.5
-| | CHARCON "'\\'" 5.18.13
-| TYPE_ID "" 5.19.1
-| | INT "int" 5.19.1
-| | IDENT "test2" 5.19.5
-| | CHARCON "'\''" 5.19.13
-| TYPE_ID "" 5.20.1
-| | INT "int" 5.20.1
-| | IDENT "test3" 5.20.5
-| | CHARCON "'\"'" 5.20.13
-| TYPE_ID "" 5.21.1
-| | INT "int" 5.21.1
-| | IDENT "test4" 5.21.5
-| | CHARCON "'\0'" 5.21.13
-| TYPE_ID "" 5.22.1
-| | INT "int" 5.22.1
-| | IDENT "test5" 5.22.5
-| | CHARCON "'\n'" 5.22.13
-| TYPE_ID "" 5.23.1
-| | INT "int" 5.23.1
-| | IDENT "test6" 5.23.5
-| | CHARCON "'\t'" 5.23.13
+| WHILE "while" 5.151.1
+| | NE "!=" 5.151.10
+| | | IDENT "n" 5.151.8
+| | | INTCON "1" 5.151.13
+| | BLOCK "{" 5.151.17
+| | | IF "if" 5.152.3
+| | | | EQ "==" 5.152.11
+| | | | | '%' "%" 5.152.8
+| | | | | | IDENT "n" 5.152.7
+| | | | | | INTCON "2" 5.152.9
+| | | | | INTCON "0" 5.152.14
+| | | | '=' "=" 5.152.19
+| | | | | IDENT "n" 5.152.17
+| | | | | '/' "/" 5.152.22
+| | | | | | IDENT "n" 5.152.21
+| | | | | | INTCON "2" 5.152.23
+| | | | '=' "=" 5.153.9
+| | | | | IDENT "n" 5.153.8
+| | | | | '+' "+" 5.153.15
+| | | | | | '*' "*" 5.153.12
+| | | | | | | IDENT "n" 5.153.11
+| | | | | | | INTCON "3" 5.153.13
+| | | | | | INTCON "1" 5.153.17

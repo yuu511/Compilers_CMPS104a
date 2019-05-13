@@ -5,7 +5,6 @@ do
     echo "** $errfile output:**"
     cat $errfile
     echo ''
-    echo "$(basename $errfile)"
   fi
 done
 
