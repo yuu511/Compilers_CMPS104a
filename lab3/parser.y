@@ -188,7 +188,7 @@ cargs : TOK_IDENT '(' expr {
 
 variable : TOK_IDENT { $$ = $1; }
          | expr '[' expr ']' { 
-             $$ = $2->adopt_sym($1,TOK_INDEX);
+             $2->adopt_sym($1,TOK_INDEX);
              $$ = $2->adopt($3);
              destroy($4); }
          | expr TOK_ARROW TOK_IDENT { $$ = $2->adopt($1,$3); }
