@@ -106,7 +106,7 @@ valgrind : ${EXECBIN}
 	 valgrind ./${EXECBIN} -@ast -y ${TESTOC}
 
 submit :
-	submit ${SUBMITDIR} ${ASGN} ${ALLSRC} 
+	submit ${SUBMITDIR} ${ASGN} ${ALLSRC} 2>&1 | tee submit.txt
 
 vim :
 	vim $(ALLSRC) ${TESTOC}
