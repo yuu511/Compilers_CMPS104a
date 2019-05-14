@@ -1,0 +1,31 @@
+submit cmps104a-wm.s19 asg3 README scanner.l parser.y  astree.h astree.cpp  lyutils.h lyutils.cpp  string_set.h string_set.cpp  auxlib.h auxlib.cpp main.cpp Makefile 
+Submitting the files you specified...
+copying README
+copying scanner\.l
+copying parser\.y
+copying astree\.h
+copying astree\.cpp
+copying lyutils\.h
+copying lyutils\.cpp
+copying string_set\.h
+copying string_set\.cpp
+copying auxlib\.h
+copying auxlib\.cpp
+copying main\.cpp
+copying Makefile
+
+13 Files submitted: 
+  Makefile (revision 14)
+  README (revision 14)
+  astree.cpp (revision 14)
+  astree.h (revision 14)
+  auxlib.cpp (revision 14)
+  auxlib.h (revision 14)
+  lyutils.cpp (revision 14)
+  lyutils.h (revision 14)
+  main.cpp (revision 14)
+  parser.y (revision 14)
+  scanner.l (revision 14)
+  string_set.cpp (revision 14)
+  string_set.h (revision 14)
+
