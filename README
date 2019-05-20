@@ -1,0 +1,7 @@
+Compiler built for oc language, which is largely based off of c++.
+Built in c++,with GNU toolchian (Flex + Bison).
+lab1: C-Preprocessor
+lab2: Scanenr
+lab3: Parser
+lab4: Symbol table and type checker
+lab5: intermediate code generation 

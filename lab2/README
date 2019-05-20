@@ -2,6 +2,8 @@ README: lab2
 Elijah Cordova
 ejcordov / 1425119
 
+lab2: Scanner
+
 astree::destroy(yylval) is called after parsing the 
 string and token information to ensure there are no memory leaks. 
 this function will be removed for lab3.
