@@ -1,0 +1,17 @@
+ˆ‹t:1.6: syntax error, unexpected TOK_IDENT
+ˆ‹t:1.19: syntax error, unexpected '{'
+ˆ‹t:2.2: invalid source character (|)
+ˆ‹t:2.15: syntax error, unexpected ';'
+ˆ‹t:2.19: invalid source character (?)
+ˆ‹t:2.20: invalid source character (!)
+ˆ‹t:2.21: syntax error, unexpected TOK_IDENT
+ˆ‹t:2.33: invalid source character (:)
+ˆ‹t:3.14: invalid source character (&)
+ˆ‹t:3.16: invalid source character (|)
+ˆ‹t:3.18: invalid source character (&)
+ˆ‹t:3.20: invalid source character (|)
+ˆ‹t:3.21: invalid source character (|)
+ˆ‹t:3.29: invalid source character (|)
+ˆ‹t:3.33: invalid source character (|)
+ˆ‹t:4.18: syntax error, unexpected '{'
+ˆ‹t:4.36: syntax error, unexpected '}'
