@@ -1,4 +1,1 @@
-92-uncomment.oc:1:1: error: unterminated comment
- /*
- ^
-/usr/bin/cpp -nostdinc 92-uncomment.oc: status 0x0100, exit 1
+./mk.tests: line 11: ../oc: No such file or directory

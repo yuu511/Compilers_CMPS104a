@@ -1,3 +1,1 @@
-˜û:4.9: syntax error, unexpected ';'
-˜û:6.8: syntax error, unexpected TOK_IDENT
-˜û:7.10: invalid source character (.)
+./mk.tests: line 11: ../oc: No such file or directory
