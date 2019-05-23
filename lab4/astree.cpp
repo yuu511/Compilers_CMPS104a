@@ -112,3 +112,22 @@ void errllocprintf (const location& lloc, const char* format,
               lexer::filename (lloc.filenr), lloc.linenr, lloc.offset,
               buffer);
 }
+
+symbol::symbol (astree* ast_, size_t block_nr_){
+  attributes = ast_->attributes;  
+  sequence = 0;
+  fields = ast_->struct_ptr;
+  lloc = ast_->lloc;
+  block_nr = block_nr_;
+  parameters = nullptr;
+}
+
+
+void symbol::dump_symbol (FILE* outfile) {
+  fprintf (outfile, "->%s\n->%zd\n->\n->%zd.%zd.%zd\n->%zd\n->\n",
+           attributes.to_string().c_str(),
+           sequence, 
+           lloc.filenr, lloc.linenr, lloc.offset,
+           block_nr);
+}
+

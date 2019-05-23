@@ -18,6 +18,7 @@ struct location {
 };
 
 struct symbol;
+
 using symbol_table = unordered_map<string*,symbol*>;
 using symbol_entry = symbol_table::value_type;
 
@@ -26,15 +27,6 @@ enum class attr {
   FIELD, TYPEID, PARAM, LOCAL, LVAL, CONST, VREG, VADDR, BITSET_SIZE
 };
 using attr_bitset = bitset <static_cast<size_t>(attr::BITSET_SIZE)>;
-
-struct symbol {
-  attr_bitset attributes;
-  size_t sequence;
-  symbol_table* fields;
-  location lloc;
-  size_t block_nr;
-  vector<symbol*>* parameters;
-};
 
 struct astree {
 
@@ -61,6 +53,20 @@ struct astree {
    static void print (FILE* outfile, astree* tree, int depth = 0);
    static void draw (FILE* outfile, astree* tree, int depth = 0);
 
+};
+
+struct symbol {
+  // Fields.
+  attr_bitset attributes;
+  size_t sequence;
+  symbol_table* fields;
+  location lloc;
+  size_t block_nr;
+  vector<symbol*>* parameters;
+
+  // Functions.
+  symbol (astree* ast, size_t block_nr);
+  void dump_symbol(FILE*);
 };
 
 void destroy (astree* tree1, astree* tree2 = nullptr);

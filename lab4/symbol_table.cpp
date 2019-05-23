@@ -10,16 +10,30 @@ using namespace std;
 #include "astree.h"
 #include "lyutils.h"
 
-vector <symbol_table> master;
-vector <symbol_table> stack;
+vector <symbol_table*> master;
+vector <symbol_table*> stack;
 symbol_table allstructs;
 int current_block = 0;
 int next_block = 1;
 
+
+void p_typeid(astree *s){ 
+  symbol *sym = new symbol(s,current_block);
+  // sym->dump_symbol(stderr);
+}
+
+// Main function,handles all members of language
 void gen_table(astree *s){
   switch(s->symbol){
     case TOK_ROOT:
-      for (astree* child: s->children) astree::print(stdout,child);        
+      stack.push_back(new symbol_table());
+      master.push_back(stack.back());
+      for (astree* child: s->children) gen_table(child);        
       break;
+    case TOK_BLOCK:
+      for (astree* child: s->children) gen_table(child);        
+      break;
+    case TOK_TYPE_ID:
+      return p_typeid(s);
   }
 }

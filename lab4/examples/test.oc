@@ -138,17 +138,21 @@
 // string notvalid = "\a\basdffdsk";
 // char test = '\a';
 
-/* midterm test parse */
-int fac (int i ){
-  int n = 1;
-  while (i > 1) {
-     n = n*i;
-     i=i-1;
-  }
-  return n;
-}
+{}
 
+/* midterm test parse */
+//  int fac (int i );
+//  int fac (int i ){
+//    int n = 1;
+//    while (i > 1) {
+//       n = n*i;
+//       i=i-1;
+//    }
+//    return n;
+//  }
 // while (n != 1 ) {
 //   if (n%2 == 0) n = n/2;
 //   else n= n*3 + 1;
 // }
+
+int test;

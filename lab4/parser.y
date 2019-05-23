@@ -52,6 +52,7 @@ start     : program            { $$ = $1 = nullptr; }
 
 program   : program structdef { $$ = $1->adopt($2); }
           | program statement { $$ = $1->adopt($2); }
+          | program function  { $$ = $1->adopt($2); }
           | program error '}' { $$ = $1; destroy($3); }
           | program error ';' { $$ = $1; destroy($3); }
           | { $$ = parser::root; }
@@ -86,7 +87,6 @@ statement : vardecl  { $$ = $1; }
           | while    { $$ = $1; }
           | ifelse   { $$ = $1; }
           | return   { $$ = $1; }
-          | function { $$ = $1; }
           | ';'      { $$ = $1; }
           | expr ';' { $$ = $1; 
                        destroy ($2); }
