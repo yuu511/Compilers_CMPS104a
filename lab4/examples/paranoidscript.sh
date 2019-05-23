@@ -3,7 +3,7 @@ comparedir="../../lab3/examples/"
 echo "astfile diffs:"
 for astfile in *.ast
 do
-  diff $astfile $comparedir/$astfile > diffast.err
+  diff $astfile $comparedir/$astfile >> diffast.err
   check=$?
   if [ "$check" -gt 0 ] 
   then
@@ -14,7 +14,7 @@ done
 echo "tokfile diffs:"
 for tokfile in *.tok
 do
-  diff $tokfile $comparedir/$tokfile > difftok.err
+  diff $tokfile $comparedir/$tokfile >> difftok.err
   check=$?
   if [ "$check" -gt 0 ] 
   then

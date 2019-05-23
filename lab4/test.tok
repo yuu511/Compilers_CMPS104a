@@ -1,7 +1,0 @@
-# 141 "./examples/test.oc"
-    5 141.001 123 '{'           {
-    5 141.002 125 '}'           }
-# 158 "./examples/test.oc"
-    6 158.001 259 TOK_INT       int
-    6 158.005 278 TOK_IDENT     test
-    6 158.009  59 ';'           ;

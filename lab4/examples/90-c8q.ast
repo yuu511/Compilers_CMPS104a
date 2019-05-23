@@ -1,6 +1,1 @@
 ROOT "<<ROOT>>" 0.0.0
-| CALL "(" 4.4.28
-| | IDENT "Q" 4.4.27
-| | INTCON "0" 4.4.29
-| | INTCON "0" 4.4.31
-| | INTCON "0" 4.4.33
