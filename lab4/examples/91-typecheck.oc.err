@@ -1,1 +1,5 @@
-./mk.tests: line 11: ../oc: No such file or directory
+Hí:9.4: syntax error, unexpected '[', expecting TOK_IDENT
+Hí:10.11: syntax error, unexpected ']'
+Hí:13.14: syntax error, unexpected '[', expecting TOK_IDENT
+Hí:16.1: syntax error, unexpected TOK_INT, expecting ';'
+Hí:31.1: syntax error, unexpected '}'

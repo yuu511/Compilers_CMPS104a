@@ -22,6 +22,7 @@ using namespace std;
 #include "auxlib.h"
 #include "lyutils.h"
 #include "astree.h"
+#include "symbol_table.h"
 
 const string CPP = "/usr/bin/cpp -nostdinc";
 string command = CPP;
@@ -165,6 +166,8 @@ int main (int argc, char** argv) {
    // dump the astree
    astree::draw(astfp,parser::root);
 
+   gen_table(parser::root);
+
    // personal debug flag 
    if (a_debug)
      astree::print (stderr,parser::root);
@@ -174,6 +177,7 @@ int main (int argc, char** argv) {
    e_close(strfp);
    e_close(astfp);
    
+
    // free memory 
    yylex_destroy();
    if (parse_rc) {

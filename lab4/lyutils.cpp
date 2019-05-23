@@ -85,7 +85,7 @@ int lexer::token(int symbol){
    yylval = new astree (symbol, lexer::lloc, yytext);
    if (token_fp == nullptr){
      exec::exit_status = EXIT_FAILURE;
-     fprintf (stderr,"stringset or tokenset fileptr null!");
+     fprintf (stderr,"tokenset fileptr null!");
    }
    /* if the filenumber is different than the last 
     * scanned file number, then print out the name

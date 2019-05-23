@@ -10,11 +10,17 @@
 #include "astree.h"
 #include "string_set.h"
 #include "lyutils.h"
+#include "symbol_table.h"
 
-astree::astree (int symbol_, const location& lloc_, const char* info) {
+astree::astree (int symbol_, const location& lloc_, const char* info, 
+                attr_bitset attributes_, int block_number_, 
+                symbol_table* struct_ptr_) {
    symbol = symbol_;
    lloc = lloc_;
    lexinfo = string_set::intern (info);
+   attributes = attributes_;
+   block_number = block_number_;
+   struct_ptr = struct_ptr_;
    // vector defaults to empty -- no children
 }
 

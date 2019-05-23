@@ -1,1 +1,1 @@
-./mk.tests: line 11: ../oc: No such file or directory
+ил5:4.4: syntax error, unexpected '[', expecting TOK_IDENT
