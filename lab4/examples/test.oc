@@ -4,12 +4,11 @@
 // struct onearg{int trivial;};
 // struct testptr { ptr <struct test > homura; };
 // struct testarray { array <ptr <struct test >> sayaka; };
-// struct allofem { int one;
-//                  string two;
-//                  void three;
-//                  ptr <struct test > homura; 
-//                  array <ptr <struct test >> sayaka;
-// 	        };
+struct allofem { int one;
+                 string two;
+                 ptr <struct test > homura; 
+                 array <ptr <struct test >> sayaka;
+	           };
 
 /* vardecl tests */
 
@@ -138,7 +137,7 @@
 // string notvalid = "\a\basdffdsk";
 // char test = '\a';
 
-{}
+
 
 /* midterm test parse */
 //  int fac (int i );
@@ -154,5 +153,6 @@
 //   if (n%2 == 0) n = n/2;
 //   else n= n*3 + 1;
 // }
+// int test;
+// int test = 5;
 
-int test;

@@ -122,12 +122,69 @@ symbol::symbol (astree* ast_, size_t block_nr_){
   parameters = nullptr;
 }
 
+string dump_attributes(attr_bitset a){
+  string st;
+  for (size_t i = 0; i<a.size();i++){
+    if (a[i]){
+      switch(i) {
+        case static_cast<int>(attr::VOID):
+          st.append ("VOID ");
+          break;
+        case static_cast<int>(attr::INT):
+          st.append ("INT ");
+          break;
+        case static_cast<int>(attr::NULLPTR_T):
+          st.append ("NULLPTR_T ");
+          break;
+        case static_cast<int>(attr::STRING):
+          st.append ("STRING ");
+          break;
+        case static_cast<int>(attr::STRUCT):
+          st.append ("STRUCT ");
+          break;
+        case static_cast<int>(attr::ARRAY):
+          st.append ("ARRAY ");
+          break;
+        case static_cast<int>(attr::FUNCTION):
+          st.append ("FUNCTION ");
+          break;
+        case static_cast<int>(attr::VARIABLE):
+          st.append ("VARIABLE ");
+          break;
+        case static_cast<int>(attr::FIELD):
+          st.append ("FIELD ");
+          break;
+        case static_cast<int>(attr::TYPEID):
+          st.append ("TYPEID ");
+          break;
+        case static_cast<int>(attr::PARAM):
+          st.append ("PARAM ");
+          break;
+        case static_cast<int>(attr::LOCAL):
+          st.append ("LOCAL ");
+          break;
+        case static_cast<int>(attr::LVAL):
+          st.append ("LVAL ");
+          break;
+        case static_cast<int>(attr::CONST):
+          st.append ("CONST ");
+          break;
+        case static_cast<int>(attr::VREG):
+          st.append ("VREG ");
+          break;
+        case static_cast<int>(attr::VADDR):
+          st.append ("VADDR ");
+          break;
+      }
+    }
+  }
+  return st;
+}
 
 void symbol::dump_symbol (FILE* outfile) {
   fprintf (outfile, "->%s\n->%zd\n->\n->%zd.%zd.%zd\n->%zd\n->\n",
-           attributes.to_string().c_str(),
+           dump_attributes(attributes).c_str(),
            sequence, 
            lloc.filenr, lloc.linenr, lloc.offset,
            block_nr);
 }
-

@@ -1,0 +1,18 @@
+ROOT "<<ROOT>>" 0.0.0
+| STRUCT "struct" 4.7.1
+| | IDENT "allofem" 4.7.8
+| | TYPE_ID "" 4.7.18
+| | | INT "int" 4.7.18
+| | | IDENT "one" 4.7.22
+| | TYPE_ID "" 4.8.18
+| | | STRING "string" 4.8.18
+| | | IDENT "two" 4.8.25
+| | TYPE_ID "" 4.9.18
+| | | PTR "ptr" 4.9.18
+| | | | IDENT "test" 4.9.30
+| | | IDENT "homura" 4.9.37
+| | TYPE_ID "" 4.10.18
+| | | ARRAY "array" 4.10.18
+| | | | PTR "ptr" 4.10.25
+| | | | | IDENT "test" 4.10.37
+| | | IDENT "sayaka" 4.10.45

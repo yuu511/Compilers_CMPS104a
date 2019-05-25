@@ -19,7 +19,7 @@ struct location {
 
 struct symbol;
 
-using symbol_table = unordered_map<string*,symbol*>;
+using symbol_table = unordered_map<const string*,symbol*>;
 using symbol_entry = symbol_table::value_type;
 
 enum class attr {
