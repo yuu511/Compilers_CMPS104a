@@ -22,52 +22,52 @@ string dump_attributes(attr_bitset a){
     if (a[i]){
       switch(i) {
         case static_cast<int>(attr::VOID):
-          st.append ("VOID ");
+          st.append ("void ");
           break;
         case static_cast<int>(attr::INT):
-          st.append ("INT ");
+          st.append ("int ");
           break;
         case static_cast<int>(attr::NULLPTR_T):
-          st.append ("NULLPTR_T ");
+          st.append ("nullptr_t ");
           break;
         case static_cast<int>(attr::STRING):
-          st.append ("STRING ");
+          st.append ("string ");
           break;
         case static_cast<int>(attr::STRUCT):
-          st.append ("STRUCT ");
+          st.append ("struct ");
           break;
         case static_cast<int>(attr::ARRAY):
-          st.append ("ARRAY ");
+          st.append ("array ");
           break;
         case static_cast<int>(attr::FUNCTION):
-          st.append ("FUNCTION ");
+          st.append ("function ");
           break;
         case static_cast<int>(attr::VARIABLE):
-          st.append ("VARIABLE ");
+          st.append ("variable ");
           break;
         case static_cast<int>(attr::FIELD):
-          st.append ("FIELD ");
+          st.append ("field ");
           break;
         case static_cast<int>(attr::TYPEID):
-          st.append ("TYPEID ");
+          st.append ("typeid ");
           break;
         case static_cast<int>(attr::PARAM):
-          st.append ("PARAM ");
+          st.append ("param ");
           break;
         case static_cast<int>(attr::LOCAL):
-          st.append ("LOCAL ");
+          st.append ("local ");
           break;
         case static_cast<int>(attr::LVAL):
-          st.append ("LVAL ");
+          st.append ("lval ");
           break;
         case static_cast<int>(attr::CONST):
-          st.append ("CONST ");
+          st.append ("const ");
           break;
         case static_cast<int>(attr::VREG):
-          st.append ("VREG ");
+          st.append ("vreg ");
           break;
         case static_cast<int>(attr::VADDR):
-          st.append ("VADDR ");
+          st.append ("vaddr ");
           break;
       }
     }
