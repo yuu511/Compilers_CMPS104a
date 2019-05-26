@@ -215,6 +215,11 @@ void p_struct (astree *s){
         id = c->children[1]->lexinfo;
       }
     }
+    if (t_code == TOK_VOID) {
+       errprintf ("VOID may not be a struct param:%zd.%zd.%zd\n",
+                   f->lloc.filenr, f->lloc.linenr,
+                   f->lloc.offset);
+    }
     f->attributes.set(static_cast<int>(attr::FIELD));
     f->attributes.set(type_enum(t_code));
     // checking for multiple fields
@@ -246,10 +251,12 @@ void p_function (astree *s){
   current_block = next_block; 
   next_block++;
   symbol *sym = new symbol(s,current_block);
+  symbol_table* block = nullptr;
   sym->attributes.set(static_cast<int>(attr::FUNCTION));
   int ret;
   const string *fname;
   const string *sname;
+
   if (s->children[0]->children[0]->symbol == TOK_ARRAY){
     sym->attributes.set(static_cast<int>(attr::ARRAY));
     if (s->children[0]->children[0]->children[0]->symbol == TOK_PTR){
@@ -285,7 +292,54 @@ void p_function (astree *s){
     }
   }
   sym->attributes.set(type_enum(ret));
-  dump_symbol(sym,stderr);
+  
+  if (s->children[1]->children.size()>0){
+    block = new symbol_table();
+    for (unsigned int i = 0; i < s->children[1]->children.size(); i++){
+      astree *c = s->children[1]->children[i];
+      symbol *f = new symbol(c,current_block); 
+      int t_code;
+      const string *id;
+      const string *s_name;
+
+      // if a pointer is found, adjust identifier and type code accordingly.
+      if (c->children[0]->symbol == TOK_ARRAY){
+        f->attributes.set(static_cast<int>(attr::ARRAY));
+        if (c->children[0]->children[0]->symbol == TOK_PTR){
+          f->attributes.set(static_cast<int>(attr::TYPEID));
+          t_code = TOK_STRUCT;
+          s_name = c->children[0]->children[0]->children[0]->lexinfo;
+          c->sname = f->sname = s_name;
+          id = c->children[1]->lexinfo;
+        }
+        else {
+          t_code = c->children[0]->children[0]->symbol;
+          id = c->children[1]->lexinfo;
+        }
+      }
+      else {
+        if (c->children[0]->symbol == TOK_PTR){
+          f->attributes.set(static_cast<int>(attr::TYPEID));
+          t_code = TOK_STRUCT;
+          s_name = c->children[0]->children[0]->lexinfo;
+          c->sname = f->sname = s_name;
+          id = c->children[1]->lexinfo;
+        }
+        else {
+          t_code = c->children[0]->symbol;
+          id = c->children[1]->lexinfo;
+        }
+      }
+      if (t_code == TOK_VOID) {
+         errprintf ("VOID may not be a function param:%zd.%zd.%zd\n",
+                     f->lloc.filenr, f->lloc.linenr,
+                     f->lloc.offset);
+      }
+      f->attributes.set(static_cast<int>(attr::FIELD));
+      f->attributes.set(type_enum(t_code));
+    }
+  }
+
 }
 
 // Main function,handles all members of language

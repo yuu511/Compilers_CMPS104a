@@ -1,4 +1,9 @@
-#   4 "./examples/test.oc"
+#   3 "./examples/test.oc"
+    4   3.001 265 TOK_STRUCT    struct
+    4   3.008 278 TOK_IDENT     incomplete
+    4   3.018 123 '{'           {
+    4   3.019 125 '}'           }
+    4   3.020  59 ';'           ;
     4   4.001 265 TOK_STRUCT    struct
     4   4.008 278 TOK_IDENT     onearg
     4   4.014 123 '{'           {
@@ -9,43 +14,61 @@
     4   4.028  59 ';'           ;
 #  14 "./examples/test.oc"
     5  14.001 265 TOK_STRUCT    struct
-    5  14.008 278 TOK_IDENT     test
-    5  14.012 123 '{'           {
-    5  14.013 125 '}'           }
-    5  14.014  59 ';'           ;
-    5  15.001 265 TOK_STRUCT    struct
-    5  15.008 278 TOK_IDENT     all2
-    5  15.013 123 '{'           {
-    5  15.015 259 TOK_INT       int
-    5  15.019 278 TOK_IDENT     one
-    5  15.022  59 ';'           ;
-    5  16.018 260 TOK_STRING    string
-    5  16.025 278 TOK_IDENT     two
-    5  16.028  59 ';'           ;
-    5  17.018 270 TOK_PTR       ptr
-    5  17.022  60 '<'           <
-    5  17.023 265 TOK_STRUCT    struct
-    5  17.030 278 TOK_IDENT     onearg
-    5  17.037  62 '>'           >
-    5  17.039 278 TOK_IDENT     homura
-    5  17.045  59 ';'           ;
-    5  18.018 267 TOK_ARRAY     array
-    5  18.024  60 '<'           <
-    5  18.025 270 TOK_PTR       ptr
-    5  18.029  60 '<'           <
-    5  18.030 265 TOK_STRUCT    struct
-    5  18.037 278 TOK_IDENT     onearg
-    5  18.044  62 '>'           >
-    5  18.045  62 '>'           >
-    5  18.047 278 TOK_IDENT     sayaka
-    5  18.053  59 ';'           ;
-    5  19.010 125 '}'           }
-    5  19.011  59 ';'           ;
-# 168 "./examples/test.oc"
-    6 168.001 259 TOK_INT       int
-    6 168.005 278 TOK_IDENT     fac
-    6 168.009  40 '('           (
-    6 168.010 259 TOK_INT       int
-    6 168.014 278 TOK_IDENT     i
-    6 168.016  41 ')'           )
-    6 168.017  59 ';'           ;
+    5  14.008 278 TOK_IDENT     all2
+    5  14.013 123 '{'           {
+    5  14.015 259 TOK_INT       int
+    5  14.019 278 TOK_IDENT     one
+    5  14.022  59 ';'           ;
+    5  15.018 260 TOK_STRING    string
+    5  15.025 278 TOK_IDENT     two
+    5  15.028  59 ';'           ;
+    5  16.018 270 TOK_PTR       ptr
+    5  16.022  60 '<'           <
+    5  16.023 265 TOK_STRUCT    struct
+    5  16.030 278 TOK_IDENT     onearg
+    5  16.037  62 '>'           >
+    5  16.039 278 TOK_IDENT     homura
+    5  16.045  59 ';'           ;
+    5  17.018 267 TOK_ARRAY     array
+    5  17.024  60 '<'           <
+    5  17.025 270 TOK_PTR       ptr
+    5  17.029  60 '<'           <
+    5  17.030 265 TOK_STRUCT    struct
+    5  17.037 278 TOK_IDENT     onearg
+    5  17.044  62 '>'           >
+    5  17.045  62 '>'           >
+    5  17.047 278 TOK_IDENT     sayaka
+    5  17.053  59 ';'           ;
+    5  18.010 125 '}'           }
+    5  18.011  59 ';'           ;
+# 167 "./examples/test.oc"
+    6 167.001 259 TOK_INT       int
+    6 167.005 278 TOK_IDENT     fac
+    6 167.009  40 '('           (
+    6 167.010 267 TOK_ARRAY     array
+    6 167.015  60 '<'           <
+    6 167.016 259 TOK_INT       int
+    6 167.019  62 '>'           >
+    6 167.021 278 TOK_IDENT     p1
+    6 167.023  44 ','           ,
+    6 167.024 267 TOK_ARRAY     array
+    6 167.030  60 '<'           <
+    6 167.031 270 TOK_PTR       ptr
+    6 167.035  60 '<'           <
+    6 167.036 265 TOK_STRUCT    struct
+    6 167.043 278 TOK_IDENT     all2
+    6 167.048  62 '>'           >
+    6 167.049  62 '>'           >
+    6 167.050 278 TOK_IDENT     p2
+    6 167.052  44 ','           ,
+    6 167.053 259 TOK_INT       int
+    6 167.057 278 TOK_IDENT     p3
+    6 167.059  44 ','           ,
+    6 167.060 270 TOK_PTR       ptr
+    6 167.064  60 '<'           <
+    6 167.065 265 TOK_STRUCT    struct
+    6 167.072 278 TOK_IDENT     all2
+    6 167.076  62 '>'           >
+    6 167.078 278 TOK_IDENT     p4
+    6 167.080  41 ')'           )
+    6 167.081  59 ';'           ;
