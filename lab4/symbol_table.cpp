@@ -272,9 +272,8 @@ void p_function (astree *s){
     sym->attributes.set(static_cast<int>(attr::ARRAY));
     if (s->children[0]->children[0]->children[0]->symbol == TOK_PTR){
       sym->attributes.set(static_cast<int>(attr::STRUCT));
-      sname =
+      s->sname = sym-> sname = sname =
       s->children[0]->children[0]->children[0]->children[0]->lexinfo;
-      s->sname = sym->sname = sname;
       if (struct_exists(sname,sym->lloc)){
         struct_valid(sym);
       }
