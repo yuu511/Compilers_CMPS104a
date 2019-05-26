@@ -1,4 +1,4 @@
-*/lab*/*.o
-*/lab*/*.deps
-*/lab*/examples
-*/lab*/vgcore.*
+lab*/*.o
+lab*/*.deps
+lab*/examples
+lab*/vgcore.*

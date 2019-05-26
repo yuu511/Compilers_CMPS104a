@@ -1,7 +1,7 @@
 /* structure tests */
 
 struct test{};
-// struct onearg{int trivial;};
+struct onearg{int trivial;};
 // struct testptr { ptr <struct test > homura; };
 // struct testarray { array <ptr <struct test >> sayaka; };
 // struct allofem {};
