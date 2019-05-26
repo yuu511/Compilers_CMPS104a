@@ -4,10 +4,11 @@
 // struct onearg{int trivial;};
 // struct testptr { ptr <struct test > homura; };
 // struct testarray { array <ptr <struct test >> sayaka; };
+struct allofem {};
 struct allofem { int one;
                  string two;
-                 ptr <struct test > homura; 
-                 array <ptr <struct test >> sayaka;
+//                 ptr <struct test > homura; 
+//                 array <int> sayaka;
 	           };
 
 /* vardecl tests */

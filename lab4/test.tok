@@ -2,28 +2,16 @@
     4   7.001 265 TOK_STRUCT    struct
     4   7.008 278 TOK_IDENT     allofem
     4   7.016 123 '{'           {
-    4   7.018 259 TOK_INT       int
-    4   7.022 278 TOK_IDENT     one
-    4   7.025  59 ';'           ;
-    4   8.018 260 TOK_STRING    string
-    4   8.025 278 TOK_IDENT     two
-    4   8.028  59 ';'           ;
-    4   9.018 270 TOK_PTR       ptr
-    4   9.022  60 '<'           <
-    4   9.023 265 TOK_STRUCT    struct
-    4   9.030 278 TOK_IDENT     test
-    4   9.035  62 '>'           >
-    4   9.037 278 TOK_IDENT     homura
-    4   9.043  59 ';'           ;
-    4  10.018 267 TOK_ARRAY     array
-    4  10.024  60 '<'           <
-    4  10.025 270 TOK_PTR       ptr
-    4  10.029  60 '<'           <
-    4  10.030 265 TOK_STRUCT    struct
-    4  10.037 278 TOK_IDENT     test
-    4  10.042  62 '>'           >
-    4  10.043  62 '>'           >
-    4  10.045 278 TOK_IDENT     sayaka
-    4  10.051  59 ';'           ;
-    4  11.013 125 '}'           }
-    4  11.014  59 ';'           ;
+    4   7.017 125 '}'           }
+    4   7.018  59 ';'           ;
+    4   8.001 265 TOK_STRUCT    struct
+    4   8.008 278 TOK_IDENT     allofem
+    4   8.016 123 '{'           {
+    4   8.018 259 TOK_INT       int
+    4   8.022 278 TOK_IDENT     one
+    4   8.025  59 ';'           ;
+    4   9.018 260 TOK_STRING    string
+    4   9.025 278 TOK_IDENT     two
+    4   9.028  59 ';'           ;
+    4  12.013 125 '}'           }
+    4  12.014  59 ';'           ;
