@@ -117,13 +117,6 @@ void dump_symbol (symbol *sym, FILE* outfile) {
            sym->block_nr);
 }
 
-void p_typeid(astree *s){ 
-  // symbol *sym = new symbol(s,current_block);
-  // if (s->children[3]!=nullptr)
-  //   fprintf(stderr,"varaiable declaration!\n");
-  // else fprintf(stderr,"no var decl!\n");
-}
-
 int type_enum (int t_code){
   switch (t_code) {
     case TOK_VOID:
@@ -365,8 +358,6 @@ void gen_table(astree *s){
     case TOK_BLOCK:
       for (astree* child: s->children) gen_table(child);        
       break;
-    case TOK_TYPE_ID:
-      return p_typeid(s);
     case TOK_STRUCT:
       return p_struct(s);
     case TOK_FUNCTION:
