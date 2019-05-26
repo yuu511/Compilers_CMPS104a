@@ -1,20 +1,33 @@
 ROOT "<<ROOT>>" 0.0.0
-| STRUCT "struct" 5.13.1
-| | IDENT "test" 5.13.8
+| STRUCT "struct" 4.4.1
+| | IDENT "onearg" 4.4.8
+| | TYPE_ID "" 4.4.15
+| | | INT "int" 4.4.15
+| | | IDENT "trivial" 4.4.19
 | STRUCT "struct" 5.14.1
-| | IDENT "all2" 5.14.8
-| | TYPE_ID "" 5.14.15
-| | | INT "int" 5.14.15
-| | | IDENT "one" 5.14.19
-| | TYPE_ID "" 5.15.18
-| | | STRING "string" 5.15.18
-| | | IDENT "two" 5.15.25
+| | IDENT "test" 5.14.8
+| STRUCT "struct" 5.15.1
+| | IDENT "all2" 5.15.8
+| | TYPE_ID "" 5.15.15
+| | | INT "int" 5.15.15
+| | | IDENT "one" 5.15.19
 | | TYPE_ID "" 5.16.18
-| | | PTR "ptr" 5.16.18
-| | | | IDENT "test" 5.16.30
-| | | IDENT "homura" 5.16.37
+| | | STRING "string" 5.16.18
+| | | IDENT "two" 5.16.25
 | | TYPE_ID "" 5.17.18
-| | | ARRAY "array" 5.17.18
-| | | | PTR "ptr" 5.17.25
-| | | | | IDENT "test" 5.17.37
-| | | IDENT "sayaka" 5.17.45
+| | | PTR "ptr" 5.17.18
+| | | | IDENT "onearg" 5.17.30
+| | | IDENT "homura" 5.17.39
+| | TYPE_ID "" 5.18.18
+| | | ARRAY "array" 5.18.18
+| | | | PTR "ptr" 5.18.25
+| | | | | IDENT "onearg" 5.18.37
+| | | IDENT "sayaka" 5.18.47
+| FUNCTION "" 6.168.1
+| | TYPE_ID "" 6.168.1
+| | | INT "int" 6.168.1
+| | | IDENT "fac" 6.168.5
+| | PARAM "(" 6.168.9
+| | | TYPE_ID "" 6.168.10
+| | | | INT "int" 6.168.10
+| | | | IDENT "i" 6.168.14

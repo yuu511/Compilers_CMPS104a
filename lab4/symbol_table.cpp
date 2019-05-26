@@ -88,6 +88,7 @@ string dump_table_fields(symbol_table *s){
          }
          // ident
          st.append(string(itor.first->c_str()));
+         st.append(" ");
       }
   }
   return st;
@@ -118,19 +119,50 @@ int type_enum (int t_code){
     case TOK_VOID:
       return static_cast<int>(attr::VOID);
     case TOK_INT:
-      return static_cast<int>(attr::STRING);
-    case TOK_STRING:
       return static_cast<int>(attr::INT);
+    case TOK_STRING:
+      return static_cast<int>(attr::STRING);
     case TOK_STRUCT:
       return static_cast<int>(attr::STRUCT);
+    case TOK_IDENT:
+      return static_cast<int>(attr::TYPEID);
   }
   return -1;
 }
 
+int struct_exists(const string *sname,location l){
+  if (sname != nullptr){
+    if (struct_t->find(sname)!=struct_t->end()){
+      return 1;
+    }
+    errprintf ("struct %s not found in field ptr: %zd.%zd.%zd\n",
+               sname->c_str(), l.filenr,
+               l.linenr, l.offset);
+  }
+  return 0;
+}
+
+int struct_valid(symbol *structsym){
+  if (structsym != nullptr) {
+    if (structsym->attributes[static_cast<int>(attr::STRUCT)]){
+       if (struct_t->find(structsym->sname)->second->fields != nullptr){
+         return 1; 
+       }
+       errprintf("incomplete struct referenced: %s\n",
+                 structsym->sname->c_str());
+       return 0;
+    }
+  }
+  errprintf("incorrect usage of struct_valid");
+  return 0;
+}
+
+
 void p_struct (astree *s){
   symbol *sym = new symbol(s,0);
   sym->attributes.set(static_cast<int>(attr::STRUCT));
-  const string* name = s->children[0]->lexinfo; 
+  const string* name =  s->children[0]->lexinfo; 
+  sym->sname = name;
 
   // add to struct table first, then process fields.
   if (struct_t->find(name)!=struct_t->end()){
@@ -159,6 +191,7 @@ void p_struct (astree *s){
     if (c->children[0]->symbol == TOK_ARRAY){
       f->attributes.set(static_cast<int>(attr::ARRAY));
       if (c->children[0]->children[0]->symbol == TOK_PTR){
+        f->attributes.set(static_cast<int>(attr::TYPEID));
         t_code = TOK_STRUCT;
         s_name = c->children[0]->children[0]->children[0]->lexinfo;
         c->sname = f->sname = s_name;
@@ -171,6 +204,7 @@ void p_struct (astree *s){
     }
     else {
       if (c->children[0]->symbol == TOK_PTR){
+        f->attributes.set(static_cast<int>(attr::TYPEID));
         t_code = TOK_STRUCT;
         s_name = c->children[0]->children[0]->lexinfo;
         c->sname = f->sname = s_name;
@@ -180,11 +214,6 @@ void p_struct (astree *s){
         t_code = c->children[0]->symbol;
         id = c->children[1]->lexinfo;
       }
-    }
-    if (t_code == TOK_VOID){
-      errprintf("struct fields may not be void:%zd.%zd.%zd\n",
-                  sym->lloc.filenr, sym->lloc.linenr,
-                  sym->lloc.offset);
     }
     f->attributes.set(static_cast<int>(attr::FIELD));
     f->attributes.set(type_enum(t_code));
@@ -200,15 +229,62 @@ void p_struct (astree *s){
       sym->fields->emplace(id,f);
     }
     // checking pointer validity
-    if (f->sname != nullptr){
-      if (struct_t->find(s_name)==struct_t->end()){
-        errprintf ("struct %s not found in field ptr: %zd.%zd.%zd\n",
-                    s_name->c_str(),f->lloc.filenr,
-                    f->lloc.linenr,f->lloc.offset);
+    struct_exists(f->sname,f->lloc);
+    // if (f->sname != nullptr){
+    //   if (struct_t->find(s_name)==struct_t->end()){
+    //     errprintf ("struct %s not found in field ptr: %zd.%zd.%zd\n",
+    //                 s_name->c_str(),f->lloc.filenr,
+    //                 f->lloc.linenr,f->lloc.offset);
+    //   }
+    // }
+  }
+  struct_t->emplace(sym->sname,sym);
+  dump_symbol(sym,stderr);
+}
+
+void p_function (astree *s){
+  current_block = next_block; 
+  next_block++;
+  symbol *sym = new symbol(s,current_block);
+  sym->attributes.set(static_cast<int>(attr::FUNCTION));
+  int ret;
+  const string *fname;
+  const string *sname;
+  if (s->children[0]->children[0]->symbol == TOK_ARRAY){
+    sym->attributes.set(static_cast<int>(attr::ARRAY));
+    if (s->children[0]->children[0]->children[0]->symbol == TOK_PTR){
+      sym->attributes.set(static_cast<int>(attr::STRUCT));
+      sname=s->children[0]->children[0]->children[0]->children[0]->lexinfo;
+      s->sname = sym->sname = sname;
+      if (struct_exists(sname,sym->lloc)){
+        struct_valid(sym);
       }
+      ret=s->children[0]->children[1]->symbol;
+      fname=s->children[0]->children[1]->lexinfo;
+    }
+    else {
+       ret = s->children[0]->children[0]->children[0]->symbol;        
+       fname = s->children[0]->children[1]->lexinfo; 
     }
   }
-  struct_t->emplace(name,sym);
+  else {
+    ret = TOK_ARRAY;
+    if (s->children[0]->children[0]->symbol == TOK_PTR){
+      sym->attributes.set(static_cast<int>(attr::STRUCT));
+      sname=s->children[0]->children[0]->children[0]->lexinfo;
+      s->sname = sym->sname = sname;
+      if (struct_exists(sname,sym->lloc)){
+        struct_valid(sym);
+      }
+      ret=s->children[0]->children[1]->symbol;
+      fname=s->children[0]->children[1]->lexinfo;
+    }
+    else {
+      ret = s->children[0]->children[0]->symbol;
+      fname = s->children[0]->children[1]->lexinfo;
+    }
+  }
+  sym->attributes.set(type_enum(ret));
   dump_symbol(sym,stderr);
 }
 
@@ -227,6 +303,8 @@ void gen_table(astree *s){
       return p_typeid(s);
     case TOK_STRUCT:
       return p_struct(s);
+    case TOK_FUNCTION:
+      return p_function(s);
   }
 }
 
