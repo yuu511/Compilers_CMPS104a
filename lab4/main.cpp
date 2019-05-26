@@ -150,6 +150,9 @@ int main (int argc, char** argv) {
    FILE *astfp;
    append = ".ast";
    astfp = appendopen (input_stripped,append);
+   FILE *symfp;
+   append = ".sym";
+   symfp = appendopen (input_stripped,append);
 
    // Run the c preprocessor and pipe the output to yyin.
    exec_cpp(filename);
@@ -166,6 +169,7 @@ int main (int argc, char** argv) {
    // dump the astree
    astree::draw(astfp,parser::root);
 
+   // generate the symbol table
    gen_table(parser::root);
 
    // personal debug flag 
@@ -176,6 +180,7 @@ int main (int argc, char** argv) {
    e_close(tokfp);
    e_close(strfp);
    e_close(astfp);
+   e_close(symfp);
    
 
    // free memory 
