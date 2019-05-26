@@ -162,7 +162,7 @@ void p_struct (astree *s){
         t_code = TOK_STRUCT;
         s_name = c->children[0]->children[0]->children[0]->lexinfo;
         c->sname = f->sname = s_name;
-        id = c->children[0]->children[1]->lexinfo;
+        id = c->children[1]->lexinfo;
       }
       else {
         t_code = c->children[0]->children[0]->symbol;
@@ -212,8 +212,6 @@ void p_struct (astree *s){
   dump_symbol(sym,stderr);
 }
 
-
-
 // Main function,handles all members of language
 void gen_table(astree *s){
   switch(s->symbol){
@@ -248,7 +246,6 @@ void free_symbol(){
     delete itor;
   }
   master.clear();
-
 }
 
 
