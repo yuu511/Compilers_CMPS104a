@@ -1,6 +1,5 @@
-# Makefile.deps created Sat 25 May 2019 07:02:34 PM PDT by make
-astree.o: astree.cpp astree.h auxlib.h string_set.h lyutils.h yyparse.h \
- symbol_table.h
+# Makefile.deps created Sun May 26 14:38:37 PDT 2019 by gmake
+astree.o: astree.cpp astree.h auxlib.h string_set.h lyutils.h yyparse.h
 lyutils.o: lyutils.cpp auxlib.h lyutils.h astree.h string_set.h yyparse.h
 string_set.o: string_set.cpp auxlib.h string_set.h
 auxlib.o: auxlib.cpp auxlib.h

@@ -45,7 +45,8 @@ struct astree {
    // Functions.
    astree (int symbol, const location&, const char* lexinfo,
            attr_bitset attributes=0, int block_number=0, 
-           symbol_table* struct_ptr=nullptr,const string* sname = nullptr);
+           symbol_table* struct_ptr=nullptr,
+           const string* sname = nullptr);
    ~astree();
    astree* adopt (astree* child1, astree* child2 = nullptr);
    astree* adopt_sym (astree* child, int symbol);

@@ -1,9 +1,0 @@
-README: lab3
-Elijah Cordova
-ejcordov / 1425119
-
-LAB4: Symbol table and Type Checker
-
-TOK_ROOT has a lexical field of <<ROOT>>
-arg -@{str,tok,ast} reserved as personal debug flag
-
