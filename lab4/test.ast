@@ -1,6 +1,6 @@
 ROOT "<<ROOT>>" 0.0.0
-| STRUCT "struct" 4.7.1
-| | IDENT "allofem" 4.7.8
+| STRUCT "struct" 4.3.1
+| | IDENT "test" 4.3.8
 | STRUCT "struct" 4.8.1
 | | IDENT "allofem" 4.8.8
 | | TYPE_ID "" 4.8.18
@@ -11,7 +11,7 @@ ROOT "<<ROOT>>" 0.0.0
 | | | IDENT "two" 4.9.25
 | | TYPE_ID "" 4.10.18
 | | | PTR "ptr" 4.10.18
-| | | | IDENT "test" 4.10.30
+| | | | IDENT "none" 4.10.30
 | | | IDENT "homura" 4.10.37
 | | TYPE_ID "" 4.11.18
 | | | ARRAY "array" 4.11.18

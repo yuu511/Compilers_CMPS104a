@@ -179,6 +179,7 @@ int main (int argc, char** argv) {
    
 
    // free memory 
+   free_symbol();
    yylex_destroy();
    if (parse_rc) {
       errprintf("parse failed (%d)\n", parse_rc);

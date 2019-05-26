@@ -10,8 +10,8 @@ using namespace std;
 #include "astree.h"
 #include "lyutils.h"
 
-vector <symbol_table*> master;
 vector <symbol_table*> stack;
+vector <symbol_table*> master;
 symbol_table *struct_t = new symbol_table();
 int current_block = 0;
 int next_block = 1;
@@ -143,6 +143,9 @@ void p_struct (astree *s){
                   sym->lloc.linenr,sym->lloc.offset);
     }  
   }
+  else {
+    struct_t->emplace(name,sym);  
+  }
   for (unsigned int i = 1; i < s->children.size(); i++){
     if (sym->fields == nullptr)
       sym->fields = new symbol_table();
@@ -205,8 +208,8 @@ void p_struct (astree *s){
       }
     }
   }
-  dump_symbol(sym,stderr);
   struct_t->emplace(name,sym);
+  dump_symbol(sym,stderr);
 }
 
 
@@ -228,4 +231,24 @@ void gen_table(astree *s){
       return p_struct(s);
   }
 }
+
+void free_symbol(){
+  for(auto itor: *struct_t){
+    if (itor.second->fields != nullptr){
+      for (auto itor2: *(itor.second->fields))
+        delete itor2.second;
+      delete itor.second->fields;
+    }
+    delete itor.second;
+  }
+  struct_t->clear(); 
+  delete struct_t;
+
+  for (auto itor: master){
+    delete itor;
+  }
+  master.clear();
+
+}
+
 

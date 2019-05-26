@@ -12,4 +12,6 @@ using namespace std;
 
 void gen_table(astree* node);
 
+void free_symbol();
+
 #endif
