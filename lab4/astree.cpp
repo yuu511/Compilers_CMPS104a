@@ -10,7 +10,6 @@
 #include "astree.h"
 #include "string_set.h"
 #include "lyutils.h"
-#include "symbol_table.h"
 
 astree::astree (int symbol_, const location& lloc_, const char* info, 
                 attr_bitset attributes_, int block_number_, 
@@ -112,15 +111,5 @@ void errllocprintf (const location& lloc, const char* format,
    errprintf ("%s:%zd.%zd: %s", 
               lexer::filename (lloc.filenr), lloc.linenr, lloc.offset,
               buffer);
-}
-
-symbol::symbol (astree* ast_, size_t block_nr_){
-  attributes = ast_->attributes;  
-  sequence = 0;
-  fields = ast_->struct_ptr;
-  lloc = ast_->lloc;
-  block_nr = block_nr_;
-  parameters = nullptr;
-  sname = nullptr;
 }
 

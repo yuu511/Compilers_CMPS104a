@@ -16,6 +16,16 @@ symbol_table *struct_t = new symbol_table();
 int current_block = 0;
 int next_block = 1;
 
+symbol::symbol (astree* ast_, size_t block_nr_){
+  attributes = ast_->attributes;  
+  sequence = 0;
+  fields = ast_->struct_ptr;
+  lloc = ast_->lloc;
+  block_nr = block_nr_;
+  parameters = nullptr;
+  sname = nullptr;
+}
+
 string dump_attributes(attr_bitset a){
   string st;
   for (size_t i = 0; i<a.size();i++){

@@ -57,19 +57,6 @@ struct astree {
 
 };
 
-struct symbol {
-  // Fields.
-  attr_bitset attributes;
-  size_t sequence;
-  symbol_table* fields;
-  location lloc;
-  size_t block_nr;
-  vector<symbol*>* parameters;
-  const string* sname;
-
-  // Functions.
-  symbol (astree* ast, size_t block_nr);
-};
 
 void destroy (astree* tree1, astree* tree2 = nullptr);
 

@@ -23,24 +23,3 @@ ROOT "<<ROOT>>" 0.0.0
 | | | | PTR "ptr" 5.17.25
 | | | | | IDENT "onearg" 5.17.37
 | | | IDENT "sayaka" 5.17.47
-| FUNCTION "" 6.167.1
-| | TYPE_ID "" 6.167.1
-| | | INT "int" 6.167.1
-| | | IDENT "fac" 6.167.5
-| | PARAM "(" 6.167.9
-| | | TYPE_ID "" 6.167.10
-| | | | ARRAY "array" 6.167.10
-| | | | | INT "int" 6.167.16
-| | | | IDENT "p1" 6.167.21
-| | | TYPE_ID "" 6.167.24
-| | | | ARRAY "array" 6.167.24
-| | | | | PTR "ptr" 6.167.31
-| | | | | | IDENT "all2" 6.167.43
-| | | | IDENT "p2" 6.167.50
-| | | TYPE_ID "" 6.167.53
-| | | | INT "int" 6.167.53
-| | | | IDENT "p3" 6.167.57
-| | | TYPE_ID "" 6.167.60
-| | | | PTR "ptr" 6.167.60
-| | | | | IDENT "all2" 6.167.72
-| | | | IDENT "p4" 6.167.78
