@@ -87,16 +87,21 @@ string dump_table_fields(symbol_table *s){
            st.append(" ");
          }
          // ident
-         st.append();
+         st.append(string(itor.first->c_str()));
       }
   }
   return st;
 }
 
 void dump_symbol (symbol *sym, FILE* outfile) {
-  fprintf (outfile, "->%s\n->%zd\n->\n->%zd.%zd.%zd\n->%zd\n->\n",
+  string f="";
+  if (sym->fields != nullptr){
+    f = dump_table_fields(sym->fields);
+  }
+  fprintf (outfile, "->%s\n->%zd\n->%s\n->%zd.%zd.%zd\n->%zd\n->\n",
            dump_attributes(sym->attributes).c_str(),
            sym->sequence, 
+           f.c_str(),
            sym->lloc.filenr,sym->lloc.linenr,sym->lloc.offset,
            sym->block_nr);
 }
@@ -158,7 +163,7 @@ void p_struct (astree *s){
       }
       else {
         t_code = c->children[0]->children[0]->symbol;
-        id = c->children[0]->children[1]->lexinfo;
+        id = c->children[1]->lexinfo;
       }
     }
     else {
@@ -168,8 +173,10 @@ void p_struct (astree *s){
         c->sname = f->sname = s_name;
         id = c->children[1]->lexinfo;
       }
-      t_code = c->children[0]->symbol;
-      id = c->children[1]->lexinfo;
+      else {
+        t_code = c->children[0]->symbol;
+        id = c->children[1]->lexinfo;
+      }
     }
     if (t_code == TOK_VOID){
       errprintf("struct fields may not be void:%zd.%zd.%zd\n",
@@ -193,7 +200,7 @@ void p_struct (astree *s){
     if (f->sname != nullptr){
       if (struct_t->find(s_name)==struct_t->end()){
         errprintf ("struct %s not found in field ptr: %zd.%zd.%zd\n",
-                    name->c_str(),f->lloc.filenr,
+                    s_name->c_str(),f->lloc.filenr,
                     f->lloc.linenr,f->lloc.offset);
       }
     }

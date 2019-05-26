@@ -7,8 +7,8 @@
 struct allofem {};
 struct allofem { int one;
                  string two;
-//                 ptr <struct test > homura; 
-//                 array <int> sayaka;
+                 ptr <struct test > homura; 
+                 array <int> sayaka;
 	           };
 
 /* vardecl tests */

@@ -9,3 +9,11 @@ ROOT "<<ROOT>>" 0.0.0
 | | TYPE_ID "" 4.9.18
 | | | STRING "string" 4.9.18
 | | | IDENT "two" 4.9.25
+| | TYPE_ID "" 4.10.18
+| | | PTR "ptr" 4.10.18
+| | | | IDENT "test" 4.10.30
+| | | IDENT "homura" 4.10.37
+| | TYPE_ID "" 4.11.18
+| | | ARRAY "array" 4.11.18
+| | | | INT "int" 4.11.25
+| | | IDENT "sayaka" 4.11.30

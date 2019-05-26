@@ -13,5 +13,18 @@
     4   9.018 260 TOK_STRING    string
     4   9.025 278 TOK_IDENT     two
     4   9.028  59 ';'           ;
+    4  10.018 270 TOK_PTR       ptr
+    4  10.022  60 '<'           <
+    4  10.023 265 TOK_STRUCT    struct
+    4  10.030 278 TOK_IDENT     test
+    4  10.035  62 '>'           >
+    4  10.037 278 TOK_IDENT     homura
+    4  10.043  59 ';'           ;
+    4  11.018 267 TOK_ARRAY     array
+    4  11.024  60 '<'           <
+    4  11.025 259 TOK_INT       int
+    4  11.028  62 '>'           >
+    4  11.030 278 TOK_IDENT     sayaka
+    4  11.036  59 ';'           ;
     4  12.013 125 '}'           }
     4  12.014  59 ';'           ;
