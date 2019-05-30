@@ -26,6 +26,16 @@ symbol::symbol (astree* ast_, size_t block_nr_){
   sname = nullptr;
 }
 
+symbol::~symbol(){
+  if (fields != nullptr){ 
+    for (auto itor: *fields){
+        delete itor.second;
+    }
+    fields->clear();
+    delete fields;
+  }
+}
+
 string dump_attributes(attr_bitset a){
   string st;
   for (size_t i = 0; i<a.size();i++){
@@ -366,15 +376,10 @@ void gen_table(astree *s){
 }
 
 void free_symbol(){
-  for(auto itor: *struct_t){
-    if (itor.second->fields != nullptr){
-      for (auto itor2: *(itor.second->fields))
-        delete itor2.second;
-      delete itor.second->fields;
-    }
-    delete itor.second;
+  for (auto itor: *struct_t){
+      delete itor.second;
   }
-  struct_t->clear(); 
+  struct_t->clear();
   delete struct_t;
 
   for (auto itor: master){

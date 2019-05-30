@@ -22,6 +22,7 @@ struct symbol {
 
   // Functions.
   symbol (astree* ast, size_t block_nr);
+  ~symbol();
 };
 
 void gen_table(astree* node);
