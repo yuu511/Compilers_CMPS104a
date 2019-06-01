@@ -249,13 +249,6 @@ void p_struct (astree *s){
     }
     // checking pointer validity
     struct_exists(f->sname,f->lloc);
-    // if (f->sname != nullptr){
-    //   if (struct_t->find(s_name)==struct_t->end()){
-    //     errprintf ("struct %s not found in field ptr: %zd.%zd.%zd\n",
-    //                 s_name->c_str(),f->lloc.filenr,
-    //                 f->lloc.linenr,f->lloc.offset);
-    //   }
-    // }
   }
   struct_t->emplace(sym->sname,sym);
   dump_symbol(sym,stderr);
@@ -382,9 +375,15 @@ void free_symbol(){
   struct_t->clear();
   delete struct_t;
 
-  for (auto itor: master){
-    delete itor;
+  while (not master.empty()){
+    symbol_table *sym_t = master.back();
+    master.pop_back();
+    for (auto itor: *sym_t){
+      delete itor.second;
+    }
+    delete sym_t;
   }
+
   master.clear();
 }
 
