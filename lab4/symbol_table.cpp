@@ -27,6 +27,10 @@ symbol::symbol (astree* ast_, size_t block_nr_){
 }
 
 symbol::~symbol(){
+  if (yydebug) {
+    fprintf(stderr, "Deleting symbol...\n");
+    symbol::dump_symbol(stderr,this);
+  }
   if (fields != nullptr){ 
     for (auto itor: *fields){
         delete itor.second;
@@ -36,7 +40,10 @@ symbol::~symbol(){
   }
 }
 
-string dump_attributes(attr_bitset a){
+// have to print struct differently depending if it's in a struct field
+// vs in a function parameter/statement according to the spec
+string dump_attributes(symbol *sym,int func_tid=0,int struct_tid=0){
+  attr_bitset a = sym->attributes;
   string st;
   for (size_t i = 0; i<a.size();i++){
     if (a[i]){
@@ -55,6 +62,10 @@ string dump_attributes(attr_bitset a){
           break;
         case static_cast<int>(attr::STRUCT):
           st.append ("struct ");
+	  if (struct_tid){
+	    st.append (sym->sname->c_str());
+	    st.append (" ");
+	  }
           break;
         case static_cast<int>(attr::ARRAY):
           st.append ("array ");
@@ -99,13 +110,7 @@ string dump_table_fields(symbol_table *s){
   string st;
   if (s != nullptr){
       for(auto itor: *s){
-         st += dump_attributes(itor.second->attributes); 
-         // if ptr (to a struct)
-         if (itor.second->attributes[static_cast<int>(attr::STRUCT)]){
-           string scc = string(itor.second->sname->c_str());
-           st.append(scc); 
-           st.append(" ");
-         }
+         st += dump_attributes(itor.second); 
          // ident
          st.append(string(itor.first->c_str()));
          st.append(" ");
@@ -114,17 +119,18 @@ string dump_table_fields(symbol_table *s){
   return st;
 }
 
-void dump_symbol (symbol *sym, FILE* outfile) {
+void symbol::dump_symbol (FILE* outfile,symbol *sym) {
   string f="";
   if (sym->fields != nullptr){
     f = dump_table_fields(sym->fields);
   }
-  fprintf (outfile, "->%s\n->%zd\n->%s\n->%zd.%zd.%zd\n->%zd\n->\n",
-           dump_attributes(sym->attributes).c_str(),
-           sym->sequence, 
-           f.c_str(),
-           sym->lloc.filenr,sym->lloc.linenr,sym->lloc.offset,
-           sym->block_nr);
+  fprintf (outfile, "%p->{%zd.%zd.%zd}\nattrib: %s\nfields:%s\n",
+           static_cast<const void*> (sym),
+           sym->lloc.filenr,
+	   sym->lloc.linenr,
+	   sym->lloc.offset,
+           dump_attributes(sym).c_str(),
+	   f.c_str());
 }
 
 int type_enum (int t_code){
@@ -135,22 +141,17 @@ int type_enum (int t_code){
       return static_cast<int>(attr::INT);
     case TOK_STRING:
       return static_cast<int>(attr::STRING);
-    case TOK_STRUCT:
-      return static_cast<int>(attr::STRUCT);
     case TOK_IDENT:
-      return static_cast<int>(attr::TYPEID);
+      return static_cast<int>(attr::STRUCT);
   }
   return -1;
 }
 
-int struct_exists(const string *sname,location l){
+int struct_exists(const string *sname){
   if (sname != nullptr){
     if (struct_t->find(sname)!=struct_t->end()){
       return 1;
     }
-    errprintf ("struct %s not found in field ptr: %zd.%zd.%zd\n",
-               sname->c_str(), l.filenr,
-               l.linenr, l.offset);
   }
   return 0;
 }
@@ -180,12 +181,15 @@ void p_struct (astree *s){
   // add to struct table first, then process fields.
   if (struct_t->find(name)!=struct_t->end()){
     if ((*struct_t)[name]->fields == nullptr){
+      struct_t->erase(struct_t->find(name));
       struct_t->emplace(name,sym);  
     } 
     else {
       errprintf ("struct %s defined already: %zd.%zd.%zd\n",
                   name->c_str(),sym->lloc.filenr,
                   sym->lloc.linenr,sym->lloc.offset);
+      delete sym;
+      return;
     }  
   }
   else {
@@ -199,17 +203,22 @@ void p_struct (astree *s){
     int t_code;
     const string *id;
     const string *s_name;
+    f->sequence = i-1;
 
     // if a pointer is found, 
     // adjust identifier and type code accordingly.
     if (c->children[0]->symbol == TOK_ARRAY){
       f->attributes.set(static_cast<int>(attr::ARRAY));
       if (c->children[0]->children[0]->symbol == TOK_PTR){
-        f->attributes.set(static_cast<int>(attr::TYPEID));
-        t_code = TOK_STRUCT;
+        t_code = c->children[0]->children[0]->children[0]->symbol;
         s_name = c->children[0]->children[0]->children[0]->lexinfo;
         c->sname = f->sname = s_name;
         id = c->children[1]->lexinfo;
+	// if an incomplete structure is found, add it to hash
+	if (!(struct_exists(s_name))){
+          symbol *placeholder = new symbol(c,0);   	  
+          struct_t->emplace(s_name,placeholder); 
+	}
       }
       else {
         t_code = c->children[0]->children[0]->symbol;
@@ -218,11 +227,15 @@ void p_struct (astree *s){
     }
     else {
       if (c->children[0]->symbol == TOK_PTR){
-        f->attributes.set(static_cast<int>(attr::TYPEID));
-        t_code = TOK_STRUCT;
+        t_code = c->children[0]->children[0]->symbol;
         s_name = c->children[0]->children[0]->lexinfo;
         c->sname = f->sname = s_name;
         id = c->children[1]->lexinfo;
+	// if an incomplete structure is found, add it to hash
+	if (!(struct_exists(s_name))){
+          symbol *placeholder = new symbol(c,0);   	  
+          struct_t->emplace(s_name,placeholder); 
+	}
       }
       else {
         t_code = c->children[0]->symbol;
@@ -247,11 +260,9 @@ void p_struct (astree *s){
     else {
       sym->fields->emplace(id,f);
     }
-    // checking pointer validity
-    struct_exists(f->sname,f->lloc);
   }
+  struct_t->erase(struct_t->find(sym->sname));
   struct_t->emplace(sym->sname,sym);
-  dump_symbol(sym,stderr);
 }
 
 void p_function (astree *s){
@@ -268,7 +279,7 @@ void p_function (astree *s){
       sym->attributes.set(static_cast<int>(attr::STRUCT));
       s->sname = sym-> sname = sname =
       s->children[0]->children[0]->children[0]->children[0]->lexinfo;
-      if (struct_exists(sname,sym->lloc)){
+      if (struct_exists(sname)){
         struct_valid(sym);
       }
       ret=s->children[0]->children[1]->symbol;
@@ -285,7 +296,7 @@ void p_function (astree *s){
       sym->attributes.set(static_cast<int>(attr::STRUCT));
       sname=s->children[0]->children[0]->children[0]->lexinfo;
       s->sname = sym->sname = sname;
-      if (struct_exists(sname,sym->lloc)){
+      if (struct_exists(sname)){
         struct_valid(sym);
       }
       ret=s->children[0]->children[1]->symbol;
@@ -369,22 +380,61 @@ void gen_table(astree *s){
 }
 
 void free_symbol(){
-  for (auto itor: *struct_t){
-      delete itor.second;
-  }
-  struct_t->clear();
-  delete struct_t;
-
   while (not master.empty()){
     symbol_table *sym_t = master.back();
     master.pop_back();
     for (auto itor: *sym_t){
       delete itor.second;
     }
+    sym_t->clear();
     delete sym_t;
   }
-
   master.clear();
+
+  for (auto itor: *struct_t){
+      delete itor.second;
+  }
+  struct_t->clear();
+  delete struct_t;
+}
+
+void print_field(){
+
+}
+
+void print_struct(FILE* out,const string* name, symbol* sym){
+  // struct name
+  fprintf(out,"%s (%zd.%zd.%zd) {%zd} %s\n",
+          name->c_str(),
+          sym->lloc.filenr,
+          sym->lloc.linenr,
+          sym->lloc.offset,
+          sym-> block_nr,
+          dump_attributes(sym,0,1).c_str());
+  // struct fields
+  if (sym->fields!= nullptr){
+    for (size_t i = 0; i < sym->fields->size(); i++){
+      for (auto itor: *sym->fields){
+        if (itor.second->sequence == i ){
+          fprintf (out,"   ");
+          fprintf (out,"%s (%zd.%zd.%zd) %s %zd\n",
+	           itor.first->c_str(),
+                   itor.second->lloc.filenr,
+                   itor.second->lloc.linenr,
+                   itor.second->lloc.offset,
+                   dump_attributes(itor.second,0,1).c_str(),
+		   i);
+	}
+      }
+    }
+  }
+}
+
+void dump_all_tables(FILE* out){
+  for (auto itor: *struct_t){
+    print_struct(out,itor.first,itor.second);  
+  }
+
 }
 
 

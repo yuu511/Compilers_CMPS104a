@@ -23,10 +23,13 @@ struct symbol {
   // Functions.
   symbol (astree* ast, size_t block_nr);
   ~symbol();
+  void dump_symbol (FILE* outfile, symbol *sym);
 };
 
 void gen_table(astree* node);
 
 void free_symbol();
+
+void dump_all_tables(FILE* outfile);
 
 #endif

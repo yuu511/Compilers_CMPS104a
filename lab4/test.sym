@@ -1,0 +1,7 @@
+test (5.14.1) {0} struct test 
+   one (5.14.13) int field  0
+allofem (5.9.1) {0} struct allofem 
+   one (5.9.18) int field  0
+   two (5.10.18) string field  1
+   homura (5.11.18) struct test field  2
+   sayaka (5.12.18) int array field  3

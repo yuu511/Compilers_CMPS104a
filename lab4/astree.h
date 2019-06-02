@@ -44,7 +44,7 @@ struct astree {
 
    // Functions.
    astree (int symbol, const location&, const char* lexinfo,
-           attr_bitset attributes=0, int block_number=0, 
+           attr_bitset=0, int block_number=0, 
            symbol_table* struct_ptr=nullptr,
            const string* sname = nullptr);
    ~astree();

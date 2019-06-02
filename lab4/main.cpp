@@ -171,6 +171,9 @@ int main (int argc, char** argv) {
 
    // generate the symbol table
    gen_table(parser::root);
+   
+   // dump the symbol table
+   dump_all_tables(symfp);
 
    // personal debug flag 
    if (a_debug)
@@ -181,7 +184,6 @@ int main (int argc, char** argv) {
    e_close(strfp);
    e_close(astfp);
    e_close(symfp);
-   
 
    // free memory 
    free_symbol();
