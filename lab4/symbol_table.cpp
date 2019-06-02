@@ -424,6 +424,7 @@ void print_struct(FILE* out,const string* name, symbol* sym){
                    itor.second->lloc.offset,
                    dump_attributes(itor.second,0,1).c_str(),
 		   i);
+          continue;
 	}
       }
     }
