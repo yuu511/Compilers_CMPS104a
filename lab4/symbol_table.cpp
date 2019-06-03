@@ -158,18 +158,26 @@ int struct_exists(const string *sname){
   return 0;
 }
 
-int struct_valid(symbol *structsym){
-  if (structsym != nullptr) {
-    if (structsym->attributes[static_cast<int>(attr::STRUCT)]){
-       if (struct_t->find(structsym->sname)->second->fields != nullptr){
-         return 1; 
-       }
-       errprintf("incomplete struct referenced: %s\n",
-                 structsym->sname->c_str());
-       return 0;
+int struct_valid(const string *sname, location lloc){
+  if (struct_exists(sname)){
+    if (struct_t->find(sname)->second->fields != nullptr){
+      return 1; 
+    }
+    else {
+      errprintf("incomplete struct referenced: %s: (%zd.%zd.%zd)\n",
+                 sname->c_str(),
+                 lloc.filenr,
+                 lloc.linenr,
+                 lloc.offset);
     }
   }
-  errprintf("incorrect usage of struct_valid");
+  else {
+      errprintf("nonexistent struct referenced: %s: (%zd.%zd.%zd)\n",
+                 sname->c_str(),
+                 lloc.filenr,
+                 lloc.linenr,
+                 lloc.offset);
+  }
   return 0;
 }
 
@@ -306,10 +314,10 @@ void p_struct (astree *s){
 }
 
 void p_function (astree *s){
-  next_block++;
   symbol *sym = new symbol(s,current_block);
   current_block = next_block; 
-  symbol_table* block = nullptr;
+  next_block++;
+  symbol_table* fblock = nullptr;
   sym->attributes.set(static_cast<int>(attr::FUNCTION));
   int ret;
   const string *fname;
@@ -321,16 +329,7 @@ void p_function (astree *s){
       sym->attributes.set(static_cast<int>(attr::STRUCT));
       s->sname = sym-> sname = sname =
       s->children[0]->children[0]->children[0]->children[0]->lexinfo;
-      if (struct_exists(sname)){
-        struct_valid(sym);
-      }
-      else{ 
-        errprintf ("refrenced non-existing struct %s: (%zd.%zd.%zd)",
-	            sname->c_str(),
-                    sym->lloc.filenr,
-                    sym->lloc.linenr,
-                    sym->lloc.offset);
-      }
+      struct_valid(sname,sym->lloc);
       ret=s->children[0]->children[1]->symbol;
       fname=s->children[0]->children[1]->lexinfo;
     }
@@ -345,16 +344,7 @@ void p_function (astree *s){
       sym->attributes.set(static_cast<int>(attr::STRUCT));
       s->sname = sym->sname = sname = 
       s->children[0]->children[0]->children[0]->lexinfo;
-      if (struct_exists(sname)){
-        struct_valid(sym);
-      }
-      else{ 
-        errprintf ("refrenced non-existing struct %s: (%zd.%zd.%zd)",
-	            sname->c_str(),
-                    sym->lloc.filenr,
-                    sym->lloc.linenr,
-                    sym->lloc.offset);
-      }
+      struct_valid(sname,sym->lloc);
       ret=s->children[0]->children[1]->symbol;
       fname=s->children[0]->children[1]->lexinfo;
     }
@@ -364,7 +354,7 @@ void p_function (astree *s){
     }
   }
   sym->attributes.set(type_enum(ret));
-  block = new symbol_table();
+  fblock = new symbol_table();
 
   // process function args
   if (s->children[1]->children.size()>0){
@@ -373,48 +363,56 @@ void p_function (astree *s){
       symbol *f = new symbol(c,current_block); 
       int t_code;
       const string *id;
-      const string *s_name;
+      f->sequence = i-1;
 
       // if a pointer is found, adjust identifier 
       // and type code accordingly.
       if (c->children[0]->symbol == TOK_ARRAY){
-        f->attributes.set(static_cast<int>(attr::ARRAY));
-        if (c->children[0]->children[0]->symbol == TOK_PTR){
-          f->attributes.set(static_cast<int>(attr::TYPEID));
-          t_code = TOK_STRUCT;
-          s_name = c->children[0]->children[0]->children[0]->lexinfo;
-          c->sname = f->sname = s_name;
-          id = c->children[1]->lexinfo;
-        }
-        else{
-          t_code = c->children[0]->children[0]->symbol;
-          id = c->children[1]->lexinfo;
-        }
+    //     f->attributes.set(static_cast<int>(attr::ARRAY));
+    //     if (c->children[0]->children[0]->symbol == TOK_PTR){
+    //       f->attributes.set(static_cast<int>(attr::TYPEID));
+    //       t_code = TOK_STRUCT;
+    //       s_name = c->children[0]->children[0]->children[0]->lexinfo;
+    //       c->sname = f->sname = s_name;
+    //       id = c->children[1]->lexinfo;
+    //     }
+    //     else{
+    //       t_code = c->children[0]->children[0]->symbol;
+    //       id = c->children[1]->lexinfo;
+    //     }
       }
       else{
         if (c->children[0]->symbol == TOK_PTR){
-          f->attributes.set(static_cast<int>(attr::TYPEID));
-          t_code = TOK_STRUCT;
-          s_name = c->children[0]->children[0]->lexinfo;
-          c->sname = f->sname = s_name;
-          id = c->children[1]->lexinfo;
         }
-        else{
-          t_code = c->children[0]->symbol;
-          id = c->children[1]->lexinfo;
-        }
+	else{
+          t_code = c->children[0]->symbol;  
+	  id = c->children[1]->lexinfo;
+	}
       }
+    //       f->attributes.set(static_cast<int>(attr::TYPEID));
+    //       t_code = TOK_STRUCT;
+    //       s_name = c->children[0]->children[0]->lexinfo;
+    //       c->sname = f->sname = s_name;
+    //       id = c->children[1]->lexinfo;
+    //     }
+    //     else{
+    //       t_code = c->children[0]->symbol;
+    //       id = c->children[1]->lexinfo;
+    //     }
+    //   }
       if (t_code == TOK_VOID){
          errprintf ("VOID may not be a function param:%zd.%zd.%zd\n",
                      f->lloc.filenr, f->lloc.linenr,
                      f->lloc.offset);
       }
-      f->attributes.set(static_cast<int>(attr::FIELD));
+      f->attributes.set(static_cast<int>(attr::PARAM));
       f->attributes.set(type_enum(t_code));
     }
-    sym->parameters->push_back(sym);
+    // sym->parameters->push_back(sym);
   }
-
+  current_block = next_block; 
+  next_block++;
+  // delete function block 
 }
 
 // Main function,handles all members of language

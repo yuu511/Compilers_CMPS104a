@@ -1,9 +1,0 @@
-allofem (5.10.1) {0} struct allofem 
-   one (5.10.18) int field  0
-   two (5.11.18) string field  1
-   homura (5.12.18) struct test field  2
-   sayaka (5.13.18) int array field  3
-
-test (5.15.1) {0} struct test 
-   one (5.15.13) int field  0
-
