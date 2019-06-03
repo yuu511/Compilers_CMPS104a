@@ -199,9 +199,8 @@ void p_struct (astree *s){
   else {
     struct_t->emplace(name,sym);  
   }
+  sym->fields = new symbol_table();
   for (unsigned int i = 1; i < s->children.size(); i++){
-    if (sym->fields == nullptr)
-      sym->fields = new symbol_table();
     astree *c = s->children[i];
     symbol *f = new symbol(c,0); 
     int t_code;
@@ -291,6 +290,13 @@ void p_function (astree *s){
       if (struct_exists(sname)){
         struct_valid(sym);
       }
+      else{ 
+        errprintf ("refrenced non-existing struct %s: (%zd.%zd.%zd)",
+	            sname->c_str(),
+                    sym->lloc.filenr,
+                    sym->lloc.linenr,
+                    sym->lloc.offset);
+      }
       ret=s->children[0]->children[1]->symbol;
       fname=s->children[0]->children[1]->lexinfo;
     }
@@ -303,10 +309,17 @@ void p_function (astree *s){
     ret = TOK_ARRAY;
     if (s->children[0]->children[0]->symbol == TOK_PTR){
       sym->attributes.set(static_cast<int>(attr::STRUCT));
-      sname=s->children[0]->children[0]->children[0]->lexinfo;
-      s->sname = sym->sname = sname;
+      s->sname = sym->sname = sname = 
+      s->children[0]->children[0]->children[0]->lexinfo;
       if (struct_exists(sname)){
         struct_valid(sym);
+      }
+      else{ 
+        errprintf ("refrenced non-existing struct %s: (%zd.%zd.%zd)",
+	            sname->c_str(),
+                    sym->lloc.filenr,
+                    sym->lloc.linenr,
+                    sym->lloc.offset);
       }
       ret=s->children[0]->children[1]->symbol;
       fname=s->children[0]->children[1]->lexinfo;
@@ -320,6 +333,8 @@ void p_function (astree *s){
   current_block = next_block; 
   next_block++;
   block = new symbol_table();
+
+  // process function args
   if (s->children[1]->children.size()>0){
     for (unsigned int i = 0; i < s->children[1]->children.size(); i++){
       astree *c = s->children[1]->children[i];
