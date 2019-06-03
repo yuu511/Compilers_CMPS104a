@@ -1,9 +1,20 @@
 ROOT "<<ROOT>>" 0.0.0
-| STRUCT "struct" 4.3.1
-| | IDENT "test" 4.3.8
-| STRUCT "struct" 4.5.1
-| | IDENT "testptr" 4.5.8
-| | TYPE_ID "" 4.5.18
-| | | PTR "ptr" 4.5.18
-| | | | IDENT "test" 4.5.30
-| | | IDENT "homura" 4.5.37
+| STRUCT "struct" 5.165.1
+| | IDENT "test" 5.165.8
+| FUNCTION "" 5.166.1
+| | TYPE_ID "" 5.166.1
+| | | INT "int" 5.166.1
+| | | IDENT "one" 5.166.5
+| | PARAM "(" 5.166.8
+| FUNCTION "" 5.167.1
+| | TYPE_ID "" 5.167.1
+| | | STRING "string" 5.167.1
+| | | IDENT "two" 5.167.8
+| | PARAM "(" 5.167.11
+| FUNCTION "" 5.168.1
+| | TYPE_ID "" 5.168.1
+| | | ARRAY "array" 5.168.1
+| | | | PTR "ptr" 5.168.7
+| | | | | IDENT "test" 5.168.19
+| | | IDENT "homura" 5.168.27
+| | PARAM "(" 5.168.33

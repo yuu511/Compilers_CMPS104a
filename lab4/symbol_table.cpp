@@ -427,33 +427,34 @@ void print_field(){
 }
 
 void print_struct(FILE* out,const string* name, symbol* sym){
-  // struct name
-  fprintf(out,"%s (%zd.%zd.%zd) {%zd} %s\n",
-          name->c_str(),
-          sym->lloc.filenr,
-          sym->lloc.linenr,
-          sym->lloc.offset,
-          sym-> block_nr,
-          dump_attributes(sym,0,1).c_str());
-  // struct fields
+  // do not print out non-defined structs
   if (sym->fields!= nullptr){
-    for (size_t i = 0; i < sym->fields->size(); i++){
-      for (auto itor: *sym->fields){
-        if (itor.second->sequence == i ){
-          fprintf (out,"   ");
-          fprintf (out,"%s (%zd.%zd.%zd) %s %zd\n",
-	           itor.first->c_str(),
-                   itor.second->lloc.filenr,
-                   itor.second->lloc.linenr,
-                   itor.second->lloc.offset,
-                   dump_attributes(itor.second,0,1).c_str(),
-		   i);
-          continue;
-	}
+    // struct name
+    fprintf(out,"%s (%zd.%zd.%zd) {%zd} %s\n",
+            name->c_str(),
+            sym->lloc.filenr,
+            sym->lloc.linenr,
+            sym->lloc.offset,
+            sym-> block_nr,
+            dump_attributes(sym,0,1).c_str());
+    // struct fields
+      for (size_t i = 0; i < sym->fields->size(); i++){
+        for (auto itor: *sym->fields){
+          if (itor.second->sequence == i ){
+            fprintf (out,"   ");
+            fprintf (out,"%s (%zd.%zd.%zd) %s %zd\n",
+                     itor.first->c_str(),
+                     itor.second->lloc.filenr,
+                     itor.second->lloc.linenr,
+                     itor.second->lloc.offset,
+                     dump_attributes(itor.second,0,1).c_str(),
+          	   i);
+            continue;
+          }
+        }
       }
-    }
+    fprintf (out,"\n");
   }
-  fprintf (out,"\n");
 }
 
 void dump_all_tables(FILE* out){
