@@ -322,35 +322,33 @@ void p_function (astree *s){
   int ret;
   const string *fname;
   const string *sname;
-
-  if (s->children[0]->children[0]->symbol == TOK_ARRAY){
+  
+  astree *ref = s->children[0];
+  // if a pointer is found, adjust identifier 
+  // and type code accordingly.
+  if (ref->children[0]->symbol == TOK_ARRAY){
     sym->attributes.set(static_cast<int>(attr::ARRAY));
-    if (s->children[0]->children[0]->children[0]->symbol == TOK_PTR){
-      sym->attributes.set(static_cast<int>(attr::STRUCT));
-      s->sname = sym-> sname = sname =
-      s->children[0]->children[0]->children[0]->children[0]->lexinfo;
+    if (ref->children[0]->children[0]->symbol == TOK_PTR){
+      sname = ref->children[0]->children[0]->children[0]->lexinfo;
       struct_valid(sname,sym->lloc);
-      ret=s->children[0]->children[1]->symbol;
-      fname=s->children[0]->children[1]->lexinfo;
+      ret = ref->children[0]->children[0]->children[0]->symbol;
+      fname = ref->children[1]->lexinfo;
     }
     else{
-       ret = s->children[0]->children[0]->children[0]->symbol;        
-       fname = s->children[0]->children[1]->lexinfo; 
+      ret = ref->children[0]->children[0]->symbol;  
+      fname = ref->children[1]->lexinfo;
     }
   }
   else{
-    ret = TOK_ARRAY;
-    if (s->children[0]->children[0]->symbol == TOK_PTR){
-      sym->attributes.set(static_cast<int>(attr::STRUCT));
-      s->sname = sym->sname = sname = 
-      s->children[0]->children[0]->children[0]->lexinfo;
+    if (ref->children[0]->symbol == TOK_PTR){
+      sname = ref->children[0]->children[0]->lexinfo;
       struct_valid(sname,sym->lloc);
-      ret=s->children[0]->children[1]->symbol;
-      fname=s->children[0]->children[1]->lexinfo;
+      ret = ref->children[0]->children[0]->symbol;
+      fname = ref->children[1]->lexinfo;
     }
     else{
-      ret = s->children[0]->children[0]->symbol;
-      fname = s->children[0]->children[1]->lexinfo;
+      ret = ref->children[0]->symbol;  
+      fname = ref->children[1]->lexinfo;
     }
   }
   sym->attributes.set(type_enum(ret));
@@ -363,43 +361,37 @@ void p_function (astree *s){
       symbol *f = new symbol(c,current_block); 
       int t_code;
       const string *id;
+      const string *spname;
       f->sequence = i-1;
 
       // if a pointer is found, adjust identifier 
       // and type code accordingly.
       if (c->children[0]->symbol == TOK_ARRAY){
-    //     f->attributes.set(static_cast<int>(attr::ARRAY));
-    //     if (c->children[0]->children[0]->symbol == TOK_PTR){
-    //       f->attributes.set(static_cast<int>(attr::TYPEID));
-    //       t_code = TOK_STRUCT;
-    //       s_name = c->children[0]->children[0]->children[0]->lexinfo;
-    //       c->sname = f->sname = s_name;
-    //       id = c->children[1]->lexinfo;
-    //     }
-    //     else{
-    //       t_code = c->children[0]->children[0]->symbol;
-    //       id = c->children[1]->lexinfo;
-    //     }
+        f->attributes.set(static_cast<int>(attr::ARRAY));
+        if (c->children[0]->children[0]->symbol == TOK_PTR){
+          spname = c->children[0]->children[0]->children[0]->lexinfo;
+          struct_valid(spname,f->lloc);
+          t_code = c->children[0]->children[0]->children[0]->symbol;
+          id = c->children[1]->lexinfo;
+        }
+        else{
+          t_code = c->children[0]->children[0]->symbol;  
+          id = c->children[1]->lexinfo;
+        }
       }
       else{
         if (c->children[0]->symbol == TOK_PTR){
+	  spname = c->children[0]->children[0]->lexinfo;
+	  struct_valid(spname,f->lloc);
+	  t_code = c->children[0]->children[0]->symbol;
+	  id = c->children[1]->lexinfo;
         }
 	else{
           t_code = c->children[0]->symbol;  
 	  id = c->children[1]->lexinfo;
 	}
       }
-    //       f->attributes.set(static_cast<int>(attr::TYPEID));
-    //       t_code = TOK_STRUCT;
-    //       s_name = c->children[0]->children[0]->lexinfo;
-    //       c->sname = f->sname = s_name;
-    //       id = c->children[1]->lexinfo;
-    //     }
-    //     else{
-    //       t_code = c->children[0]->symbol;
-    //       id = c->children[1]->lexinfo;
-    //     }
-    //   }
+
       if (t_code == TOK_VOID){
          errprintf ("VOID may not be a function param:%zd.%zd.%zd\n",
                      f->lloc.filenr, f->lloc.linenr,

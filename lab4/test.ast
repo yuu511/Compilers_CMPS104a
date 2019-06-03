@@ -1,7 +1,12 @@
 ROOT "<<ROOT>>" 0.0.0
-| FUNCTION "" 5.171.1
-| | TYPE_ID "" 5.171.1
-| | | PTR "ptr" 5.171.1
-| | | | IDENT "test" 5.171.13
-| | | IDENT "homura" 5.171.20
-| | PARAM "(" 5.171.26
+| STRUCT "struct" 5.171.1
+| | IDENT "test" 5.171.8
+| FUNCTION "" 5.173.1
+| | TYPE_ID "" 5.173.1
+| | | ARRAY "array" 5.173.1
+| | | | INT "int" 5.173.7
+| | | IDENT "homura" 5.173.12
+| | PARAM "(" 5.173.18
+| | | TYPE_ID "" 5.173.19
+| | | | INT "int" 5.173.19
+| | | | IDENT "lol" 5.173.23
