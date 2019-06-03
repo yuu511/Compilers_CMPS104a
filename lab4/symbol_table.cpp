@@ -183,7 +183,9 @@ void p_struct (astree *s){
   // add to struct table first, then process fields.
   if (struct_t->find(name)!=struct_t->end()){
     if ((*struct_t)[name]->fields == nullptr){
+      symbol* old = struct_t->find(name)->second;
       struct_t->erase(struct_t->find(name));
+      delete old;
       struct_t->emplace(name,sym);  
     } 
     else {
@@ -216,13 +218,13 @@ void p_struct (astree *s){
         s_name = c->children[0]->children[0]->children[0]->lexinfo;
         c->sname = f->sname = s_name;
         id = c->children[1]->lexinfo;
-	// if an incomplete structure is found, add it to hash
-	if (!(struct_exists(s_name))){
+        // if an incomplete structure is found, add it to hash
+        if (!(struct_exists(s_name))){
           symbol *placeholder = new symbol(c,0);   	  
-	  placeholder->attributes.set(static_cast<int>(attr::ARRAY));
-	  placeholder->sname = s_name;
+          placeholder->attributes.set(static_cast<int>(attr::STRUCT));
+          placeholder->sname = s_name;
           struct_t->emplace(s_name,placeholder); 
-	}
+        }
       }
       else {
         t_code = c->children[0]->children[0]->symbol;
@@ -235,19 +237,20 @@ void p_struct (astree *s){
         s_name = c->children[0]->children[0]->lexinfo;
         c->sname = f->sname = s_name;
         id = c->children[1]->lexinfo;
-	// if an incomplete structure is found, add it to hash
-	if (!(struct_exists(s_name))){
+        // if an incomplete structure is found, add it to hash
+        if (!(struct_exists(s_name))){
           symbol *placeholder = new symbol(c,0);   	  
-	  placeholder->attributes.set(static_cast<int>(attr::STRUCT));
-	  placeholder->sname = s_name;
+          placeholder->attributes.set(static_cast<int>(attr::STRUCT));
+          placeholder->sname = s_name;
           struct_t->emplace(s_name,placeholder); 
-	}
+        }
       }
       else {
         t_code = c->children[0]->symbol;
         id = c->children[1]->lexinfo;
       }
     }
+
     if (t_code == TOK_VOID) {
        errprintf ("VOID may not be a struct param:%zd.%zd.%zd\n",
                    f->lloc.filenr, f->lloc.linenr,
@@ -435,6 +438,7 @@ void print_struct(FILE* out,const string* name, symbol* sym){
       }
     }
   }
+  fprintf (out,"\n");
 }
 
 void dump_all_tables(FILE* out){
