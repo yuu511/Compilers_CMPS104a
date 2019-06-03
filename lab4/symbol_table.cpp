@@ -63,8 +63,10 @@ string dump_attributes(symbol *sym,int func_tid=0,int struct_tid=0){
         case static_cast<int>(attr::STRUCT):
           st.append ("struct ");
 	  if (struct_tid){
-	    st.append (sym->sname->c_str());
-	    st.append (" ");
+	    if (sym->sname != nullptr){
+	      st.append (sym->sname->c_str());
+	      st.append (" ");
+	    }
 	  }
           break;
         case static_cast<int>(attr::ARRAY):
@@ -217,6 +219,8 @@ void p_struct (astree *s){
 	// if an incomplete structure is found, add it to hash
 	if (!(struct_exists(s_name))){
           symbol *placeholder = new symbol(c,0);   	  
+	  placeholder->attributes.set(static_cast<int>(attr::ARRAY));
+	  placeholder->sname = s_name;
           struct_t->emplace(s_name,placeholder); 
 	}
       }
@@ -234,6 +238,8 @@ void p_struct (astree *s){
 	// if an incomplete structure is found, add it to hash
 	if (!(struct_exists(s_name))){
           symbol *placeholder = new symbol(c,0);   	  
+	  placeholder->attributes.set(static_cast<int>(attr::STRUCT));
+	  placeholder->sname = s_name;
           struct_t->emplace(s_name,placeholder); 
 	}
       }

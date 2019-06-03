@@ -15,8 +15,3 @@ ROOT "<<ROOT>>" 0.0.0
 | | | ARRAY "array" 5.12.18
 | | | | INT "int" 5.12.25
 | | | IDENT "sayaka" 5.12.30
-| STRUCT "struct" 5.14.1
-| | IDENT "test" 5.14.8
-| | TYPE_ID "" 5.14.13
-| | | INT "int" 5.14.13
-| | | IDENT "one" 5.14.17
