@@ -44,9 +44,11 @@ struct lexer {
    static int token(int symbol);
    static size_t last_filenr;
    static FILE* token_fp;
+   static FILE* sym_fp;
    static void stringfp(FILE* strfp);
    static void tokenfp(FILE* tokfp);
    static void astfp(FILE* astfp);
+   static void symfp(FILE* astfp);
 };
 
 struct parser {

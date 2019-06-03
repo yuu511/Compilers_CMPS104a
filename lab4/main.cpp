@@ -153,6 +153,7 @@ int main (int argc, char** argv) {
    FILE *symfp;
    append = ".sym";
    symfp = appendopen (input_stripped,append);
+   lexer::symfp(symfp);
 
    // Run the c preprocessor and pipe the output to yyin.
    exec_cpp(filename);
@@ -171,9 +172,6 @@ int main (int argc, char** argv) {
 
    // generate the symbol table
    gen_table(parser::root);
-   
-   // dump the symbol table
-   dump_all_tables(symfp);
 
    // personal debug flag 
    if (a_debug)

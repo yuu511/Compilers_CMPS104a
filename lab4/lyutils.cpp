@@ -16,6 +16,7 @@ int lexer::last_yyleng = 0;
 vector<string> lexer::filenames;
 size_t lexer::last_filenr = -1;
 FILE* lexer::token_fp = nullptr;
+FILE* lexer::sym_fp = nullptr;
 
 
 astree* parser::root = nullptr;
@@ -79,6 +80,10 @@ void lexer::include() {
 
 void lexer::tokenfp(FILE* tokfp){
    token_fp = tokfp;
+}
+
+void lexer::symfp(FILE* symfp){
+   sym_fp = symfp;
 }
 
 int lexer::token(int symbol){

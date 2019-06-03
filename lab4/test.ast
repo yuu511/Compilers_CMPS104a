@@ -1,20 +1,39 @@
 ROOT "<<ROOT>>" 0.0.0
-| STRUCT "struct" 5.165.1
-| | IDENT "test" 5.165.8
-| FUNCTION "" 5.166.1
-| | TYPE_ID "" 5.166.1
-| | | INT "int" 5.166.1
-| | | IDENT "one" 5.166.5
-| | PARAM "(" 5.166.8
-| FUNCTION "" 5.167.1
-| | TYPE_ID "" 5.167.1
-| | | STRING "string" 5.167.1
-| | | IDENT "two" 5.167.8
-| | PARAM "(" 5.167.11
-| FUNCTION "" 5.168.1
-| | TYPE_ID "" 5.168.1
-| | | ARRAY "array" 5.168.1
-| | | | PTR "ptr" 5.168.7
-| | | | | IDENT "test" 5.168.19
-| | | IDENT "homura" 5.168.27
-| | PARAM "(" 5.168.33
+| STRUCT "struct" 5.10.1
+| | IDENT "allofem" 5.10.8
+| | TYPE_ID "" 5.10.18
+| | | INT "int" 5.10.18
+| | | IDENT "one" 5.10.22
+| | TYPE_ID "" 5.11.18
+| | | STRING "string" 5.11.18
+| | | IDENT "two" 5.11.25
+| | TYPE_ID "" 5.12.18
+| | | PTR "ptr" 5.12.18
+| | | | IDENT "test" 5.12.30
+| | | IDENT "homura" 5.12.36
+| | TYPE_ID "" 5.13.18
+| | | ARRAY "array" 5.13.18
+| | | | INT "int" 5.13.25
+| | | IDENT "sayaka" 5.13.30
+| STRUCT "struct" 5.15.1
+| | IDENT "test" 5.15.8
+| | TYPE_ID "" 5.15.13
+| | | INT "int" 5.15.13
+| | | IDENT "one" 5.15.17
+| FUNCTION "" 6.166.1
+| | TYPE_ID "" 6.166.1
+| | | INT "int" 6.166.1
+| | | IDENT "one" 6.166.5
+| | PARAM "(" 6.166.8
+| FUNCTION "" 6.167.1
+| | TYPE_ID "" 6.167.1
+| | | STRING "string" 6.167.1
+| | | IDENT "two" 6.167.8
+| | PARAM "(" 6.167.11
+| FUNCTION "" 6.168.1
+| | TYPE_ID "" 6.168.1
+| | | ARRAY "array" 6.168.1
+| | | | PTR "ptr" 6.168.7
+| | | | | IDENT "test" 6.168.19
+| | | IDENT "homura" 6.168.27
+| | PARAM "(" 6.168.33
