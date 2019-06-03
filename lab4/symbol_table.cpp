@@ -10,8 +10,8 @@ using namespace std;
 #include "astree.h"
 #include "lyutils.h"
 
-vector <symbol_table*> stack;
-vector <symbol_table*> master;
+symbol_table global;
+symbol_table local;
 symbol_table *struct_t = new symbol_table();
 int current_block = 0;
 int next_block = 1;
@@ -121,7 +121,7 @@ string dump_table_fields(symbol_table *s){
   return st;
 }
 
-void symbol::dump_symbol (FILE* outfile,symbol *sym) {
+void symbol::dump_symbol (FILE* outfile,symbol *sym){
   string f="";
   if (sym->fields != nullptr){
     f = dump_table_fields(sym->fields);
@@ -136,7 +136,7 @@ void symbol::dump_symbol (FILE* outfile,symbol *sym) {
 }
 
 int type_enum (int t_code){
-  switch (t_code) {
+  switch (t_code){
     case TOK_VOID:
       return static_cast<int>(attr::VOID);
     case TOK_INT:
@@ -219,7 +219,7 @@ void p_struct (astree *s){
       delete old;
       struct_t->emplace(name,sym);  
     } 
-    else {
+    else{
       errprintf ("struct %s defined already: %zd.%zd.%zd\n",
                   name->c_str(),sym->lloc.filenr,
                   sym->lloc.linenr,sym->lloc.offset);
@@ -227,7 +227,7 @@ void p_struct (astree *s){
       return;
     }  
   }
-  else {
+  else{
     struct_t->emplace(name,sym);  
   }
   sym->fields = new symbol_table();
@@ -256,12 +256,12 @@ void p_struct (astree *s){
           struct_t->emplace(s_name,placeholder); 
         }
       }
-      else {
+      else{
         t_code = c->children[0]->children[0]->symbol;
         id = c->children[1]->lexinfo;
       }
     }
-    else {
+    else{
       if (c->children[0]->symbol == TOK_PTR){
         t_code = c->children[0]->children[0]->symbol;
         s_name = c->children[0]->children[0]->lexinfo;
@@ -275,13 +275,13 @@ void p_struct (astree *s){
           struct_t->emplace(s_name,placeholder); 
         }
       }
-      else {
+      else{
         t_code = c->children[0]->symbol;
         id = c->children[1]->lexinfo;
       }
     }
 
-    if (t_code == TOK_VOID) {
+    if (t_code == TOK_VOID){
        errprintf ("VOID may not be a struct param:%zd.%zd.%zd\n",
                    f->lloc.filenr, f->lloc.linenr,
                    f->lloc.offset);
@@ -296,7 +296,7 @@ void p_struct (astree *s){
                  sym->lloc.offset);
 
     }
-    else {
+    else{
       sym->fields->emplace(id,f);
     }
   }
@@ -306,7 +306,9 @@ void p_struct (astree *s){
 }
 
 void p_function (astree *s){
+  next_block++;
   symbol *sym = new symbol(s,current_block);
+  current_block = next_block; 
   symbol_table* block = nullptr;
   sym->attributes.set(static_cast<int>(attr::FUNCTION));
   int ret;
@@ -332,12 +334,12 @@ void p_function (astree *s){
       ret=s->children[0]->children[1]->symbol;
       fname=s->children[0]->children[1]->lexinfo;
     }
-    else {
+    else{
        ret = s->children[0]->children[0]->children[0]->symbol;        
        fname = s->children[0]->children[1]->lexinfo; 
     }
   }
-  else {
+  else{
     ret = TOK_ARRAY;
     if (s->children[0]->children[0]->symbol == TOK_PTR){
       sym->attributes.set(static_cast<int>(attr::STRUCT));
@@ -356,14 +358,12 @@ void p_function (astree *s){
       ret=s->children[0]->children[1]->symbol;
       fname=s->children[0]->children[1]->lexinfo;
     }
-    else {
+    else{
       ret = s->children[0]->children[0]->symbol;
       fname = s->children[0]->children[1]->lexinfo;
     }
   }
   sym->attributes.set(type_enum(ret));
-  current_block = next_block; 
-  next_block++;
   block = new symbol_table();
 
   // process function args
@@ -386,12 +386,12 @@ void p_function (astree *s){
           c->sname = f->sname = s_name;
           id = c->children[1]->lexinfo;
         }
-        else {
+        else{
           t_code = c->children[0]->children[0]->symbol;
           id = c->children[1]->lexinfo;
         }
       }
-      else {
+      else{
         if (c->children[0]->symbol == TOK_PTR){
           f->attributes.set(static_cast<int>(attr::TYPEID));
           t_code = TOK_STRUCT;
@@ -399,12 +399,12 @@ void p_function (astree *s){
           c->sname = f->sname = s_name;
           id = c->children[1]->lexinfo;
         }
-        else {
+        else{
           t_code = c->children[0]->symbol;
           id = c->children[1]->lexinfo;
         }
       }
-      if (t_code == TOK_VOID) {
+      if (t_code == TOK_VOID){
          errprintf ("VOID may not be a function param:%zd.%zd.%zd\n",
                      f->lloc.filenr, f->lloc.linenr,
                      f->lloc.offset);
@@ -421,8 +421,6 @@ void p_function (astree *s){
 void gen_table(astree *s){
   switch(s->symbol){
     case TOK_ROOT:
-      stack.push_back(new symbol_table());
-      master.push_back(stack.back());
       for (astree* child: s->children) gen_table(child);        
       break;
     case TOK_BLOCK:
@@ -436,17 +434,6 @@ void gen_table(astree *s){
 }
 
 void free_symbol(){
-  while (not master.empty()){
-    symbol_table *sym_t = master.back();
-    master.pop_back();
-    for (auto itor: *sym_t){
-      delete itor.second;
-    }
-    sym_t->clear();
-    delete sym_t;
-  }
-  master.clear();
-
   for (auto itor: *struct_t){
       delete itor.second;
   }
