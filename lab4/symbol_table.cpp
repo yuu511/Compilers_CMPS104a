@@ -50,7 +50,7 @@ symbol::~symbol(){
 
 // have to print struct differently depending if it's in a struct field
 // vs in a function parameter/statement according to the spec
-string dump_attributes(symbol *sym,int func_tid=0,int struct_tid=0){
+string dump_attributes(symbol *sym){
   attr_bitset a = sym->attributes;
   string st;
   for (size_t i = 0; i<a.size();i++){
@@ -70,12 +70,8 @@ string dump_attributes(symbol *sym,int func_tid=0,int struct_tid=0){
           break;
         case static_cast<int>(attr::STRUCT):
           st.append ("struct ");
-	  if (struct_tid){
-	    if (sym->sname != nullptr){
-	      st.append (sym->sname->c_str());
-	      st.append (" ");
-	    }
-	  }
+	  st.append (sym->sname->c_str());
+	  st.append (" ");
           break;
         case static_cast<int>(attr::ARRAY):
           st.append ("array ");
@@ -200,7 +196,7 @@ void print_struct(FILE* out,const string* name, symbol* sym){
             sym->lloc.linenr,
             sym->lloc.offset,
             sym-> block_nr,
-            dump_attributes(sym,0,1).c_str());
+            dump_attributes(sym).c_str());
     // struct fields
       for (size_t i = 0; i < sym->fields->size(); i++){
         for (auto itor: *sym->fields){
@@ -211,7 +207,7 @@ void print_struct(FILE* out,const string* name, symbol* sym){
                      itor.second->lloc.filenr,
                      itor.second->lloc.linenr,
                      itor.second->lloc.offset,
-                     dump_attributes(itor.second,0,1).c_str(),
+                     dump_attributes(itor.second).c_str(),
                      i );
             continue;
           }
@@ -219,6 +215,11 @@ void print_struct(FILE* out,const string* name, symbol* sym){
       }
     fprintf (out,"\n");
   }
+}
+
+void print_function(FILE* out, symbol_table *func){
+  
+
 }
 
 void p_struct (astree *s){
@@ -377,6 +378,7 @@ void p_function (astree *s){
   const string *sname;
   
   astree *ref = s->children[0];
+
   // process function return type
 
   // if a pointer is found, adjust identifier 
@@ -517,7 +519,7 @@ void p_function (astree *s){
     }
     else{
       sym->attributes.set(static_cast<int>(attr::PROTOTYPE));
-      delete block;
+      master.push_back(block);
       global->emplace(fname,sym);
     }
   }
@@ -559,7 +561,9 @@ void dump_all_tables(FILE* out){
   for (auto itor: *struct_t){
     print_struct(out,itor.first,itor.second);  
   }
-
+  for (auto itor: master){
+    print_function(out,itor);
+  }
 }
 
 
