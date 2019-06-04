@@ -1,16 +1,25 @@
 ROOT "<<ROOT>>" 0.0.0
-| FUNCTION "" 5.174.1
-| | TYPE_ID "" 5.174.1
-| | | VOID "void" 5.174.1
-| | | IDENT "test" 5.174.6
-| | PARAM "(" 5.174.10
-| FUNCTION "" 5.176.1
-| | TYPE_ID "" 5.176.1
-| | | VOID "void" 5.176.1
-| | | IDENT "test" 5.176.6
-| | PARAM "(" 5.176.10
-| | BLOCK "{" 5.176.12
-| | | TYPE_ID "" 5.177.3
-| | | | INT "int" 5.177.3
-| | | | IDENT "x" 5.177.7
-| | | | INTCON "1" 5.177.11
+| STRUCT "struct" 5.179.1
+| | IDENT "test" 5.179.8
+| STRUCT "struct" 5.180.1
+| | IDENT "nope" 5.180.8
+| FUNCTION "" 5.181.1
+| | TYPE_ID "" 5.181.1
+| | | PTR "ptr" 5.181.1
+| | | | IDENT "nope" 5.181.12
+| | | IDENT "homura" 5.181.18
+| | PARAM "(" 5.181.24
+| | | TYPE_ID "" 5.181.25
+| | | | INT "int" 5.181.25
+| | | | IDENT "lol" 5.181.29
+| FUNCTION "" 5.182.1
+| | TYPE_ID "" 5.182.1
+| | | PTR "ptr" 5.182.1
+| | | | IDENT "nope" 5.182.12
+| | | IDENT "homura" 5.182.18
+| | PARAM "(" 5.182.24
+| | BLOCK "{" 5.182.26
+| | | TYPE_ID "" 5.183.3
+| | | | INT "int" 5.183.3
+| | | | IDENT "x" 5.183.7
+| | | | INTCON "1" 5.183.11

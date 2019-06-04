@@ -2,6 +2,7 @@
 #include <unordered_set>
 #include <string>
 #include <stdio.h>
+#include <string.h>
 #include <vector>
 
 using namespace std;
@@ -322,15 +323,16 @@ void p_struct (astree *s){
 
 int matching_attrib(symbol *p, symbol *f){
   // XOR
-  if (!(p->parameters == nullptr) != !(f->parameters == nullptr))
+  if (!(p->parameters == nullptr) != !(f->parameters == nullptr)){
     return 0;
-  else if (!(p->sname == nullptr ) != !(f->sname == nullptr))
-      return 0;
-  else if (p->sname != nullptr && f->sname != nullptr){
-      if (p->sname != f->sname)
-        return 0;
   }
+  else if (!(p->sname == nullptr ) != !(f->sname == nullptr))
+    return 0;
   else {
+    if (p->sname != nullptr && f->sname != nullptr){
+        if (strcmp(p->sname->c_str(), f->sname->c_str()) != 0)
+          return 0;
+    }
     attr_bitset pa = p->attributes; 
     attr_bitset fa = f->attributes;
     // check function return attribs
@@ -348,8 +350,9 @@ int matching_attrib(symbol *p, symbol *f){
         attr_bitset fra = f->parameters->at(i)->attributes;
         // check function param attribs
         for (int j =0 ; j < static_cast<int>(attr::BITSET_SIZE); j++){
-          if (pra[j] != fra[j])
+          if (pra[j] != fra[j]){
             return 0; 
+	  }
         }
       }
     }
@@ -377,6 +380,7 @@ void p_function (astree *s){
     sym->attributes.set(static_cast<int>(attr::ARRAY));
     if (ref->children[0]->children[0]->symbol == TOK_PTR){
       sname = ref->children[0]->children[0]->children[0]->lexinfo;
+      s->sname = sym->sname = sname;
       struct_valid(sname,sym->lloc);
       ret = ref->children[0]->children[0]->children[0]->symbol;
       fname = ref->children[1]->lexinfo;
@@ -389,6 +393,7 @@ void p_function (astree *s){
   else{
     if (ref->children[0]->symbol == TOK_PTR){
       sname = ref->children[0]->children[0]->lexinfo;
+      s->sname = sym->sname = sname;
       struct_valid(sname,sym->lloc);
       ret = ref->children[0]->children[0]->symbol;
       fname = ref->children[1]->lexinfo;
@@ -422,6 +427,7 @@ void p_function (astree *s){
         f->attributes.set(static_cast<int>(attr::ARRAY));
         if (c->children[0]->children[0]->symbol == TOK_PTR){
           spname = c->children[0]->children[0]->children[0]->lexinfo;
+	  c->sname = f->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->children[0]->symbol;
           id = c->children[1]->lexinfo;
@@ -434,6 +440,7 @@ void p_function (astree *s){
       else{
         if (c->children[0]->symbol == TOK_PTR){
 	  spname = c->children[0]->children[0]->lexinfo;
+	  c->sname = f->sname = spname;
 	  struct_valid(spname,f->lloc);
 	  t_code = c->children[0]->children[0]->symbol;
 	  id = c->children[1]->lexinfo;

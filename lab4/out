@@ -1,321 +1,62 @@
 g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c symbol_table.cpp
-symbol_table.cpp: In destructor ‘symbol::~symbol()’:
-symbol_table.cpp:31:14: error: no match for ‘operator!=’ (operand types are ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ and ‘std::nullptr_t’)
-     if (itor !=nullptr)
-         ~~~~~^~~~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:64,
-                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
-                 from /usr/include/c++/8.3.0/string:40,
-                 from /usr/include/c++/8.3.0/bitset:47,
+symbol_table.cpp: In function ‘std::__cxx11::string dump_attributes(symbol*, int, int)’:
+symbol_table.cpp:52:49: warning: unused parameter ‘func_tid’ [-Wunused-parameter]
+ string dump_attributes(symbol *sym,int func_tid=0,int struct_tid=0){
+                                                 ^
+symbol_table.cpp: In function ‘int matching_attrib(symbol*, symbol*)’:
+symbol_table.cpp:330:37: error: no matching function for call to ‘std::__cxx11::basic_string<char>::compare(const string*&) const’
+       if (p->sname->compare(f->sname))
+                                     ^
+In file included from /usr/include/c++/7/string:52:0,
+                 from /usr/include/c++/7/bitset:47,
                  from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/bits/stl_pair.h:461:5: note: candidate: ‘template<class _T1, class _T2> constexpr bool std::operator!=(const std::pair<_T1, _T2>&, const std::pair<_T1, _T2>&)’
-     operator!=(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/stl_pair.h:461:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   mismatched types ‘const std::pair<_T1, _T2>’ and ‘std::nullptr_t’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:67,
-                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
-                 from /usr/include/c++/8.3.0/string:40,
-                 from /usr/include/c++/8.3.0/bitset:47,
+/usr/include/c++/7/bits/basic_string.h:2824:7: note: candidate: int std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::compare(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) const [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
+       compare(const basic_string& __str) const
+       ^~~~~~~
+/usr/include/c++/7/bits/basic_string.h:2824:7: note:   no known conversion for argument 1 from ‘const string* {aka const std::__cxx11::basic_string<char>*}’ to ‘const std::__cxx11::basic_string<char>&’
+/usr/include/c++/7/bits/basic_string.h:2844:2: note: candidate: template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, int> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::compare(const _Tp&) const [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
+  compare(const _Tp& __svt) const
+  ^~~~~~~
+/usr/include/c++/7/bits/basic_string.h:2844:2: note:   template argument deduction/substitution failed:
+/usr/include/c++/7/bits/basic_string.h:2868:2: note: candidate: template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, int> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::compare(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Tp&) const [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
+  compare(size_type __pos, size_type __n, const _Tp& __svt) const
+  ^~~~~~~
+/usr/include/c++/7/bits/basic_string.h:2868:2: note:   template argument deduction/substitution failed:
+symbol_table.cpp:330:37: note:   candidate expects 3 arguments, 1 provided
+       if (p->sname->compare(f->sname))
+                                     ^
+In file included from /usr/include/c++/7/string:52:0,
+                 from /usr/include/c++/7/bitset:47,
                  from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/bits/stl_iterator.h:314:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator!=(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&)’
-     operator!=(const reverse_iterator<_Iterator>& __x,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/stl_iterator.h:314:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::reverse_iterator<_Iterator>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:67,
-                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
-                 from /usr/include/c++/8.3.0/string:40,
-                 from /usr/include/c++/8.3.0/bitset:47,
+/usr/include/c++/7/bits/basic_string.h:2887:2: note: candidate: template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, int> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::compare(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) const [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
+  compare(size_type __pos1, size_type __n1, const _Tp& __svt,
+  ^~~~~~~
+/usr/include/c++/7/bits/basic_string.h:2887:2: note:   template argument deduction/substitution failed:
+symbol_table.cpp:330:37: note:   candidate expects 5 arguments, 1 provided
+       if (p->sname->compare(f->sname))
+                                     ^
+In file included from /usr/include/c++/7/string:52:0,
+                 from /usr/include/c++/7/bitset:47,
                  from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/bits/stl_iterator.h:352:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator!=(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_IteratorR>&)’
-     operator!=(const reverse_iterator<_IteratorL>& __x,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/stl_iterator.h:352:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::reverse_iterator<_Iterator>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:67,
-                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
-                 from /usr/include/c++/8.3.0/string:40,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/bits/stl_iterator.h:1127:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator!=(const std::move_iterator<_IteratorL>&, const std::move_iterator<_IteratorR>&)’
-     operator!=(const move_iterator<_IteratorL>& __x,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/stl_iterator.h:1127:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::move_iterator<_IteratorL>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:67,
-                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
-                 from /usr/include/c++/8.3.0/string:40,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/bits/stl_iterator.h:1133:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator!=(const std::move_iterator<_IteratorL>&, const std::move_iterator<_IteratorL>&)’
-     operator!=(const move_iterator<_Iterator>& __x,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/stl_iterator.h:1133:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::move_iterator<_IteratorL>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/char_traits.h:40,
-                 from /usr/include/c++/8.3.0/string:40,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/bits/postypes.h:221:5: note: candidate: ‘template<class _StateT> bool std::operator!=(const std::fpos<_StateT>&, const std::fpos<_StateT>&)’
-     operator!=(const fpos<_StateT>& __lhs, const fpos<_StateT>& __rhs)
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/postypes.h:221:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::fpos<_StateT>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/string:41,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/bits/allocator.h:158:5: note: candidate: ‘template<class _T1, class _T2> bool std::operator!=(const std::allocator<_CharT>&, const std::allocator<_T2>&)’
-     operator!=(const allocator<_T1>&, const allocator<_T2>&)
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/allocator.h:158:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::allocator<_CharT>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/string:41,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/bits/allocator.h:164:5: note: candidate: ‘template<class _Tp> bool std::operator!=(const std::allocator<_CharT>&, const std::allocator<_CharT>&)’
-     operator!=(const allocator<_Tp>&, const allocator<_Tp>&)
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/allocator.h:164:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::allocator<_CharT>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/basic_string.h:48,
-                 from /usr/include/c++/8.3.0/string:52,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/string_view:454:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator!=(std::basic_string_view<_CharT, _Traits>, std::basic_string_view<_CharT, _Traits>)’
-     operator!=(basic_string_view<_CharT, _Traits> __x,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/string_view:454:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/basic_string.h:48,
-                 from /usr/include/c++/8.3.0/string:52,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/string_view:460:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator!=(std::basic_string_view<_CharT, _Traits>, std::__detail::__idt<std::basic_string_view<_CharT, _Traits> >)’
-     operator!=(basic_string_view<_CharT, _Traits> __x,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/string_view:460:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/basic_string.h:48,
-                 from /usr/include/c++/8.3.0/string:52,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/string_view:466:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator!=(std::__detail::__idt<std::basic_string_view<_CharT, _Traits> >, std::basic_string_view<_CharT, _Traits>)’
-     operator!=(__detail::__idt<basic_string_view<_CharT, _Traits>> __x,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/string_view:466:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   mismatched types ‘std::basic_string_view<_CharT, _Traits>’ and ‘std::nullptr_t’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/string:52,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/bits/basic_string.h:6095:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> bool std::operator!=(const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>&, const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>&)’
-     operator!=(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/basic_string.h:6095:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/string:52,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/bits/basic_string.h:6108:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> bool std::operator!=(const _CharT*, const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>&)’
-     operator!=(const _CharT* __lhs,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/basic_string.h:6108:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   mismatched types ‘const _CharT*’ and ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/string:52,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/bits/basic_string.h:6120:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> bool std::operator!=(const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>&, const _CharT*)’
-     operator!=(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/basic_string.h:6120:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/tuple:39,
-                 from /usr/include/c++/8.3.0/bits/hashtable_policy.h:34,
-                 from /usr/include/c++/8.3.0/bits/hashtable.h:35,
-                 from /usr/include/c++/8.3.0/unordered_set:46,
-                 from symbol_table.cpp:2:
-/usr/include/c++/8.3.0/array:257:5: note: candidate: ‘template<class _Tp, long unsigned int _Nm> bool std::operator!=(const std::array<_Tp, _Nm>&, const std::array<_Tp, _Nm>&)’
-     operator!=(const array<_Tp, _Nm>& __one, const array<_Tp, _Nm>& __two)
-     ^~~~~~~~
-/usr/include/c++/8.3.0/array:257:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::array<_Tp, _Nm>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/hashtable_policy.h:34,
-                 from /usr/include/c++/8.3.0/bits/hashtable.h:35,
-                 from /usr/include/c++/8.3.0/unordered_set:46,
-                 from symbol_table.cpp:2:
-/usr/include/c++/8.3.0/tuple:1439:5: note: candidate: ‘template<class ... _TElements, class ... _UElements> constexpr bool std::operator!=(const std::tuple<_Tps ...>&, const std::tuple<_Elements ...>&)’
-     operator!=(const tuple<_TElements...>& __t,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/tuple:1439:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::tuple<_Tps ...>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/node_handle.h:39,
-                 from /usr/include/c++/8.3.0/bits/hashtable.h:37,
-                 from /usr/include/c++/8.3.0/unordered_set:46,
-                 from symbol_table.cpp:2:
-/usr/include/c++/8.3.0/optional:1288:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_relop_t<decltype ((declval<_Tp>() != declval<_Up>()))> std::operator!=(const std::optional<_Tp>&, const std::optional<_Up>&)’
-     operator!=(const optional<_Tp>& __lhs, const optional<_Up>& __rhs)
-     ^~~~~~~~
-/usr/include/c++/8.3.0/optional:1288:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::optional<_Tp>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/node_handle.h:39,
-                 from /usr/include/c++/8.3.0/bits/hashtable.h:37,
-                 from /usr/include/c++/8.3.0/unordered_set:46,
-                 from symbol_table.cpp:2:
-/usr/include/c++/8.3.0/optional:1340:5: note: candidate: ‘template<class _Tp> constexpr bool std::operator!=(const std::optional<_Tp>&, std::nullopt_t)’
-     operator!=(const optional<_Tp>& __lhs, nullopt_t) noexcept
-     ^~~~~~~~
-/usr/include/c++/8.3.0/optional:1340:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::optional<_Tp>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/node_handle.h:39,
-                 from /usr/include/c++/8.3.0/bits/hashtable.h:37,
-                 from /usr/include/c++/8.3.0/unordered_set:46,
-                 from symbol_table.cpp:2:
-/usr/include/c++/8.3.0/optional:1345:5: note: candidate: ‘template<class _Tp> constexpr bool std::operator!=(std::nullopt_t, const std::optional<_Tp>&)’
-     operator!=(nullopt_t, const optional<_Tp>& __rhs) noexcept
-     ^~~~~~~~
-/usr/include/c++/8.3.0/optional:1345:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   mismatched types ‘const std::optional<_Tp>’ and ‘std::nullptr_t’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/node_handle.h:39,
-                 from /usr/include/c++/8.3.0/bits/hashtable.h:37,
-                 from /usr/include/c++/8.3.0/unordered_set:46,
-                 from symbol_table.cpp:2:
-/usr/include/c++/8.3.0/optional:1403:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_relop_t<decltype ((declval<_Tp>() != declval<_Up>()))> std::operator!=(const std::optional<_Tp>&, const _Up&)’
-     operator!=(const optional<_Tp>& __lhs, const _Up& __rhs)
-     ^~~~~~~~
-/usr/include/c++/8.3.0/optional:1403:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::optional<_Tp>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/node_handle.h:39,
-                 from /usr/include/c++/8.3.0/bits/hashtable.h:37,
-                 from /usr/include/c++/8.3.0/unordered_set:46,
-                 from symbol_table.cpp:2:
-/usr/include/c++/8.3.0/optional:1409:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_relop_t<decltype ((declval<_Up>() != declval<_Tp>()))> std::operator!=(const _Up&, const std::optional<_Tp>&)’
-     operator!=(const _Up& __lhs, const optional<_Tp>& __rhs)
-     ^~~~~~~~
-/usr/include/c++/8.3.0/optional:1409:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   mismatched types ‘const std::optional<_Tp>’ and ‘std::nullptr_t’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/unordered_set:47,
-                 from symbol_table.cpp:2:
-/usr/include/c++/8.3.0/bits/unordered_set.h:1675:5: note: candidate: ‘template<class _Value, class _Hash, class _Pred, class _Alloc> bool std::operator!=(const std::unordered_set<_Value1, _Hash1, _Pred1, _Alloc1>&, const std::unordered_set<_Value1, _Hash1, _Pred1, _Alloc1>&)’
-     operator!=(const unordered_set<_Value, _Hash, _Pred, _Alloc>& __x,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/unordered_set.h:1675:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::unordered_set<_Value1, _Hash1, _Pred1, _Alloc1>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/unordered_set:47,
-                 from symbol_table.cpp:2:
-/usr/include/c++/8.3.0/bits/unordered_set.h:1687:5: note: candidate: ‘template<class _Value, class _Hash, class _Pred, class _Alloc> bool std::operator!=(const std::unordered_multiset<_Value1, _Hash1, _Pred1, _Alloc1>&, const std::unordered_multiset<_Value1, _Hash1, _Pred1, _Alloc1>&)’
-     operator!=(const unordered_multiset<_Value, _Hash, _Pred, _Alloc>& __x,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/unordered_set.h:1687:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::unordered_multiset<_Value1, _Hash1, _Pred1, _Alloc1>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/vector:64,
-                 from symbol_table.cpp:5:
-/usr/include/c++/8.3.0/bits/stl_vector.h:1777:5: note: candidate: ‘template<class _Tp, class _Alloc> bool std::operator!=(const std::vector<_Tp, _Alloc>&, const std::vector<_Tp, _Alloc>&)’
-     operator!=(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y)
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/stl_vector.h:1777:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::vector<_Tp, _Alloc>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/unordered_map:47,
-                 from symbol_table.h:5,
-                 from symbol_table.cpp:9:
-/usr/include/c++/8.3.0/bits/unordered_map.h:2063:5: note: candidate: ‘template<class _Key, class _Tp, class _Hash, class _Pred, class _Alloc> bool std::operator!=(const std::unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&, const std::unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&)’
-     operator!=(const unordered_map<_Key, _Tp, _Hash, _Pred, _Alloc>& __x,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/unordered_map.h:2063:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/unordered_map:47,
-                 from symbol_table.h:5,
-                 from symbol_table.cpp:9:
-/usr/include/c++/8.3.0/bits/unordered_map.h:2075:5: note: candidate: ‘template<class _Key, class _Tp, class _Hash, class _Pred, class _Alloc> bool std::operator!=(const std::unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&, const std::unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&)’
-     operator!=(const unordered_multimap<_Key, _Tp, _Hash, _Pred, _Alloc>& __x,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/unordered_map.h:2075:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const std::unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:67,
-                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
-                 from /usr/include/c++/8.3.0/string:40,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/bits/stl_iterator.h:877:5: note: candidate: ‘template<class _IteratorL, class _IteratorR, class _Container> bool __gnu_cxx::operator!=(const __gnu_cxx::__normal_iterator<_IteratorL, _Container>&, const __gnu_cxx::__normal_iterator<_IteratorR, _Container>&)’
-     operator!=(const __normal_iterator<_IteratorL, _Container>& __lhs,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/stl_iterator.h:877:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const __gnu_cxx::__normal_iterator<_IteratorL, _Container>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:67,
-                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
-                 from /usr/include/c++/8.3.0/string:40,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/bits/stl_iterator.h:884:5: note: candidate: ‘template<class _Iterator, class _Container> bool __gnu_cxx::operator!=(const __gnu_cxx::__normal_iterator<_Iterator, _Container>&, const __gnu_cxx::__normal_iterator<_Iterator, _Container>&)’
-     operator!=(const __normal_iterator<_Iterator, _Container>& __lhs,
-     ^~~~~~~~
-/usr/include/c++/8.3.0/bits/stl_iterator.h:884:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const __gnu_cxx::__normal_iterator<_Iterator, _Container>’
-     if (itor !=nullptr)
-                ^~~~~~~
-In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
-                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
-                 from /usr/include/c++/8.3.0/string:41,
-                 from /usr/include/c++/8.3.0/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/8.3.0/ext/new_allocator.h:160:5: note: candidate: ‘template<class _Tp> bool __gnu_cxx::operator!=(const __gnu_cxx::new_allocator<_Tp>&, const __gnu_cxx::new_allocator<_Tp>&)’
-     operator!=(const new_allocator<_Tp>&, const new_allocator<_Tp>&)
-     ^~~~~~~~
-/usr/include/c++/8.3.0/ext/new_allocator.h:160:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:31:16: note:   ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>’ is not derived from ‘const __gnu_cxx::new_allocator<_Tp>’
-     if (itor !=nullptr)
-                ^~~~~~~
-make: *** [Makefile:55: symbol_table.o] Error 1
+/usr/include/c++/7/bits/basic_string.h:2917:7: note: candidate: int std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::compare(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) const [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]
+       compare(size_type __pos, size_type __n, const basic_string& __str) const;
+       ^~~~~~~
+/usr/include/c++/7/bits/basic_string.h:2917:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/7/bits/basic_string.h:2943:7: note: candidate: int std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::compare(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) const [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]
+       compare(size_type __pos1, size_type __n1, const basic_string& __str,
+       ^~~~~~~
+/usr/include/c++/7/bits/basic_string.h:2943:7: note:   candidate expects 5 arguments, 1 provided
+/usr/include/c++/7/bits/basic_string.h:2961:7: note: candidate: int std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::compare(const _CharT*) const [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
+       compare(const _CharT* __s) const _GLIBCXX_NOEXCEPT;
+       ^~~~~~~
+/usr/include/c++/7/bits/basic_string.h:2961:7: note:   no known conversion for argument 1 from ‘const string* {aka const std::__cxx11::basic_string<char>*}’ to ‘const char*’
+/usr/include/c++/7/bits/basic_string.h:2985:7: note: candidate: int std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::compare(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _CharT*) const [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]
+       compare(size_type __pos, size_type __n1, const _CharT* __s) const;
+       ^~~~~~~
+/usr/include/c++/7/bits/basic_string.h:2985:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/7/bits/basic_string.h:3012:7: note: candidate: int std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::compare(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) const [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]
+       compare(size_type __pos, size_type __n1, const _CharT* __s,
+       ^~~~~~~
+/usr/include/c++/7/bits/basic_string.h:3012:7: note:   candidate expects 4 arguments, 1 provided
+Makefile:55: recipe for target 'symbol_table.o' failed
+make: *** [symbol_table.o] Error 1
