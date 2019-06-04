@@ -5,20 +5,23 @@ ROOT "<<ROOT>>" 0.0.0
 | | IDENT "nope" 5.180.8
 | FUNCTION "" 5.181.1
 | | TYPE_ID "" 5.181.1
-| | | PTR "ptr" 5.181.1
-| | | | IDENT "nope" 5.181.12
-| | | IDENT "homura" 5.181.18
-| | PARAM "(" 5.181.24
-| | | TYPE_ID "" 5.181.25
-| | | | INT "int" 5.181.25
-| | | | IDENT "lol" 5.181.29
+| | | INT "int" 5.181.1
+| | | IDENT "homura" 5.181.5
+| | PARAM "(" 5.181.11
+| | | TYPE_ID "" 5.181.12
+| | | | PTR "ptr" 5.181.12
+| | | | | IDENT "test" 5.181.23
+| | | | IDENT "x" 5.181.29
 | FUNCTION "" 5.182.1
 | | TYPE_ID "" 5.182.1
-| | | PTR "ptr" 5.182.1
-| | | | IDENT "nope" 5.182.12
-| | | IDENT "homura" 5.182.18
-| | PARAM "(" 5.182.24
-| | BLOCK "{" 5.182.26
+| | | INT "int" 5.182.1
+| | | IDENT "homura" 5.182.5
+| | PARAM "(" 5.182.11
+| | | TYPE_ID "" 5.182.12
+| | | | PTR "ptr" 5.182.12
+| | | | | IDENT "test" 5.182.23
+| | | | IDENT "x" 5.182.29
+| | BLOCK "{" 5.182.31
 | | | TYPE_ID "" 5.183.3
 | | | | INT "int" 5.183.3
 | | | | IDENT "x" 5.183.7

@@ -323,9 +323,8 @@ void p_struct (astree *s){
 
 int matching_attrib(symbol *p, symbol *f){
   // XOR
-  if (!(p->parameters == nullptr) != !(f->parameters == nullptr)){
+  if (!(p->parameters == nullptr) != !(f->parameters == nullptr))
     return 0;
-  }
   else if (!(p->sname == nullptr ) != !(f->sname == nullptr))
     return 0;
   else {
@@ -346,6 +345,12 @@ int matching_attrib(symbol *p, symbol *f){
       if (p->parameters->size() != f->parameters->size())
          return 0;
       for (unsigned int i = 0 ; i< f->parameters->size(); i++){
+        if (p->parameters->at(i)->sname != nullptr && 
+	    f->parameters->at(i)->sname != nullptr ) {
+            if (strcmp(p->parameters->at(i)->sname->c_str(), 
+	               f->parameters->at(i)->sname->c_str()) != 0)
+              return 0;
+        }
         attr_bitset pra = p->parameters->at(i)->attributes;
         attr_bitset fra = f->parameters->at(i)->attributes;
         // check function param attribs
