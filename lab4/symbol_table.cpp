@@ -10,9 +10,10 @@ using namespace std;
 #include "astree.h"
 #include "lyutils.h"
 
-symbol_table global;
-symbol_table local;
+symbol_table *global = new symbol_table();
+symbol_table *local;
 symbol_table *struct_t = new symbol_table();
+vector<symbol_table*> master;
 int current_block = 0;
 int next_block = 1;
 
@@ -37,6 +38,12 @@ symbol::~symbol(){
     }
     fields->clear();
     delete fields;
+  }
+  if (parameters != nullptr){
+    for (auto itor: *parameters){
+      delete itor;
+    }
+    delete parameters;
   }
 }
 
@@ -204,7 +211,7 @@ void print_struct(FILE* out,const string* name, symbol* sym){
                      itor.second->lloc.linenr,
                      itor.second->lloc.offset,
                      dump_attributes(itor.second,0,1).c_str(),
-          	   i);
+                     i );
             continue;
           }
         }
@@ -324,6 +331,8 @@ void p_function (astree *s){
   const string *sname;
   
   astree *ref = s->children[0];
+  // process function return type
+
   // if a pointer is found, adjust identifier 
   // and type code accordingly.
   if (ref->children[0]->symbol == TOK_ARRAY){
@@ -351,11 +360,14 @@ void p_function (astree *s){
       fname = ref->children[1]->lexinfo;
     }
   }
-  sym->attributes.set(type_enum(ret));
-  fblock = new symbol_table();
+  if (ret == TOK_VOID)
+    sym->attributes.set(static_cast<int>(attr::VOID));
+  else 
+    sym->attributes.set(type_enum(ret));
 
   // process function args
   if (s->children[1]->children.size()>0){
+    sym->parameters = new vector<symbol*>();
     for (unsigned int i = 0; i < s->children[1]->children.size(); i++){
       astree *c = s->children[1]->children[i];
       symbol *f = new symbol(c,current_block); 
@@ -397,13 +409,14 @@ void p_function (astree *s){
                      f->lloc.filenr, f->lloc.linenr,
                      f->lloc.offset);
       }
+      f->attributes.set(static_cast<int>(attr::LVAL));
+      f->attributes.set(static_cast<int>(attr::VARIABLE));
       f->attributes.set(static_cast<int>(attr::PARAM));
       f->attributes.set(type_enum(t_code));
+      sym->parameters->push_back(f);
     }
-    // sym->parameters->push_back(sym);
   }
-  current_block = next_block; 
-  next_block++;
+  global->emplace(fname,sym);
   // delete function block 
 }
 
@@ -411,6 +424,7 @@ void p_function (astree *s){
 void gen_table(astree *s){
   switch(s->symbol){
     case TOK_ROOT:
+      master.push_back(global);      
       for (astree* child: s->children) gen_table(child);        
       break;
     case TOK_BLOCK:
@@ -424,15 +438,18 @@ void gen_table(astree *s){
 }
 
 void free_symbol(){
+  for (auto itor: master){
+    for (auto itor2: *itor){
+       delete itor2.second;
+    }
+    itor->clear();
+    delete itor;
+  }
   for (auto itor: *struct_t){
       delete itor.second;
   }
   struct_t->clear();
   delete struct_t;
-}
-
-void print_field(){
-
 }
 
 void dump_all_tables(FILE* out){
