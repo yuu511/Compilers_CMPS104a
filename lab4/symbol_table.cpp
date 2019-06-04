@@ -48,8 +48,6 @@ symbol::~symbol(){
   }
 }
 
-// have to print struct differently depending if it's in a struct field
-// vs in a function parameter/statement according to the spec
 string dump_attributes(symbol *sym){
   attr_bitset a = sym->attributes;
   string st;
@@ -70,8 +68,10 @@ string dump_attributes(symbol *sym){
           break;
         case static_cast<int>(attr::STRUCT):
           st.append ("struct ");
-	  st.append (sym->sname->c_str());
-	  st.append (" ");
+	  if (sym -> sname !=nullptr){
+	    st.append (sym->sname->c_str());
+	    st.append (" ");
+	  }
           break;
         case static_cast<int>(attr::ARRAY):
           st.append ("array ");
@@ -127,16 +127,27 @@ string dump_table_fields(symbol_table *s){
 
 void symbol::dump_symbol (FILE* outfile,symbol *sym){
   string f="";
+  string p="";
   if (sym->fields != nullptr){
     f = dump_table_fields(sym->fields);
   }
-  fprintf (outfile, "%p->{%zd.%zd.%zd}\nattrib: %s\nfields:%s\n",
+  if (sym->parameters != nullptr){
+     for (auto itor: *(sym->parameters)){
+       p.append(dump_attributes(itor));
+       p.append(" //  ");
+     }
+  }
+  fprintf (outfile, "%p->{%zd.%zd.%zd}\nattrib: %s\n"
+           "sequence: %zd\nfields: %s\nblock: %zd\nparams: %s\n",
            static_cast<const void*> (sym),
            sym->lloc.filenr,
 	   sym->lloc.linenr,
 	   sym->lloc.offset,
            dump_attributes(sym).c_str(),
-	   f.c_str());
+	   sym->sequence,
+	   f.c_str(),
+	   sym->block_nr,
+	   p.c_str() );
 }
 
 int type_enum (int t_code){
@@ -342,6 +353,7 @@ int matching_attrib(symbol *p, symbol *f){
       if (pa[i] != fa[i])
         return 0; 
     }
+    // check parameter attribs
     if (p->parameters != nullptr  && f->parameters != nullptr){
       if (p->parameters->size() != f->parameters->size())
          return 0;
@@ -490,6 +502,7 @@ void p_function (astree *s){
 	  delete old;
           global->emplace(fname,sym);
           master.push_back(block);
+	  gen_table(s->children[2]);
 	}
 	else {
           errprintf("nonmatching params for function %s: %zd.%zd.%zd\n",
@@ -519,7 +532,8 @@ void p_function (astree *s){
     }
     else{
       sym->attributes.set(static_cast<int>(attr::PROTOTYPE));
-      master.push_back(block);
+      // master.push_back(block);
+      delete block;
       global->emplace(fname,sym);
     }
   }
