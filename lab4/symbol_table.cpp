@@ -320,11 +320,49 @@ void p_struct (astree *s){
   print_struct(lexer::sym_fp,sym->sname,sym);
 }
 
+int matching_attrib(symbol *p, symbol *f){
+  // XOR
+  if (!(p->parameters == nullptr) != !(f->parameters == nullptr))
+    return 0;
+  else if (!(p->sname == nullptr ) != !(f->sname == nullptr))
+      return 0;
+  else if (p->sname != nullptr && f->sname != nullptr){
+      if (p->sname != f->sname)
+        return 0;
+  }
+  else {
+    attr_bitset pa = p->attributes; 
+    attr_bitset fa = f->attributes;
+    // check function return attribs
+    for (int i = 0 ; i < static_cast<int>(attr::BITSET_SIZE); i++){
+      if ( i == static_cast<int>(attr::PROTOTYPE))
+        continue;
+      if (pa[i] != fa[i])
+        return 0; 
+    }
+    if (p->parameters != nullptr  && f->parameters != nullptr){
+      if (p->parameters->size() != f->parameters->size())
+         return 0;
+      for (unsigned int i = 0 ; i< f->parameters->size(); i++){
+        attr_bitset pra = p->parameters->at(i)->attributes;
+        attr_bitset fra = f->parameters->at(i)->attributes;
+        // check function param attribs
+        for (int j =0 ; j < static_cast<int>(attr::BITSET_SIZE); j++){
+          if (pra[j] != fra[j])
+            return 0; 
+        }
+      }
+    }
+    return 1;
+  }
+  return 0;
+
+}
+
 void p_function (astree *s){
   symbol *sym = new symbol(s,current_block);
   current_block = next_block; 
   next_block++;
-  symbol_table* fblock = nullptr;
   sym->attributes.set(static_cast<int>(attr::FUNCTION));
   int ret;
   const string *fname;
@@ -365,6 +403,8 @@ void p_function (astree *s){
   else 
     sym->attributes.set(type_enum(ret));
 
+  symbol_table *block = new symbol_table;
+  local = block;
   // process function args
   if (s->children[1]->children.size()>0){
     sym->parameters = new vector<symbol*>();
@@ -413,11 +453,62 @@ void p_function (astree *s){
       f->attributes.set(static_cast<int>(attr::VARIABLE));
       f->attributes.set(static_cast<int>(attr::PARAM));
       f->attributes.set(type_enum(t_code));
-      sym->parameters->push_back(f);
+      if (block->find(spname)!=sym->fields->end()){
+        errprintf("%s defined multiple times in func %s :%zd.%zd.%zd\n",
+                   spname->c_str(), fname->c_str(),
+                   sym->lloc.filenr, sym->lloc.linenr,
+                   sym->lloc.offset);
+
+      }
+      else{
+        block->emplace(id,f);
+        sym->parameters->push_back(f);
+      }
     }
   }
-  global->emplace(fname,sym);
-  // delete function block 
+  if (s->children.size()>2){
+    if (global->find(fname)!=sym->fields->end()){
+      if (global->find(fname)->second->attributes[static_cast<int>(attr::PROTOTYPE)]){
+        // match params then emplace
+	symbol* old = global->find(fname)->second;
+	if (matching_attrib(old,sym)){
+	  global->erase(global->find(fname));
+	  delete old;
+          global->emplace(fname,sym);
+          master.push_back(block);
+	}
+	else {
+          errprintf("nonmatching params for function %s: %zd.%zd.%zd\n",
+                     fname->c_str(),
+                     sym->lloc.filenr, sym->lloc.linenr,
+                     sym->lloc.offset);
+	}
+      }
+      else{ 
+        errprintf("function %s defined multiple times: %zd.%zd.%zd\n",
+                   fname->c_str(),
+                   sym->lloc.filenr, sym->lloc.linenr,
+                   sym->lloc.offset);
+      }
+    }
+    else{
+      global->emplace(fname,sym);
+      master.push_back(block);
+    }
+  }
+  else{
+    if (global->find(fname)!=sym->fields->end()){
+        errprintf("prototype %s defined multiple times: %zd.%zd.%zd\n",
+                   fname->c_str(),
+                   sym->lloc.filenr, sym->lloc.linenr,
+                   sym->lloc.offset);
+    }
+    else{
+      sym->attributes.set(static_cast<int>(attr::PROTOTYPE));
+      delete block;
+      global->emplace(fname,sym);
+    }
+  }
 }
 
 // Main function,handles all members of language

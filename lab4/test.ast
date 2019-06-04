@@ -1,12 +1,16 @@
 ROOT "<<ROOT>>" 0.0.0
-| STRUCT "struct" 5.171.1
-| | IDENT "test" 5.171.8
-| FUNCTION "" 5.173.1
-| | TYPE_ID "" 5.173.1
-| | | ARRAY "array" 5.173.1
-| | | | INT "int" 5.173.7
-| | | IDENT "homura" 5.173.12
-| | PARAM "(" 5.173.18
-| | | TYPE_ID "" 5.173.19
-| | | | INT "int" 5.173.19
-| | | | IDENT "lol" 5.173.23
+| FUNCTION "" 5.174.1
+| | TYPE_ID "" 5.174.1
+| | | VOID "void" 5.174.1
+| | | IDENT "test" 5.174.6
+| | PARAM "(" 5.174.10
+| FUNCTION "" 5.176.1
+| | TYPE_ID "" 5.176.1
+| | | VOID "void" 5.176.1
+| | | IDENT "test" 5.176.6
+| | PARAM "(" 5.176.10
+| | BLOCK "{" 5.176.12
+| | | TYPE_ID "" 5.177.3
+| | | | INT "int" 5.177.3
+| | | | IDENT "x" 5.177.7
+| | | | INTCON "1" 5.177.11
