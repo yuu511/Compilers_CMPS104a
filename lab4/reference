@@ -1,0 +1,28 @@
+ROOT "<<ROOT>>" 0.0.0
+| STRUCT "struct" 5.195.1
+| | IDENT "test" 5.195.8
+| FUNCTION "" 5.196.1
+| | TYPE_ID "" 5.196.1
+| | | INT "int" 5.196.1
+| | | IDENT "test" 5.196.5
+| | PARAM "(" 5.196.9
+| | | TYPE_ID "" 5.196.10
+| | | | INT "int" 5.196.10
+| | | | IDENT "fuck" 5.196.14
+| | BLOCK "{" 5.196.19
+| | | TYPE_ID "" 5.197.3
+| | | | INT "int" 5.197.3
+| | | | IDENT "one" 5.197.7
+| | | TYPE_ID "" 5.198.3
+| | | | PTR "ptr" 5.198.3
+| | | | | IDENT "test" 5.198.15
+| | | | IDENT "homura" 5.198.21
+| | | TYPE_ID "" 5.199.3
+| | | | ARRAY "array" 5.199.3
+| | | | | INT "int" 5.199.10
+| | | | IDENT "sayaka" 5.199.15
+| | | TYPE_ID "" 5.200.3
+| | | | ARRAY "array" 5.200.3
+| | | | | PTR "ptr" 5.200.10
+| | | | | | IDENT "test" 5.200.22
+| | | | IDENT "mami" 5.200.29

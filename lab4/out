@@ -1,135 +1,14 @@
-g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c symbol_table.cpp
-symbol_table.cpp: In function ‘void print_map(FILE*, symbol_table*)’:
-symbol_table.cpp:206:19: error: no matching function for call to ‘begin(std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*&)’
-   for (auto itor: sym){
-                   ^~~
-In file included from /usr/include/c++/7/string:51:0,
-                 from /usr/include/c++/7/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/7/bits/range_access.h:105:37: note: candidate: template<class _Tp> const _Tp* std::begin(const std::valarray<_Tp>&)
-   template<typename _Tp> const _Tp* begin(const valarray<_Tp>&);
-                                     ^~~~~
-/usr/include/c++/7/bits/range_access.h:105:37: note:   template argument deduction/substitution failed:
-symbol_table.cpp:206:19: note:   mismatched types ‘const std::valarray<_Tp>’ and ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*’
-   for (auto itor: sym){
-                   ^~~
-In file included from /usr/include/c++/7/string:51:0,
-                 from /usr/include/c++/7/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/7/bits/range_access.h:104:31: note: candidate: template<class _Tp> _Tp* std::begin(std::valarray<_Tp>&)
-   template<typename _Tp> _Tp* begin(valarray<_Tp>&);
-                               ^~~~~
-/usr/include/c++/7/bits/range_access.h:104:31: note:   template argument deduction/substitution failed:
-symbol_table.cpp:206:19: note:   mismatched types ‘std::valarray<_Tp>’ and ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*’
-   for (auto itor: sym){
-                   ^~~
-In file included from /usr/include/c++/7/string:51:0,
-                 from /usr/include/c++/7/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/7/bits/range_access.h:87:5: note: candidate: template<class _Tp, long unsigned int _Nm> constexpr _Tp* std::begin(_Tp (&)[_Nm])
-     begin(_Tp (&__arr)[_Nm])
-     ^~~~~
-/usr/include/c++/7/bits/range_access.h:87:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:206:19: note:   mismatched types ‘_Tp [_Nm]’ and ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*’
-   for (auto itor: sym){
-                   ^~~
-In file included from /usr/include/c++/7/string:51:0,
-                 from /usr/include/c++/7/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/7/bits/range_access.h:58:5: note: candidate: template<class _Container> constexpr decltype (__cont.begin()) std::begin(const _Container&)
-     begin(const _Container& __cont) -> decltype(__cont.begin())
-     ^~~~~
-/usr/include/c++/7/bits/range_access.h:58:5: note:   template argument deduction/substitution failed:
-/usr/include/c++/7/bits/range_access.h: In substitution of ‘template<class _Container> constexpr decltype (__cont.begin()) std::begin(const _Container&) [with _Container = std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*]’:
-symbol_table.cpp:206:19:   required from here
-/usr/include/c++/7/bits/range_access.h:58:56: error: request for member ‘begin’ in ‘__cont’, which is of pointer type ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>* const’ (maybe you meant to use ‘->’ ?)
-     begin(const _Container& __cont) -> decltype(__cont.begin())
-                                                 ~~~~~~~^~~~~
-/usr/include/c++/7/bits/range_access.h:48:5: note: candidate: template<class _Container> constexpr decltype (__cont.begin()) std::begin(_Container&)
-     begin(_Container& __cont) -> decltype(__cont.begin())
-     ^~~~~
-/usr/include/c++/7/bits/range_access.h:48:5: note:   template argument deduction/substitution failed:
-/usr/include/c++/7/bits/range_access.h: In substitution of ‘template<class _Container> constexpr decltype (__cont.begin()) std::begin(_Container&) [with _Container = std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*]’:
-symbol_table.cpp:206:19:   required from here
-/usr/include/c++/7/bits/range_access.h:48:50: error: request for member ‘begin’ in ‘__cont’, which is of pointer type ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*’ (maybe you meant to use ‘->’ ?)
-     begin(_Container& __cont) -> decltype(__cont.begin())
-                                           ~~~~~~~^~~~~
-In file included from /usr/include/c++/7/bits/range_access.h:36:0,
-                 from /usr/include/c++/7/string:51,
-                 from /usr/include/c++/7/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/7/initializer_list:89:5: note: candidate: template<class _Tp> constexpr const _Tp* std::begin(std::initializer_list<_Tp>)
-     begin(initializer_list<_Tp> __ils) noexcept
-     ^~~~~
-/usr/include/c++/7/initializer_list:89:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:206:19: note:   mismatched types ‘std::initializer_list<_Tp>’ and ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*’
-   for (auto itor: sym){
-                   ^~~
-symbol_table.cpp:206:19: error: no matching function for call to ‘end(std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*&)’
-In file included from /usr/include/c++/7/string:51:0,
-                 from /usr/include/c++/7/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/7/bits/range_access.h:107:37: note: candidate: template<class _Tp> const _Tp* std::end(const std::valarray<_Tp>&)
-   template<typename _Tp> const _Tp* end(const valarray<_Tp>&);
-                                     ^~~
-/usr/include/c++/7/bits/range_access.h:107:37: note:   template argument deduction/substitution failed:
-symbol_table.cpp:206:19: note:   mismatched types ‘const std::valarray<_Tp>’ and ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*’
-   for (auto itor: sym){
-                   ^~~
-In file included from /usr/include/c++/7/string:51:0,
-                 from /usr/include/c++/7/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/7/bits/range_access.h:106:31: note: candidate: template<class _Tp> _Tp* std::end(std::valarray<_Tp>&)
-   template<typename _Tp> _Tp* end(valarray<_Tp>&);
-                               ^~~
-/usr/include/c++/7/bits/range_access.h:106:31: note:   template argument deduction/substitution failed:
-symbol_table.cpp:206:19: note:   mismatched types ‘std::valarray<_Tp>’ and ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*’
-   for (auto itor: sym){
-                   ^~~
-In file included from /usr/include/c++/7/string:51:0,
-                 from /usr/include/c++/7/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/7/bits/range_access.h:97:5: note: candidate: template<class _Tp, long unsigned int _Nm> constexpr _Tp* std::end(_Tp (&)[_Nm])
-     end(_Tp (&__arr)[_Nm])
-     ^~~
-/usr/include/c++/7/bits/range_access.h:97:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:206:19: note:   mismatched types ‘_Tp [_Nm]’ and ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*’
-   for (auto itor: sym){
-                   ^~~
-In file included from /usr/include/c++/7/string:51:0,
-                 from /usr/include/c++/7/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/7/bits/range_access.h:78:5: note: candidate: template<class _Container> constexpr decltype (__cont.end()) std::end(const _Container&)
-     end(const _Container& __cont) -> decltype(__cont.end())
-     ^~~
-/usr/include/c++/7/bits/range_access.h:78:5: note:   template argument deduction/substitution failed:
-/usr/include/c++/7/bits/range_access.h: In substitution of ‘template<class _Container> constexpr decltype (__cont.end()) std::end(const _Container&) [with _Container = std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*]’:
-symbol_table.cpp:206:19:   required from here
-/usr/include/c++/7/bits/range_access.h:78:54: error: request for member ‘end’ in ‘__cont’, which is of pointer type ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>* const’ (maybe you meant to use ‘->’ ?)
-     end(const _Container& __cont) -> decltype(__cont.end())
-                                               ~~~~~~~^~~
-/usr/include/c++/7/bits/range_access.h:68:5: note: candidate: template<class _Container> constexpr decltype (__cont.end()) std::end(_Container&)
-     end(_Container& __cont) -> decltype(__cont.end())
-     ^~~
-/usr/include/c++/7/bits/range_access.h:68:5: note:   template argument deduction/substitution failed:
-/usr/include/c++/7/bits/range_access.h: In substitution of ‘template<class _Container> constexpr decltype (__cont.end()) std::end(_Container&) [with _Container = std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*]’:
-symbol_table.cpp:206:19:   required from here
-/usr/include/c++/7/bits/range_access.h:68:48: error: request for member ‘end’ in ‘__cont’, which is of pointer type ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*’ (maybe you meant to use ‘->’ ?)
-     end(_Container& __cont) -> decltype(__cont.end())
-                                         ~~~~~~~^~~
-In file included from /usr/include/c++/7/bits/range_access.h:36:0,
-                 from /usr/include/c++/7/string:51,
-                 from /usr/include/c++/7/bitset:47,
-                 from symbol_table.cpp:1:
-/usr/include/c++/7/initializer_list:99:5: note: candidate: template<class _Tp> constexpr const _Tp* std::end(std::initializer_list<_Tp>)
-     end(initializer_list<_Tp> __ils) noexcept
-     ^~~
-/usr/include/c++/7/initializer_list:99:5: note:   template argument deduction/substitution failed:
-symbol_table.cpp:206:19: note:   mismatched types ‘std::initializer_list<_Tp>’ and ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*’
-   for (auto itor: sym){
-                   ^~~
-symbol_table.cpp:205:22: warning: unused parameter ‘out’ [-Wunused-parameter]
- void print_map(FILE* out, symbol_table *sym){
-                      ^~~
-Makefile:55: recipe for target 'symbol_table.o' failed
-make: *** [symbol_table.o] Error 1
+==3408== Memcheck, a memory error detector
+==3408== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3408== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==3408== Command: ./oc ./examples/test.oc
+==3408== 
+==3408== 
+==3408== HEAP SUMMARY:
+==3408==     in use at exit: 0 bytes in 0 blocks
+==3408==   total heap usage: 91 allocs, 91 frees, 116,063 bytes allocated
+==3408== 
+==3408== All heap blocks were freed -- no leaks are possible
+==3408== 
+==3408== For counts of detected and suppressed errors, rerun with: -v
+==3408== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

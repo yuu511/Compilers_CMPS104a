@@ -477,15 +477,19 @@ void p_function (astree *s){
   symbol_table *block = new symbol_table;
   local = block;
   // process function args
+  // parameters must be copied to both
+  // the block, and param list, so allocate two symbols
   if (s->children[1]->children.size()>0){
     sym->parameters = new vector<symbol*>();
     for (unsigned int i = 0; i < s->children[1]->children.size(); i++){
       astree *c = s->children[1]->children[i];
       symbol *f = new symbol(c,current); 
+      symbol *f_copy = new symbol(c,current);
       int t_code;
       const string *id;
       const string *spname;
       f->sequence = i;
+      f_copy->sequence = i;
 
       // if a pointer is found, adjust identifier 
       // and type code accordingly.
@@ -523,10 +527,14 @@ void p_function (astree *s){
                      f->lloc.offset);
       }
       f->attributes.set(static_cast<int>(attr::LVAL));
+      f_copy->attributes.set(static_cast<int>(attr::LVAL));
       f->attributes.set(static_cast<int>(attr::VARIABLE));
+      f_copy->attributes.set(static_cast<int>(attr::VARIABLE));
       f->attributes.set(static_cast<int>(attr::PARAM));
+      f_copy->attributes.set(static_cast<int>(attr::PARAM));
       f->attributes.set(type_enum(t_code));
-      if (block->find(spname)!=sym->fields->end()){
+      f_copy->attributes.set(type_enum(t_code));
+      if (block->find(id)!=sym->fields->end()){
         errprintf("%s defined multiple times in func %s :%zd.%zd.%zd\n",
                    spname->c_str(), fname->c_str(),
                    sym->lloc.filenr, sym->lloc.linenr,
@@ -534,10 +542,8 @@ void p_function (astree *s){
 
       }
       else{
-        printf ("%s",id->c_str());
         local->emplace(id,f);
-        printf("local addr %p\n",static_cast<const void*> (local)),
-        sym->parameters->push_back(f);
+        sym->parameters->push_back(f_copy);
       }
     }
   }
@@ -599,7 +605,7 @@ void p_typeid(astree *s){
   sym->attributes.set(static_cast<int>(attr::VARIABLE));
   sym->attributes.set(static_cast<int>(attr::LVAL));
 
-  if (s->symbol == TOK_ARRAY){
+  if (s->children[0]->symbol == TOK_ARRAY){
     sym->attributes.set(static_cast<int>(attr::ARRAY));
     if (s->children[0]->children[0]->symbol == TOK_PTR){
       sname = s->children[0]->children[0]->children[0]->lexinfo;
@@ -614,7 +620,7 @@ void p_typeid(astree *s){
     }
   }
   else{
-    if (s->symbol == TOK_PTR){
+    if (s->children[0]->symbol == TOK_PTR){
       sname = s->children[0]->children[0]->lexinfo;
       s->sname = sym->sname = sname;
       struct_valid(sname,sym->lloc);
@@ -637,7 +643,9 @@ void p_typeid(astree *s){
     // is part of a block
     if (current != 0 && local != nullptr){
       if (local->find(vname)!=struct_t->end()){
-        errprintf (" variable %s already defined: %zd.%zd.%zd\n",
+        errprintf ("variable %s already defined within block %d:"
+	           "%zd.%zd.%zd\n",
+		   vname, current,
                    s->lloc.filenr, s->lloc.linenr,
                    s->lloc.offset);
         delete (sym);
@@ -661,6 +669,8 @@ void p_typeid(astree *s){
     }
     return;
   }
+  // else {
+  // }
 }
 
 // Main function,handles all members of language
@@ -687,7 +697,6 @@ void free_symbol(){
     for (auto itor2: *itor.second){
       delete itor2.second; 
     }
-    itor.second->clear();
     delete itor.second;
   }
   master->clear();
