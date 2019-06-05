@@ -16,7 +16,7 @@ symbol_table *local;
 symbol_table *struct_t = new symbol_table();
 unordered_map<const string*,symbol_table*> *master = 
 new unordered_map<const string*,symbol_table*>;
-int current_block = 0;
+int current = 0;
 int next_block = 1;
 
 symbol::symbol (astree* ast_, size_t block_nr_){
@@ -197,6 +197,56 @@ int struct_valid(const string *sname, location lloc){
   return 0;
 }
 
+// things are going to be either a global vardecl or 
+// encompassed within a function (which is global in oc)
+// if vardecl, simply print.
+// if function, look up block in hash, 
+// print function name and block members
+void print_map(FILE* out, symbol_table *sym){
+  for (auto itor: *sym){
+    // if function
+    if (itor.second->attributes[static_cast<int>(attr::FUNCTION)]){
+    // print out name
+      fprintf(out,"%s (%zd.%zd.%zd) {%zd} %s\n",
+              itor.first->c_str(),
+              itor.second->lloc.filenr,
+              itor.second->lloc.linenr,
+              itor.second->lloc.offset,
+              itor.second-> block_nr,
+              dump_attributes(itor.second).c_str());
+      // print out the associated block ( if any )
+      if ((master->find(itor.first))!=master->end()){
+        symbol_table *block = master->find(itor.first)->second;
+        for (size_t i = 0; i < block->size(); i++){
+	  for (auto itor2: *block){
+	     if (itor2.second->sequence == i){
+               fprintf(out,"   %s (%zd.%zd.%zd) {%zd} %s%zd\n",
+                       itor2.first->c_str(), 
+                       itor2.second->lloc.filenr,
+                       itor2.second->lloc.linenr,
+                       itor2.second->lloc.offset,
+                       itor2.second-> block_nr,
+                       dump_attributes(itor2.second).c_str(),
+		       i );
+	    }
+	  }
+	}
+      }
+    }
+    // otherwise, it's a global variable declaration
+    else {
+      fprintf(out,"%s (%zd.%zd.%zd) {%zd} %s\n",
+              itor.first->c_str(),
+              itor.second->lloc.filenr,
+              itor.second->lloc.linenr,
+              itor.second->lloc.offset,
+              itor.second-> block_nr,
+              dump_attributes(itor.second).c_str());
+    }
+    fprintf (out,"\n");
+  }
+}
+
 
 void print_struct(FILE* out,const string* name, symbol* sym){
   // do not print out non-defined structs
@@ -214,7 +264,7 @@ void print_struct(FILE* out,const string* name, symbol* sym){
         for (auto itor: *sym->fields){
           if (itor.second->sequence == i ){
             fprintf (out,"   ");
-            fprintf (out,"%s (%zd.%zd.%zd) %s %zd\n",
+            fprintf (out,"%s (%zd.%zd.%zd) %s%zd\n",
                      itor.first->c_str(),
                      itor.second->lloc.filenr,
                      itor.second->lloc.linenr,
@@ -229,10 +279,6 @@ void print_struct(FILE* out,const string* name, symbol* sym){
   }
 }
 
-void print_function(FILE* out, symbol_table *func){
-  
-
-}
 
 void p_struct (astree *s){
   symbol *sym = new symbol(s,0);
@@ -331,14 +377,13 @@ void p_struct (astree *s){
   }
   struct_t->erase(struct_t->find(sym->sname));
   struct_t->emplace(sym->sname,sym);
-  print_struct(lexer::sym_fp,sym->sname,sym);
 }
 
 int matching_attrib(symbol *p, symbol *f){
   // XOR
   if (!(p->parameters == nullptr) != !(f->parameters == nullptr))
     return 0;
-  else if (!(p->sname == nullptr ) != !(f->sname == nullptr))
+  else if (!(p->sname == nullptr) != !(f->sname == nullptr))
     return 0;
   else {
     if (p->sname != nullptr && f->sname != nullptr){
@@ -382,8 +427,8 @@ int matching_attrib(symbol *p, symbol *f){
 }
 
 void p_function (astree *s){
-  symbol *sym = new symbol(s,current_block);
-  current_block = next_block; 
+  symbol *sym = new symbol(s,current);
+  current = next_block; 
   next_block++;
   sym->attributes.set(static_cast<int>(attr::FUNCTION));
   int ret;
@@ -435,7 +480,7 @@ void p_function (astree *s){
     sym->parameters = new vector<symbol*>();
     for (unsigned int i = 0; i < s->children[1]->children.size(); i++){
       astree *c = s->children[1]->children[i];
-      symbol *f = new symbol(c,current_block); 
+      symbol *f = new symbol(c,current); 
       int t_code;
       const string *id;
       const string *spname;
@@ -504,6 +549,7 @@ void p_function (astree *s){
           global->emplace(fname,sym);
           master->emplace(fname,block);
 	  gen_table(s->children[2]);
+	  current = 0;
 	}
 	else {
           errprintf("nonmatching params for function %s: %zd.%zd.%zd\n",
@@ -522,6 +568,8 @@ void p_function (astree *s){
     else{
       global->emplace(fname,sym);
       master->emplace(fname,block);
+      gen_table(s->children[2]);
+      current = 0;
     }
   }
   else{
@@ -533,13 +581,81 @@ void p_function (astree *s){
     }
     else{
       sym->attributes.set(static_cast<int>(attr::PROTOTYPE));
-      // master->push_back(block);
       delete block;
       global->emplace(fname,sym);
     }
   }
 }
 
+void p_typeid(astree *s){
+  symbol *sym = new symbol(s,current);
+  int ret;
+  const string* vname;
+  const string* sname;
+
+  sym->attributes.set(static_cast<int>(attr::VARIABLE));
+  sym->attributes.set(static_cast<int>(attr::LVAL));
+
+  if (s->symbol == TOK_ARRAY){
+    sym->attributes.set(static_cast<int>(attr::ARRAY));
+    if (s->children[0]->children[0]->symbol == TOK_PTR){
+      sname = s->children[0]->children[0]->children[0]->lexinfo;
+      s->sname = sym->sname = sname;
+      struct_valid(sname,sym->lloc);
+      ret = s->children[0]->children[0]->children[0]->symbol;
+      vname = s->children[1]->lexinfo;
+    }
+    else{
+      ret = s->children[0]->children[0]->symbol;  
+      vname = s->children[1]->lexinfo;
+    }
+  }
+  else{
+    if (s->symbol == TOK_PTR){
+      sname = s->children[0]->children[0]->lexinfo;
+      s->sname = sym->sname = sname;
+      struct_valid(sname,sym->lloc);
+      ret = s->children[0]->children[0]->symbol;
+      vname = s->children[1]->lexinfo;
+    }
+    else{
+      ret = s->children[0]->symbol;  
+      vname = s->children[1]->lexinfo;
+    }
+  }
+  if (ret == TOK_VOID){
+     errprintf ("VOID may not be a variable decl:%zd.%zd.%zd\n",
+                 s->lloc.filenr, s->lloc.linenr,
+                 s->lloc.offset);
+  }
+  sym->attributes.set(type_enum(ret));
+  // is a declaration e.g. int x;
+  if ( s->children.size() < 3){
+    if (current != 0 && local != nullptr){
+      if (local->find(vname)!=struct_t->end()){
+        errprintf (" variable %s already defined: %zd.%zd.%zd\n",
+                   s->lloc.filenr, s->lloc.linenr,
+                   s->lloc.offset);
+        delete (sym);
+      }
+      else {
+        local->emplace(vname,sym);  
+      }
+    }
+    else {
+      if (global->find(vname)!=struct_t->end()){
+        errprintf ("name %s already defined globally: %zd.%zd.%zd\n",
+                   s->lloc.filenr, s->lloc.linenr,
+                   s->lloc.offset);
+        delete (sym);
+      }
+      else {
+        global->emplace(vname,sym);  
+      }
+    }
+    return;
+  }
+}
 
 // Main function,handles all members of language
 void gen_table(astree *s){
@@ -555,6 +671,8 @@ void gen_table(astree *s){
       return p_struct(s);
     case TOK_FUNCTION:
       return p_function(s);
+    case TOK_TYPE_ID:
+      return p_typeid(s);
   }
 }
 
@@ -579,9 +697,7 @@ void dump_all_tables(FILE* out){
   for (auto itor: *struct_t){
     print_struct(out,itor.first,itor.second);  
   }
-  for (auto itor: *master){
-    print_function(out,itor.second);
-  }
+  print_map(out,global);
 }
 
 

@@ -173,6 +173,9 @@ int main (int argc, char** argv) {
    // generate the symbol table
    gen_table(parser::root);
 
+   // dump all tables
+   dump_all_tables(symfp);
+
    // personal debug flag 
    if (a_debug)
      astree::print (stderr,parser::root);
