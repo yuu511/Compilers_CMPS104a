@@ -566,6 +566,7 @@ void free_symbol(){
     itor.second->clear();
     delete itor.second;
   }
+  master->clear();
   delete master;
   for (auto itor: *struct_t){
       delete itor.second;
@@ -578,9 +579,9 @@ void dump_all_tables(FILE* out){
   for (auto itor: *struct_t){
     print_struct(out,itor.first,itor.second);  
   }
-  // for (auto itor: master){
-  //   print_function(out,itor);
-  // }
+  for (auto itor: *master){
+    print_function(out,itor.second);
+  }
 }
 
 
