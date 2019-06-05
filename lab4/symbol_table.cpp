@@ -151,6 +151,40 @@ void symbol::dump_symbol (FILE* outfile,symbol *sym){
 	   p.c_str() );
 }
 
+int is_a_reference(symbol *sym){
+  if (sym->attributes[static_cast<int>(attr::NULLPTR_T)] || 
+      sym->attributes[static_cast<int>(attr::STRING)] ||
+      sym->attributes[static_cast<int>(attr::STRUCT)] ||
+      sym->attributes[static_cast<int>(attr::ARRAY)] ) {
+      return 1;
+  }
+  return 0;
+}
+
+int compatible(symbol *l,symbol *r){
+  if (is_a_reference(l)){
+    if (r->attributes[static_cast<int>(attr::NULLPTR_T)]){
+      return 1;
+    }
+  }
+  attr_bitset left = l->attributes;
+  attr_bitset right = r->attributes;
+  int a_void   = static_cast<int>(attr::VOID);
+  int a_int    = static_cast<int>(attr::INT);
+  int a_string = static_cast<int>(attr::STRING);
+  int a_ptr    = static_cast<int>(attr::STRUCT);
+  int a_array  = static_cast<int>(attr::ARRAY);
+
+  if (left[a_void]   == right[a_void]   &&
+      left[a_int]    == right[a_int]    &&
+      left[a_string] == right[a_string] &&
+      left[a_ptr]    == right[a_ptr]    &&
+      left[a_array]  == right[a_array] ){
+        return 1;
+  }
+ return 0; 
+}
+
 int type_enum (int t_code){
   switch (t_code){
     case TOK_VOID:
@@ -201,7 +235,7 @@ int struct_valid(const string *sname, location lloc){
 // encompassed within a function (which is global in oc)
 // if vardecl, simply print.
 // if function, look up block in hash, 
-// print function name and block members
+// print function name and block members.
 void print_map(FILE* out, symbol_table *sym){
   for (auto itor: *sym){
     // if function
@@ -228,6 +262,7 @@ void print_map(FILE* out, symbol_table *sym){
                        itor2.second-> block_nr,
                        dump_attributes(itor2.second).c_str(),
 		       i);
+	       continue;
 	    }
 	  }
 	}
@@ -596,6 +631,45 @@ void p_function (astree *s){
   }
 }
 
+symbol *p_INTCON(astree *s){
+  symbol *sym = new symbol(s,current);
+  sym->attributes.set(static_cast<int>(attr::INT));
+  sym->attributes.set(static_cast<int>(attr::CONST));
+  return sym;
+}
+
+symbol *p_STRINGCON(astree *s){
+  symbol *sym = new symbol(s,current);
+  sym->attributes.set(static_cast<int>(attr::STRING));
+  sym->attributes.set(static_cast<int>(attr::CONST));
+  return sym;
+}
+
+symbol *p_NULLPTR(astree *s){
+  symbol *sym = new symbol(s,current);
+  sym->attributes.set(static_cast<int>(attr::NULLPTR_T));
+  sym->attributes.set(static_cast<int>(attr::CONST));
+  return sym;
+}
+
+symbol *p_expression(astree *s){
+  switch(s->symbol){
+    case TOK_CHARCON:
+    case TOK_INTCON:
+      return p_INTCON(s); 
+      break;
+    case TOK_STRINGCON:
+      return p_STRINGCON(s); 
+      break;
+    case TOK_NULLPTR:
+      return p_NULLPTR(s);
+      break;
+    default:
+      return nullptr;
+      break;
+  }
+}
+
 void p_typeid(astree *s){
   symbol *sym = new symbol(s,current);
   int ret;
@@ -638,40 +712,70 @@ void p_typeid(astree *s){
                  s->lloc.offset);
   }
   sym->attributes.set(type_enum(ret));
-  // is a declaration e.g. int x;
+
+  // check for existence in local or global tables
+  // depending on current scope.
+  if (current != 0 && local != nullptr){
+    if (local->find(vname)!=struct_t->end()){
+      errprintf ("variable %s already defined within block %d: "
+                 "%zd.%zd.%zd\n",
+      	   vname->c_str(), current,
+                 sym->lloc.filenr, sym->lloc.linenr,
+                 sym->lloc.offset);
+      delete (sym);
+      return;
+    }
+  }
+  else  {
+    string type ="";
+    if (global->find(vname)->second
+        ->attributes[static_cast<int>(attr::FUNCTION)])
+      type.append ("function");
+    else if (global->find(vname)->second
+             ->attributes[static_cast<int>(attr::LVAL)])
+      type.append ("variable");
+
+    errprintf ("name %s already defined globally"
+               " as a %s: %zd.%zd.%zd\n",
+               vname->c_str(),
+               type.c_str(),
+               sym->lloc.filenr, sym->lloc.linenr,
+               sym->lloc.offset);
+    delete (sym);
+    return;
+  }
+
+  // does not have an assignment e.g. int x;
   if ( s->children.size() < 3){
     // is part of a block
     if (current != 0 && local != nullptr){
-      if (local->find(vname)!=struct_t->end()){
-        errprintf ("variable %s already defined within block %d:"
-	           "%zd.%zd.%zd\n",
-		   vname, current,
-                   s->lloc.filenr, s->lloc.linenr,
-                   s->lloc.offset);
-        delete (sym);
-      }
-      else {
-        sym->sequence = local->size();
-        local->emplace(vname,sym);  
-      }
+      sym->sequence = local->size();
+      local->emplace(vname,sym);  
     }
     // is a global decl
     else {
-      if (global->find(vname)!=struct_t->end()){
-        errprintf ("name %s already defined globally: %zd.%zd.%zd\n",
-                   s->lloc.filenr, s->lloc.linenr,
-                   s->lloc.offset);
-        delete (sym);
-      }
-      else {
-        global->emplace(vname,sym);  
-      }
+      global->emplace(vname,sym);  
     }
     return;
   }
-  // else {
-  // }
+  // has an assignment
+  astree *parse = s->children[2];
+  symbol *left = sym;
+  symbol *right = p_expression(parse); 
+  if (compatible(left,right)){
+    if (current !=0 && local != nullptr){
+      sym->sequence = local->size(); 
+      local->emplace(vname,sym);
+    }
+  }
+  else {
+    errprintf ("Typecheck error: %zd.%zd.%zd",
+               sym->lloc.filenr, sym->lloc.linenr,
+               sym->lloc.offset);
+    delete sym;
+  }
 }
+
 
 // Main function,handles all members of language
 void gen_table(astree *s){
@@ -685,10 +789,13 @@ void gen_table(astree *s){
       break;
     case TOK_STRUCT:
       return p_struct(s);
+      break;
     case TOK_FUNCTION:
       return p_function(s);
+      break;
     case TOK_TYPE_ID:
       return p_typeid(s);
+      break;
   }
 }
 

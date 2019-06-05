@@ -1,9 +1,10 @@
-test (5.195.1) {0} struct test 
+test (5.204.1) {0} struct test 
 
-test (5.196.1) {0} int function 
-   fuck (5.196.10) {1} int variable param lval 0
-   one (5.197.3) {1} int variable lval 1
-   homura (5.198.3) {1} struct test variable lval 2
-   sayaka (5.199.3) {1} int array variable lval 3
-   mami (5.200.3) {1} struct test array variable lval 4
+test (5.205.1) {0} int function 
+   fuck (5.205.10) {1} int variable param lval 0
+   madoka (5.206.3) {1} int variable lval 1
+   homura (5.207.3) {1} struct test variable lval 2
+   sayaka (5.208.3) {1} int array variable lval 3
+   mami (5.209.3) {1} struct test array variable lval 4
+   homuhomu (5.210.3) {1} string variable lval 5
 

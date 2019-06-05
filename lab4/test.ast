@@ -1,0 +1,36 @@
+ROOT "<<ROOT>>" 0.0.0
+| STRUCT "struct" 5.204.1
+| | IDENT "test" 5.204.8
+| FUNCTION "" 5.205.1
+| | TYPE_ID "" 5.205.1
+| | | INT "int" 5.205.1
+| | | IDENT "test" 5.205.5
+| | PARAM "(" 5.205.9
+| | | TYPE_ID "" 5.205.10
+| | | | INT "int" 5.205.10
+| | | | IDENT "fuck" 5.205.14
+| | BLOCK "{" 5.205.19
+| | | TYPE_ID "" 5.206.3
+| | | | INT "int" 5.206.3
+| | | | IDENT "madoka" 5.206.7
+| | | | INTCON "5" 5.206.16
+| | | TYPE_ID "" 5.207.3
+| | | | PTR "ptr" 5.207.3
+| | | | | IDENT "test" 5.207.15
+| | | | IDENT "homura" 5.207.21
+| | | | NULLPTR "nullptr" 5.207.30
+| | | TYPE_ID "" 5.208.3
+| | | | ARRAY "array" 5.208.3
+| | | | | INT "int" 5.208.10
+| | | | IDENT "sayaka" 5.208.15
+| | | | NULLPTR "nullptr" 5.208.24
+| | | TYPE_ID "" 5.209.3
+| | | | ARRAY "array" 5.209.3
+| | | | | PTR "ptr" 5.209.10
+| | | | | | IDENT "test" 5.209.22
+| | | | IDENT "mami" 5.209.29
+| | | | NULLPTR "nullptr" 5.209.36
+| | | TYPE_ID "" 5.210.3
+| | | | STRING "string" 5.210.3
+| | | | IDENT "homuhomu" 5.210.10
+| | | | NULLPTR "nullptr" 5.210.21
