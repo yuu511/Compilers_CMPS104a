@@ -1,28 +1,32 @@
 ROOT "<<ROOT>>" 0.0.0
-| STRUCT "struct" 5.179.1
-| | IDENT "test" 5.179.8
-| STRUCT "struct" 5.180.1
-| | IDENT "nope" 5.180.8
-| FUNCTION "" 5.181.1
-| | TYPE_ID "" 5.181.1
-| | | INT "int" 5.181.1
-| | | IDENT "homura" 5.181.5
-| | PARAM "(" 5.181.11
-| | | TYPE_ID "" 5.181.12
-| | | | PTR "ptr" 5.181.12
-| | | | | IDENT "test" 5.181.23
-| | | | IDENT "x" 5.181.29
-| FUNCTION "" 5.182.1
-| | TYPE_ID "" 5.182.1
-| | | INT "int" 5.182.1
-| | | IDENT "homura" 5.182.5
-| | PARAM "(" 5.182.11
-| | | TYPE_ID "" 5.182.12
-| | | | PTR "ptr" 5.182.12
-| | | | | IDENT "test" 5.182.23
-| | | | IDENT "x" 5.182.29
-| | BLOCK "{" 5.182.31
-| | | TYPE_ID "" 5.183.3
-| | | | INT "int" 5.183.3
-| | | | IDENT "x" 5.183.7
-| | | | INTCON "1" 5.183.11
+| STRUCT "struct" 4.3.1
+| | IDENT "onearg" 4.3.8
+| | TYPE_ID "" 4.3.15
+| | | INT "int" 4.3.15
+| | | IDENT "trivial" 4.3.19
+| STRUCT "struct" 4.4.1
+| | IDENT "test" 4.4.8
+| | TYPE_ID "" 4.4.15
+| | | PTR "ptr" 4.4.15
+| | | | IDENT "test" 4.4.27
+| | | IDENT "homura" 4.4.34
+| TYPE_ID "" 5.188.1
+| | INT "int" 5.188.1
+| | IDENT "test" 5.188.5
+| | INTCON "5" 5.188.12
+| FUNCTION "" 5.189.1
+| | TYPE_ID "" 5.189.1
+| | | INT "int" 5.189.1
+| | | IDENT "test" 5.189.5
+| | PARAM "(" 5.189.9
+| | BLOCK "{" 5.189.11
+| | | TYPE_ID "" 5.190.3
+| | | | STRING "string" 5.190.3
+| | | | IDENT "test5" 5.190.10
+| | | | ALLOC "alloc" 5.190.18
+| | | | | IDENT "homura" 5.190.33
+| | | TYPE_ID "" 5.191.3
+| | | | INT "int" 5.191.3
+| | | | IDENT "test" 5.191.7
+| | | | '-' "-" 5.191.14
+| | | | | INTCON "5" 5.191.15

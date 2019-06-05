@@ -14,7 +14,8 @@ using namespace std;
 symbol_table *global = new symbol_table();
 symbol_table *local;
 symbol_table *struct_t = new symbol_table();
-vector<symbol_table*> master;
+unordered_map<const string*,symbol_table*> *master = 
+new unordered_map<const string*,symbol_table*>;
 int current_block = 0;
 int next_block = 1;
 
@@ -501,7 +502,7 @@ void p_function (astree *s){
 	  global->erase(global->find(fname));
 	  delete old;
           global->emplace(fname,sym);
-          master.push_back(block);
+          master->emplace(fname,block);
 	  gen_table(s->children[2]);
 	}
 	else {
@@ -520,7 +521,7 @@ void p_function (astree *s){
     }
     else{
       global->emplace(fname,sym);
-      master.push_back(block);
+      master->emplace(fname,block);
     }
   }
   else{
@@ -532,18 +533,19 @@ void p_function (astree *s){
     }
     else{
       sym->attributes.set(static_cast<int>(attr::PROTOTYPE));
-      // master.push_back(block);
+      // master->push_back(block);
       delete block;
       global->emplace(fname,sym);
     }
   }
 }
 
+
 // Main function,handles all members of language
 void gen_table(astree *s){
   switch(s->symbol){
     case TOK_ROOT:
-      master.push_back(global);      
+      master->emplace(s->lexinfo,global);      
       for (astree* child: s->children) gen_table(child);        
       break;
     case TOK_BLOCK:
@@ -557,13 +559,14 @@ void gen_table(astree *s){
 }
 
 void free_symbol(){
-  for (auto itor: master){
-    for (auto itor2: *itor){
-       delete itor2.second;
+  for (auto itor: *master){
+    for (auto itor2: *itor.second){
+      delete itor2.second; 
     }
-    itor->clear();
-    delete itor;
+    itor.second->clear();
+    delete itor.second;
   }
+  delete master;
   for (auto itor: *struct_t){
       delete itor.second;
   }
@@ -575,9 +578,9 @@ void dump_all_tables(FILE* out){
   for (auto itor: *struct_t){
     print_struct(out,itor.first,itor.second);  
   }
-  for (auto itor: master){
-    print_function(out,itor);
-  }
+  // for (auto itor: master){
+  //   print_function(out,itor);
+  // }
 }
 
 
