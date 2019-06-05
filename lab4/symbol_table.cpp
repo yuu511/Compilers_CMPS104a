@@ -162,18 +162,19 @@ int is_a_reference(symbol *sym){
 }
 
 int compatible(symbol *l,symbol *r){
-  if (is_a_reference(l)){
-    if (r->attributes[static_cast<int>(attr::NULLPTR_T)]){
+  int a_void      = static_cast<int>(attr::VOID);
+  int a_int       = static_cast<int>(attr::INT);
+  int a_string    = static_cast<int>(attr::STRING);
+  int a_ptr       = static_cast<int>(attr::STRUCT);
+  int a_array     = static_cast<int>(attr::ARRAY);
+  int a_nullptr_t = static_cast<int>(attr::NULLPTR_T);
+  if (is_a_reference(l) && !(l->attributes[a_nullptr_t]) ){
+    if (r->attributes[a_nullptr_t]){
       return 1;
     }
   }
   attr_bitset left = l->attributes;
   attr_bitset right = r->attributes;
-  int a_void   = static_cast<int>(attr::VOID);
-  int a_int    = static_cast<int>(attr::INT);
-  int a_string = static_cast<int>(attr::STRING);
-  int a_ptr    = static_cast<int>(attr::STRUCT);
-  int a_array  = static_cast<int>(attr::ARRAY);
 
   if (left[a_void]   == right[a_void]   &&
       left[a_int]    == right[a_int]    &&
@@ -664,10 +665,8 @@ symbol *p_expression(astree *s){
     case TOK_NULLPTR:
       return p_NULLPTR(s);
       break;
-    default:
-      return nullptr;
-      break;
   }
+  return nullptr;
 }
 
 void p_typeid(astree *s){
