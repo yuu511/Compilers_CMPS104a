@@ -217,7 +217,7 @@ void print_map(FILE* out, symbol_table *sym){
       // print out the associated block ( if any )
       if ((master->find(itor.first))!=master->end()){
         symbol_table *block = master->find(itor.first)->second;
-        for (size_t i = 0; i < block->size(); i++){
+         for (size_t i = 0; i < block->size(); i++){
 	  for (auto itor2: *block){
 	     if (itor2.second->sequence == i){
                fprintf(out,"   %s (%zd.%zd.%zd) {%zd} %s%zd\n",
@@ -227,7 +227,7 @@ void print_map(FILE* out, symbol_table *sym){
                        itor2.second->lloc.offset,
                        itor2.second-> block_nr,
                        dump_attributes(itor2.second).c_str(),
-		       i );
+		       i);
 	    }
 	  }
 	}
@@ -427,6 +427,7 @@ int matching_attrib(symbol *p, symbol *f){
 }
 
 void p_function (astree *s){
+  current = next_block-1;
   symbol *sym = new symbol(s,current);
   current = next_block; 
   next_block++;
@@ -484,7 +485,7 @@ void p_function (astree *s){
       int t_code;
       const string *id;
       const string *spname;
-      f->sequence = i-1;
+      f->sequence = i;
 
       // if a pointer is found, adjust identifier 
       // and type code accordingly.
@@ -533,7 +534,9 @@ void p_function (astree *s){
 
       }
       else{
-        block->emplace(id,f);
+        printf ("%s",id->c_str());
+        local->emplace(id,f);
+        printf("local addr %p\n",static_cast<const void*> (local)),
         sym->parameters->push_back(f);
       }
     }
@@ -631,6 +634,7 @@ void p_typeid(astree *s){
   sym->attributes.set(type_enum(ret));
   // is a declaration e.g. int x;
   if ( s->children.size() < 3){
+    // is part of a block
     if (current != 0 && local != nullptr){
       if (local->find(vname)!=struct_t->end()){
         errprintf (" variable %s already defined: %zd.%zd.%zd\n",
@@ -639,9 +643,11 @@ void p_typeid(astree *s){
         delete (sym);
       }
       else {
+        sym->sequence = local->size();
         local->emplace(vname,sym);  
       }
     }
+    // is a global decl
     else {
       if (global->find(vname)!=struct_t->end()){
         errprintf ("name %s already defined globally: %zd.%zd.%zd\n",

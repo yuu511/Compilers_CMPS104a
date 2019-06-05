@@ -19,3 +19,12 @@ ROOT "<<ROOT>>" 0.0.0
 | | | TYPE_ID "" 5.195.3
 | | | | INT "int" 5.195.3
 | | | | IDENT "one" 5.195.7
+| FUNCTION "" 5.202.1
+| | TYPE_ID "" 5.202.1
+| | | STRING "string" 5.202.1
+| | | IDENT "two" 5.202.8
+| | PARAM "(" 5.202.11
+| | BLOCK "{" 5.202.13
+| | | TYPE_ID "" 5.203.1
+| | | | INT "int" 5.203.1
+| | | | IDENT "heh" 5.203.5

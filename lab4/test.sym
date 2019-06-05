@@ -1,8 +1,12 @@
 test (5.190.1) {0} struct test 
    a (5.191.1) int field 0
 
-test (5.194.1) {0} int function 
-   one (5.195.3) {1} int variable lval 0
+two (5.202.1) {1} string function 
+   heh (5.203.1) {2} int variable lval 0
 
 one (5.193.1) {0} int variable lval 
+
+test (5.194.1) {0} int function 
+   fuck (5.194.10) {1} int variable param lval 0
+   one (5.195.3) {1} int variable lval 1
 
