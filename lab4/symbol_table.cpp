@@ -523,7 +523,7 @@ void p_function (astree *s){
 	  id = c->children[1]->lexinfo;
         }
 	else{
-          t_code = c->children[0]->symbol;  
+      t_code = c->children[0]->symbol;  
 	  id = c->children[1]->lexinfo;
 	}
       }
@@ -549,6 +549,7 @@ void p_function (astree *s){
 
       }
       else{
+        f->attributes.set(static_cast<int>(attr::LOCAL));
         local->emplace(id,f);
         sym->parameters->push_back(f_copy);
       }
@@ -927,6 +928,7 @@ void p_typeid(astree *s){
     // is part of a block
     if (current != 0 && local != nullptr){
       sym->sequence = local->size();
+      sym->attributes.set(static_cast<int>(attr::LOCAL));
       local->emplace(vname,sym);  
     }
     // is a global decl
@@ -943,6 +945,7 @@ void p_typeid(astree *s){
   parsed = p_assignment(s,left,right);
   if (current !=0 && local != nullptr){
     parsed->sequence = local->size(); 
+    parsed->attributes.set(static_cast<int>(attr::LOCAL));
     local->emplace(vname,parsed);
   }
   else {

@@ -21,11 +21,12 @@ ROOT "<<ROOT>>" 0.0.0
 | | | | | | INTCON "5" 5.169.36
 | | | | | | INTCON "32312312" 5.169.38
 | | | TYPE_ID "" 5.171.3
-| | | | PTR "ptr" 5.171.3
-| | | | | IDENT "test" 5.171.14
-| | | | IDENT "stuff" 5.171.20
-| | | | ALLOC "alloc" 5.171.28
-| | | | | ARRAY "array" 5.171.36
-| | | | | | PTR "ptr" 5.171.42
-| | | | | | | IDENT "test" 5.171.53
-| | | | | INTCON "5" 5.171.63
+| | | | ARRAY "array" 5.171.3
+| | | | | PTR "ptr" 5.171.9
+| | | | | | IDENT "test" 5.171.20
+| | | | IDENT "stuff" 5.171.27
+| | | | ALLOC "alloc" 5.171.35
+| | | | | ARRAY "array" 5.171.43
+| | | | | | PTR "ptr" 5.171.49
+| | | | | | | IDENT "test" 5.171.60
+| | | | | INTCON "5" 5.171.70
