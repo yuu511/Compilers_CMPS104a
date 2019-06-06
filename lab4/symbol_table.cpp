@@ -70,10 +70,10 @@ string dump_attributes(symbol *sym){
           break;
         case static_cast<int>(attr::STRUCT):
           st.append ("struct ");
-	  if (sym -> sname !=nullptr){
-	    st.append (sym->sname->c_str());
-	    st.append (" ");
-	  }
+	      if (sym -> sname !=nullptr){
+	        st.append (sym->sname->c_str());
+	        st.append (" ");
+	      }
           break;
         case static_cast<int>(attr::ARRAY):
           st.append ("array ");
@@ -88,7 +88,11 @@ string dump_attributes(symbol *sym){
           st.append ("field ");
           break;
         case static_cast<int>(attr::TYPEID):
-          st.append ("typeid ");
+          st.append ("struct ");
+	      if (sym -> sname !=nullptr){
+	        st.append (sym->sname->c_str());
+	        st.append (" ");
+	      }
           break;
         case static_cast<int>(attr::PARAM):
           st.append ("param ");
@@ -145,7 +149,7 @@ void symbol::dump_symbol (FILE* outfile,symbol *sym){
            sym->lloc.filenr,
 	   sym->lloc.linenr,
 	   sym->lloc.offset,
-           dump_attributes(sym).c_str(),
+       dump_attributes(sym).c_str(),
 	   sym->sequence,
 	   f.c_str(),
 	   sym->block_nr,
@@ -162,7 +166,7 @@ int type_enum (int t_code){
     case TOK_STRING:
       return static_cast<int>(attr::STRING);
     case TOK_IDENT:
-      return static_cast<int>(attr::STRUCT);
+      return static_cast<int>(attr::TYPEID);
   }
   return -1;
 }
@@ -419,7 +423,7 @@ int matching_attrib(symbol *p, symbol *f){
         for (int j =0 ; j < static_cast<int>(attr::BITSET_SIZE); j++){
           if (pra[j] != fra[j]){
             return 0; 
-	  }
+	      }
         }
       }
     }
@@ -602,7 +606,7 @@ void p_function (astree *s){
 int is_a_reference(symbol *sym){
   if (sym->attributes[static_cast<int>(attr::NULLPTR_T)] || 
       sym->attributes[static_cast<int>(attr::STRING)] ||
-      sym->attributes[static_cast<int>(attr::STRUCT)] ||
+      sym->attributes[static_cast<int>(attr::TYPEID)] ||
       sym->attributes[static_cast<int>(attr::ARRAY)] ) {
       return 1;
   }
@@ -613,7 +617,7 @@ int compatible(symbol *l,symbol *r){
   int a_void      = static_cast<int>(attr::VOID);
   int a_int       = static_cast<int>(attr::INT);
   int a_string    = static_cast<int>(attr::STRING);
-  int a_ptr       = static_cast<int>(attr::STRUCT);
+  int a_ptr       = static_cast<int>(attr::TYPEID);
   int a_array     = static_cast<int>(attr::ARRAY);
   int a_nullptr_t = static_cast<int>(attr::NULLPTR_T);
   if (is_a_reference(l) && !(l->attributes[a_nullptr_t]) ){
@@ -623,7 +627,7 @@ int compatible(symbol *l,symbol *r){
   }
   if (l->sname != nullptr && r->sname != nullptr){
     if (strcmp(l->sname->c_str(),r->sname->c_str()) != 0){
-      errprintf ("struct %s assigned as %s %zd.%zd.%zd",
+      errprintf ("struct %s assigned as %s %zd.%zd.%zd\n",
                   l->sname->c_str(), r->sname->c_str(),
                   l->lloc.filenr, l->lloc.linenr, l->lloc.offset);
       return 0;
@@ -654,10 +658,12 @@ symbol *p_assignment (astree *parent, symbol *left, symbol *right){
     }
   }
   if (!compatible(left,right)){
-    errprintf ("not compatible assignment: %zd.%zd.%zd",
+    errprintf ("not compatible assignment: %zd.%zd.%zd\n",
                 left->lloc.filenr, left->lloc.linenr
                 , left->lloc.offset);
   }
+  if (left->sname != nullptr)
+    ret->sname = left->sname;
   delete left;  
   delete right;
   return ret;
@@ -727,8 +733,83 @@ symbol *p_eq(astree *s){
     symbol *right = p_expression(s->children[1]);
     return p_assignment(s,left,right);
   }
-  errprintf ("inapproriate call: p_eq %zd.%zd.%zd"); 
+  errprintf ("inapproriate call: p_eq %zd.%zd.%zd\n"); 
   return nullptr;
+}
+
+symbol *p_alloc(astree *s){
+  int a_typeid = static_cast<int>(attr::TYPEID); 
+  int a_vreg = static_cast<int>(attr::VREG); 
+  int a_string = static_cast<int>(attr::STRING); 
+  int a_array = static_cast<int>(attr::ARRAY); 
+  int a_int = static_cast<int>(attr::INT); 
+
+  symbol *sym = new symbol (s,current);
+  if (s->children.size() == 1){
+    if(struct_valid(s->children[0]->lexinfo,s->lloc)){
+      sym->sname = s->children[0]->lexinfo;
+      sym->attributes.set(a_typeid);
+      sym->attributes.set(a_vreg);
+    }
+    else {
+      errprintf("nonexistent struct referenced: %s: (%zd.%zd.%zd)\n",
+                 s->children[0]->lexinfo,
+                 s->lloc.filenr,
+                 s->lloc.linenr,
+                 s->lloc.offset);
+
+    }
+  }
+  else {
+    if (s->children[0]->symbol == TOK_ARRAY){
+      symbol *eval = p_expression(s->children[1]);
+      if (!(eval->attributes[a_int])){
+        errprintf("expr not an int: (%zd.%zd.%zd)\n",
+                   s->lloc.filenr,
+                   s->lloc.linenr,
+                   s->lloc.offset);
+      }
+      int base = s->children[0]->children[0]->symbol;
+      if (base == TOK_VOID){
+       errprintf ("VOID may not be a type:%zd.%zd.%zd\n",
+                   s->lloc.filenr, s->lloc.linenr,
+                   s->lloc.offset);
+      }
+      if (base == TOK_PTR){
+        base =
+        s->children[0]->children[0]->children[0]->symbol;
+        if (struct_valid(s->
+            children[0]->children[0]->children[0]->lexinfo,
+            s->lloc)){
+           sym->attributes.set(a_typeid); 
+           sym->sname = 
+           s->children[0]->children[0]->children[0]->lexinfo;
+        }
+        else {
+          errprintf("nonexistent struct referenced: %s: (%zd.%zd.%zd)\n",
+                     s->children[0]->children[0]->children[0]->lexinfo,
+                     s->lloc.filenr,
+                     s->lloc.linenr,
+                     s->lloc.offset);
+        }
+      }
+      sym->attributes.set(a_array);
+      sym->attributes.set(type_enum(base));
+    }
+    else {
+      symbol *eval = p_expression(s->children[1]);
+      if (!(eval->attributes[a_int])){
+        errprintf("expr not an int: (%zd.%zd.%zd)\n",
+                   s->lloc.filenr,
+                   s->lloc.linenr,
+                   s->lloc.offset);
+      }
+      sym->attributes.set(a_string);
+      sym->attributes.set(a_vreg);
+      delete eval;
+    }
+  }
+  return sym;
 }
 
 symbol *p_expression(astree *s){
@@ -760,6 +841,8 @@ symbol *p_expression(astree *s){
       return p_overload(s);
     case '=':
       return p_eq(s);
+    case TOK_ALLOC:
+      return p_alloc(s);
   }
   return nullptr;
 }

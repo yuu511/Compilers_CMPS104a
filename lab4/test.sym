@@ -1,6 +1,9 @@
+mami (5.166.1) {0} struct mami 
+
 test (5.165.1) {0} struct test 
 
-parse (5.167.1) {0} int function 
-   i (5.167.12) {1} int variable param lval 0
-   test (5.170.3) {1} int variable lval 1
+parse (5.168.1) {0} int function 
+   i (5.168.12) {1} int variable param lval 0
+   test4 (5.169.3) {1} string variable vreg 1
+   stuff (5.171.3) {1} variable struct test lval 2
 
