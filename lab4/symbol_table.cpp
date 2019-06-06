@@ -18,6 +18,7 @@ unordered_map<const string*,symbol_table*> *master =
 new unordered_map<const string*,symbol_table*>;
 int current = 0;
 int next_block = 1;
+symbol *p_expression(astree *s);
 
 symbol::symbol (astree* ast_, size_t block_nr_){
   attributes = ast_->attributes;  
@@ -151,40 +152,6 @@ void symbol::dump_symbol (FILE* outfile,symbol *sym){
 	   p.c_str() );
 }
 
-int is_a_reference(symbol *sym){
-  if (sym->attributes[static_cast<int>(attr::NULLPTR_T)] || 
-      sym->attributes[static_cast<int>(attr::STRING)] ||
-      sym->attributes[static_cast<int>(attr::STRUCT)] ||
-      sym->attributes[static_cast<int>(attr::ARRAY)] ) {
-      return 1;
-  }
-  return 0;
-}
-
-int compatible(symbol *l,symbol *r){
-  int a_void      = static_cast<int>(attr::VOID);
-  int a_int       = static_cast<int>(attr::INT);
-  int a_string    = static_cast<int>(attr::STRING);
-  int a_ptr       = static_cast<int>(attr::STRUCT);
-  int a_array     = static_cast<int>(attr::ARRAY);
-  int a_nullptr_t = static_cast<int>(attr::NULLPTR_T);
-  if (is_a_reference(l) && !(l->attributes[a_nullptr_t]) ){
-    if (r->attributes[a_nullptr_t]){
-      return 1;
-    }
-  }
-  attr_bitset left = l->attributes;
-  attr_bitset right = r->attributes;
-
-  if (left[a_void]   == right[a_void]   &&
-      left[a_int]    == right[a_int]    &&
-      left[a_string] == right[a_string] &&
-      left[a_ptr]    == right[a_ptr]    &&
-      left[a_array]  == right[a_array] ){
-        return 1;
-  }
- return 0; 
-}
 
 int type_enum (int t_code){
   switch (t_code){
@@ -234,7 +201,7 @@ int struct_valid(const string *sname, location lloc){
 
 // things are going to be either a global vardecl or 
 // encompassed within a function (which is global in oc)
-// if vardecl, simply print.
+// if statement, simply print.
 // if function, look up block in hash, 
 // print function name and block members.
 void print_map(FILE* out, symbol_table *sym){
@@ -252,24 +219,24 @@ void print_map(FILE* out, symbol_table *sym){
       // print out the associated block ( if any )
       if ((master->find(itor.first))!=master->end()){
         symbol_table *block = master->find(itor.first)->second;
-         for (size_t i = 0; i < block->size(); i++){
-	  for (auto itor2: *block){
-	     if (itor2.second->sequence == i){
-               fprintf(out,"   %s (%zd.%zd.%zd) {%zd} %s%zd\n",
-                       itor2.first->c_str(), 
-                       itor2.second->lloc.filenr,
-                       itor2.second->lloc.linenr,
-                       itor2.second->lloc.offset,
-                       itor2.second-> block_nr,
-                       dump_attributes(itor2.second).c_str(),
-		       i);
-	       continue;
+      for (size_t i = 0; i < block->size(); i++){
+	    for (auto itor2: *block){
+	       if (itor2.second->sequence == i){
+                 fprintf(out,"   %s (%zd.%zd.%zd) {%zd} %s%zd\n",
+                         itor2.first->c_str(), 
+                         itor2.second->lloc.filenr,
+                         itor2.second->lloc.linenr,
+                         itor2.second->lloc.offset,
+                         itor2.second-> block_nr,
+                         dump_attributes(itor2.second).c_str(),
+	             i);
+	         continue;
+	      }
 	    }
 	  }
-	}
       }
-    }
-    // otherwise, it's a global variable declaration
+  }
+    // otherwise, it's a statement
     else {
       fprintf(out,"%s (%zd.%zd.%zd) {%zd} %s\n",
               itor.first->c_str(),
@@ -533,7 +500,7 @@ void p_function (astree *s){
         f->attributes.set(static_cast<int>(attr::ARRAY));
         if (c->children[0]->children[0]->symbol == TOK_PTR){
           spname = c->children[0]->children[0]->children[0]->lexinfo;
-	  c->sname = f->sname = spname;
+	      c->sname = f->sname = f_copy->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->children[0]->symbol;
           id = c->children[1]->lexinfo;
@@ -546,7 +513,7 @@ void p_function (astree *s){
       else{
         if (c->children[0]->symbol == TOK_PTR){
 	  spname = c->children[0]->children[0]->lexinfo;
-	  c->sname = f->sname = spname;
+	  c->sname = f->sname = f_copy->sname = spname;
 	  struct_valid(spname,f->lloc);
 	  t_code = c->children[0]->children[0]->symbol;
 	  id = c->children[1]->lexinfo;
@@ -632,6 +599,70 @@ void p_function (astree *s){
   }
 }
 
+int is_a_reference(symbol *sym){
+  if (sym->attributes[static_cast<int>(attr::NULLPTR_T)] || 
+      sym->attributes[static_cast<int>(attr::STRING)] ||
+      sym->attributes[static_cast<int>(attr::STRUCT)] ||
+      sym->attributes[static_cast<int>(attr::ARRAY)] ) {
+      return 1;
+  }
+  return 0;
+}
+
+int compatible(symbol *l,symbol *r){
+  int a_void      = static_cast<int>(attr::VOID);
+  int a_int       = static_cast<int>(attr::INT);
+  int a_string    = static_cast<int>(attr::STRING);
+  int a_ptr       = static_cast<int>(attr::STRUCT);
+  int a_array     = static_cast<int>(attr::ARRAY);
+  int a_nullptr_t = static_cast<int>(attr::NULLPTR_T);
+  if (is_a_reference(l) && !(l->attributes[a_nullptr_t]) ){
+    if (r->attributes[a_nullptr_t]){
+      return 1;
+    }
+  }
+  if (l->sname != nullptr && r->sname != nullptr){
+    if (strcmp(l->sname->c_str(),r->sname->c_str()) != 0){
+      errprintf ("struct %s assigned as %s %zd.%zd.%zd",
+                  l->sname->c_str(), r->sname->c_str(),
+                  l->lloc.filenr, l->lloc.linenr, l->lloc.offset);
+      return 0;
+    }
+  }
+  attr_bitset left = l->attributes;
+  attr_bitset right = r->attributes;
+
+  if (left[a_void]   == right[a_void]   &&
+      left[a_int]    == right[a_int]    &&
+      left[a_string] == right[a_string] &&
+      left[a_ptr]    == right[a_ptr]    &&
+      left[a_array]  == right[a_array] ){
+        return 1;
+  }
+ return 0; 
+}
+
+symbol *p_assignment (astree *parent, symbol *left, symbol *right){
+  int a_lval = static_cast<int>(attr::LVAL);
+  int a_vreg = static_cast<int>(attr::VREG);
+  symbol *ret = new symbol(parent,current);
+  ret->attributes = left->attributes;
+  if (left->attributes[a_lval]){
+    if (right->attributes[a_vreg]){
+      ret->attributes.reset(a_lval);
+      ret->attributes.set(a_vreg); 
+    }
+  }
+  if (!compatible(left,right)){
+    errprintf ("not compatible assignment: %zd.%zd.%zd",
+                left->lloc.filenr, left->lloc.linenr
+                , left->lloc.offset);
+  }
+  delete left;  
+  delete right;
+  return ret;
+}
+
 symbol *p_INTCON(astree *s){
   symbol *sym = new symbol(s,current);
   sym->attributes.set(static_cast<int>(attr::INT));
@@ -653,6 +684,53 @@ symbol *p_NULLPTR(astree *s){
   return sym;
 }
 
+symbol *p_math(astree *s){
+  int a_int = static_cast<int>(attr::INT); 
+  int a_vreg = static_cast<int>(attr::VREG); 
+  if (s->children.size() < 2)
+    errprintf ("p_math called incorrectly: %zd.%zd.%zd",
+                s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
+  symbol *left = p_expression(s->children[0]);
+  symbol *right = p_expression(s->children[1]);
+  if (!(left->attributes[a_int] && right->attributes[a_int]))
+    errprintf ("type mismatch: math expr %zd.%zd.%zd",
+                s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
+  delete left;
+  delete right;
+  symbol *ret = new symbol (s,current);
+  ret->attributes.set(a_int);
+  ret->attributes.set(a_vreg);
+  return ret;
+}
+
+symbol *p_unary(astree *s){
+  int a_int = static_cast<int>(attr::INT); 
+  int a_vreg = static_cast<int>(attr::VREG); 
+  symbol *unary = p_expression(s->children[0]);
+  if (!(unary->attributes[a_int]))
+    errprintf ("type mismatch: unary expr %zd.%zd.%zd",
+                s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
+  unary->attributes.set(a_int);
+  unary->attributes.set(a_vreg);
+  return unary;
+}
+
+symbol *p_overload (astree *s){
+  if (s->children.size() > 1)
+    return p_math(s);
+  return p_unary(s);
+}
+
+symbol *p_eq(astree *s){
+  if (s->children.size() > 1){
+    symbol *left = p_expression(s->children[0]);
+    symbol *right = p_expression(s->children[1]);
+    return p_assignment(s,left,right);
+  }
+  errprintf ("inapproriate call: p_eq %zd.%zd.%zd"); 
+  return nullptr;
+}
+
 symbol *p_expression(astree *s){
   switch(s->symbol){
     case TOK_CHARCON:
@@ -665,6 +743,23 @@ symbol *p_expression(astree *s){
     case TOK_NULLPTR:
       return p_NULLPTR(s);
       break;
+    case TOK_LT:
+    case TOK_LE:
+    case TOK_GT:
+    case TOK_GE:
+    case '*':
+    case '/':
+    case '%':
+      return p_math(s);
+      break;
+    case TOK_NOT:
+      return p_unary(s);
+      break;
+    case '+':
+    case '-':
+      return p_overload(s);
+    case '=':
+      return p_eq(s);
   }
   return nullptr;
 }
@@ -716,9 +811,9 @@ void p_typeid(astree *s){
   // depending on current scope.
   if (current != 0 && local != nullptr){
     if (local->find(vname)!=struct_t->end()){
-      errprintf ("variable %s already defined within block %d: "
+      errprintf ("name %s already defined within block %d: "
                  "%zd.%zd.%zd\n",
-      	   vname->c_str(), current,
+      	         vname->c_str(), current,
                  sym->lloc.filenr, sym->lloc.linenr,
                  sym->lloc.offset);
       delete (sym);
@@ -761,17 +856,14 @@ void p_typeid(astree *s){
   astree *parse = s->children[2];
   symbol *left = sym;
   symbol *right = p_expression(parse); 
-  if (compatible(left,right)){
-    if (current !=0 && local != nullptr){
-      sym->sequence = local->size(); 
-      local->emplace(vname,sym);
-    }
+  symbol *parsed;
+  parsed = p_assignment(s,left,right);
+  if (current !=0 && local != nullptr){
+    parsed->sequence = local->size(); 
+    local->emplace(vname,parsed);
   }
   else {
-    errprintf ("Typecheck error: %zd.%zd.%zd",
-               sym->lloc.filenr, sym->lloc.linenr,
-               sym->lloc.offset);
-    delete sym;
+    global->emplace(vname,parsed);
   }
 }
 

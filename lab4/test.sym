@@ -1,10 +1,6 @@
-test (5.204.1) {0} struct test 
+test (5.165.1) {0} struct test 
 
-test (5.205.1) {0} int function 
-   fuck (5.205.10) {1} int variable param lval 0
-   madoka (5.206.3) {1} int variable lval 1
-   homura (5.207.3) {1} struct test variable lval 2
-   sayaka (5.208.3) {1} int array variable lval 3
-   mami (5.209.3) {1} struct test array variable lval 4
-   homuhomu (5.210.3) {1} string variable lval 5
+parse (5.167.1) {0} int function 
+   i (5.167.12) {1} int variable param lval 0
+   test (5.170.3) {1} int variable lval 1
 

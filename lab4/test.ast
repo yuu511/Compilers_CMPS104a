@@ -1,0 +1,16 @@
+ROOT "<<ROOT>>" 0.0.0
+| STRUCT "struct" 5.165.1
+| | IDENT "test" 5.165.8
+| FUNCTION "" 5.167.1
+| | TYPE_ID "" 5.167.1
+| | | INT "int" 5.167.1
+| | | IDENT "parse" 5.167.5
+| | PARAM "(" 5.167.11
+| | | TYPE_ID "" 5.167.12
+| | | | INT "int" 5.167.12
+| | | | IDENT "i" 5.167.16
+| | BLOCK "{" 5.167.18
+| | | TYPE_ID "" 5.170.3
+| | | | INT "int" 5.170.3
+| | | | IDENT "test" 5.170.7
+| | | | INTCON "5" 5.170.14

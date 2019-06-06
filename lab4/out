@@ -1,14 +1,274 @@
-==3408== Memcheck, a memory error detector
-==3408== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==3408== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
-==3408== Command: ./oc ./examples/test.oc
-==3408== 
-==3408== 
-==3408== HEAP SUMMARY:
-==3408==     in use at exit: 0 bytes in 0 blocks
-==3408==   total heap usage: 91 allocs, 91 frees, 116,063 bytes allocated
-==3408== 
-==3408== All heap blocks were freed -- no leaks are possible
-==3408== 
-==3408== For counts of detected and suppressed errors, rerun with: -v
-==3408== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c symbol_table.cpp
+symbol_table.cpp: In function ‘symbol* p_assignment(symbol*, symbol*)’:
+symbol_table.cpp:648:29: error: ‘l’ was not declared in this scope
+   symbol *ret = new symbol (l,current);
+                             ^
+symbol_table.cpp: In function ‘void p_typeid(astree*)’:
+symbol_table.cpp:858:11: error: conflicting declaration ‘symbol* ret’
+   symbol *ret;
+           ^~~
+symbol_table.cpp:768:7: note: previous declaration as ‘int ret’
+   int ret;
+       ^~~
+symbol_table.cpp:859:21: error: invalid conversion from ‘symbol*’ to ‘int’ [-fpermissive]
+   ret = p_assignment(left,right);
+         ~~~~~~~~~~~~^~~~~~~~~~~~
+symbol_table.cpp:861:8: error: base operand of ‘->’ is not a pointer
+     ret->sequence = local->size();
+        ^~
+In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
+                 from /usr/include/c++/8.3.0/string:41,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/ext/new_allocator.h: In instantiation of ‘void __gnu_cxx::new_allocator<_Tp>::construct(_Up*, _Args&& ...) [with _Up = std::pair<const std::__cxx11::basic_string<char>* const, symbol*>; _Args = {const std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*&, int&}; _Tp = std::__detail::_Hash_node<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false>]’:
+/usr/include/c++/8.3.0/bits/alloc_traits.h:475:4:   required from ‘static void std::allocator_traits<std::allocator<_CharT> >::construct(std::allocator_traits<std::allocator<_CharT> >::allocator_type&, _Up*, _Args&& ...) [with _Up = std::pair<const std::__cxx11::basic_string<char>* const, symbol*>; _Args = {const std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*&, int&}; _Tp = std::__detail::_Hash_node<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false>; std::allocator_traits<std::allocator<_CharT> >::allocator_type = std::allocator<std::__detail::_Hash_node<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false> >]’
+/usr/include/c++/8.3.0/bits/hashtable_policy.h:2082:36:   required from ‘std::__detail::_Hashtable_alloc<_NodeAlloc>::__node_type* std::__detail::_Hashtable_alloc<_NodeAlloc>::_M_allocate_node(_Args&& ...) [with _Args = {const std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*&, int&}; _NodeAlloc = std::allocator<std::__detail::_Hash_node<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false> >; std::__detail::_Hashtable_alloc<_NodeAlloc>::__node_type = std::__detail::_Hash_node<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false>]’
+/usr/include/c++/8.3.0/bits/hashtable.h:1660:15:   required from ‘std::pair<typename std::__detail::_Hashtable_base<_Key, _Value, _ExtractKey, _Equal, _H1, _H2, _Hash, _Traits>::iterator, bool> std::_Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal, _H1, _H2, _Hash, _RehashPolicy, _Traits>::_M_emplace(std::true_type, _Args&& ...) [with _Args = {const std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*&, int&}; _Key = const std::__cxx11::basic_string<char>*; _Value = std::pair<const std::__cxx11::basic_string<char>* const, symbol*>; _Alloc = std::allocator<std::pair<const std::__cxx11::basic_string<char>* const, symbol*> >; _ExtractKey = std::__detail::_Select1st; _Equal = std::equal_to<const std::__cxx11::basic_string<char>*>; _H1 = std::hash<const std::__cxx11::basic_string<char>*>; _H2 = std::__detail::_Mod_range_hashing; _Hash = std::__detail::_Default_ranged_hash; _RehashPolicy = std::__detail::_Prime_rehash_policy; _Traits = std::__detail::_Hashtable_traits<false, false, true>; typename std::__detail::_Hashtable_base<_Key, _Value, _ExtractKey, _Equal, _H1, _H2, _Hash, _Traits>::iterator = std::__detail::_Node_iterator<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false, false>; std::true_type = std::integral_constant<bool, true>]’
+/usr/include/c++/8.3.0/bits/hashtable.h:748:69:   required from ‘std::_Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal, _H1, _H2, _Hash, _RehashPolicy, _Traits>::__ireturn_type std::_Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal, _H1, _H2, _Hash, _RehashPolicy, _Traits>::emplace(_Args&& ...) [with _Args = {const std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*&, int&}; _Key = const std::__cxx11::basic_string<char>*; _Value = std::pair<const std::__cxx11::basic_string<char>* const, symbol*>; _Alloc = std::allocator<std::pair<const std::__cxx11::basic_string<char>* const, symbol*> >; _ExtractKey = std::__detail::_Select1st; _Equal = std::equal_to<const std::__cxx11::basic_string<char>*>; _H1 = std::hash<const std::__cxx11::basic_string<char>*>; _H2 = std::__detail::_Mod_range_hashing; _Hash = std::__detail::_Default_ranged_hash; _RehashPolicy = std::__detail::_Prime_rehash_policy; _Traits = std::__detail::_Hashtable_traits<false, false, true>; std::_Hashtable<_Key, _Value, _Alloc, _ExtractKey, _Equal, _H1, _H2, _Hash, _RehashPolicy, _Traits>::__ireturn_type = std::pair<std::__detail::_Node_iterator<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false, false>, bool>]’
+/usr/include/c++/8.3.0/bits/unordered_map.h:388:54:   required from ‘std::pair<typename std::_Hashtable<_Key, std::pair<const _Key, _Tp>, _Alloc, std::__detail::_Select1st, _Pred, _Hash, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<std::__not_<std::__and_<std::__is_fast_hash<_Hash>, std::__is_nothrow_invocable<const _Hash&, const _Key&> > >::value, false, true> >::iterator, bool> std::unordered_map<_Key, _Tp, _Hash, _Pred, _Alloc>::emplace(_Args&& ...) [with _Args = {const std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*&, int&}; _Key = const std::__cxx11::basic_string<char>*; _Tp = symbol*; _Hash = std::hash<const std::__cxx11::basic_string<char>*>; _Pred = std::equal_to<const std::__cxx11::basic_string<char>*>; _Alloc = std::allocator<std::pair<const std::__cxx11::basic_string<char>* const, symbol*> >; typename std::_Hashtable<_Key, std::pair<const _Key, _Tp>, _Alloc, std::__detail::_Select1st, _Pred, _Hash, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<std::__not_<std::__and_<std::__is_fast_hash<_Hash>, std::__is_nothrow_invocable<const _Hash&, const _Key&> > >::value, false, true> >::iterator = std::__detail::_Node_iterator<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false, false>]’
+symbol_table.cpp:865:30:   required from here
+/usr/include/c++/8.3.0/ext/new_allocator.h:136:4: error: no matching function for call to ‘std::pair<const std::__cxx11::basic_string<char>* const, symbol*>::pair(const std::__cxx11::basic_string<char>*&, int&)’
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
+                 from /usr/include/c++/8.3.0/string:40,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/bits/stl_pair.h:436:9: note: candidate: ‘template<class ... _Args1, long unsigned int ..._Indexes1, class ... _Args2, long unsigned int ..._Indexes2> std::pair<_T1, _T2>::pair(std::tuple<_Args1 ...>&, std::tuple<_Args2 ...>&, std::_Index_tuple<_Indexes1 ...>, std::_Index_tuple<_Indexes2 ...>)’
+         pair(tuple<_Args1...>&, tuple<_Args2...>&,
+         ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:436:9: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
+                 from /usr/include/c++/8.3.0/string:41,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/ext/new_allocator.h:136:4: note:   mismatched types ‘std::tuple<_Tps ...>’ and ‘const std::__cxx11::basic_string<char>*’
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
+                 from /usr/include/c++/8.3.0/string:40,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/bits/stl_pair.h:375:9: note: candidate: ‘template<class ... _Args1, class ... _Args2> std::pair<_T1, _T2>::pair(std::piecewise_construct_t, std::tuple<_Args1 ...>, std::tuple<_Args2 ...>)’
+         pair(piecewise_construct_t, tuple<_Args1...>, tuple<_Args2...>);
+         ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:375:9: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
+                 from /usr/include/c++/8.3.0/string:41,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/ext/new_allocator.h:136:4: note:   mismatched types ‘std::tuple<_Tps ...>’ and ‘int’
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
+                 from /usr/include/c++/8.3.0/string:40,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/bits/stl_pair.h:370:21: note: candidate: ‘template<class _U1, class _U2, typename std::enable_if<(std::_PCC<((! std::is_same<const std::__cxx11::basic_string<char>* const, _U1>::value) || (! std::is_same<symbol*, _U2>::value)), const std::__cxx11::basic_string<char>* const, symbol*>::_MoveConstructiblePair<_U1, _U2>() && (! std::_PCC<((! std::is_same<const std::__cxx11::basic_string<char>* const, _U1>::value) || (! std::is_same<symbol*, _U2>::value)), const std::__cxx11::basic_string<char>* const, symbol*>::_ImplicitlyMoveConvertiblePair<_U1, _U2>())), bool>::type <anonymous> > constexpr std::pair<_T1, _T2>::pair(std::pair<_U1, _U2>&&)’
+  explicit constexpr pair(pair<_U1, _U2>&& __p)
+                     ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:370:21: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
+                 from /usr/include/c++/8.3.0/string:41,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/ext/new_allocator.h:136:4: note:   mismatched types ‘std::pair<_T1, _T2>’ and ‘const std::__cxx11::basic_string<char>*’
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
+                 from /usr/include/c++/8.3.0/string:40,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/bits/stl_pair.h:360:12: note: candidate: ‘template<class _U1, class _U2, typename std::enable_if<(std::_PCC<((! std::is_same<const std::__cxx11::basic_string<char>* const, _U1>::value) || (! std::is_same<symbol*, _U2>::value)), const std::__cxx11::basic_string<char>* const, symbol*>::_MoveConstructiblePair<_U1, _U2>() && std::_PCC<((! std::is_same<const std::__cxx11::basic_string<char>* const, _U1>::value) || (! std::is_same<symbol*, _U2>::value)), const std::__cxx11::basic_string<char>* const, symbol*>::_ImplicitlyMoveConvertiblePair<_U1, _U2>()), bool>::type <anonymous> > constexpr std::pair<_T1, _T2>::pair(std::pair<_U1, _U2>&&)’
+  constexpr pair(pair<_U1, _U2>&& __p)
+            ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:360:12: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
+                 from /usr/include/c++/8.3.0/string:41,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/ext/new_allocator.h:136:4: note:   mismatched types ‘std::pair<_T1, _T2>’ and ‘const std::__cxx11::basic_string<char>*’
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
+                 from /usr/include/c++/8.3.0/string:40,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/bits/stl_pair.h:350:21: note: candidate: ‘template<class _U1, class _U2, typename std::enable_if<(_MoveConstructiblePair<_U1, _U2>() && (! _ImplicitlyMoveConvertiblePair<_U1, _U2>())), bool>::type <anonymous> > constexpr std::pair<_T1, _T2>::pair(_U1&&, _U2&&)’
+  explicit constexpr pair(_U1&& __x, _U2&& __y)
+                     ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:350:21: note:   template argument deduction/substitution failed:
+/usr/include/c++/8.3.0/bits/stl_pair.h:349:38: error: no type named ‘type’ in ‘struct std::enable_if<false, bool>’
+                          bool>::type=false>
+                                      ^~~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:341:12: note: candidate: ‘template<class _U1, class _U2, typename std::enable_if<(_MoveConstructiblePair<_U1, _U2>() && _ImplicitlyMoveConvertiblePair<_U1, _U2>()), bool>::type <anonymous> > constexpr std::pair<_T1, _T2>::pair(_U1&&, _U2&&)’
+  constexpr pair(_U1&& __x, _U2&& __y)
+            ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:341:12: note:   template argument deduction/substitution failed:
+/usr/include/c++/8.3.0/bits/stl_pair.h:340:38: error: no type named ‘type’ in ‘struct std::enable_if<false, bool>’
+                          bool>::type=true>
+                                      ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:332:17: note: candidate: ‘template<class _U2, typename std::enable_if<_CopyMovePair<false, const std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >* const, _U2>(), bool>::type <anonymous> > std::pair<_T1, _T2>::pair(const _T1&, _U2&&)’
+        explicit pair(const _T1& __x, _U2&& __y)
+                 ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:332:17: note:   template argument deduction/substitution failed:
+/usr/include/c++/8.3.0/bits/stl_pair.h:331:38: error: no type named ‘type’ in ‘struct std::enable_if<false, bool>’
+                          bool>::type=false>
+                                      ^~~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:325:18: note: candidate: ‘template<class _U2, typename std::enable_if<_CopyMovePair<true, const std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >* const, _U2>(), bool>::type <anonymous> > constexpr std::pair<_T1, _T2>::pair(const _T1&, _U2&&)’
+        constexpr pair(const _T1& __x, _U2&& __y)
+                  ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:325:18: note:   template argument deduction/substitution failed:
+/usr/include/c++/8.3.0/bits/stl_pair.h:324:38: error: no type named ‘type’ in ‘struct std::enable_if<false, bool>’
+                          bool>::type=true>
+                                      ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:318:27: note: candidate: ‘template<class _U1, typename std::enable_if<_MoveCopyPair<false, _U1, symbol*>(), bool>::type <anonymous> > constexpr std::pair<_T1, _T2>::pair(_U1&&, const _T2&)’
+        explicit constexpr pair(_U1&& __x, const _T2& __y)
+                           ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:318:27: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
+                 from /usr/include/c++/8.3.0/string:41,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/ext/new_allocator.h:136:4: note:   cannot convert ‘std::forward<int&>((* & __args#1))’ (type ‘int’) to type ‘symbol* const&’
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
+                 from /usr/include/c++/8.3.0/string:40,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/bits/stl_pair.h:311:18: note: candidate: ‘template<class _U1, typename std::enable_if<_MoveCopyPair<true, _U1, symbol*>(), bool>::type <anonymous> > constexpr std::pair<_T1, _T2>::pair(_U1&&, const _T2&)’
+        constexpr pair(_U1&& __x, const _T2& __y)
+                  ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:311:18: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
+                 from /usr/include/c++/8.3.0/string:41,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/ext/new_allocator.h:136:4: note:   cannot convert ‘std::forward<int&>((* & __args#1))’ (type ‘int’) to type ‘symbol* const&’
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
+                 from /usr/include/c++/8.3.0/string:40,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/bits/stl_pair.h:304:17: note: candidate: ‘constexpr std::pair<_T1, _T2>::pair(std::pair<_T1, _T2>&&) [with _T1 = const std::__cxx11::basic_string<char>* const; _T2 = symbol*]’
+       constexpr pair(pair&&) = default;
+                 ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:304:17: note:   candidate expects 1 argument, 2 provided
+/usr/include/c++/8.3.0/bits/stl_pair.h:303:17: note: candidate: ‘constexpr std::pair<_T1, _T2>::pair(const std::pair<_T1, _T2>&) [with _T1 = const std::__cxx11::basic_string<char>* const; _T2 = symbol*]’
+       constexpr pair(const pair&) = default;
+                 ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:303:17: note:   candidate expects 1 argument, 2 provided
+/usr/include/c++/8.3.0/bits/stl_pair.h:300:21: note: candidate: ‘template<class _U1, class _U2, typename std::enable_if<(std::_PCC<((! std::is_same<const std::__cxx11::basic_string<char>* const, _U1>::value) || (! std::is_same<symbol*, _U2>::value)), const std::__cxx11::basic_string<char>* const, symbol*>::_ConstructiblePair<_U1, _U2>() && (! std::_PCC<((! std::is_same<const std::__cxx11::basic_string<char>* const, _U1>::value) || (! std::is_same<symbol*, _U2>::value)), const std::__cxx11::basic_string<char>* const, symbol*>::_ImplicitlyConvertiblePair<_U1, _U2>())), bool>::type <anonymous> > constexpr std::pair<_T1, _T2>::pair(const std::pair<_U1, _U2>&)’
+  explicit constexpr pair(const pair<_U1, _U2>& __p)
+                     ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:300:21: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
+                 from /usr/include/c++/8.3.0/string:41,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/ext/new_allocator.h:136:4: note:   mismatched types ‘const std::pair<_T1, _T2>’ and ‘const std::__cxx11::basic_string<char>*’
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
+                 from /usr/include/c++/8.3.0/string:40,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/bits/stl_pair.h:291:19: note: candidate: ‘template<class _U1, class _U2, typename std::enable_if<(std::_PCC<((! std::is_same<const std::__cxx11::basic_string<char>* const, _U1>::value) || (! std::is_same<symbol*, _U2>::value)), const std::__cxx11::basic_string<char>* const, symbol*>::_ConstructiblePair<_U1, _U2>() && std::_PCC<((! std::is_same<const std::__cxx11::basic_string<char>* const, _U1>::value) || (! std::is_same<symbol*, _U2>::value)), const std::__cxx11::basic_string<char>* const, symbol*>::_ImplicitlyConvertiblePair<_U1, _U2>()), bool>::type <anonymous> > constexpr std::pair<_T1, _T2>::pair(const std::pair<_U1, _U2>&)’
+         constexpr pair(const pair<_U1, _U2>& __p)
+                   ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:291:19: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
+                 from /usr/include/c++/8.3.0/string:41,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/ext/new_allocator.h:136:4: note:   mismatched types ‘const std::pair<_T1, _T2>’ and ‘const std::__cxx11::basic_string<char>*’
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
+                 from /usr/include/c++/8.3.0/string:40,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/bits/stl_pair.h:269:26: note: candidate: ‘template<class _U1, class _U2, typename std::enable_if<(_ConstructiblePair<_U1, _U2>() && (! _ImplicitlyConvertiblePair<_U1, _U2>())), bool>::type <anonymous> > constexpr std::pair<_T1, _T2>::pair(const _T1&, const _T2&)’
+       explicit constexpr pair(const _T1& __a, const _T2& __b)
+                          ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:269:26: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
+                 from /usr/include/c++/8.3.0/string:41,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/ext/new_allocator.h:136:4: note:   cannot convert ‘std::forward<int&>((* & __args#1))’ (type ‘int’) to type ‘symbol* const&’
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
+                 from /usr/include/c++/8.3.0/string:40,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/bits/stl_pair.h:260:17: note: candidate: ‘template<class _U1, class _U2, typename std::enable_if<(_ConstructiblePair<_U1, _U2>() && _ImplicitlyConvertiblePair<_U1, _U2>()), bool>::type <anonymous> > constexpr std::pair<_T1, _T2>::pair(const _T1&, const _T2&)’
+       constexpr pair(const _T1& __a, const _T2& __b)
+                 ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:260:17: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
+                 from /usr/include/c++/8.3.0/string:41,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/ext/new_allocator.h:136:4: note:   cannot convert ‘std::forward<int&>((* & __args#1))’ (type ‘int’) to type ‘symbol* const&’
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
+                 from /usr/include/c++/8.3.0/string:40,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/bits/stl_pair.h:242:26: note: candidate: ‘template<class _U1, class _U2, typename std::enable_if<std::__and_<std::is_default_constructible<_Tp>, std::is_default_constructible<_U2>, std::__not_<std::__and_<std::__is_implicitly_default_constructible<_U1>, std::__is_implicitly_default_constructible<_U2> > > >::value, bool>::type <anonymous> > constexpr std::pair<_T1, _T2>::pair()’
+       explicit constexpr pair()
+                          ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:242:26: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
+                 from /usr/include/c++/8.3.0/string:41,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/ext/new_allocator.h:136:4: note:   candidate expects 0 arguments, 2 provided
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/8.3.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/8.3.0/bits/char_traits.h:39,
+                 from /usr/include/c++/8.3.0/string:40,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/bits/stl_pair.h:229:26: note: candidate: ‘template<class _U1, class _U2, typename std::enable_if<std::__and_<std::__is_implicitly_default_constructible<_U1>, std::__is_implicitly_default_constructible<_U2> >::value, bool>::type <anonymous> > constexpr std::pair<_T1, _T2>::pair()’
+       _GLIBCXX_CONSTEXPR pair()
+                          ^~~~
+/usr/include/c++/8.3.0/bits/stl_pair.h:229:26: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++allocator.h:33,
+                 from /usr/include/c++/8.3.0/bits/allocator.h:46,
+                 from /usr/include/c++/8.3.0/string:41,
+                 from /usr/include/c++/8.3.0/bitset:47,
+                 from symbol_table.cpp:1:
+/usr/include/c++/8.3.0/ext/new_allocator.h:136:4: note:   candidate expects 0 arguments, 2 provided
+  { ::new((void *)__p) _Up(std::forward<_Args>(__args)...); }
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+make: *** [Makefile:55: symbol_table.o] Error 1
