@@ -4,5 +4,10 @@ ejcordov / 1425119
 
 LAB4: Symbol table and Type Checker
 
+cannot assign same global variable and global function name:
+e.g. : 
+string x;
+int x(){} 
+
 arg -@{str,tok,ast} reserved as personal debug flag
 

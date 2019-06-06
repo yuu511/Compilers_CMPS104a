@@ -37,7 +37,7 @@ LISTSRC   = ${ALLSRC} ${DEPSFILE} ${PARSEHDR}
 TESTFILES = ${THISDIR}/examples/*
 TESTOC = ./examples/test.oc
 SUBMITDIR = cmps104a-wm.s19
-ASGN      = asg3
+ASGN      = asg5
 TESTSTRINGSET = ${TESTFILES:.oc = .str}
 
 all : ${EXECBIN}
