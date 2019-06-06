@@ -796,6 +796,7 @@ symbol *p_alloc(astree *s){
       }
       sym->attributes.set(a_array);
       sym->attributes.set(type_enum(base));
+      delete eval;
     }
     else {
       symbol *eval = p_expression(s->children[1]);
@@ -904,23 +905,25 @@ void p_typeid(astree *s){
       return;
     }
   }
-  else  {
+  else {
     string type ="";
-    if (global->find(vname)->second
-        ->attributes[static_cast<int>(attr::FUNCTION)])
-      type.append ("function");
-    else if (global->find(vname)->second
-             ->attributes[static_cast<int>(attr::LVAL)])
-      type.append ("variable");
+    if (global->find(vname) != global->end()){
+      if (global->find(vname)->second
+          ->attributes[static_cast<int>(attr::FUNCTION)])
+        type.append ("function");
+      else if (global->find(vname)->second
+               ->attributes[static_cast<int>(attr::LVAL)])
+        type.append ("variable");
 
-    errprintf ("name %s already defined globally"
-               " as a %s: %zd.%zd.%zd\n",
-               vname->c_str(),
-               type.c_str(),
-               sym->lloc.filenr, sym->lloc.linenr,
-               sym->lloc.offset);
-    delete (sym);
-    return;
+      errprintf ("name %s already defined globally"
+                 " as a %s: %zd.%zd.%zd\n",
+                 vname->c_str(),
+                 type.c_str(),
+                 sym->lloc.filenr, sym->lloc.linenr,
+                 sym->lloc.offset);
+      delete (sym);
+      return;
+    }
   }
 
   // does not have an assignment e.g. int x;

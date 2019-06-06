@@ -3,30 +3,34 @@ ROOT "<<ROOT>>" 0.0.0
 | | IDENT "test" 5.165.8
 | STRUCT "struct" 5.166.1
 | | IDENT "mami" 5.166.8
-| FUNCTION "" 5.168.1
-| | TYPE_ID "" 5.168.1
-| | | INT "int" 5.168.1
-| | | IDENT "parse" 5.168.5
-| | PARAM "(" 5.168.11
-| | | TYPE_ID "" 5.168.12
-| | | | INT "int" 5.168.12
-| | | | IDENT "i" 5.168.16
-| | BLOCK "{" 5.168.18
-| | | TYPE_ID "" 5.169.3
-| | | | STRING "string" 5.169.3
-| | | | IDENT "test4" 5.169.10
-| | | | ALLOC "alloc" 5.169.18
-| | | | | STRING "string" 5.169.26
-| | | | | '+' "+" 5.169.37
-| | | | | | INTCON "5" 5.169.36
-| | | | | | INTCON "32312312" 5.169.38
-| | | TYPE_ID "" 5.171.3
-| | | | ARRAY "array" 5.171.3
-| | | | | PTR "ptr" 5.171.9
-| | | | | | IDENT "test" 5.171.20
-| | | | IDENT "stuff" 5.171.27
-| | | | ALLOC "alloc" 5.171.35
-| | | | | ARRAY "array" 5.171.43
-| | | | | | PTR "ptr" 5.171.49
-| | | | | | | IDENT "test" 5.171.60
-| | | | | INTCON "5" 5.171.70
+| TYPE_ID "" 5.168.1
+| | INT "int" 5.168.1
+| | IDENT "x" 5.168.5
+| | INTCON "5" 5.168.9
+| FUNCTION "" 5.169.1
+| | TYPE_ID "" 5.169.1
+| | | INT "int" 5.169.1
+| | | IDENT "parse" 5.169.5
+| | PARAM "(" 5.169.11
+| | | TYPE_ID "" 5.169.12
+| | | | INT "int" 5.169.12
+| | | | IDENT "i" 5.169.16
+| | BLOCK "{" 5.169.18
+| | | TYPE_ID "" 5.170.3
+| | | | STRING "string" 5.170.3
+| | | | IDENT "test4" 5.170.10
+| | | | ALLOC "alloc" 5.170.18
+| | | | | STRING "string" 5.170.26
+| | | | | '+' "+" 5.170.37
+| | | | | | INTCON "5" 5.170.36
+| | | | | | INTCON "32312312" 5.170.38
+| | | TYPE_ID "" 5.172.3
+| | | | ARRAY "array" 5.172.3
+| | | | | PTR "ptr" 5.172.9
+| | | | | | IDENT "test" 5.172.20
+| | | | IDENT "stuff" 5.172.27
+| | | | ALLOC "alloc" 5.172.35
+| | | | | ARRAY "array" 5.172.43
+| | | | | | PTR "ptr" 5.172.49
+| | | | | | | IDENT "test" 5.172.60
+| | | | | INTCON "5" 5.172.70
