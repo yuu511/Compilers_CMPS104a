@@ -1,31 +1,43 @@
 ROOT "<<ROOT>>" 0.0.0
 | STRUCT "struct" 5.165.1
 | | IDENT "test" 5.165.8
-| FUNCTION "" 5.167.1
-| | TYPE_ID "" 5.167.1
-| | | INT "int" 5.167.1
-| | | IDENT "parse" 5.167.5
-| | PARAM "(" 5.167.11
-| | | TYPE_ID "" 5.167.12
-| | | | INT "int" 5.167.12
-| | | | IDENT "i" 5.167.16
-| | BLOCK "{" 5.167.18
-| | | TYPE_ID "" 5.168.3
-| | | | STRING "string" 5.168.3
-| | | | IDENT "test4" 5.168.10
-| | | | ALLOC "alloc" 5.168.18
-| | | | | STRING "string" 5.168.26
-| | | | | INTCON "5" 5.168.36
-| | | TYPE_ID "" 5.169.3
-| | | | STRING "string" 5.169.3
-| | | | IDENT "test5" 5.169.10
-| | | | ALLOC "alloc" 5.169.18
-| | | | | IDENT "homura" 5.169.33
+| STRUCT "struct" 5.166.1
+| | IDENT "mami" 5.166.8
+| TYPE_ID "" 5.168.1
+| | INT "int" 5.168.1
+| | IDENT "x" 5.168.5
+| | INTCON "5" 5.168.9
+| FUNCTION "" 5.169.1
+| | TYPE_ID "" 5.169.1
+| | | INT "int" 5.169.1
+| | | IDENT "parse" 5.169.5
+| | PARAM "(" 5.169.11
+| | | TYPE_ID "" 5.169.12
+| | | | INT "int" 5.169.12
+| | | | IDENT "i" 5.169.16
+| | BLOCK "{" 5.169.18
 | | | TYPE_ID "" 5.170.3
 | | | | STRING "string" 5.170.3
-| | | | IDENT "test5" 5.170.10
+| | | | IDENT "test4" 5.170.10
 | | | | ALLOC "alloc" 5.170.18
-| | | | | ARRAY "array" 5.170.26
-| | | | | | PTR "ptr" 5.170.32
-| | | | | | | IDENT "test" 5.170.43
-| | | | | INTCON "5" 5.170.53
+| | | | | STRING "string" 5.170.26
+| | | | | '+' "+" 5.170.37
+| | | | | | INTCON "5" 5.170.36
+| | | | | | INTCON "32312312" 5.170.38
+| | | IF "if" 5.172.3
+| | | | IDENT "test" 5.172.8
+| | | | BLOCK "{" 5.172.14
+| | | | | TYPE_ID "" 5.173.5
+| | | | | | INT "int" 5.173.5
+| | | | | | IDENT "x" 5.173.9
+| | | | | | INTCON "5" 5.173.13
+| | | TYPE_ID "" 5.175.3
+| | | | ARRAY "array" 5.175.3
+| | | | | PTR "ptr" 5.175.9
+| | | | | | IDENT "test" 5.175.20
+| | | | IDENT "stuff" 5.175.27
+| | | | ALLOC "alloc" 5.175.35
+| | | | | ARRAY "array" 5.175.43
+| | | | | | PTR "ptr" 5.175.49
+| | | | | | | IDENT "test" 5.175.60
+| | | | | INTCON "5" 5.175.70

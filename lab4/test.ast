@@ -1,12 +1,4 @@
 ROOT "<<ROOT>>" 0.0.0
-| STRUCT "struct" 5.165.1
-| | IDENT "test" 5.165.8
-| STRUCT "struct" 5.166.1
-| | IDENT "mami" 5.166.8
-| TYPE_ID "" 5.168.1
-| | INT "int" 5.168.1
-| | IDENT "x" 5.168.5
-| | INTCON "5" 5.168.9
 | FUNCTION "" 5.169.1
 | | TYPE_ID "" 5.169.1
 | | | INT "int" 5.169.1
@@ -16,21 +8,8 @@ ROOT "<<ROOT>>" 0.0.0
 | | | | INT "int" 5.169.12
 | | | | IDENT "i" 5.169.16
 | | BLOCK "{" 5.169.18
-| | | TYPE_ID "" 5.170.3
-| | | | STRING "string" 5.170.3
-| | | | IDENT "test4" 5.170.10
-| | | | ALLOC "alloc" 5.170.18
-| | | | | STRING "string" 5.170.26
-| | | | | '+' "+" 5.170.37
-| | | | | | INTCON "5" 5.170.36
-| | | | | | INTCON "32312312" 5.170.38
-| | | TYPE_ID "" 5.172.3
-| | | | ARRAY "array" 5.172.3
-| | | | | PTR "ptr" 5.172.9
-| | | | | | IDENT "test" 5.172.20
-| | | | IDENT "stuff" 5.172.27
-| | | | ALLOC "alloc" 5.172.35
-| | | | | ARRAY "array" 5.172.43
-| | | | | | PTR "ptr" 5.172.49
-| | | | | | | IDENT "test" 5.172.60
-| | | | | INTCON "5" 5.172.70
+| | | IF "if" 5.173.3
+| | | | EQ "==" 5.173.12
+| | | | | CHARCON "'a'" 5.173.8
+| | | | | INTCON "5" 5.173.15
+| | | | BLOCK "{" 5.173.18

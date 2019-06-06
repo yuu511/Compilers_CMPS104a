@@ -814,6 +814,28 @@ symbol *p_alloc(astree *s){
   return sym;
 }
 
+symbol *p_comp(astree *s){
+  int a_int = static_cast<int>(attr::INT); 
+  int a_vreg = static_cast<int>(attr::VREG); 
+  symbol *sym = new symbol(s,current);
+  if (s->children.size()<2){
+    errprintf("p_comp called incorrectly");
+  }
+  symbol *left = p_expression(s->children[0]);
+  symbol *right = p_expression(s->children[1]);
+  if (!compatible(left,right)){
+    errprintf ("incompatible comparison: %zd.%zd.%zd\n",
+               s->lloc.filenr,
+               s->lloc.linenr,
+               s->lloc.offset);
+  }
+  sym->attributes.set(a_int);
+  sym->attributes.set(a_vreg);
+  delete left;
+  delete right;
+  return sym;
+}
+
 symbol *p_expression(astree *s){
   switch(s->symbol){
     case TOK_CHARCON:
@@ -845,6 +867,9 @@ symbol *p_expression(astree *s){
       return p_eq(s);
     case TOK_ALLOC:
       return p_alloc(s);
+    case TOK_EQ:
+    case TOK_NE:
+      return p_comp(s);
   }
   return nullptr;
 }
@@ -956,6 +981,26 @@ void p_typeid(astree *s){
   }
 }
 
+void p_if(astree *s){
+  int a_int = static_cast<int>(attr::INT);
+  int a_nullptr = static_cast<int>(attr::NULLPTR_T);
+  int a_typeid = static_cast<int>(attr::TYPEID);
+  symbol *sym = p_expression(s->children[0]);
+  if (!(sym->attributes[a_int] ||
+        sym->attributes[a_nullptr] ||
+        sym->attributes[a_typeid] )){
+    errprintf ("invalid expr: %zd.%zd.%zd\n",
+               s->lloc.filenr,
+               s->lloc.linenr,
+               s->lloc.offset);
+  }
+  delete sym;
+  // return the rest of the args to main function control
+  for (unsigned int i = 1; i<s->children.size(); i++){
+    gen_table(s->children[i]);   
+  }
+}
+
 
 // Main function,handles all members of language
 void gen_table(astree *s){
@@ -975,6 +1020,12 @@ void gen_table(astree *s){
       break;
     case TOK_TYPE_ID:
       return p_typeid(s);
+      break;
+    case TOK_IF:
+      p_if(s);
+      break;
+    default:
+      p_expression(s);
       break;
   }
 }
