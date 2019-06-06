@@ -516,16 +516,16 @@ void p_function (astree *s){
       }
       else{
         if (c->children[0]->symbol == TOK_PTR){
-	  spname = c->children[0]->children[0]->lexinfo;
-	  c->sname = f->sname = f_copy->sname = spname;
-	  struct_valid(spname,f->lloc);
-	  t_code = c->children[0]->children[0]->symbol;
-	  id = c->children[1]->lexinfo;
-        }
-	else{
-      t_code = c->children[0]->symbol;  
-	  id = c->children[1]->lexinfo;
-	}
+	      spname = c->children[0]->children[0]->lexinfo;
+	      c->sname = f->sname = f_copy->sname = spname;
+	      struct_valid(spname,f->lloc);
+	      t_code = c->children[0]->children[0]->symbol;
+	      id = c->children[1]->lexinfo;
+       }
+	   else{
+         t_code = c->children[0]->symbol;  
+	     id = c->children[1]->lexinfo;
+	   }
       }
 
       if (t_code == TOK_VOID){
@@ -549,7 +549,6 @@ void p_function (astree *s){
 
       }
       else{
-        f->attributes.set(static_cast<int>(attr::LOCAL));
         local->emplace(id,f);
         sym->parameters->push_back(f_copy);
       }
@@ -650,12 +649,14 @@ int compatible(symbol *l,symbol *r){
 symbol *p_assignment (astree *parent, symbol *left, symbol *right){
   int a_lval = static_cast<int>(attr::LVAL);
   int a_vreg = static_cast<int>(attr::VREG);
+  int a_vaddr = static_cast<int>(attr::VADDR);
   symbol *ret = new symbol(parent,current);
   ret->attributes = left->attributes;
   if (left->attributes[a_lval]){
     if (right->attributes[a_vreg]){
-      ret->attributes.reset(a_lval);
       ret->attributes.set(a_vreg); 
+    } else {
+      ret->attributes.set(a_vaddr);
     }
   }
   if (!compatible(left,right)){
@@ -691,11 +692,11 @@ symbol *p_NULLPTR(astree *s){
   return sym;
 }
 
-symbol *p_math(astree *s){
+symbol *p_binop(astree *s){
   int a_int = static_cast<int>(attr::INT); 
   int a_vreg = static_cast<int>(attr::VREG); 
   if (s->children.size() < 2)
-    errprintf ("p_math called incorrectly: %zd.%zd.%zd",
+    errprintf ("p_binop called incorrectly: %zd.%zd.%zd",
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
   symbol *left = p_expression(s->children[0]);
   symbol *right = p_expression(s->children[1]);
@@ -724,7 +725,7 @@ symbol *p_unary(astree *s){
 
 symbol *p_overload (astree *s){
   if (s->children.size() > 1)
-    return p_math(s);
+    return p_binop(s);
   return p_unary(s);
 }
 
@@ -836,6 +837,36 @@ symbol *p_comp(astree *s){
   return sym;
 }
 
+symbol *p_ident (astree *s){
+  const string *name = s->lexinfo;
+  symbol *test = nullptr;
+  if (current != 0 && local != nullptr){
+    if (local->find(name)!=struct_t->end()){
+      test = local->find(name)->second;
+    }
+  }
+  if (test == nullptr){
+    if (global->find(name)!=struct_t->end()){
+      test = local->find(name)->second;
+    }
+  }
+
+  symbol *sym = new symbol (s,current);
+  if (test == nullptr){
+    errprintf ( "ident %s not found in table: %zd.%zd.%zd",
+    name->c_str(),
+    s->lloc.filenr,
+    s->lloc.linenr,
+    s->lloc.offset);
+  } else { 
+    sym->attributes = test->attributes;
+    if (test->sname != nullptr){
+      sym->sname = test->sname;
+    }
+  }
+  return sym;
+}
+
 symbol *p_expression(astree *s){
   switch(s->symbol){
     case TOK_CHARCON:
@@ -855,7 +886,7 @@ symbol *p_expression(astree *s){
     case '*':
     case '/':
     case '%':
-      return p_math(s);
+      return p_binop(s);
       break;
     case TOK_NOT:
       return p_unary(s);
@@ -870,6 +901,8 @@ symbol *p_expression(astree *s){
     case TOK_EQ:
     case TOK_NE:
       return p_comp(s);
+    case TOK_IDENT:
+      return p_ident(s);
   }
   return nullptr;
 }
@@ -1025,7 +1058,8 @@ void gen_table(astree *s){
       p_if(s);
       break;
     default:
-      p_expression(s);
+      symbol *sym  = p_expression(s);
+      delete sym;
       break;
   }
 }

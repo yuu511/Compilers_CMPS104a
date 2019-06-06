@@ -1,3 +1,4 @@
 parse (5.169.1) {0} int function 
-   i (5.169.12) {1} int variable param local lval 0
+   i (5.169.12) {1} int variable param lval 0
+   test4 (5.171.3) {1} string variable local lval vreg 1
 
