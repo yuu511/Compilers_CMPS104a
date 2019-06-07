@@ -558,7 +558,8 @@ void p_function (astree *s){
   }
   if (s->children.size()>2){
     if (global->find(fname)!=sym->fields->end()){
-      if (global->find(fname)->second->attributes[static_cast<int>(attr::PROTOTYPE)]){
+      if (global->find(fname)->second
+          ->attributes[static_cast<int>(attr::PROTOTYPE)]){
         // match params then emplace
         symbol* old = global->find(fname)->second;
         if (matching_attrib(old,sym)){
@@ -571,7 +572,8 @@ void p_function (astree *s){
           current = 0;
         }
         else {
-              errprintf("nonmatching params for function %s: %zd.%zd.%zd\n",
+              errprintf(
+              "nonmatching params for function %s: %zd.%zd.%zd\n",
                          fname->c_str(),
                          sym->lloc.filenr, sym->lloc.linenr,
                          sym->lloc.offset);
@@ -797,7 +799,7 @@ symbol *p_alloc(astree *s){
            s->children[0]->children[0]->children[0]->lexinfo;
         }
         else {
-          errprintf("nonexistent struct referenced: %s: (%zd.%zd.%zd)\n",
+          errprintf("nonexistent struct referenced %s: %zd.%zd.%zd\n",
                      s->children[0]->children[0]->children[0]->lexinfo,
                      s->lloc.filenr,
                      s->lloc.linenr,
