@@ -603,9 +603,14 @@ void p_function (astree *s){
     }
     else{
       sym->attributes.set(static_cast<int>(attr::PROTOTYPE));
+      for (auto itor: *block){
+        delete itor.second; 
+      }
       delete block;
+      local = nullptr;
       current_function = fname;
       global->emplace(fname,sym);
+      current = 0;
     }
   }
 }

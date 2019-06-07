@@ -17,9 +17,17 @@ ROOT "<<ROOT>>" 0.0.0
 | | | | INT "int" 5.183.3
 | | | | IDENT "col" 5.183.7
 | | | | INTCON "0" 5.183.13
-| | | IF "if" 5.184.3
-| | | | INDEX "[" 5.184.12
-| | | | | IDENT "board" 5.184.7
-| | | | | IDENT "col" 5.184.13
-| | | | RETURN "return" 5.184.19
-| | | | | INTCON "1" 5.184.26
+| | | TYPE_ID "" 5.184.3
+| | | | INT "int" 5.184.3
+| | | | IDENT "diagonal" 5.184.7
+| | | | INTCON "0" 5.184.18
+| | | IF "if" 5.185.3
+| | | | EQ "==" 5.185.21
+| | | | | INDEX "[" 5.185.12
+| | | | | | IDENT "board" 5.185.7
+| | | | | | IDENT "newcol" 5.185.13
+| | | | | INDEX "[" 5.185.29
+| | | | | | IDENT "board" 5.185.24
+| | | | | | IDENT "col" 5.185.30
+| | | | RETURN "return" 5.185.36
+| | | | | INTCON "1" 5.185.43

@@ -1,58 +1,6 @@
 ROOT "<<ROOT>>" 0.0.0
-| FUNCTION "" 5.169.1
-| | TYPE_ID "" 5.169.1
-| | | STRING "string" 5.169.1
-| | | IDENT "function" 5.169.8
-| | PARAM "(" 5.169.16
-| | BLOCK "{" 5.169.18
-| FUNCTION "" 5.173.1
-| | TYPE_ID "" 5.173.1
-| | | INT "int" 5.173.1
-| | | IDENT "parse" 5.173.5
-| | PARAM "(" 5.173.11
-| | | TYPE_ID "" 5.173.12
-| | | | INT "int" 5.173.12
-| | | | IDENT "i" 5.173.16
-| | BLOCK "{" 5.173.18
-| | | TYPE_ID "" 5.175.3
-| | | | STRING "string" 5.175.3
-| | | | IDENT "testu" 5.175.10
-| | | | ALLOC "alloc" 5.175.18
-| | | | | STRING "string" 5.175.26
-| | | | | '+' "+" 5.175.37
-| | | | | | INTCON "5" 5.175.36
-| | | | | | INTCON "32312312" 5.175.38
-| | | TYPE_ID "" 5.176.3
-| | | | INT "int" 5.176.3
-| | | | IDENT "y" 5.176.7
-| | | | INTCON "5" 5.176.11
-| | | IF "if" 5.180.3
-| | | | EQ "==" 5.180.12
-| | | | | CHARCON "'a'" 5.180.8
-| | | | | INTCON "5" 5.180.15
-| | | | BLOCK "{" 5.180.18
-| | | TYPE_ID "" 5.182.3
-| | | | INT "int" 5.182.3
-| | | | IDENT "x" 5.182.7
-| | | | CALL "(" 5.182.20
-| | | | | IDENT "function" 5.182.11
-| | | '=' "=" 5.183.12
-| | | | INDEX "[" 5.183.8
-| | | | | IDENT "ident" 5.183.3
-| | | | | INTCON "5" 5.183.9
-| | | | INTCON "3" 5.183.14
-| | | TYPE_ID "" 5.184.3
-| | | | ARRAY "array" 5.184.3
-| | | | | INT "int" 5.184.10
-| | | | IDENT "thing" 5.184.15
-| | | INDEX "[" 5.185.8
-| | | | IDENT "thing" 5.185.3
-| | | | '+' "+" 5.185.10
-| | | | | INTCON "5" 5.185.9
-| | | | | INTCON "3" 5.185.11
-| | | TYPE_ID "" 5.186.3
-| | | | STRING "string" 5.186.3
-| | | | IDENT "x" 5.186.10
-| | | INDEX "[" 5.187.4
-| | | | IDENT "x" 5.187.3
-| | | | INTCON "5" 5.187.5
+| TYPE_ID "" 4.6.1
+| | ARRAY "array" 4.6.1
+| | | INT "int" 4.6.7
+| | IDENT "board" 4.6.12
+| | NULLPTR "nullptr" 4.6.20
