@@ -1,0 +1,25 @@
+ROOT "<<ROOT>>" 0.0.0
+| TYPE_ID "" 5.180.1
+| | ARRAY "array" 5.180.1
+| | | INT "int" 5.180.7
+| | IDENT "board" 5.180.12
+| | NULLPTR "nullptr" 5.180.20
+| FUNCTION "" 5.182.1
+| | TYPE_ID "" 5.182.1
+| | | INT "int" 5.182.1
+| | | IDENT "is_safe" 5.182.5
+| | PARAM "(" 5.182.13
+| | | TYPE_ID "" 5.182.14
+| | | | INT "int" 5.182.14
+| | | | IDENT "newcol" 5.182.18
+| | BLOCK "{" 5.182.25
+| | | TYPE_ID "" 5.183.3
+| | | | INT "int" 5.183.3
+| | | | IDENT "col" 5.183.7
+| | | | INTCON "0" 5.183.13
+| | | IF "if" 5.184.3
+| | | | INDEX "[" 5.184.12
+| | | | | IDENT "board" 5.184.7
+| | | | | IDENT "col" 5.184.13
+| | | | RETURN "return" 5.184.19
+| | | | | INTCON "1" 5.184.26

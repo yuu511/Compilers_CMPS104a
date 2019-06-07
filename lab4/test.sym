@@ -1,19 +1,6 @@
-allofem (5.174.1) {0} struct allofem 
-   one (5.174.18) int field 0
-   two (5.175.18) string field 1
-   homura (5.176.18) field struct none 2
-   sayaka (5.177.18) int array field 3
+is_safe (5.182.1) {0} int function 
+   newcol (5.182.14) {1} int variable param lval 0
+   col (5.183.3) {1} int variable local lval vreg 1
 
-none (5.172.1) {0} struct none 
-
-parse (5.180.1) {1} void function 
-   i (5.180.13) {2} int variable param lval 0
-   x (5.187.3) {2} int variable local lval vreg 1
-   homu (5.192.3) {2} variable struct allofem local lval vreg 2
-   sayaka (5.193.3) {2} variable struct none local lval vaddr 3
-   ident (5.195.3) {2} int array variable local lval 4
-   test (5.197.3) {2} string variable local lval vreg 5
-   d (5.198.3) {2} int variable local lval vaddr 6
-
-function (5.169.1) {0} int function 
+board (5.180.1) {0} int array variable lval vreg 
 

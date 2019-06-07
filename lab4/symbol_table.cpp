@@ -851,14 +851,12 @@ symbol *p_comp(astree *s){
 symbol *p_ident (astree *s){
   const string *name = s->lexinfo;
   symbol *test = nullptr;
-  if (current != 0 && local != nullptr){
-    if (local->find(name)!=struct_t->end()){
-      test = local->find(name)->second;
-    }
+  if (local->find(name)!=struct_t->end()){
+    test = local->find(name)->second;
   }
   if (test == nullptr){
     if (global->find(name)!=struct_t->end()){
-      test = local->find(name)->second;
+      test = global->find(name)->second;
     }
   }
 
