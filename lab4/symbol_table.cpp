@@ -725,10 +725,10 @@ symbol *p_assignment (astree *parent, symbol *left, symbol *right){
   }
   if (left->sname != nullptr)
     ret->sname = left->sname;
-  delete left;  
-  delete right;
   parent->block_number = left->block_nr;
   parent->attributes = left->attributes;
+  delete left;  
+  delete right;
   return ret;
 }
 
@@ -1380,6 +1380,7 @@ void free_symbol(){
     for (auto itor2: *itor.second){
       delete itor2.second; 
     }
+    itor.second->clear();
     delete itor.second;
   }
   master->clear();

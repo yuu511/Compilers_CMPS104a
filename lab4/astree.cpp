@@ -22,6 +22,9 @@ astree::astree (int symbol_, const location& lloc_, const char* info,
    attributes = attributes_;
    block_number = block_number_;
    struct_ptr = struct_ptr_;
+   lloc_orig.filenr = 0;
+   lloc_orig.linenr = 0;
+   lloc_orig.offset = 0;
    sname = sname_;
    // vector defaults to empty -- no children
 }
