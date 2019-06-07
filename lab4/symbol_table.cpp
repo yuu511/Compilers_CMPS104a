@@ -72,10 +72,10 @@ string dump_attributes(symbol *sym){
           break;
         case static_cast<int>(attr::STRUCT):
           st.append ("struct ");
-	      if (sym -> sname !=nullptr){
-	        st.append (sym->sname->c_str());
-	        st.append (" ");
-	      }
+          if (sym -> sname !=nullptr){
+            st.append (sym->sname->c_str());
+            st.append (" ");
+          }
           break;
         case static_cast<int>(attr::ARRAY):
           st.append ("array ");
@@ -91,10 +91,10 @@ string dump_attributes(symbol *sym){
           break;
         case static_cast<int>(attr::TYPEID):
           st.append ("struct ");
-	      if (sym -> sname !=nullptr){
-	        st.append (sym->sname->c_str());
-	        st.append (" ");
-	      }
+          if (sym -> sname !=nullptr){
+            st.append (sym->sname->c_str());
+            st.append (" ");
+          }
           break;
         case static_cast<int>(attr::PARAM):
           st.append ("param ");
@@ -149,13 +149,13 @@ void symbol::dump_symbol (FILE* outfile,symbol *sym){
            "sequence: %zd\nfields: %s\nblock: %zd\nparams: %s\n",
            static_cast<const void*> (sym),
            sym->lloc.filenr,
-	   sym->lloc.linenr,
-	   sym->lloc.offset,
+       sym->lloc.linenr,
+       sym->lloc.offset,
        dump_attributes(sym).c_str(),
-	   sym->sequence,
-	   f.c_str(),
-	   sym->block_nr,
-	   p.c_str() );
+       sym->sequence,
+       f.c_str(),
+       sym->block_nr,
+       p.c_str() );
 }
 
 
@@ -226,8 +226,8 @@ void print_map(FILE* out, symbol_table *sym){
       if ((master->find(itor.first))!=master->end()){
         symbol_table *block = master->find(itor.first)->second;
       for (size_t i = 0; i < block->size(); i++){
-	    for (auto itor2: *block){
-	       if (itor2.second->sequence == i){
+        for (auto itor2: *block){
+           if (itor2.second->sequence == i){
                  fprintf(out,"   %s (%zd.%zd.%zd) {%zd} %s%zd\n",
                          itor2.first->c_str(), 
                          itor2.second->lloc.filenr,
@@ -235,11 +235,11 @@ void print_map(FILE* out, symbol_table *sym){
                          itor2.second->lloc.offset,
                          itor2.second-> block_nr,
                          dump_attributes(itor2.second).c_str(),
-	             i);
-	         continue;
-	      }
-	    }
-	  }
+                 i);
+             continue;
+          }
+        }
+      }
       }
   }
     // otherwise, it's a statement
@@ -334,7 +334,7 @@ void p_struct (astree *s){
         id = c->children[1]->lexinfo;
         // if an incomplete structure is found, add it to hash
         if (!(struct_exists(s_name))){
-          symbol *placeholder = new symbol(c,0);   	  
+          symbol *placeholder = new symbol(c,0);         
           placeholder->attributes.set(static_cast<int>(attr::STRUCT));
           placeholder->sname = s_name;
           struct_t->emplace(s_name,placeholder); 
@@ -353,7 +353,7 @@ void p_struct (astree *s){
         id = c->children[1]->lexinfo;
         // if an incomplete structure is found, add it to hash
         if (!(struct_exists(s_name))){
-          symbol *placeholder = new symbol(c,0);   	  
+          symbol *placeholder = new symbol(c,0);         
           placeholder->attributes.set(static_cast<int>(attr::STRUCT));
           placeholder->sname = s_name;
           struct_t->emplace(s_name,placeholder); 
@@ -414,9 +414,9 @@ int matching_attrib(symbol *p, symbol *f){
          return 0;
       for (unsigned int i = 0 ; i< f->parameters->size(); i++){
         if (p->parameters->at(i)->sname != nullptr && 
-	    f->parameters->at(i)->sname != nullptr ) {
+        f->parameters->at(i)->sname != nullptr ) {
             if (strcmp(p->parameters->at(i)->sname->c_str(), 
-	               f->parameters->at(i)->sname->c_str()) != 0)
+                   f->parameters->at(i)->sname->c_str()) != 0)
               return 0;
         }
         attr_bitset pra = p->parameters->at(i)->attributes;
@@ -425,7 +425,7 @@ int matching_attrib(symbol *p, symbol *f){
         for (int j =0 ; j < static_cast<int>(attr::BITSET_SIZE); j++){
           if (pra[j] != fra[j]){
             return 0; 
-	      }
+          }
         }
       }
     }
@@ -506,7 +506,7 @@ void p_function (astree *s){
         f->attributes.set(static_cast<int>(attr::ARRAY));
         if (c->children[0]->children[0]->symbol == TOK_PTR){
           spname = c->children[0]->children[0]->children[0]->lexinfo;
-	      c->sname = f->sname = f_copy->sname = spname;
+          c->sname = f->sname = f_copy->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->children[0]->symbol;
           id = c->children[1]->lexinfo;
@@ -518,16 +518,16 @@ void p_function (astree *s){
       }
       else{
         if (c->children[0]->symbol == TOK_PTR){
-	      spname = c->children[0]->children[0]->lexinfo;
-	      c->sname = f->sname = f_copy->sname = spname;
-	      struct_valid(spname,f->lloc);
-	      t_code = c->children[0]->children[0]->symbol;
-	      id = c->children[1]->lexinfo;
+          spname = c->children[0]->children[0]->lexinfo;
+          c->sname = f->sname = f_copy->sname = spname;
+          struct_valid(spname,f->lloc);
+          t_code = c->children[0]->children[0]->symbol;
+          id = c->children[1]->lexinfo;
        }
-	   else{
+       else{
          t_code = c->children[0]->symbol;  
-	     id = c->children[1]->lexinfo;
-	   }
+         id = c->children[1]->lexinfo;
+       }
       }
 
       if (t_code == TOK_VOID){
@@ -560,22 +560,22 @@ void p_function (astree *s){
     if (global->find(fname)!=sym->fields->end()){
       if (global->find(fname)->second->attributes[static_cast<int>(attr::PROTOTYPE)]){
         // match params then emplace
-	    symbol* old = global->find(fname)->second;
-	    if (matching_attrib(old,sym)){
-	      global->erase(global->find(fname));
-	      delete old;
+        symbol* old = global->find(fname)->second;
+        if (matching_attrib(old,sym)){
+          global->erase(global->find(fname));
+          delete old;
           global->emplace(fname,sym);
           master->emplace(fname,block);
           current_function = fname;
-	      gen_table(s->children[2]);
-	      current = 0;
-	    }
-	    else {
+          gen_table(s->children[2]);
+          current = 0;
+        }
+        else {
               errprintf("nonmatching params for function %s: %zd.%zd.%zd\n",
                          fname->c_str(),
                          sym->lloc.filenr, sym->lloc.linenr,
                          sym->lloc.offset);
-	    }
+        }
       }
       else{ 
        errprintf("function %s defined multiple times: %zd.%zd.%zd\n",
@@ -1141,7 +1141,7 @@ void p_typeid(astree *s){
     if (local->find(vname)!=struct_t->end()){
       errprintf ("name %s already defined within block %d: "
                  "%zd.%zd.%zd\n",
-      	         vname->c_str(), current,
+                   vname->c_str(), current,
                  sym->lloc.filenr, sym->lloc.linenr,
                  sym->lloc.offset);
       delete (sym);
