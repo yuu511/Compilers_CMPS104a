@@ -1338,6 +1338,7 @@ void p_return (astree *s){
           s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
        }
    }
+   delete ret;
   }
 }
 
