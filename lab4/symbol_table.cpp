@@ -1233,6 +1233,7 @@ void p_return (astree *s){
   if (current == 0 || current_function == nullptr) {
     errprintf ("return called outside function %zd.%zd.%zd",
     s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
+    return;
   }
   symbol *func = global->find(current_function)->second;
   if (s->children.size() < 1){
