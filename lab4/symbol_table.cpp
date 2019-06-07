@@ -1249,14 +1249,14 @@ void p_typeid(astree *s){
       local->emplace(vname,sym);  
       s->attributes = sym->attributes;
       s->block_number = current;
-      s->lloc_orig = s->lloc;
+      s->lloc_orig = sym->lloc;
     }
     // is a global decl
     else {
       global->emplace(vname,sym);  
       s->attributes = sym->attributes;
       s->block_number = current;
-      s->lloc_orig = s->lloc;
+      s->lloc_orig = sym->lloc;
     }
     return;
   }
