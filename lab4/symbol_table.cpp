@@ -978,6 +978,7 @@ symbol *p_call(astree *s){
         errprintf ("incompatible types :%zd.%zd.%zd\n",
         s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
       }
+      delete args;
     }
   }
   else {
@@ -1255,9 +1256,6 @@ void p_typeid(astree *s){
       s->attributes = sym->attributes;
     }
     s->block_number = current;
-    s->lloc_orig.filenr = sym->lloc.filenr;
-    s->lloc_orig.linenr = sym->lloc.linenr;
-    s->lloc_orig.offset = sym->lloc.offset;
     return;
   }
   // has an assignment
@@ -1274,11 +1272,7 @@ void p_typeid(astree *s){
   else {
     global->emplace(vname,parsed);
   }
-  s->attributes = sym->attributes;
   s->block_number = current;
-  s->lloc_orig.filenr = sym->lloc.filenr;
-  s->lloc_orig.linenr = sym->lloc.linenr;
-  s->lloc_orig.offset = sym->lloc.offset;
 }
 
 void p_loop(astree *s){
