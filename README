@@ -4,4 +4,3 @@ lab1: C-Preprocessor
 lab2: Scanner
 lab3: Parser
 lab4: Symbol table and type checker
-lab5: intermediate code generation 

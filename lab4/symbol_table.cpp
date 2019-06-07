@@ -1248,16 +1248,16 @@ void p_typeid(astree *s){
       sym->attributes.set(static_cast<int>(attr::LOCAL));
       local->emplace(vname,sym);  
       s->attributes = sym->attributes;
-      s->block_number = current;
-      s->lloc_orig = sym->lloc;
     }
     // is a global decl
     else {
       global->emplace(vname,sym);  
       s->attributes = sym->attributes;
-      s->block_number = current;
-      s->lloc_orig = sym->lloc;
     }
+    s->block_number = current;
+    s->lloc_orig.filenr = sym->lloc.filenr;
+    s->lloc_orig.linenr = sym->lloc.linenr;
+    s->lloc_orig.offset = sym->lloc.offset;
     return;
   }
   // has an assignment
@@ -1276,7 +1276,9 @@ void p_typeid(astree *s){
   }
   s->attributes = sym->attributes;
   s->block_number = current;
-  s->lloc_orig = s->lloc;
+  s->lloc_orig.filenr = sym->lloc.filenr;
+  s->lloc_orig.linenr = sym->lloc.linenr;
+  s->lloc_orig.offset = sym->lloc.offset;
 }
 
 void p_loop(astree *s){
