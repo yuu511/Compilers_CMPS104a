@@ -18,7 +18,9 @@ unordered_map<const string*,symbol_table*> *master =
 new unordered_map<const string*,symbol_table*>;
 int current = 0;
 int next_block = 1;
+const string *current_function;
 symbol *p_expression(astree *s);
+
 
 symbol::symbol (astree* ast_, size_t block_nr_){
   attributes = ast_->attributes;  
@@ -558,32 +560,34 @@ void p_function (astree *s){
     if (global->find(fname)!=sym->fields->end()){
       if (global->find(fname)->second->attributes[static_cast<int>(attr::PROTOTYPE)]){
         // match params then emplace
-	symbol* old = global->find(fname)->second;
-	if (matching_attrib(old,sym)){
-	  global->erase(global->find(fname));
-	  delete old;
+	    symbol* old = global->find(fname)->second;
+	    if (matching_attrib(old,sym)){
+	      global->erase(global->find(fname));
+	      delete old;
           global->emplace(fname,sym);
           master->emplace(fname,block);
-	  gen_table(s->children[2]);
-	  current = 0;
-	}
-	else {
-          errprintf("nonmatching params for function %s: %zd.%zd.%zd\n",
-                     fname->c_str(),
-                     sym->lloc.filenr, sym->lloc.linenr,
-                     sym->lloc.offset);
-	}
+          current_function = fname;
+	      gen_table(s->children[2]);
+	      current = 0;
+	    }
+	    else {
+              errprintf("nonmatching params for function %s: %zd.%zd.%zd\n",
+                         fname->c_str(),
+                         sym->lloc.filenr, sym->lloc.linenr,
+                         sym->lloc.offset);
+	    }
       }
       else{ 
-        errprintf("function %s defined multiple times: %zd.%zd.%zd\n",
-                   fname->c_str(),
-                   sym->lloc.filenr, sym->lloc.linenr,
-                   sym->lloc.offset);
+       errprintf("function %s defined multiple times: %zd.%zd.%zd\n",
+                  fname->c_str(),
+                  sym->lloc.filenr, sym->lloc.linenr,
+                  sym->lloc.offset);
       }
     }
     else{
       global->emplace(fname,sym);
       master->emplace(fname,block);
+      current_function = fname;
       gen_table(s->children[2]);
       current = 0;
     }
@@ -598,6 +602,7 @@ void p_function (astree *s){
     else{
       sym->attributes.set(static_cast<int>(attr::PROTOTYPE));
       delete block;
+      current_function = fname;
       global->emplace(fname,sym);
     }
   }
@@ -653,11 +658,15 @@ symbol *p_assignment (astree *parent, symbol *left, symbol *right){
   symbol *ret = new symbol(parent,current);
   ret->attributes = left->attributes;
   if (left->attributes[a_lval]){
-    if (right->attributes[a_vreg]){
+    if (!(right->attributes[a_vaddr])){
       ret->attributes.set(a_vreg); 
     } else {
       ret->attributes.set(a_vaddr);
     }
+  } else {
+    errprintf ("assignment to non-lval: %zd.%zd.%zd\n",
+                left->lloc.filenr, left->lloc.linenr
+                , left->lloc.offset);
   }
   if (!compatible(left,right)){
     errprintf ("not compatible assignment: %zd.%zd.%zd\n",
@@ -696,12 +705,12 @@ symbol *p_binop(astree *s){
   int a_int = static_cast<int>(attr::INT); 
   int a_vreg = static_cast<int>(attr::VREG); 
   if (s->children.size() < 2)
-    errprintf ("p_binop called incorrectly: %zd.%zd.%zd",
+    errprintf ("p_binop called incorrectly: %zd.%zd.%zd\n",
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
   symbol *left = p_expression(s->children[0]);
   symbol *right = p_expression(s->children[1]);
   if (!(left->attributes[a_int] && right->attributes[a_int]))
-    errprintf ("type mismatch: math expr %zd.%zd.%zd",
+    errprintf ("type mismatch: math expr %zd.%zd.%zd\n",
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
   delete left;
   delete right;
@@ -716,7 +725,7 @@ symbol *p_unary(astree *s){
   int a_vreg = static_cast<int>(attr::VREG); 
   symbol *unary = p_expression(s->children[0]);
   if (!(unary->attributes[a_int]))
-    errprintf ("type mismatch: unary expr %zd.%zd.%zd",
+    errprintf ("type mismatch: unary expr %zd.%zd.%zd\n",
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
   unary->attributes.set(a_int);
   unary->attributes.set(a_vreg);
@@ -820,7 +829,7 @@ symbol *p_comp(astree *s){
   int a_vreg = static_cast<int>(attr::VREG); 
   symbol *sym = new symbol(s,current);
   if (s->children.size()<2){
-    errprintf("p_comp called incorrectly");
+    errprintf("p_comp called incorrectly\n");
   }
   symbol *left = p_expression(s->children[0]);
   symbol *right = p_expression(s->children[1]);
@@ -853,7 +862,7 @@ symbol *p_ident (astree *s){
 
   symbol *sym = new symbol (s,current);
   if (test == nullptr){
-    errprintf ( "ident %s not found in table: %zd.%zd.%zd",
+    errprintf ( "ident %s not found in table: %zd.%zd.%zd\n",
     name->c_str(),
     s->lloc.filenr,
     s->lloc.linenr,
@@ -864,6 +873,167 @@ symbol *p_ident (astree *s){
       sym->sname = test->sname;
     }
   }
+  return sym;
+}
+
+symbol *p_call(astree *s){
+  int a_void      = static_cast<int>(attr::VOID);
+  int a_int       = static_cast<int>(attr::INT);
+  int a_string    = static_cast<int>(attr::STRING);
+  int a_ptr       = static_cast<int>(attr::TYPEID);
+  int a_array     = static_cast<int>(attr::ARRAY);
+
+  const string *fname = s->children[0]->lexinfo;
+  symbol *ret = new symbol (s,current);
+  symbol *test = nullptr;
+  if (global->find(fname)!=struct_t->end()){
+    test = global->find(fname)->second;
+    if (test->parameters == nullptr){
+      if (s->children.size() != 1){
+        errprintf 
+        ("call err: %zd params expected, %zd recieved: %zd.%zd.%zd\n",
+         0,s->children.size()-1,
+         s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
+         return ret;
+      }
+    }
+    else {
+      if ((s->children.size() - 1) != test->parameters->size()){
+        errprintf 
+        ("call err: %zd params expected, %zd recieved: %zd.%zd.%zd\n",
+         test->parameters->size(),s->children.size()-1,
+         s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
+         return ret;
+      }
+    }
+    for (unsigned int i = 1; i< s->children.size(); i++){
+      symbol *args = p_expression(s->children[i]);
+      if (!(compatible(args,test->parameters->at(i-1)))){
+        errprintf ("incompatible types :%zd.%zd.%zd\n",
+        s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
+      }
+    }
+  }
+  else {
+    errprintf("function %s not found: %zd.%zd.%zd\n",
+               fname->c_str(),
+               s->lloc.filenr, s->lloc.linenr,
+               s->lloc.offset);
+  }
+  if (test != nullptr){
+    ret->attributes[a_void] = test->attributes[a_void];   
+    ret->attributes[a_int] = test->attributes[a_int];   
+    ret->attributes[a_string] = test->attributes[a_string];   
+    ret->attributes[a_ptr] = test->attributes[a_ptr];   
+    ret->attributes[a_array] = test->attributes[a_array];   
+    if (test->sname != nullptr){
+      ret->sname = test->sname;
+    }
+  }
+  return ret;
+}
+
+symbol *p_index(astree *s){
+ int a_array     = static_cast<int>(attr::ARRAY);
+ int a_string    = static_cast<int>(attr::STRING);
+ int a_int       = static_cast<int>(attr::INT);
+ int a_void      = static_cast<int>(attr::VOID);
+ int a_ptr       = static_cast<int>(attr::TYPEID);
+ int a_vaddr     = static_cast<int>(attr::VADDR);
+ int a_lval      = static_cast<int>(attr::LVAL);
+
+ symbol *ident = p_expression(s->children[0]);
+ if (ident != nullptr){
+   if (!(ident->attributes[a_array] ||
+         ident->attributes[a_string])){
+     errprintf (
+     "attempting to index something that" 
+     "is not a string or array :%zd.%zd.%zd\n",
+     s->lloc.filenr, s->lloc.linenr,
+     s->lloc.offset);
+   }
+ }
+
+ symbol *index = p_expression(s->children[1]); 
+ if (index !=nullptr){
+   if (!(index->attributes[a_int])){
+     errprintf (
+     "attempting to index with a non-" 
+     "int index :%zd.%zd.%zd\n",
+     s->lloc.filenr, s->lloc.linenr,
+     s->lloc.offset);
+   }
+ }
+
+ symbol *sym = new symbol(s,current);
+ if (ident->attributes[a_array]){
+   sym->attributes[a_void]   = ident->attributes[a_void];   
+   sym->attributes[a_int]    = ident->attributes[a_int];   
+   sym->attributes[a_ptr]    = ident->attributes[a_ptr];   
+   sym->attributes[a_string] = ident->attributes[a_string];   
+   if (ident->sname != nullptr){
+     sym->sname = ident->sname;
+   }
+ } else if (ident->attributes[a_string]){
+   sym->attributes.set(a_int); 
+ }
+ sym->attributes.set(a_vaddr);
+ sym->attributes.set(a_lval);
+ delete ident;
+ delete index;
+ return sym;
+}
+
+symbol *p_field (astree *s){
+ int a_array     = static_cast<int>(attr::ARRAY);
+ int a_string    = static_cast<int>(attr::STRING);
+ int a_int       = static_cast<int>(attr::INT);
+ int a_void      = static_cast<int>(attr::VOID);
+ int a_ptr       = static_cast<int>(attr::TYPEID);
+ int a_vaddr     = static_cast<int>(attr::VADDR);
+ int a_lval      = static_cast<int>(attr::LVAL);
+
+ symbol *ident   = p_expression(s->children[0]);
+ const string *field_name = s->children[1]->lexinfo;
+ symbol *sym = new symbol (s,current);
+  if (ident->attributes[a_ptr] && ident->sname !=nullptr){
+    if (struct_valid(ident->sname,sym->lloc)){
+      symbol *found_struct = struct_t->find(ident->sname)->second; 
+      if (found_struct->fields !=nullptr){
+        if ( found_struct->fields->find(field_name) !=
+             found_struct->fields->end()){
+          symbol *found_field = 
+          found_struct->fields->find(field_name)->second;
+          sym->attributes[a_void]   = 
+            found_field->attributes[a_void];   
+          sym->attributes[a_int]    = 
+            found_field->attributes[a_int];   
+          sym->attributes[a_ptr]    = 
+            found_field->attributes[a_ptr];   
+          sym->attributes[a_array]  = 
+            found_field->attributes[a_array];   
+          sym->attributes[a_string] = 
+            found_field->attributes[a_string];   
+          if (found_field->sname != nullptr){
+            sym->sname = found_field->sname;
+          }
+        }
+        else {
+          errprintf (
+          "request for field %s not found in struct %s: %zd.%zd.%zd\n",
+            field_name->c_str(),ident->sname->c_str(),
+            sym->lloc.filenr, sym->lloc.linenr, sym->lloc.offset);
+        }
+      }
+    }
+  } else {
+  errprintf ("field called on non-struct : %zd.%zd.%zd",
+             sym->lloc.filenr, sym->lloc.linenr, sym->lloc.offset);
+
+  }
+  sym->attributes.set(a_vaddr);
+  sym->attributes.set(a_lval);
+  delete ident;
   return sym;
 }
 
@@ -894,15 +1064,29 @@ symbol *p_expression(astree *s){
     case '+':
     case '-':
       return p_overload(s);
+      break;
     case '=':
       return p_eq(s);
+      break;
     case TOK_ALLOC:
       return p_alloc(s);
+      break;
     case TOK_EQ:
     case TOK_NE:
       return p_comp(s);
+      break;
     case TOK_IDENT:
       return p_ident(s);
+      break;
+    case TOK_CALL:
+      return p_call(s);
+      break;
+    case TOK_INDEX:
+      return p_index(s);
+      break;
+    case TOK_ARROW:
+      return p_field(s);
+      break;
   }
   return nullptr;
 }
@@ -949,6 +1133,7 @@ void p_typeid(astree *s){
                  s->lloc.offset);
   }
   sym->attributes.set(type_enum(ret));
+  
 
   // check for existence in local or global tables
   // depending on current scope.
@@ -1014,7 +1199,7 @@ void p_typeid(astree *s){
   }
 }
 
-void p_if(astree *s){
+void p_loop(astree *s){
   int a_int = static_cast<int>(attr::INT);
   int a_nullptr = static_cast<int>(attr::NULLPTR_T);
   int a_typeid = static_cast<int>(attr::TYPEID);
@@ -1031,6 +1216,45 @@ void p_if(astree *s){
   // return the rest of the args to main function control
   for (unsigned int i = 1; i<s->children.size(); i++){
     gen_table(s->children[i]);   
+  }
+}
+
+void p_return (astree *s){
+   int a_array     = static_cast<int>(attr::ARRAY);
+   int a_string    = static_cast<int>(attr::STRING);
+   int a_int       = static_cast<int>(attr::INT);
+   int a_ptr       = static_cast<int>(attr::TYPEID);
+   int a_void      = static_cast<int>(attr::VOID);
+  if (current == 0 || current_function == nullptr) {
+    errprintf ("return called outside function %zd.%zd.%zd",
+    s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
+  }
+  symbol *func = global->find(current_function)->second;
+  if (s->children.size() < 1){
+    if (!(func->attributes[a_void])){
+      errprintf (
+      "return value mismatch : %zd.%zd.%zd\n",
+       s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
+    }
+    return;
+  }
+  symbol *ret = p_expression(s->children[0]);
+  if (ret != nullptr){
+    if (
+      func->attributes[a_array] != ret->attributes[a_array] ||
+      func->attributes[a_string] != ret->attributes[a_string] || 
+      func->attributes[a_int] != ret->attributes[a_int] || 
+      func->attributes[a_ptr] != ret->attributes[a_ptr]){
+      errprintf (
+      "return value mismatch : %zd.%zd.%zd\n",
+       s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
+     if (func->sname != nullptr && ret->sname !=nullptr)
+       if (func -> sname != ret->sname ){
+         errprintf (
+         "struct return value mismatch : %zd.%zd.%zd\n",
+          s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
+       }
+   }
   }
 }
 
@@ -1055,7 +1279,11 @@ void gen_table(astree *s){
       return p_typeid(s);
       break;
     case TOK_IF:
-      p_if(s);
+    case TOK_WHILE:
+      p_loop(s);
+      break;
+    case TOK_RETURN:
+      p_return(s);
       break;
     default:
       symbol *sym  = p_expression(s);
