@@ -727,6 +727,8 @@ symbol *p_assignment (astree *parent, symbol *left, symbol *right){
     ret->sname = left->sname;
   delete left;  
   delete right;
+  parent->block_number = left->block_nr;
+  parent->attributes = left->attributes;
   return ret;
 }
 
@@ -734,6 +736,8 @@ symbol *p_INTCON(astree *s){
   symbol *sym = new symbol(s,current);
   sym->attributes.set(static_cast<int>(attr::INT));
   sym->attributes.set(static_cast<int>(attr::CONST));
+  s-> block_number = sym->block_nr;
+  s-> attributes = sym->attributes;
   return sym;
 }
 
@@ -741,6 +745,8 @@ symbol *p_STRINGCON(astree *s){
   symbol *sym = new symbol(s,current);
   sym->attributes.set(static_cast<int>(attr::STRING));
   sym->attributes.set(static_cast<int>(attr::CONST));
+  s-> block_number = sym->block_nr;
+  s-> attributes = sym->attributes;
   return sym;
 }
 
@@ -748,6 +754,8 @@ symbol *p_NULLPTR(astree *s){
   symbol *sym = new symbol(s,current);
   sym->attributes.set(static_cast<int>(attr::NULLPTR_T));
   sym->attributes.set(static_cast<int>(attr::CONST));
+  s-> block_number = sym->block_nr;
+  s-> attributes = sym->attributes;
   return sym;
 }
 
@@ -767,6 +775,8 @@ symbol *p_binop(astree *s){
   symbol *ret = new symbol (s,current);
   ret->attributes.set(a_int);
   ret->attributes.set(a_vreg);
+  s-> block_number = ret->block_nr;
+  s-> attributes =   ret->attributes;
   return ret;
 }
 
@@ -779,6 +789,8 @@ symbol *p_unary(astree *s){
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
   unary->attributes.set(a_int);
   unary->attributes.set(a_vreg);
+  s-> block_number = unary->block_nr;
+  s-> attributes =   unary->attributes;
   return unary;
 }
 
@@ -871,6 +883,8 @@ symbol *p_alloc(astree *s){
       delete eval;
     }
   }
+  s-> block_number = sym->block_nr;
+  s-> attributes =   sym->attributes;
   return sym;
 }
 
@@ -891,6 +905,8 @@ symbol *p_comp(astree *s){
   }
   sym->attributes.set(a_int);
   sym->attributes.set(a_vreg);
+  s-> block_number = sym->block_nr;
+  s-> attributes =   sym->attributes;
   delete left;
   delete right;
   return sym;
@@ -921,6 +937,8 @@ symbol *p_ident (astree *s){
       sym->sname = test->sname;
     }
   }
+  s-> block_number = sym->block_nr;
+  s-> attributes =   sym->attributes;
   return sym;
 }
 
