@@ -1,7 +1,11 @@
+function2 (5.188.1) {1} int function 
+   mami (5.188.16) {2} int variable param lval 0
+   homura (5.188.26) {2} string variable param lval 1
+
+board (5.180.1) {0} int array variable lval vreg 
+
 is_safe (5.182.1) {0} int function 
    newcol (5.182.14) {1} int variable param lval 0
    col (5.183.3) {1} int variable local lval vreg 1
    diagonal (5.184.3) {1} int variable local lval vreg 2
-
-board (5.180.1) {0} int array variable lval vreg 
 
