@@ -167,14 +167,14 @@ int main (int argc, char** argv) {
    // dump the hashed tokenset to file.
    string_set::dump(strfp);
 
-   // dump the astree
-   astree::draw(astfp,parser::root);
-
    // generate the symbol table
    gen_table(parser::root);
 
    // dump all tables
    dump_all_tables(symfp);
+
+   // dump the astree
+   astree::draw_attrib(astfp,parser::root);
 
    // personal debug flag 
    if (a_debug)

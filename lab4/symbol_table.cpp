@@ -441,6 +441,7 @@ void p_function (astree *s){
   current = next_block; 
   next_block++;
   sym->attributes.set(static_cast<int>(attr::FUNCTION));
+  s->attributes.set(static_cast<int>(attr::FUNCTION));
   int ret;
   const string *fname;
   const string *sname;
@@ -453,6 +454,7 @@ void p_function (astree *s){
   // and type code accordingly.
   if (ref->children[0]->symbol == TOK_ARRAY){
     sym->attributes.set(static_cast<int>(attr::ARRAY));
+    s->attributes.set(static_cast<int>(attr::ARRAY));
     if (ref->children[0]->children[0]->symbol == TOK_PTR){
       sname = ref->children[0]->children[0]->children[0]->lexinfo;
       s->sname = sym->sname = sname;
@@ -478,10 +480,14 @@ void p_function (astree *s){
       fname = ref->children[1]->lexinfo;
     }
   }
-  if (ret == TOK_VOID)
+  if (ret == TOK_VOID){
     sym->attributes.set(static_cast<int>(attr::VOID));
-  else 
+    s->attributes.set(static_cast<int>(attr::VOID));
+  }
+  else {
     sym->attributes.set(type_enum(ret));
+    s->attributes.set(type_enum(ret));
+  }
 
   symbol_table *block = new symbol_table;
   local = block;
@@ -504,6 +510,7 @@ void p_function (astree *s){
       // and type code accordingly.
       if (c->children[0]->symbol == TOK_ARRAY){
         f->attributes.set(static_cast<int>(attr::ARRAY));
+        c->children[0]->attributes.set(static_cast<int>(attr::ARRAY));
         if (c->children[0]->children[0]->symbol == TOK_PTR){
           spname = c->children[0]->children[0]->children[0]->lexinfo;
           c->sname = f->sname = f_copy->sname = spname;
@@ -537,12 +544,19 @@ void p_function (astree *s){
       }
       f->attributes.set(static_cast<int>(attr::LVAL));
       f_copy->attributes.set(static_cast<int>(attr::LVAL));
+      c->attributes.set(static_cast<int>(attr::LVAL));
+
       f->attributes.set(static_cast<int>(attr::VARIABLE));
       f_copy->attributes.set(static_cast<int>(attr::VARIABLE));
+      c->attributes.set(static_cast<int>(attr::VARIABLE));
+
       f->attributes.set(static_cast<int>(attr::PARAM));
       f_copy->attributes.set(static_cast<int>(attr::PARAM));
+      c->attributes.set(static_cast<int>(attr::PARAM));
+
       f->attributes.set(type_enum(t_code));
       f_copy->attributes.set(type_enum(t_code));
+      c->attributes.set(type_enum(t_code));
       if (block->find(id)!=sym->fields->end()){
         errprintf("%s defined multiple times in func %s :%zd.%zd.%zd\n",
                    spname->c_str(), fname->c_str(),
@@ -603,6 +617,7 @@ void p_function (astree *s){
     }
     else{
       sym->attributes.set(static_cast<int>(attr::PROTOTYPE));
+      s->attributes.set(static_cast<int>(attr::PROTOTYPE));
       for (auto itor: *block){
         delete itor.second; 
       }

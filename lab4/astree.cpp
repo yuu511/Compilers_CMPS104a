@@ -11,6 +11,8 @@
 #include "string_set.h"
 #include "lyutils.h"
 
+string dump_ast_attrib(astree *sym);
+
 astree::astree (int symbol_, const location& lloc_, const char* info, 
                 attr_bitset attributes_, int block_number_, 
                 symbol_table* struct_ptr_,const string* sname_) {
@@ -98,6 +100,23 @@ void astree::draw (FILE* outfile, astree* tree, int depth) {
    }
 }
 
+void astree::draw_attrib (FILE* outfile, astree* tree, int depth) {
+   string s = "";
+   s = dump_ast_attrib(tree);
+   const char *tname = parser::get_tname (tree->symbol);
+   if (strstr (tname,"TOK_") == tname) tname +=4;
+   fprintf (outfile, "%s \"%s\" %zd.%zd.%zd"
+            " {%d} %s %zd.%zd.%zd\n",
+            tname, tree->lexinfo->c_str(),
+            tree->lloc.filenr, tree->lloc.linenr, tree->lloc.offset,
+            tree->block_number, s.c_str(),
+            tree->lloc_orig.filenr, tree->lloc_orig.linenr, 
+            tree->lloc_orig.offset);
+   for (astree* child: tree->children) {
+      astree::draw_attrib (outfile, child, depth + 1);
+   }
+}
+
 void destroy (astree* tree1, astree* tree2) {
    if (tree1 != nullptr) delete tree1;
    if (tree2 != nullptr) delete tree2;
@@ -113,3 +132,70 @@ void errllocprintf (const location& lloc, const char* format,
               buffer);
 }
 
+string dump_ast_attrib(astree *sym){
+  attr_bitset a = sym->attributes;
+  string st;
+  for (size_t i = 0; i<a.size();i++){
+    if (a[i]){
+      switch(i) {
+        case static_cast<int>(attr::VOID):
+          st.append ("void ");
+          break;
+        case static_cast<int>(attr::INT):
+          st.append ("int ");
+          break;
+        case static_cast<int>(attr::NULLPTR_T):
+          st.append ("nullptr_t ");
+          break;
+        case static_cast<int>(attr::STRING):
+          st.append ("string ");
+          break;
+        case static_cast<int>(attr::STRUCT):
+          st.append ("struct ");
+          if (sym -> sname !=nullptr){
+            st.append (sym->sname->c_str());
+            st.append (" ");
+          }
+          break;
+        case static_cast<int>(attr::ARRAY):
+          st.append ("array ");
+          break;
+        case static_cast<int>(attr::FUNCTION):
+          st.append ("function ");
+          break;
+        case static_cast<int>(attr::VARIABLE):
+          st.append ("variable ");
+          break;
+        case static_cast<int>(attr::FIELD):
+          st.append ("field ");
+          break;
+        case static_cast<int>(attr::TYPEID):
+          st.append ("struct ");
+          if (sym -> sname !=nullptr){
+            st.append (sym->sname->c_str());
+            st.append (" ");
+          }
+          break;
+        case static_cast<int>(attr::PARAM):
+          st.append ("param ");
+          break;
+        case static_cast<int>(attr::LOCAL):
+          st.append ("local ");
+          break;
+        case static_cast<int>(attr::LVAL):
+          st.append ("lval ");
+          break;
+        case static_cast<int>(attr::CONST):
+          st.append ("const ");
+          break;
+        case static_cast<int>(attr::VREG):
+          st.append ("vreg ");
+          break;
+        case static_cast<int>(attr::VADDR):
+          st.append ("vaddr ");
+          break;
+      }
+    }
+  }
+  return st;
+}

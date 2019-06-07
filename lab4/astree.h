@@ -42,6 +42,7 @@ struct astree {
    attr_bitset attributes;
    int block_number;
    symbol_table* struct_ptr;   
+   location lloc_orig;           
 
    // Functions.
    astree (int symbol, const location&, const char* lexinfo,
@@ -54,9 +55,12 @@ struct astree {
    void dump_node (FILE*);
    void dump_tree (FILE*, int depth = 0);
    static void dump (FILE* outfile, astree* tree);
+   //asg2
    static void print (FILE* outfile, astree* tree, int depth = 0);
+   //asg3
    static void draw (FILE* outfile, astree* tree, int depth = 0);
-
+   //asg4
+   static void draw_attrib (FILE* outfile, astree* tree, int depth = 0);
 };
 
 
