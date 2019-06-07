@@ -536,7 +536,8 @@ void p_function (astree *s){
           c->sname = f->sname = f_copy->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->children[0]->symbol;
-          c->children[0]->children[0]->children[0]->block_number = current;
+          c->children[0]->children[0]->children[0]->block_number 
+          = current;
           id = c->children[1]->lexinfo;
         }
         else{
@@ -1151,10 +1152,15 @@ void p_typeid(astree *s){
     sym->attributes.set(static_cast<int>(attr::ARRAY));
     if (s->children[0]->children[0]->symbol == TOK_PTR){
       sname = s->children[0]->children[0]->children[0]->lexinfo;
+      s->children[0]->children[0]->children[0]->block_number =
+      current;
       s->sname = sym->sname = sname;
       struct_valid(sname,sym->lloc);
       ret = s->children[0]->children[0]->children[0]->symbol;
+      s->children[0]->children[0]->children[0]->block_number =
+      current;
       vname = s->children[1]->lexinfo;
+      s->children[1]->block_number = current;
     }
     else{
       ret = s->children[0]->children[0]->symbol;  
@@ -1223,10 +1229,16 @@ void p_typeid(astree *s){
       sym->sequence = local->size();
       sym->attributes.set(static_cast<int>(attr::LOCAL));
       local->emplace(vname,sym);  
+      s->attributes = sym->attributes;
+      s->block_number = current;
+      s->lloc_orig = s->lloc;
     }
     // is a global decl
     else {
       global->emplace(vname,sym);  
+      s->attributes = sym->attributes;
+      s->block_number = current;
+      s->lloc_orig = s->lloc;
     }
     return;
   }
@@ -1244,6 +1256,9 @@ void p_typeid(astree *s){
   else {
     global->emplace(vname,parsed);
   }
+  s->attributes = sym->attributes;
+  s->block_number = current;
+  s->lloc_orig = s->lloc;
 }
 
 void p_loop(astree *s){
