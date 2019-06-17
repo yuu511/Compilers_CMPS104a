@@ -148,9 +148,36 @@
 //   return n;
 // }
 
-douzou[5] = 5;
+// douzou[5] = 5;
+// 
+// while (n != 1 ) {
+//   if (n%2 == 0) n = n/2;
+//   else n= n*3 + 1;
+// }
 
-while (n != 1 ) {
-  if (n%2 == 0) n = n/2;
-  else n= n*3 + 1;
+// struct node {
+//   int n;
+//   ptr <struct node> link;
+// };
+// 
+// int length (ptr <struct node> p){
+//   int n = 0;
+//   while (p!= null){
+//     int n = n + 1;
+//     p = p->link;
+//   }
+//   return n;
+// }
+
+int fib (int n ) {
+  int a = 0;
+  int b = 1;
+  while (n > 0){
+    int c =a + b;
+    a = b;
+    b = c;
+    n = n-1;
+  }
+  return a;
+
 }
