@@ -1,4 +1,4 @@
-Compiler for the oc language, which is largely based off of c++.
+Compiler for the fictuous oc language, which is mostly a subset of c++.
 Built in c++,with GNU toolchain (Flex + Bison).
 lab1: C-Preprocessor
 lab2: Scanner
