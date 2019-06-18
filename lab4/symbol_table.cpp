@@ -225,21 +225,21 @@ void print_map(FILE* out, symbol_table *sym){
       // print out the associated block ( if any )
       if ((master->find(itor.first))!=master->end()){
         symbol_table *block = master->find(itor.first)->second;
-      for (size_t i = 0; i < block->size(); i++){
-        for (auto itor2: *block){
-           if (itor2.second->sequence == i){
-                 fprintf(out,"   %s (%zd.%zd.%zd) {%zd} %s%zd\n",
-                         itor2.first->c_str(), 
-                         itor2.second->lloc.filenr,
-                         itor2.second->lloc.linenr,
-                         itor2.second->lloc.offset,
-                         itor2.second-> block_nr,
-                         dump_attributes(itor2.second).c_str(),
-                 i);
-             continue;
+        for (size_t i = 0; i < block->size(); i++){
+          for (auto itor2: *block){
+             if (itor2.second->sequence == i){
+                   fprintf(out,"   %s (%zd.%zd.%zd) {%zd} %s%zd\n",
+                           itor2.first->c_str(), 
+                           itor2.second->lloc.filenr,
+                           itor2.second->lloc.linenr,
+                           itor2.second->lloc.offset,
+                           itor2.second-> block_nr,
+                           dump_attributes(itor2.second).c_str(),
+                   i);
+               continue;
+            }
           }
         }
-      }
       }
   }
     // otherwise, it's a statement
@@ -455,7 +455,6 @@ void p_function (astree *s){
   // and type code accordingly.
   if (ref->children[0]->symbol == TOK_ARRAY){
     sym->attributes.set(static_cast<int>(attr::ARRAY));
-    s->attributes.set(static_cast<int>(attr::ARRAY));
     if (ref->children[0]->children[0]->symbol == TOK_PTR){
       sname = ref->children[0]->children[0]->children[0]->lexinfo;
       ref->children[0]->children[0]->children[0]->block_number =
@@ -499,11 +498,9 @@ void p_function (astree *s){
   }
   if (ret == TOK_VOID){
     sym->attributes.set(static_cast<int>(attr::VOID));
-    s->attributes.set(static_cast<int>(attr::VOID));
   }
   else {
     sym->attributes.set(type_enum(ret));
-    s->attributes.set(type_enum(ret));
   }
 
   symbol_table *block = new symbol_table;
@@ -515,7 +512,6 @@ void p_function (astree *s){
     sym->parameters = new vector<symbol*>();
     for (unsigned int i = 0; i < s->children[1]->children.size(); i++){
       astree *c = s->children[1]->children[i];
-      c->block_number = current;
       symbol *f = new symbol(c,current); 
       symbol *f_copy = new symbol(c,current);
       int t_code;
@@ -528,11 +524,8 @@ void p_function (astree *s){
       // and type code accordingly.
       if (c->children[0]->symbol == TOK_ARRAY){
         f->attributes.set(static_cast<int>(attr::ARRAY));
-        c->children[0]->attributes.set(static_cast<int>(attr::ARRAY));
         if (c->children[0]->children[0]->symbol == TOK_PTR){
           spname = c->children[0]->children[0]->children[0]->lexinfo;
-          c->children[0]->children[0]->children[0]->block_number
-          = current;
           c->sname = f->sname = f_copy->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->children[0]->symbol;
@@ -542,15 +535,12 @@ void p_function (astree *s){
         }
         else{
           t_code = c->children[0]->children[0]->symbol;  
-          c->children[0]->children[0]->block_number = current;
           id = c->children[1]->lexinfo;
-          c->children[1]->block_number = current;
         }
       }
       else{
         if (c->children[0]->symbol == TOK_PTR){
           spname = c->children[0]->children[0]->lexinfo;
-          c->children[0]->children[0]->block_number = current;
           c->sname = f->sname = f_copy->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->symbol;
@@ -559,9 +549,7 @@ void p_function (astree *s){
        }
        else{
          t_code = c->children[0]->symbol;  
-         c->children[0]->block_number = current;
          id = c->children[1]->lexinfo;
-         c->children[1]->block_number = current;
        }
       }
 
@@ -572,19 +560,15 @@ void p_function (astree *s){
       }
       f->attributes.set(static_cast<int>(attr::LVAL));
       f_copy->attributes.set(static_cast<int>(attr::LVAL));
-      c->attributes.set(static_cast<int>(attr::LVAL));
 
       f->attributes.set(static_cast<int>(attr::VARIABLE));
       f_copy->attributes.set(static_cast<int>(attr::VARIABLE));
-      c->attributes.set(static_cast<int>(attr::VARIABLE));
 
       f->attributes.set(static_cast<int>(attr::PARAM));
       f_copy->attributes.set(static_cast<int>(attr::PARAM));
-      c->attributes.set(static_cast<int>(attr::PARAM));
 
       f->attributes.set(type_enum(t_code));
       f_copy->attributes.set(type_enum(t_code));
-      c->attributes.set(type_enum(t_code));
       if (block->find(id)!=sym->fields->end()){
         errprintf("%s defined multiple times in func %s :%zd.%zd.%zd\n",
                    spname->c_str(), fname->c_str(),
@@ -669,14 +653,8 @@ int is_a_reference(symbol *sym){
 }
 
 int compatible(symbol *l,symbol *r){
-  int a_void      = static_cast<int>(attr::VOID);
-  int a_int       = static_cast<int>(attr::INT);
-  int a_string    = static_cast<int>(attr::STRING);
-  int a_ptr       = static_cast<int>(attr::TYPEID);
-  int a_array     = static_cast<int>(attr::ARRAY);
-  int a_nullptr_t = static_cast<int>(attr::NULLPTR_T);
-  if (is_a_reference(l) && !(l->attributes[a_nullptr_t]) ){
-    if (r->attributes[a_nullptr_t]){
+  if (is_a_reference(l) && !(l->attributes[static_cast<int>(attr::NULLPTR_T)]) ){
+    if (r->attributes[static_cast<int>(attr::NULLPTR_T)]){
       return 1;
     }
   }
@@ -691,27 +669,24 @@ int compatible(symbol *l,symbol *r){
   attr_bitset left = l->attributes;
   attr_bitset right = r->attributes;
 
-  if (left[a_void]   == right[a_void]   &&
-      left[a_int]    == right[a_int]    &&
-      left[a_string] == right[a_string] &&
-      left[a_ptr]    == right[a_ptr]    &&
-      left[a_array]  == right[a_array] ){
+  if (left[static_cast<int>(attr::VOID)]   == right[static_cast<int>(attr::VOID)]   &&
+      left[static_cast<int>(attr::INT)]    == right[static_cast<int>(attr::INT)]    &&
+      left[static_cast<int>(attr::STRING)] == right[static_cast<int>(attr::STRING)] &&
+      left[static_cast<int>(attr::TYPEID)] == right[static_cast<int>(attr::TYPEID)]    &&
+      left[static_cast<int>(attr::ARRAY)]  == right[static_cast<int>(attr::ARRAY)] ){
         return 1;
   }
  return 0; 
 }
 
 symbol *p_assignment (astree *parent, symbol *left, symbol *right){
-  int a_lval = static_cast<int>(attr::LVAL);
-  int a_vreg = static_cast<int>(attr::VREG);
-  int a_vaddr = static_cast<int>(attr::VADDR);
   symbol *ret = new symbol(parent,current);
   ret->attributes = left->attributes;
-  if (left->attributes[a_lval]){
-    if (!(right->attributes[a_vaddr])){
-      ret->attributes.set(a_vreg); 
+  if (left->attributes[static_cast<int>(attr::LVAL)]){
+    if (!(right->attributes[static_cast<int>(attr::VADDR)])){
+      ret->attributes.set(static_cast<int>(attr::VREG)); 
     } else {
-      ret->attributes.set(a_vaddr);
+      ret->attributes.set(static_cast<int>(attr::VADDR));
     }
   } else {
     errprintf ("assignment to non-lval: %zd.%zd.%zd\n",
@@ -736,8 +711,6 @@ symbol *p_INTCON(astree *s){
   symbol *sym = new symbol(s,current);
   sym->attributes.set(static_cast<int>(attr::INT));
   sym->attributes.set(static_cast<int>(attr::CONST));
-  s-> block_number = sym->block_nr;
-  s-> attributes = sym->attributes;
   return sym;
 }
 
@@ -745,8 +718,6 @@ symbol *p_STRINGCON(astree *s){
   symbol *sym = new symbol(s,current);
   sym->attributes.set(static_cast<int>(attr::STRING));
   sym->attributes.set(static_cast<int>(attr::CONST));
-  s-> block_number = sym->block_nr;
-  s-> attributes = sym->attributes;
   return sym;
 }
 
@@ -754,43 +725,33 @@ symbol *p_NULLPTR(astree *s){
   symbol *sym = new symbol(s,current);
   sym->attributes.set(static_cast<int>(attr::NULLPTR_T));
   sym->attributes.set(static_cast<int>(attr::CONST));
-  s-> block_number = sym->block_nr;
-  s-> attributes = sym->attributes;
   return sym;
 }
 
 symbol *p_binop(astree *s){
-  int a_int = static_cast<int>(attr::INT); 
-  int a_vreg = static_cast<int>(attr::VREG); 
   if (s->children.size() < 2)
     errprintf ("p_binop called incorrectly: %zd.%zd.%zd\n",
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
   symbol *left = p_expression(s->children[0]);
   symbol *right = p_expression(s->children[1]);
-  if (!(left->attributes[a_int] && right->attributes[a_int]))
+  if (!(left->attributes[static_cast<int>(attr::INT)] && right->attributes[static_cast<int>(attr::INT)]))
     errprintf ("type mismatch: math expr %zd.%zd.%zd\n",
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
   delete left;
   delete right;
   symbol *ret = new symbol (s,current);
-  ret->attributes.set(a_int);
-  ret->attributes.set(a_vreg);
-  s-> block_number = ret->block_nr;
-  s-> attributes =   ret->attributes;
+  ret->attributes.set(static_cast<int>(attr::INT));
+  ret->attributes.set(static_cast<int>(attr::VREG));
   return ret;
 }
 
 symbol *p_unary(astree *s){
-  int a_int = static_cast<int>(attr::INT); 
-  int a_vreg = static_cast<int>(attr::VREG); 
   symbol *unary = p_expression(s->children[0]);
-  if (!(unary->attributes[a_int]))
+  if (!(unary->attributes[static_cast<int>(attr::INT)]))
     errprintf ("type mismatch: unary expr %zd.%zd.%zd\n",
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
-  unary->attributes.set(a_int);
-  unary->attributes.set(a_vreg);
-  s-> block_number = unary->block_nr;
-  s-> attributes =   unary->attributes;
+  unary->attributes.set(static_cast<int>(attr::INT));
+  unary->attributes.set(static_cast<int>(attr::VREG));
   return unary;
 }
 
@@ -811,18 +772,12 @@ symbol *p_eq(astree *s){
 }
 
 symbol *p_alloc(astree *s){
-  int a_typeid = static_cast<int>(attr::TYPEID); 
-  int a_vreg = static_cast<int>(attr::VREG); 
-  int a_string = static_cast<int>(attr::STRING); 
-  int a_array = static_cast<int>(attr::ARRAY); 
-  int a_int = static_cast<int>(attr::INT); 
-
   symbol *sym = new symbol (s,current);
   if (s->children.size() == 1){
     if(struct_valid(s->children[0]->lexinfo,s->lloc)){
       sym->sname = s->children[0]->lexinfo;
-      sym->attributes.set(a_typeid);
-      sym->attributes.set(a_vreg);
+      sym->attributes.set(static_cast<int>(attr::TYPEID));
+      sym->attributes.set(static_cast<int>(attr::VREG));
     }
     else {
       errprintf("nonexistent struct referenced: %s: (%zd.%zd.%zd)\n",
@@ -836,7 +791,7 @@ symbol *p_alloc(astree *s){
   else {
     if (s->children[0]->symbol == TOK_ARRAY){
       symbol *eval = p_expression(s->children[1]);
-      if (!(eval->attributes[a_int])){
+      if (!(eval->attributes[static_cast<int>(attr::INT)])){
         errprintf("expr not an int: (%zd.%zd.%zd)\n",
                    s->lloc.filenr,
                    s->lloc.linenr,
@@ -854,7 +809,7 @@ symbol *p_alloc(astree *s){
         if (struct_valid(s->
             children[0]->children[0]->children[0]->lexinfo,
             s->lloc)){
-           sym->attributes.set(a_typeid); 
+           sym->attributes.set(static_cast<int>(attr::TYPEID)); 
            sym->sname = 
            s->children[0]->children[0]->children[0]->lexinfo;
         }
@@ -866,31 +821,27 @@ symbol *p_alloc(astree *s){
                      s->lloc.offset);
         }
       }
-      sym->attributes.set(a_array);
+      sym->attributes.set(static_cast<int>(attr::ARRAY));
       sym->attributes.set(type_enum(base));
       delete eval;
     }
     else {
       symbol *eval = p_expression(s->children[1]);
-      if (!(eval->attributes[a_int])){
+      if (!(eval->attributes[static_cast<int>(attr::INT)])){
         errprintf("expr not an int: (%zd.%zd.%zd)\n",
                    s->lloc.filenr,
                    s->lloc.linenr,
                    s->lloc.offset);
       }
-      sym->attributes.set(a_string);
-      sym->attributes.set(a_vreg);
+      sym->attributes.set(static_cast<int>(attr::STRING));
+      sym->attributes.set(static_cast<int>(attr::VREG));
       delete eval;
     }
   }
-  s-> block_number = sym->block_nr;
-  s-> attributes =   sym->attributes;
   return sym;
 }
 
 symbol *p_comp(astree *s){
-  int a_int = static_cast<int>(attr::INT); 
-  int a_vreg = static_cast<int>(attr::VREG); 
   symbol *sym = new symbol(s,current);
   if (s->children.size()<2){
     errprintf("p_comp called incorrectly\n");
@@ -903,10 +854,8 @@ symbol *p_comp(astree *s){
                s->lloc.linenr,
                s->lloc.offset);
   }
-  sym->attributes.set(a_int);
-  sym->attributes.set(a_vreg);
-  s-> block_number = sym->block_nr;
-  s-> attributes =   sym->attributes;
+  sym->attributes.set(static_cast<int>(attr::INT));
+  sym->attributes.set(static_cast<int>(attr::VREG));
   delete left;
   delete right;
   return sym;
@@ -937,18 +886,10 @@ symbol *p_ident (astree *s){
       sym->sname = test->sname;
     }
   }
-  s-> block_number = sym->block_nr;
-  s-> attributes =   sym->attributes;
   return sym;
 }
 
 symbol *p_call(astree *s){
-  int a_void      = static_cast<int>(attr::VOID);
-  int a_int       = static_cast<int>(attr::INT);
-  int a_string    = static_cast<int>(attr::STRING);
-  int a_ptr       = static_cast<int>(attr::TYPEID);
-  int a_array     = static_cast<int>(attr::ARRAY);
-
   const string *fname = s->children[0]->lexinfo;
   symbol *ret = new symbol (s,current);
   symbol *test = nullptr;
@@ -988,11 +929,11 @@ symbol *p_call(astree *s){
                s->lloc.offset);
   }
   if (test != nullptr){
-    ret->attributes[a_void] = test->attributes[a_void];   
-    ret->attributes[a_int] = test->attributes[a_int];   
-    ret->attributes[a_string] = test->attributes[a_string];   
-    ret->attributes[a_ptr] = test->attributes[a_ptr];   
-    ret->attributes[a_array] = test->attributes[a_array];   
+    ret->attributes[static_cast<int>(attr::VOID)] = test->attributes[static_cast<int>(attr::VOID)];   
+    ret->attributes[static_cast<int>(attr::INT)] = test->attributes[static_cast<int>(attr::INT)];   
+    ret->attributes[static_cast<int>(attr::STRING)] = test->attributes[static_cast<int>(attr::STRING)];   
+    ret->attributes[static_cast<int>(attr::TYPEID)] = test->attributes[static_cast<int>(attr::TYPEID)];   
+    ret->attributes[static_cast<int>(attr::ARRAY)] = test->attributes[static_cast<int>(attr::ARRAY)];   
     if (test->sname != nullptr){
       ret->sname = test->sname;
     }
@@ -1001,18 +942,10 @@ symbol *p_call(astree *s){
 }
 
 symbol *p_index(astree *s){
- int a_array     = static_cast<int>(attr::ARRAY);
- int a_string    = static_cast<int>(attr::STRING);
- int a_int       = static_cast<int>(attr::INT);
- int a_void      = static_cast<int>(attr::VOID);
- int a_ptr       = static_cast<int>(attr::TYPEID);
- int a_vaddr     = static_cast<int>(attr::VADDR);
- int a_lval      = static_cast<int>(attr::LVAL);
-
  symbol *ident = p_expression(s->children[0]);
  if (ident != nullptr){
-   if (!(ident->attributes[a_array] ||
-         ident->attributes[a_string])){
+   if (!(ident->attributes[static_cast<int>(attr::ARRAY)] ||
+         ident->attributes[static_cast<int>(attr::STRING)])){
      errprintf (
      "attempting to index something that" 
      "is not a string or array :%zd.%zd.%zd\n",
@@ -1023,7 +956,7 @@ symbol *p_index(astree *s){
 
  symbol *index = p_expression(s->children[1]); 
  if (index !=nullptr){
-   if (!(index->attributes[a_int])){
+   if (!(index->attributes[static_cast<int>(attr::INT)])){
      errprintf (
      "attempting to index with a non-" 
      "int index :%zd.%zd.%zd\n",
@@ -1033,37 +966,29 @@ symbol *p_index(astree *s){
  }
 
  symbol *sym = new symbol(s,current);
- if (ident->attributes[a_array]){
-   sym->attributes[a_void]   = ident->attributes[a_void];   
-   sym->attributes[a_int]    = ident->attributes[a_int];   
-   sym->attributes[a_ptr]    = ident->attributes[a_ptr];   
-   sym->attributes[a_string] = ident->attributes[a_string];   
+ if (ident->attributes[static_cast<int>(attr::ARRAY)]){
+   sym->attributes[static_cast<int>(attr::VOID)]   = ident->attributes[static_cast<int>(attr::VOID)];   
+   sym->attributes[static_cast<int>(attr::INT)]    = ident->attributes[static_cast<int>(attr::INT)];   
+   sym->attributes[static_cast<int>(attr::TYPEID)] = ident->attributes[static_cast<int>(attr::TYPEID)];   
+   sym->attributes[static_cast<int>(attr::STRING)] = ident->attributes[static_cast<int>(attr::STRING)];   
    if (ident->sname != nullptr){
      sym->sname = ident->sname;
    }
- } else if (ident->attributes[a_string]){
-   sym->attributes.set(a_int); 
+ } else if (ident->attributes[static_cast<int>(attr::STRING)]){
+   sym->attributes.set(static_cast<int>(attr::INT)); 
  }
- sym->attributes.set(a_vaddr);
- sym->attributes.set(a_lval);
+ sym->attributes.set(static_cast<int>(attr::VADDR));
+ sym->attributes.set(static_cast<int>(attr::LVAL));
  delete ident;
  delete index;
  return sym;
 }
 
 symbol *p_field (astree *s){
- int a_array     = static_cast<int>(attr::ARRAY);
- int a_string    = static_cast<int>(attr::STRING);
- int a_int       = static_cast<int>(attr::INT);
- int a_void      = static_cast<int>(attr::VOID);
- int a_ptr       = static_cast<int>(attr::TYPEID);
- int a_vaddr     = static_cast<int>(attr::VADDR);
- int a_lval      = static_cast<int>(attr::LVAL);
-
  symbol *ident   = p_expression(s->children[0]);
  const string *field_name = s->children[1]->lexinfo;
  symbol *sym = new symbol (s,current);
-  if (ident->attributes[a_ptr] && ident->sname !=nullptr){
+  if (ident->attributes[static_cast<int>(attr::TYPEID)] && ident->sname !=nullptr){
     if (struct_valid(ident->sname,sym->lloc)){
       symbol *found_struct = struct_t->find(ident->sname)->second; 
       if (found_struct->fields !=nullptr){
@@ -1071,16 +996,16 @@ symbol *p_field (astree *s){
              found_struct->fields->end()){
           symbol *found_field = 
           found_struct->fields->find(field_name)->second;
-          sym->attributes[a_void]   = 
-            found_field->attributes[a_void];   
-          sym->attributes[a_int]    = 
-            found_field->attributes[a_int];   
-          sym->attributes[a_ptr]    = 
-            found_field->attributes[a_ptr];   
-          sym->attributes[a_array]  = 
-            found_field->attributes[a_array];   
-          sym->attributes[a_string] = 
-            found_field->attributes[a_string];   
+          sym->attributes[static_cast<int>(attr::VOID)]   = 
+            found_field->attributes[static_cast<int>(attr::VOID)];   
+          sym->attributes[static_cast<int>(attr::INT)]    = 
+            found_field->attributes[static_cast<int>(attr::INT)];   
+          sym->attributes[static_cast<int>(attr::TYPEID)]    = 
+            found_field->attributes[static_cast<int>(attr::TYPEID)];   
+          sym->attributes[static_cast<int>(attr::ARRAY)]  = 
+            found_field->attributes[static_cast<int>(attr::ARRAY)];   
+          sym->attributes[static_cast<int>(attr::STRING)] = 
+            found_field->attributes[static_cast<int>(attr::STRING)];   
           if (found_field->sname != nullptr){
             sym->sname = found_field->sname;
           }
@@ -1098,8 +1023,8 @@ symbol *p_field (astree *s){
              sym->lloc.filenr, sym->lloc.linenr, sym->lloc.offset);
 
   }
-  sym->attributes.set(a_vaddr);
-  sym->attributes.set(a_lval);
+  sym->attributes.set(static_cast<int>(attr::VADDR));
+  sym->attributes.set(static_cast<int>(attr::LVAL));
   delete ident;
   return sym;
 }
@@ -1171,13 +1096,9 @@ void p_typeid(astree *s){
     sym->attributes.set(static_cast<int>(attr::ARRAY));
     if (s->children[0]->children[0]->symbol == TOK_PTR){
       sname = s->children[0]->children[0]->children[0]->lexinfo;
-      s->children[0]->children[0]->children[0]->block_number =
-      current;
       s->sname = sym->sname = sname;
       struct_valid(sname,sym->lloc);
       ret = s->children[0]->children[0]->children[0]->symbol;
-      s->children[0]->children[0]->children[0]->block_number =
-      current;
       vname = s->children[1]->lexinfo;
       s->children[1]->block_number = current;
     }
@@ -1253,9 +1174,7 @@ void p_typeid(astree *s){
     // is a global decl
     else {
       global->emplace(vname,sym);  
-      s->attributes = sym->attributes;
     }
-    s->block_number = current;
     return;
   }
   // has an assignment
@@ -1272,17 +1191,13 @@ void p_typeid(astree *s){
   else {
     global->emplace(vname,parsed);
   }
-  s->block_number = current;
 }
 
 void p_loop(astree *s){
-  int a_int = static_cast<int>(attr::INT);
-  int a_nullptr = static_cast<int>(attr::NULLPTR_T);
-  int a_typeid = static_cast<int>(attr::TYPEID);
   symbol *sym = p_expression(s->children[0]);
-  if (!(sym->attributes[a_int] ||
-        sym->attributes[a_nullptr] ||
-        sym->attributes[a_typeid] )){
+  if (!(sym->attributes[static_cast<int>(attr::INT)] ||
+        sym->attributes[static_cast<int>(attr::NULLPTR_T)] ||
+        sym->attributes[static_cast<int>(attr::TYPEID)] )){
     errprintf ("invalid expr: %zd.%zd.%zd\n",
                s->lloc.filenr,
                s->lloc.linenr,
@@ -1296,11 +1211,6 @@ void p_loop(astree *s){
 }
 
 void p_return (astree *s){
-   int a_array     = static_cast<int>(attr::ARRAY);
-   int a_string    = static_cast<int>(attr::STRING);
-   int a_int       = static_cast<int>(attr::INT);
-   int a_ptr       = static_cast<int>(attr::TYPEID);
-   int a_void      = static_cast<int>(attr::VOID);
   if (current == 0 || current_function == nullptr) {
     errprintf ("return called outside function %zd.%zd.%zd",
     s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
@@ -1308,7 +1218,7 @@ void p_return (astree *s){
   }
   symbol *func = global->find(current_function)->second;
   if (s->children.size() < 1){
-    if (!(func->attributes[a_void])){
+    if (!(func->attributes[static_cast<int>(attr::VOID)])){
       errprintf (
       "return value mismatch : %zd.%zd.%zd\n",
        s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
@@ -1318,12 +1228,11 @@ void p_return (astree *s){
   symbol *ret = p_expression(s->children[0]);
   if (ret != nullptr){
     if (
-      func->attributes[a_array] != ret->attributes[a_array] ||
-      func->attributes[a_string] != ret->attributes[a_string] || 
-      func->attributes[a_int] != ret->attributes[a_int] || 
-      func->attributes[a_ptr] != ret->attributes[a_ptr]){
-      errprintf (
-      "return value mismatch : %zd.%zd.%zd\n",
+      func->attributes[static_cast<int>(attr::ARRAY)]  != ret->attributes[static_cast<int>(attr::ARRAY)] ||
+      func->attributes[static_cast<int>(attr::STRING)] != ret->attributes[static_cast<int>(attr::STRING)] || 
+      func->attributes[static_cast<int>(attr::INT)]    != ret->attributes[static_cast<int>(attr::INT)] || 
+      func->attributes[static_cast<int>(attr::TYPEID)] != ret->attributes[static_cast<int>(attr::TYPEID)]){
+      errprintf ( "return value mismatch : %zd.%zd.%zd\n",
        s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
      if (func->sname != nullptr && ret->sname !=nullptr)
        if (func -> sname != ret->sname ){

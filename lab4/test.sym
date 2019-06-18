@@ -1,11 +1,10 @@
-function2 (5.188.1) {1} int function 
-   mami (5.188.16) {2} int variable param lval 0
-   homura (5.188.26) {2} string variable param lval 1
+test (5.204.1) {0} struct test 
 
-board (5.180.1) {0} int array variable lval vreg 
-
-is_safe (5.182.1) {0} int function 
-   newcol (5.182.14) {1} int variable param lval 0
-   col (5.183.4) {1} int variable local lval vreg 1
-   diagonal (5.184.4) {1} int variable local lval vreg 2
+test (5.205.1) {0} int function 
+   fuck (5.205.10) {1} int variable param lval 0
+   madoka (5.206.3) {1} int variable local lval vreg 1
+   homura (5.207.3) {1} variable struct test local lval vreg 2
+   sayaka (5.208.3) {1} int array variable local lval vreg 3
+   mami (5.209.3) {1} array variable struct test local lval vreg 4
+   homuhomu (5.210.3) {1} string variable local lval vreg 5
 
