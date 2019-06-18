@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <vector>
+#include <memory>
 
 using namespace std;
 #include "auxlib.h"
@@ -30,6 +31,18 @@ symbol::symbol (astree* ast_, size_t block_nr_){
   block_nr = block_nr_;
   parameters = nullptr;
   sname = nullptr;
+}
+
+symbol* symbol::symbol_deepcopy(astree *ast){
+  symbol *sym = new symbol(ast,this->block_nr);
+  sym->attributes = this->attributes;
+  sym->sequence = this->sequence;
+  sym->fields = this->fields;
+  sym->lloc = this->lloc;
+  sym->block_nr = this->block_nr;
+  sym->parameters = this->parameters;
+  sym->sname = this->sname;
+  return sym;
 }
 
 symbol::~symbol(){
@@ -396,8 +409,11 @@ int matching_attrib(symbol *p, symbol *f){
     return 0;
   else {
     if (p->sname != nullptr && f->sname != nullptr){
-        if (strcmp(p->sname->c_str(), f->sname->c_str()) != 0)
+        if (strcmp(p->sname->c_str(), f->sname->c_str()) != 0){
+	  errprintf ("structure name mismatch:attempt to assign %s to %s\n",
+	              p->sname->c_str(), f->sname->c_str());
           return 0;
+	}
     }
     attr_bitset pa = p->attributes; 
     attr_bitset fa = f->attributes;
@@ -416,8 +432,13 @@ int matching_attrib(symbol *p, symbol *f){
         if (p->parameters->at(i)->sname != nullptr && 
         f->parameters->at(i)->sname != nullptr ) {
             if (strcmp(p->parameters->at(i)->sname->c_str(), 
-                   f->parameters->at(i)->sname->c_str()) != 0)
+                   f->parameters->at(i)->sname->c_str()) != 0){
+	      errprintf ("structure name mismatch:attempt to assign %s to %s\n",
+                          f->parameters->at(i)->sname->c_str(),
+	                  p->parameters->at(i)->sname->c_str()
+		        );
               return 0;
+	    }
         }
         attr_bitset pra = p->parameters->at(i)->attributes;
         attr_bitset fra = f->parameters->at(i)->attributes;
@@ -513,12 +534,10 @@ void p_function (astree *s){
     for (unsigned int i = 0; i < s->children[1]->children.size(); i++){
       astree *c = s->children[1]->children[i];
       symbol *f = new symbol(c,current); 
-      symbol *f_copy = new symbol(c,current);
       int t_code;
       const string *id;
       const string *spname;
       f->sequence = i;
-      f_copy->sequence = i;
 
       // if a pointer is found, adjust identifier 
       // and type code accordingly.
@@ -526,7 +545,8 @@ void p_function (astree *s){
         f->attributes.set(static_cast<int>(attr::ARRAY));
         if (c->children[0]->children[0]->symbol == TOK_PTR){
           spname = c->children[0]->children[0]->children[0]->lexinfo;
-          c->sname = f->sname = f_copy->sname = spname;
+          // c->sname = f->sname = f_copy->sname = spname;
+          c->sname = f->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->children[0]->symbol;
           c->children[0]->children[0]->children[0]->block_number 
@@ -541,7 +561,8 @@ void p_function (astree *s){
       else{
         if (c->children[0]->symbol == TOK_PTR){
           spname = c->children[0]->children[0]->lexinfo;
-          c->sname = f->sname = f_copy->sname = spname;
+          // c->sname = f->sname = f_copy->sname = spname;
+          c->sname = f->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->symbol;
           c->children[0]->children[0]->block_number = current;
@@ -559,16 +580,16 @@ void p_function (astree *s){
                      f->lloc.offset);
       }
       f->attributes.set(static_cast<int>(attr::LVAL));
-      f_copy->attributes.set(static_cast<int>(attr::LVAL));
+      // f_copy->attributes.set(static_cast<int>(attr::LVAL));
 
       f->attributes.set(static_cast<int>(attr::VARIABLE));
-      f_copy->attributes.set(static_cast<int>(attr::VARIABLE));
+      // f_copy->attributes.set(static_cast<int>(attr::VARIABLE));
 
       f->attributes.set(static_cast<int>(attr::PARAM));
-      f_copy->attributes.set(static_cast<int>(attr::PARAM));
+      // f_copy->attributes.set(static_cast<int>(attr::PARAM));
 
       f->attributes.set(type_enum(t_code));
-      f_copy->attributes.set(type_enum(t_code));
+      // f_copy->attributes.set(type_enum(t_code));
       if (block->find(id)!=sym->fields->end()){
         errprintf("%s defined multiple times in func %s :%zd.%zd.%zd\n",
                    spname->c_str(), fname->c_str(),
@@ -578,6 +599,7 @@ void p_function (astree *s){
       }
       else{
         local->emplace(id,f);
+	symbol *f_copy = f->symbol_deepcopy(c);
         sym->parameters->push_back(f_copy);
       }
     }
@@ -1100,7 +1122,6 @@ void p_typeid(astree *s){
       struct_valid(sname,sym->lloc);
       ret = s->children[0]->children[0]->children[0]->symbol;
       vname = s->children[1]->lexinfo;
-      s->children[1]->block_number = current;
     }
     else{
       ret = s->children[0]->children[0]->symbol;  

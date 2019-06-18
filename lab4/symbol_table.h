@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
+#include <memory>
 #include "auxlib.h"
 #include "astree.h"
 
@@ -23,6 +24,7 @@ struct symbol {
   // Functions.
   symbol (astree* ast, size_t block_nr);
   ~symbol();
+  symbol* symbol_deepcopy(astree* s);
   void dump_symbol (FILE* outfile, symbol *sym);
 };
 
