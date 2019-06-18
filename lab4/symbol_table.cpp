@@ -429,6 +429,11 @@ int matching_attrib(symbol *p, symbol *f){
       if (p->parameters->size() != f->parameters->size())
          return 0;
       for (unsigned int i = 0 ; i< f->parameters->size(); i++){
+        if (!(p->parameters->at(i)->sname == nullptr) !=  
+	    !(f->parameters->at(i)->sname == nullptr)){
+	  errprintf("attempt to match nonpointer type with pointer\n");
+	  return 0;
+	}
         if (p->parameters->at(i)->sname != nullptr && 
         f->parameters->at(i)->sname != nullptr ) {
             if (strcmp(p->parameters->at(i)->sname->c_str(), 
@@ -545,7 +550,6 @@ void p_function (astree *s){
         f->attributes.set(static_cast<int>(attr::ARRAY));
         if (c->children[0]->children[0]->symbol == TOK_PTR){
           spname = c->children[0]->children[0]->children[0]->lexinfo;
-          // c->sname = f->sname = f_copy->sname = spname;
           c->sname = f->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->children[0]->symbol;
@@ -561,7 +565,6 @@ void p_function (astree *s){
       else{
         if (c->children[0]->symbol == TOK_PTR){
           spname = c->children[0]->children[0]->lexinfo;
-          // c->sname = f->sname = f_copy->sname = spname;
           c->sname = f->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->symbol;
@@ -579,17 +582,12 @@ void p_function (astree *s){
                      f->lloc.filenr, f->lloc.linenr,
                      f->lloc.offset);
       }
+
       f->attributes.set(static_cast<int>(attr::LVAL));
-      // f_copy->attributes.set(static_cast<int>(attr::LVAL));
-
       f->attributes.set(static_cast<int>(attr::VARIABLE));
-      // f_copy->attributes.set(static_cast<int>(attr::VARIABLE));
-
       f->attributes.set(static_cast<int>(attr::PARAM));
-      // f_copy->attributes.set(static_cast<int>(attr::PARAM));
-
       f->attributes.set(type_enum(t_code));
-      // f_copy->attributes.set(type_enum(t_code));
+
       if (block->find(id)!=sym->fields->end()){
         errprintf("%s defined multiple times in func %s :%zd.%zd.%zd\n",
                    spname->c_str(), fname->c_str(),
@@ -1183,34 +1181,26 @@ void p_typeid(astree *s){
     }
   }
 
-  // does not have an assignment e.g. int x;
-  if ( s->children.size() < 3){
-    // is part of a block
-    if (current != 0 && local != nullptr){
-      sym->sequence = local->size();
-      sym->attributes.set(static_cast<int>(attr::LOCAL));
-      local->emplace(vname,sym);  
-      s->attributes = sym->attributes;
-    }
-    // is a global decl
-    else {
-      global->emplace(vname,sym);  
-    }
-    return;
+  if (current != 0 && local != nullptr){
+    sym->sequence = local->size();
+    sym->attributes.set(static_cast<int>(attr::LOCAL));
+    local->emplace(vname,sym);  
+    s->attributes = sym->attributes;
   }
-  // has an assignment
-  astree *parse = s->children[2];
-  symbol *left = sym;
-  symbol *right = p_expression(parse); 
-  symbol *parsed;
-  parsed = p_assignment(s,left,right);
-  if (current !=0 && local != nullptr){
-    parsed->sequence = local->size(); 
-    parsed->attributes.set(static_cast<int>(attr::LOCAL));
-    local->emplace(vname,parsed);
-  }
+  // is a global decl
   else {
-    global->emplace(vname,parsed);
+    global->emplace(vname,sym);  
+  }
+
+  // if there is an expr to parse
+  if ( s->children.size() > 2){
+    // has an assignment
+    astree *parse = s->children[2];
+    symbol *left = sym->symbol_deepcopy(s);
+    symbol *right = p_expression(parse); 
+    symbol *parsed;
+    parsed = p_assignment(s,left,right);
+    delete parsed;
   }
 }
 
