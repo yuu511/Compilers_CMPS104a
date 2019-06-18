@@ -218,7 +218,7 @@ int struct_valid(const string *sname, location lloc){
   return 0;
 }
 
-// things are going to be either a global vardecl or 
+// things are going to be either a global statement or 
 // encompassed within a function (which is global in oc)
 // if statement, simply print.
 // if function, look up block in hash, 
@@ -248,13 +248,13 @@ void print_map(FILE* out, symbol_table *sym){
                            itor2.second->lloc.offset,
                            itor2.second-> block_nr,
                            dump_attributes(itor2.second).c_str(),
-                   i);
+                           i);
                continue;
             }
           }
         }
       }
-  }
+    }
     // otherwise, it's a statement
     else {
       fprintf(out,"%s (%zd.%zd.%zd) {%zd} %s\n",
