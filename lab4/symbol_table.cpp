@@ -463,7 +463,6 @@ int matching_attrib(symbol *p, symbol *f){
 
 void p_function (astree *s){
   current = next_block-1;
-  s->block_number = current;
   symbol *sym = new symbol(s,current);
   current = next_block; 
   next_block++;
@@ -483,43 +482,27 @@ void p_function (astree *s){
     sym->attributes.set(static_cast<int>(attr::ARRAY));
     if (ref->children[0]->children[0]->symbol == TOK_PTR){
       sname = ref->children[0]->children[0]->children[0]->lexinfo;
-      ref->children[0]->children[0]->children[0]->block_number =
-      current;
       s->sname = sym->sname = sname;
       struct_valid(sname,sym->lloc);
       ret = ref->children[0]->children[0]->children[0]->symbol;
-      ref->children[0]->children[0]->children[0]->block_number =
-      current;
       fname = ref->children[1]->lexinfo;
-      ref->children[1]->block_number =
-      current;
     }
     else{
       ret = ref->children[0]->children[0]->symbol;  
-      ref->children[0]->children[0]->block_number =
-      current;
       fname = ref->children[1]->lexinfo;
-      ref->children[1]->block_number =
-      current;
     }
   }
   else{
     if (ref->children[0]->symbol == TOK_PTR){
       sname = ref->children[0]->children[0]->lexinfo;
-      ref->children[0]->children[0]->block_number =
-      current;
       s->sname = sym->sname = sname;
       struct_valid(sname,sym->lloc);
       ret = ref->children[0]->children[0]->symbol;
-      ref->children[0]->children[0]->block_number =
-      current;
       fname = ref->children[1]->lexinfo;
     }
     else{
       ret = ref->children[0]->symbol;  
-      ref->children[0]->block_number = current;
       fname = ref->children[1]->lexinfo;
-      ref->children[1]->block_number = current;
     }
   }
   if (ret == TOK_VOID){
@@ -553,8 +536,6 @@ void p_function (astree *s){
           c->sname = f->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->children[0]->symbol;
-          c->children[0]->children[0]->children[0]->block_number 
-          = current;
           id = c->children[1]->lexinfo;
         }
         else{
@@ -568,7 +549,6 @@ void p_function (astree *s){
           c->sname = f->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->symbol;
-          c->children[0]->children[0]->block_number = current;
           id = c->children[1]->lexinfo;
        }
        else{
@@ -720,8 +700,6 @@ symbol *p_assignment (astree *parent, symbol *left, symbol *right){
   }
   if (left->sname != nullptr)
     ret->sname = left->sname;
-  parent->block_number = left->block_nr;
-  parent->attributes = left->attributes;
   delete left;  
   delete right;
   return ret;
@@ -1185,13 +1163,11 @@ void p_typeid(astree *s){
     sym->sequence = local->size();
     sym->attributes.set(static_cast<int>(attr::LOCAL));
     local->emplace(vname,sym);  
-    s->attributes = sym->attributes;
   }
   // is a global decl
   else {
     global->emplace(vname,sym);  
   }
-
   // if there is an expr to parse
   if ( s->children.size() > 2){
     // has an assignment
