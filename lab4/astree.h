@@ -30,7 +30,6 @@ enum class attr {
 using attr_bitset = bitset <static_cast<size_t>(attr::BITSET_SIZE)>;
 
 struct astree {
-
    // Fields.
    int symbol;               // token code
    location lloc;            // source location
@@ -39,7 +38,7 @@ struct astree {
 
    // appended fields for asg4
    const string* sname;      // if structure, name, else nullptr
-   int block_number;
+   size_t block_number;
    attr_bitset attributes;
    location lloc_orig;           
 

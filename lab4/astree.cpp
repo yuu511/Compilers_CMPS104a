@@ -108,9 +108,9 @@ void astree::draw_attrib (FILE* outfile, astree* tree, int depth) {
    const char *tname = parser::get_tname (tree->symbol);
    if (strstr (tname,"TOK_") == tname) tname +=4;
    string orig = "";
-   if ( tree->lloc_orig.filenr == 0
-       && tree->lloc_orig.linenr == 0
-       && tree->lloc_orig.offset == 0){
+   if ( tree->lloc_orig.filenr != 0
+       || tree->lloc_orig.linenr != 0
+       || tree->lloc_orig.offset != 0){
      orig = "(" 
      + to_string(tree->lloc_orig.filenr)
      + "."
@@ -120,7 +120,7 @@ void astree::draw_attrib (FILE* outfile, astree* tree, int depth) {
      + ")"; 
    }
    fprintf (outfile, "%s \"%s\" %zd.%zd.%zd"
-            " {%d} %s%s\n",
+            " {%zd} %s%s\n",
             tname, tree->lexinfo->c_str(),
             tree->lloc.filenr, tree->lloc.linenr, tree->lloc.offset,
             tree->block_number, s.c_str(),

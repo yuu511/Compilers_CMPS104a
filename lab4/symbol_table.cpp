@@ -32,17 +32,6 @@ symbol::symbol (astree* ast_, size_t block_nr_){
   sname = nullptr;
 }
 
-symbol* symbol::symbol_deepcopy(astree *ast){
-  symbol *sym = new symbol(ast,this->block_nr);
-  sym->attributes = this->attributes;
-  sym->sequence = this->sequence;
-  sym->fields = this->fields;
-  sym->lloc = this->lloc;
-  sym->block_nr = this->block_nr;
-  sym->parameters = this->parameters;
-  sym->sname = this->sname;
-  return sym;
-}
 
 symbol::~symbol(){
   if (yydebug) {
@@ -62,6 +51,28 @@ symbol::~symbol(){
     }
     delete parameters;
   }
+}
+
+symbol* symbol::symbol_deepcopy(astree *ast){
+  symbol *sym = new symbol(ast,this->block_nr);
+  sym->attributes = this->attributes;
+  sym->sequence = this->sequence;
+  sym->fields = this->fields;
+  sym->lloc = this->lloc;
+  sym->block_nr = this->block_nr;
+  sym->parameters = this->parameters;
+  sym->sname = this->sname;
+  return sym;
+}
+
+// transfer symbol information to astree node
+void astree_attribs(symbol *sym, astree *ast){
+  if (sym == nullptr || ast == nullptr){
+    errprintf ("astree_attribs called on nullptr\n");
+  }
+  ast->attributes = sym->attributes;
+  ast->block_number = sym->block_nr;
+  ast->sname = sym->sname;
 }
 
 string dump_attributes(symbol *sym){
@@ -300,7 +311,6 @@ void print_struct(FILE* out,const string* name, symbol* sym){
   }
 }
 
-
 void p_struct (astree *s){
   symbol *sym = new symbol(s,0);
   sym->attributes.set(static_cast<int>(attr::STRUCT));
@@ -327,6 +337,7 @@ void p_struct (astree *s){
     struct_t->emplace(name,sym);  
   }
   sym->fields = new symbol_table();
+  astree_attribs(sym, s);
   for (unsigned int i = 1; i < s->children.size(); i++){
     astree *c = s->children[i];
     symbol *f = new symbol(c,0); 
@@ -342,7 +353,7 @@ void p_struct (astree *s){
       if (c->children[0]->children[0]->symbol == TOK_PTR){
         t_code = c->children[0]->children[0]->children[0]->symbol;
         s_name = c->children[0]->children[0]->children[0]->lexinfo;
-        c->sname = f->sname = s_name;
+        f->sname = s_name;
         id = c->children[1]->lexinfo;
         // if an incomplete structure is found, add it to hash
         if (!(struct_exists(s_name))){
@@ -361,7 +372,7 @@ void p_struct (astree *s){
       if (c->children[0]->symbol == TOK_PTR){
         t_code = c->children[0]->children[0]->symbol;
         s_name = c->children[0]->children[0]->lexinfo;
-        c->sname = f->sname = s_name;
+        f->sname = s_name;
         id = c->children[1]->lexinfo;
         // if an incomplete structure is found, add it to hash
         if (!(struct_exists(s_name))){
@@ -394,6 +405,7 @@ void p_struct (astree *s){
     else{
       sym->fields->emplace(id,f);
     }
+    astree_attribs(f,c);
   }
   struct_t->erase(struct_t->find(sym->sname));
   struct_t->emplace(sym->sname,sym);
@@ -488,7 +500,7 @@ void p_function (astree *s){
     sym->attributes.set(static_cast<int>(attr::ARRAY));
     if (ref->children[0]->children[0]->symbol == TOK_PTR){
       sname = ref->children[0]->children[0]->children[0]->lexinfo;
-      s->sname = sym->sname = sname;
+      sym->sname = sname;
       struct_valid(sname,sym->lloc);
       ret = ref->children[0]->children[0]->children[0]->symbol;
       fname = ref->children[1]->lexinfo;
@@ -501,7 +513,7 @@ void p_function (astree *s){
   else{
     if (ref->children[0]->symbol == TOK_PTR){
       sname = ref->children[0]->children[0]->lexinfo;
-      s->sname = sym->sname = sname;
+      sym->sname = sname;
       struct_valid(sname,sym->lloc);
       ret = ref->children[0]->children[0]->symbol;
       fname = ref->children[1]->lexinfo;
@@ -517,6 +529,7 @@ void p_function (astree *s){
   else {
     sym->attributes.set(type_enum(ret));
   }
+  astree_attribs(sym,s);
 
   symbol_table *block = new symbol_table;
   local = block;
@@ -539,7 +552,7 @@ void p_function (astree *s){
         f->attributes.set(static_cast<int>(attr::ARRAY));
         if (c->children[0]->children[0]->symbol == TOK_PTR){
           spname = c->children[0]->children[0]->children[0]->lexinfo;
-          c->sname = f->sname = spname;
+          f->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->children[0]->symbol;
           id = c->children[1]->lexinfo;
@@ -552,7 +565,7 @@ void p_function (astree *s){
       else{
         if (c->children[0]->symbol == TOK_PTR){
           spname = c->children[0]->children[0]->lexinfo;
-          c->sname = f->sname = spname;
+          f->sname = spname;
           struct_valid(spname,f->lloc);
           t_code = c->children[0]->children[0]->symbol;
           id = c->children[1]->lexinfo;
@@ -586,6 +599,7 @@ void p_function (astree *s){
 	    symbol *f_copy = f->symbol_deepcopy(c);
         sym->parameters->push_back(f_copy);
       }
+      astree_attribs(f,c);
     }
   }
   if (s->children.size()>2){
@@ -700,6 +714,7 @@ symbol *p_assignment (astree *parent, symbol *left, symbol *right){
     ret->sname = left->sname;
   delete left;  
   delete right;
+  astree_attribs(ret,parent);
   return ret;
 }
 
@@ -707,6 +722,7 @@ symbol *p_INTCON(astree *s){
   symbol *sym = new symbol(s,current);
   sym->attributes.set(static_cast<int>(attr::INT));
   sym->attributes.set(static_cast<int>(attr::CONST));
+  astree_attribs(sym,s);
   return sym;
 }
 
@@ -714,6 +730,7 @@ symbol *p_STRINGCON(astree *s){
   symbol *sym = new symbol(s,current);
   sym->attributes.set(static_cast<int>(attr::STRING));
   sym->attributes.set(static_cast<int>(attr::CONST));
+  astree_attribs(sym,s);
   return sym;
 }
 
@@ -721,6 +738,7 @@ symbol *p_NULLPTR(astree *s){
   symbol *sym = new symbol(s,current);
   sym->attributes.set(static_cast<int>(attr::NULLPTR_T));
   sym->attributes.set(static_cast<int>(attr::CONST));
+  astree_attribs(sym,s);
   return sym;
 }
 
@@ -738,6 +756,7 @@ symbol *p_binop(astree *s){
   symbol *ret = new symbol (s,current);
   ret->attributes.set(static_cast<int>(attr::INT));
   ret->attributes.set(static_cast<int>(attr::VREG));
+  astree_attribs(ret,s);
   return ret;
 }
 
@@ -748,6 +767,7 @@ symbol *p_unary(astree *s){
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
   unary->attributes.set(static_cast<int>(attr::INT));
   unary->attributes.set(static_cast<int>(attr::VREG));
+  astree_attribs(unary,s);
   return unary;
 }
 
@@ -834,6 +854,7 @@ symbol *p_alloc(astree *s){
       delete eval;
     }
   }
+  astree_attribs(sym,s);
   return sym;
 }
 
@@ -854,6 +875,7 @@ symbol *p_comp(astree *s){
   sym->attributes.set(static_cast<int>(attr::VREG));
   delete left;
   delete right;
+  astree_attribs(sym,s);
   return sym;
 }
 
@@ -878,6 +900,8 @@ symbol *p_ident (astree *s){
     s->lloc.offset);
   } else { 
     sym = test->symbol_deepcopy(s);
+    astree_attribs(sym,s);
+    s->lloc_orig = test->lloc;
   }
   return sym;
 }
@@ -931,6 +955,8 @@ symbol *p_call(astree *s){
       ret->sname = test->sname;
     }
   }
+  astree_attribs(ret,s);
+  s->lloc_orig = ret->lloc;
   return ret;
 }
 
@@ -974,6 +1000,7 @@ symbol *p_index(astree *s){
  sym->attributes.set(static_cast<int>(attr::LVAL));
  delete ident;
  delete index;
+ astree_attribs(sym,s);
  return sym;
 }
 
@@ -1019,6 +1046,7 @@ symbol *p_field (astree *s){
   sym->attributes.set(static_cast<int>(attr::VADDR));
   sym->attributes.set(static_cast<int>(attr::LVAL));
   delete ident;
+  astree_attribs(sym,s);
   return sym;
 }
 
@@ -1089,7 +1117,7 @@ void p_typeid(astree *s){
     sym->attributes.set(static_cast<int>(attr::ARRAY));
     if (s->children[0]->children[0]->symbol == TOK_PTR){
       sname = s->children[0]->children[0]->children[0]->lexinfo;
-      s->sname = sym->sname = sname;
+      sym->sname = sname;
       struct_valid(sname,sym->lloc);
       ret = s->children[0]->children[0]->children[0]->symbol;
       vname = s->children[1]->lexinfo;
@@ -1102,7 +1130,7 @@ void p_typeid(astree *s){
   else{
     if (s->children[0]->symbol == TOK_PTR){
       sname = s->children[0]->children[0]->lexinfo;
-      s->sname = sym->sname = sname;
+      sym->sname = sname;
       struct_valid(sname,sym->lloc);
       ret = s->children[0]->children[0]->symbol;
       vname = s->children[1]->lexinfo;
@@ -1118,7 +1146,6 @@ void p_typeid(astree *s){
                  s->lloc.offset);
   }
   sym->attributes.set(type_enum(ret));
-  
 
   // check for existence in local or global tables
   // depending on current scope.
@@ -1136,11 +1163,9 @@ void p_typeid(astree *s){
   else {
     string type ="";
     if (global->find(vname) != global->end()){
-      if (global->find(vname)->second
-          ->attributes[static_cast<int>(attr::FUNCTION)])
+      if (global->find(vname)->second->attributes[static_cast<int>(attr::FUNCTION)])
         type.append ("function");
-      else if (global->find(vname)->second
-               ->attributes[static_cast<int>(attr::LVAL)])
+      else if (global->find(vname)->second->attributes[static_cast<int>(attr::LVAL)])
         type.append ("variable");
 
       errprintf ("name %s already defined globally"
@@ -1153,14 +1178,17 @@ void p_typeid(astree *s){
       return;
     }
   }
+  s->lloc_orig = sym->lloc;
 
   if (current != 0 && local != nullptr){
     sym->sequence = local->size();
     sym->attributes.set(static_cast<int>(attr::LOCAL));
+    astree_attribs(sym,s);
     local->emplace(vname,sym);  
   }
-  // is a global decl
   else {
+  // is a global decl
+    astree_attribs(sym,s);
     global->emplace(vname,sym);  
   }
   // if there is an expr to parse
@@ -1171,6 +1199,7 @@ void p_typeid(astree *s){
     symbol *right = p_expression(parse); 
     symbol *parsed;
     parsed = p_assignment(s,left,right);
+    astree_attribs(parsed,parse);
     delete parsed;
   }
 }
@@ -1185,6 +1214,7 @@ void p_loop(astree *s){
                s->lloc.linenr,
                s->lloc.offset);
   }
+  s->block_number = current;
   delete sym;
   // return the rest of the args to main function control
   for (unsigned int i = 1; i<s->children.size(); i++){
@@ -1215,12 +1245,14 @@ void p_return (astree *s){
      if (!(func->sname != nullptr) != !(ret->sname !=nullptr))
        errprintf ("ptr and non-ptr matched: %zd.%zd.%zd\n",
           s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
-     if (func->sname != nullptr && ret->sname !=nullptr)
+     if (func->sname != nullptr && ret->sname !=nullptr){
        if (func -> sname != ret->sname ){
          errprintf (
          "struct return value mismatch : %zd.%zd.%zd\n",
           s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
        }
+     }
+     s->block_number = current;
      delete ret;
    }
    else {
@@ -1237,6 +1269,7 @@ void gen_table(astree *s){
       for (astree* child: s->children) gen_table(child);        
       break;
     case TOK_BLOCK:
+      s->block_number = current;
       for (astree* child: s->children) gen_table(child);        
       break;
     case TOK_STRUCT:
