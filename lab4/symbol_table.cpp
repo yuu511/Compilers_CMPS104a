@@ -421,7 +421,7 @@ int matching_attrib(symbol *p, symbol *f){
     return 0;
   }
   else if (!(p->sname == nullptr) != !(f->sname == nullptr)){
-    errprintf ("attempt to assign a ptr to a non-ptr return:\n");
+    errprintf ("pointer and non-pointer types matched:\n");
     return 0;
   }
   else {
@@ -1214,7 +1214,7 @@ void p_return (astree *s){
       errprintf ( "return value mismatch : %zd.%zd.%zd\n",
        s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
      if (!(func->sname != nullptr) != !(ret->sname !=nullptr))
-       errprintf ("attempt to return a ptr to a non-ptr: %zd.%zd.%zd\n",
+       errprintf ("ptr and non-ptr matched: %zd.%zd.%zd\n",
           s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
      if (func->sname != nullptr && ret->sname !=nullptr)
        if (func -> sname != ret->sname ){
