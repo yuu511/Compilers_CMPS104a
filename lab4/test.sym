@@ -1,12 +1,6 @@
-no (5.205.1) {0} struct no 
+sayaka (5.221.1) {0} struct sayaka 
 
-test (5.204.1) {0} struct test 
+mami (5.220.1) {0} struct mami 
 
-test (5.207.1) {1} int function 
-   mam (5.207.10) {2} variable struct test param lval 0
-   madoka (5.208.3) {2} int variable local lval 1
-   homura (5.209.3) {2} variable struct test local lval 2
-   sayaka (5.210.3) {2} int array variable local lval 3
-   mami (5.211.3) {2} array variable struct test local lval 4
-   homuhomu (5.212.3) {2} string variable local lval 5
+test (5.223.1) {0} array function struct sayaka 
 

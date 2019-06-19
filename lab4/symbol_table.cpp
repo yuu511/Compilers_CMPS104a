@@ -401,28 +401,42 @@ void p_struct (astree *s){
   struct_t->emplace(sym->sname,sym);
 }
 
+int compare_types(attr_bitset left, attr_bitset right){
+  if (left[static_cast<int>(attr::VOID)]   == right[static_cast<int>(attr::VOID)]   &&
+      left[static_cast<int>(attr::INT)]    == right[static_cast<int>(attr::INT)]    &&
+      left[static_cast<int>(attr::STRING)] == right[static_cast<int>(attr::STRING)] &&
+      left[static_cast<int>(attr::TYPEID)] == right[static_cast<int>(attr::TYPEID)]    &&
+      left[static_cast<int>(attr::ARRAY)]  == right[static_cast<int>(attr::ARRAY)] ){
+        return 1;
+  }
+  return 0;
+}
+
 int matching_attrib(symbol *p, symbol *f){
+  if ( p == nullptr || f == nullptr ){
+    return 0;
+  }
   // XOR
-  if (!(p->parameters == nullptr) != !(f->parameters == nullptr))
+  if (!(p->parameters == nullptr) != !(f->parameters == nullptr)){
+    errprintf ("mismatched parameters:\n");
     return 0;
-  else if (!(p->sname == nullptr) != !(f->sname == nullptr))
+  }
+  else if (!(p->sname == nullptr) != !(f->sname == nullptr)){
+    errprintf ("attempt to assign a ptr to a non-ptr return:\n");
     return 0;
+  }
   else {
     if (p->sname != nullptr && f->sname != nullptr){
-        if (strcmp(p->sname->c_str(), f->sname->c_str()) != 0){
-	  errprintf ("structure name mismatch:attempt to assign %s to %s\n",
+      if (strcmp(p->sname->c_str(), f->sname->c_str()) != 0){
+	  errprintf ("structure name mismatch: attempt to assign struct '%s' to struct '%s'\n",
 	              p->sname->c_str(), f->sname->c_str());
           return 0;
-	}
+	  }
     }
     attr_bitset pa = p->attributes; 
     attr_bitset fa = f->attributes;
-    // check function return attribs
-    for (int i = 0 ; i < static_cast<int>(attr::BITSET_SIZE); i++){
-      if ( i == static_cast<int>(attr::PROTOTYPE))
-        continue;
-      if (pa[i] != fa[i])
-        return 0; 
+    if (!compare_types(pa,fa)){
+      return 0; 
     }
     // check parameter attribs
     if (p->parameters != nullptr  && f->parameters != nullptr){
@@ -430,35 +444,29 @@ int matching_attrib(symbol *p, symbol *f){
          return 0;
       for (unsigned int i = 0 ; i< f->parameters->size(); i++){
         if (!(p->parameters->at(i)->sname == nullptr) !=  
-	    !(f->parameters->at(i)->sname == nullptr)){
-	  errprintf("attempt to match nonpointer type with pointer\n");
-	  return 0;
-	}
-        if (p->parameters->at(i)->sname != nullptr && 
-        f->parameters->at(i)->sname != nullptr ) {
-            if (strcmp(p->parameters->at(i)->sname->c_str(), 
-                   f->parameters->at(i)->sname->c_str()) != 0){
-	      errprintf ("structure name mismatch:attempt to assign %s to %s\n",
-                          f->parameters->at(i)->sname->c_str(),
-	                  p->parameters->at(i)->sname->c_str()
-		        );
-              return 0;
-	    }
-        }
-        attr_bitset pra = p->parameters->at(i)->attributes;
-        attr_bitset fra = f->parameters->at(i)->attributes;
-        // check function param attribs
-        for (int j =0 ; j < static_cast<int>(attr::BITSET_SIZE); j++){
-          if (pra[j] != fra[j]){
-            return 0; 
-          }
-        }
+	        !(f->parameters->at(i)->sname == nullptr)){
+	        errprintf("attempt to match nonpointer type with pointer\n");
+	        return 0;
+	     }
+         else if (p->parameters->at(i)->sname != nullptr && 
+         f->parameters->at(i)->sname != nullptr ) {
+             if (strcmp(p->parameters->at(i)->sname->c_str(), 
+               f->parameters->at(i)->sname->c_str()) != 0){
+	           errprintf ("structure name mismatch:attempt to assign %s to %s\n",
+               f->parameters->at(i)->sname->c_str(),
+	           p->parameters->at(i)->sname->c_str() );
+               return 0;
+	         }
+         }
+         attr_bitset pra = p->parameters->at(i)->attributes;
+         attr_bitset fra = f->parameters->at(i)->attributes;
+         if (!compare_types(pra, fra))
+           return 0;
       }
     }
     return 1;
   }
   return 0;
-
 }
 
 void p_function (astree *s){
@@ -577,7 +585,7 @@ void p_function (astree *s){
       }
       else{
         local->emplace(id,f);
-	symbol *f_copy = f->symbol_deepcopy(c);
+	    symbol *f_copy = f->symbol_deepcopy(c);
         sym->parameters->push_back(f_copy);
       }
     }
@@ -599,7 +607,7 @@ void p_function (astree *s){
         }
         else {
               errprintf(
-              "nonmatching params for function %s: %zd.%zd.%zd\n",
+              "nonmatching function definition for prototype %s: %zd.%zd.%zd\n",
                          fname->c_str(),
                          sym->lloc.filenr, sym->lloc.linenr,
                          sym->lloc.offset);
@@ -668,15 +676,7 @@ int compatible(symbol *l,symbol *r){
   }
   attr_bitset left = l->attributes;
   attr_bitset right = r->attributes;
-
-  if (left[static_cast<int>(attr::VOID)]   == right[static_cast<int>(attr::VOID)]   &&
-      left[static_cast<int>(attr::INT)]    == right[static_cast<int>(attr::INT)]    &&
-      left[static_cast<int>(attr::STRING)] == right[static_cast<int>(attr::STRING)] &&
-      left[static_cast<int>(attr::TYPEID)] == right[static_cast<int>(attr::TYPEID)]    &&
-      left[static_cast<int>(attr::ARRAY)]  == right[static_cast<int>(attr::ARRAY)] ){
-        return 1;
-  }
- return 0; 
+  return compare_types(left, right);
 }
 
 symbol *p_assignment (astree *parent, symbol *left, symbol *right){
