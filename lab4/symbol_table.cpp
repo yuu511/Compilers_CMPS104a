@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <vector>
-#include <memory>
 
 using namespace std;
 #include "auxlib.h"
@@ -1288,5 +1287,3 @@ void dump_all_tables(FILE* out){
   }
   print_map(out,global);
 }
-
-
