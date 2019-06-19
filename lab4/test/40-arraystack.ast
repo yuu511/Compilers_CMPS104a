@@ -1,271 +1,271 @@
-ROOT "<<ROOT>>" 0.0.0
-| FUNCTION "" 6.22.1
-| | TYPE_ID "" 6.22.1
-| | | VOID "void" 6.22.1
-| | | IDENT "fail" 6.22.6
-| | PARAM "(" 6.22.11
-| | | TYPE_ID "" 6.22.12
-| | | | STRING "string" 6.22.12
-| | | | IDENT "expr" 6.22.19
-| | | TYPE_ID "" 6.22.25
-| | | | STRING "string" 6.22.25
-| | | | IDENT "file" 6.22.32
-| | | TYPE_ID "" 6.22.38
-| | | | INT "int" 6.22.38
-| | | | IDENT "line" 6.22.42
-| FUNCTION "" 6.24.1
-| | TYPE_ID "" 6.24.1
-| | | VOID "void" 6.24.1
-| | | IDENT "putchr" 6.24.6
-| | PARAM "(" 6.24.13
-| | | TYPE_ID "" 6.24.14
-| | | | INT "int" 6.24.14
-| | | | IDENT "chr" 6.24.18
-| FUNCTION "" 6.25.1
-| | TYPE_ID "" 6.25.1
-| | | VOID "void" 6.25.1
-| | | IDENT "putint" 6.25.6
-| | PARAM "(" 6.25.13
-| | | TYPE_ID "" 6.25.14
-| | | | INT "int" 6.25.14
-| | | | IDENT "num" 6.25.18
-| FUNCTION "" 6.26.1
-| | TYPE_ID "" 6.26.1
-| | | VOID "void" 6.26.1
-| | | IDENT "putstr" 6.26.6
-| | PARAM "(" 6.26.13
-| | | TYPE_ID "" 6.26.14
-| | | | STRING "string" 6.26.14
-| | | | IDENT "str" 6.26.21
-| FUNCTION "" 6.28.1
-| | TYPE_ID "" 6.28.1
-| | | INT "int" 6.28.1
-| | | IDENT "getchr" 6.28.5
-| | PARAM "(" 6.28.11
-| FUNCTION "" 6.29.1
-| | TYPE_ID "" 6.29.1
-| | | STRING "string" 6.29.1
-| | | IDENT "getstr" 6.29.8
-| | PARAM "(" 6.29.14
-| FUNCTION "" 6.30.1
-| | TYPE_ID "" 6.30.1
-| | | STRING "string" 6.30.1
-| | | IDENT "getln" 6.30.8
-| | PARAM "(" 6.30.13
-| STRUCT "struct" 7.7.1
-| | IDENT "stack" 7.7.8
-| | TYPE_ID "" 7.8.4
-| | | ARRAY "array" 7.8.4
-| | | | STRING "string" 7.8.10
-| | | IDENT "data" 7.8.18
-| | TYPE_ID "" 7.9.4
-| | | INT "int" 7.9.4
-| | | IDENT "size" 7.9.8
-| | TYPE_ID "" 7.10.4
-| | | INT "int" 7.10.4
-| | | IDENT "top" 7.10.8
-| FUNCTION "" 7.13.1
-| | TYPE_ID "" 7.13.1
-| | | PTR "ptr" 7.13.1
-| | | | IDENT "stack" 7.13.12
-| | | IDENT "new_stack" 7.13.19
-| | PARAM "(" 7.13.29
-| | | TYPE_ID "" 7.13.30
-| | | | INT "int" 7.13.30
-| | | | IDENT "size" 7.13.34
-| | BLOCK "{" 7.13.40
-| | | TYPE_ID "" 7.14.4
-| | | | PTR "ptr" 7.14.4
-| | | | | IDENT "stack" 7.14.15
-| | | | IDENT "stack" 7.14.22
-| | | | ALLOC "alloc" 7.14.30
-| | | | | IDENT "stack" 7.14.43
-| | | '=' "=" 7.15.16
-| | | | ARROW "->" 7.15.9
-| | | | | IDENT "stack" 7.15.4
-| | | | | IDENT "data" 7.15.11
-| | | | ALLOC "alloc" 7.15.18
-| | | | | ARRAY "array" 7.15.24
-| | | | | | STRING "string" 7.15.30
-| | | | | IDENT "size" 7.15.40
-| | | '=' "=" 7.16.16
-| | | | ARROW "->" 7.16.9
-| | | | | IDENT "stack" 7.16.4
-| | | | | IDENT "size" 7.16.11
-| | | | IDENT "size" 7.16.18
-| | | '=' "=" 7.17.15
-| | | | ARROW "->" 7.17.9
-| | | | | IDENT "stack" 7.17.4
-| | | | | IDENT "top" 7.17.11
-| | | | '-' "-" 7.17.18
-| | | | | INTCON "1" 7.17.19
-| | | RETURN "return" 7.18.4
-| | | | IDENT "stack" 7.18.11
-| FUNCTION "" 7.21.1
-| | TYPE_ID "" 7.21.1
-| | | VOID "void" 7.21.1
-| | | IDENT "push" 7.21.6
-| | PARAM "(" 7.21.11
-| | | TYPE_ID "" 7.21.12
-| | | | PTR "ptr" 7.21.12
-| | | | | IDENT "stack" 7.21.23
-| | | | IDENT "stack" 7.21.30
-| | | TYPE_ID "" 7.21.37
-| | | | STRING "string" 7.21.37
-| | | | IDENT "str" 7.21.44
-| | BLOCK "{" 7.21.49
-| | | BLOCK "{" 7.22.4
-| | | | IF "if" 7.22.5
-| | | | | NOT "not" 7.22.9
-| | | | | | LT "<" 7.22.25
-| | | | | | | ARROW "->" 7.22.19
-| | | | | | | | IDENT "stack" 7.22.14
-| | | | | | | | IDENT "top" 7.22.21
-| | | | | | | '-' "-" 7.22.39
-| | | | | | | | ARROW "->" 7.22.32
-| | | | | | | | | IDENT "stack" 7.22.27
-| | | | | | | | | IDENT "size" 7.22.34
-| | | | | | | | INTCON "1" 7.22.41
-| | | | | CALL "(" 7.22.50
-| | | | | | IDENT "fail" 7.22.45
-| | | | | | STRINGCON ""stack->top < stack->size - 1"" 7.22.51
-| | | | | | STRINGCON ""40-arraystack.oc"" 7.22.83
-| | | | | | INTCON "22" 7.22.103
-| | | ';' ";" 7.22.108
-| | | '=' "=" 7.23.15
-| | | | ARROW "->" 7.23.9
-| | | | | IDENT "stack" 7.23.4
-| | | | | IDENT "top" 7.23.11
-| | | | '+' "+" 7.23.28
-| | | | | ARROW "->" 7.23.22
-| | | | | | IDENT "stack" 7.23.17
-| | | | | | IDENT "top" 7.23.24
-| | | | | INTCON "1" 7.23.30
-| | | '=' "=" 7.24.28
-| | | | INDEX "[" 7.24.15
-| | | | | ARROW "->" 7.24.9
-| | | | | | IDENT "stack" 7.24.4
-| | | | | | IDENT "data" 7.24.11
-| | | | | ARROW "->" 7.24.21
-| | | | | | IDENT "stack" 7.24.16
-| | | | | | IDENT "top" 7.24.23
-| | | | IDENT "str" 7.24.30
-| FUNCTION "" 7.27.1
-| | TYPE_ID "" 7.27.1
-| | | STRING "string" 7.27.1
-| | | IDENT "pop" 7.27.8
-| | PARAM "(" 7.27.12
-| | | TYPE_ID "" 7.27.13
-| | | | PTR "ptr" 7.27.13
-| | | | | IDENT "stack" 7.27.24
-| | | | IDENT "stack" 7.27.31
-| | BLOCK "{" 7.27.38
-| | | TYPE_ID "" 7.28.4
-| | | | STRING "string" 7.28.4
-| | | | IDENT "tmp" 7.28.11
-| | | | INDEX "[" 7.28.28
-| | | | | ARROW "->" 7.28.22
-| | | | | | IDENT "stack" 7.28.17
-| | | | | | IDENT "data" 7.28.24
-| | | | | ARROW "->" 7.28.34
-| | | | | | IDENT "stack" 7.28.29
-| | | | | | IDENT "top" 7.28.36
-| | | BLOCK "{" 7.29.4
-| | | | IF "if" 7.29.5
-| | | | | NOT "not" 7.29.9
-| | | | | | NE "!=" 7.29.25
-| | | | | | | ARROW "->" 7.29.19
-| | | | | | | | IDENT "stack" 7.29.14
-| | | | | | | | IDENT "top" 7.29.21
-| | | | | | | '-' "-" 7.29.29
-| | | | | | | | INTCON "1" 7.29.30
-| | | | | CALL "(" 7.29.40
-| | | | | | IDENT "fail" 7.29.35
-| | | | | | STRINGCON ""stack->top != EMPTY"" 7.29.41
-| | | | | | STRINGCON ""40-arraystack.oc"" 7.29.64
-| | | | | | INTCON "29" 7.29.84
-| | | ';' ";" 7.29.89
-| | | '=' "=" 7.30.15
-| | | | ARROW "->" 7.30.9
-| | | | | IDENT "stack" 7.30.4
-| | | | | IDENT "top" 7.30.11
-| | | | '-' "-" 7.30.28
-| | | | | ARROW "->" 7.30.22
-| | | | | | IDENT "stack" 7.30.17
-| | | | | | IDENT "top" 7.30.24
-| | | | | INTCON "1" 7.30.30
-| | | RETURN "return" 7.31.4
-| | | | IDENT "tmp" 7.31.11
-| FUNCTION "" 7.34.1
-| | TYPE_ID "" 7.34.1
-| | | INT "int" 7.34.1
-| | | IDENT "empty" 7.34.5
-| | PARAM "(" 7.34.11
-| | | TYPE_ID "" 7.34.12
-| | | | PTR "ptr" 7.34.12
-| | | | | IDENT "stack" 7.34.23
-| | | | IDENT "stack" 7.34.30
-| | BLOCK "{" 7.34.37
-| | | RETURN "return" 7.35.4
-| | | | EQ "==" 7.35.22
-| | | | | ARROW "->" 7.35.16
-| | | | | | IDENT "stack" 7.35.11
-| | | | | | IDENT "top" 7.35.18
-| | | | | '-' "-" 7.35.26
-| | | | | | INTCON "1" 7.35.27
-| FUNCTION "" 7.38.1
-| | TYPE_ID "" 7.38.1
-| | | INT "int" 7.38.1
-| | | IDENT "main" 7.38.5
-| | PARAM "(" 7.38.10
-| | | TYPE_ID "" 7.38.11
-| | | | INT "int" 7.38.11
-| | | | IDENT "argc" 7.38.15
-| | | TYPE_ID "" 7.38.21
-| | | | ARRAY "array" 7.38.21
-| | | | | STRING "string" 7.38.27
-| | | | IDENT "argv" 7.38.35
-| | BLOCK "{" 7.38.41
-| | | TYPE_ID "" 7.39.4
-| | | | PTR "ptr" 7.39.4
-| | | | | IDENT "stack" 7.39.15
-| | | | IDENT "stack" 7.39.22
-| | | | CALL "(" 7.39.40
-| | | | | IDENT "new_stack" 7.39.30
-| | | | | INTCON "100" 7.39.41
-| | | TYPE_ID "" 7.40.4
-| | | | INT "int" 7.40.4
-| | | | IDENT "argi" 7.40.8
-| | | | INTCON "0" 7.40.15
-| | | WHILE "while" 7.41.4
-| | | | LT "<" 7.41.16
-| | | | | IDENT "argi" 7.41.11
-| | | | | IDENT "argc" 7.41.18
-| | | | BLOCK "{" 7.41.24
-| | | | | CALL "(" 7.42.12
-| | | | | | IDENT "push" 7.42.7
-| | | | | | IDENT "stack" 7.42.13
-| | | | | | INDEX "[" 7.42.24
-| | | | | | | IDENT "argv" 7.42.20
-| | | | | | | IDENT "argi" 7.42.25
-| | | | | '=' "=" 7.43.12
-| | | | | | IDENT "argi" 7.43.7
-| | | | | | '+' "+" 7.43.19
-| | | | | | | IDENT "argi" 7.43.14
-| | | | | | | INTCON "1" 7.43.21
-| | | WHILE "while" 7.45.4
-| | | | NOT "not" 7.45.11
-| | | | | CALL "(" 7.45.21
-| | | | | | IDENT "empty" 7.45.15
-| | | | | | IDENT "stack" 7.45.22
-| | | | BLOCK "{" 7.45.30
-| | | | | CALL "(" 7.46.14
-| | | | | | IDENT "putstr" 7.46.7
-| | | | | | CALL "(" 7.46.19
-| | | | | | | IDENT "pop" 7.46.15
-| | | | | | | IDENT "stack" 7.46.20
-| | | | | CALL "(" 7.47.14
-| | | | | | IDENT "putchr" 7.47.7
-| | | | | | CHARCON "'\n'" 7.47.15
-| | | RETURN "return" 7.49.4
-| | | | INTCON "0" 7.49.11
+ROOT "<<ROOT>>" 0.0.0 {0} 
+FUNCTION "" 6.22.1 {0} void function 
+TYPE_ID "" 6.22.1 {0} 
+VOID "void" 6.22.1 {0} 
+IDENT "fail" 6.22.6 {0} 
+PARAM "(" 6.22.11 {0} 
+TYPE_ID "" 6.22.12 {1} string variable param lval 
+STRING "string" 6.22.12 {0} 
+IDENT "expr" 6.22.19 {0} 
+TYPE_ID "" 6.22.25 {1} string variable param lval 
+STRING "string" 6.22.25 {0} 
+IDENT "file" 6.22.32 {0} 
+TYPE_ID "" 6.22.38 {1} int variable param lval 
+INT "int" 6.22.38 {0} 
+IDENT "line" 6.22.42 {0} 
+FUNCTION "" 6.24.1 {1} void function 
+TYPE_ID "" 6.24.1 {0} 
+VOID "void" 6.24.1 {0} 
+IDENT "putchr" 6.24.6 {0} 
+PARAM "(" 6.24.13 {0} 
+TYPE_ID "" 6.24.14 {2} int variable param lval 
+INT "int" 6.24.14 {0} 
+IDENT "chr" 6.24.18 {0} 
+FUNCTION "" 6.25.1 {2} void function 
+TYPE_ID "" 6.25.1 {0} 
+VOID "void" 6.25.1 {0} 
+IDENT "putint" 6.25.6 {0} 
+PARAM "(" 6.25.13 {0} 
+TYPE_ID "" 6.25.14 {3} int variable param lval 
+INT "int" 6.25.14 {0} 
+IDENT "num" 6.25.18 {0} 
+FUNCTION "" 6.26.1 {3} void function 
+TYPE_ID "" 6.26.1 {0} 
+VOID "void" 6.26.1 {0} 
+IDENT "putstr" 6.26.6 {0} 
+PARAM "(" 6.26.13 {0} 
+TYPE_ID "" 6.26.14 {4} string variable param lval 
+STRING "string" 6.26.14 {0} 
+IDENT "str" 6.26.21 {0} 
+FUNCTION "" 6.28.1 {4} int function 
+TYPE_ID "" 6.28.1 {0} 
+INT "int" 6.28.1 {0} 
+IDENT "getchr" 6.28.5 {0} 
+PARAM "(" 6.28.11 {0} 
+FUNCTION "" 6.29.1 {5} string function 
+TYPE_ID "" 6.29.1 {0} 
+STRING "string" 6.29.1 {0} 
+IDENT "getstr" 6.29.8 {0} 
+PARAM "(" 6.29.14 {0} 
+FUNCTION "" 6.30.1 {6} string function 
+TYPE_ID "" 6.30.1 {0} 
+STRING "string" 6.30.1 {0} 
+IDENT "getln" 6.30.8 {0} 
+PARAM "(" 6.30.13 {0} 
+STRUCT "struct" 7.7.1 {0} struct stack 
+IDENT "stack" 7.7.8 {0} 
+TYPE_ID "" 7.8.4 {0} string array field 
+ARRAY "array" 7.8.4 {0} 
+STRING "string" 7.8.10 {0} 
+IDENT "data" 7.8.18 {0} 
+TYPE_ID "" 7.9.4 {0} int field 
+INT "int" 7.9.4 {0} 
+IDENT "size" 7.9.8 {0} 
+TYPE_ID "" 7.10.4 {0} int field 
+INT "int" 7.10.4 {0} 
+IDENT "top" 7.10.8 {0} 
+FUNCTION "" 7.13.1 {7} function struct stack 
+TYPE_ID "" 7.13.1 {0} 
+PTR "ptr" 7.13.1 {0} 
+IDENT "stack" 7.13.12 {0} 
+IDENT "new_stack" 7.13.19 {0} 
+PARAM "(" 7.13.29 {0} 
+TYPE_ID "" 7.13.30 {8} int variable param lval 
+INT "int" 7.13.30 {0} 
+IDENT "size" 7.13.34 {0} 
+BLOCK "{" 7.13.40 {8} 
+TYPE_ID "" 7.14.4 {8} variable struct stack local lval vreg (7.14.4)
+PTR "ptr" 7.14.4 {0} 
+IDENT "stack" 7.14.15 {0} 
+IDENT "stack" 7.14.22 {0} 
+ALLOC "alloc" 7.14.30 {8} variable struct stack local lval vreg 
+IDENT "stack" 7.14.43 {0} 
+'=' "=" 7.15.16 {8} string array lval vreg vaddr 
+ARROW "->" 7.15.9 {8} string array lval vaddr 
+IDENT "stack" 7.15.4 {8} variable struct stack local lval (7.14.4)
+IDENT "data" 7.15.11 {0} 
+ALLOC "alloc" 7.15.18 {8} string array 
+ARRAY "array" 7.15.24 {0} 
+STRING "string" 7.15.30 {0} 
+IDENT "size" 7.15.40 {8} int variable param lval (7.13.30)
+'=' "=" 7.16.16 {8} int lval vreg vaddr 
+ARROW "->" 7.16.9 {8} int lval vaddr 
+IDENT "stack" 7.16.4 {8} variable struct stack local lval (7.14.4)
+IDENT "size" 7.16.11 {0} 
+IDENT "size" 7.16.18 {8} int variable param lval (7.13.30)
+'=' "=" 7.17.15 {8} int lval vreg vaddr 
+ARROW "->" 7.17.9 {8} int lval vaddr 
+IDENT "stack" 7.17.4 {8} variable struct stack local lval (7.14.4)
+IDENT "top" 7.17.11 {0} 
+'-' "-" 7.17.18 {8} int const vreg 
+INTCON "1" 7.17.19 {8} int const 
+RETURN "return" 7.18.4 {8} 
+IDENT "stack" 7.18.11 {8} variable struct stack local lval (7.14.4)
+FUNCTION "" 7.21.1 {8} void function 
+TYPE_ID "" 7.21.1 {0} 
+VOID "void" 7.21.1 {0} 
+IDENT "push" 7.21.6 {0} 
+PARAM "(" 7.21.11 {0} 
+TYPE_ID "" 7.21.12 {9} variable struct stack param lval 
+PTR "ptr" 7.21.12 {0} 
+IDENT "stack" 7.21.23 {0} 
+IDENT "stack" 7.21.30 {0} 
+TYPE_ID "" 7.21.37 {9} string variable param lval 
+STRING "string" 7.21.37 {0} 
+IDENT "str" 7.21.44 {0} 
+BLOCK "{" 7.21.49 {9} 
+BLOCK "{" 7.22.4 {9} 
+IF "if" 7.22.5 {9} 
+NOT "not" 7.22.9 {9} int vreg 
+LT "<" 7.22.25 {9} int vreg 
+ARROW "->" 7.22.19 {9} int lval vaddr 
+IDENT "stack" 7.22.14 {9} variable struct stack param lval (7.21.12)
+IDENT "top" 7.22.21 {0} 
+'-' "-" 7.22.39 {9} int vreg 
+ARROW "->" 7.22.32 {9} int lval vaddr 
+IDENT "stack" 7.22.27 {9} variable struct stack param lval (7.21.12)
+IDENT "size" 7.22.34 {0} 
+INTCON "1" 7.22.41 {9} int const 
+CALL "(" 7.22.50 {0} void function (6.22.1)
+IDENT "fail" 7.22.45 {0} 
+STRINGCON ""stack->top < stack->size - 1"" 7.22.51 {9} string const 
+STRINGCON ""40-arraystack.oc"" 7.22.83 {9} string const 
+INTCON "22" 7.22.103 {9} int const 
+';' ";" 7.22.108 {0} 
+'=' "=" 7.23.15 {9} int lval vreg vaddr 
+ARROW "->" 7.23.9 {9} int lval vaddr 
+IDENT "stack" 7.23.4 {9} variable struct stack param lval (7.21.12)
+IDENT "top" 7.23.11 {0} 
+'+' "+" 7.23.28 {9} int vreg 
+ARROW "->" 7.23.22 {9} int lval vaddr 
+IDENT "stack" 7.23.17 {9} variable struct stack param lval (7.21.12)
+IDENT "top" 7.23.24 {0} 
+INTCON "1" 7.23.30 {9} int const 
+'=' "=" 7.24.28 {9} string lval vreg vaddr 
+INDEX "[" 7.24.15 {9} string lval vaddr 
+ARROW "->" 7.24.9 {9} string array lval vaddr 
+IDENT "stack" 7.24.4 {9} variable struct stack param lval (7.21.12)
+IDENT "data" 7.24.11 {0} 
+ARROW "->" 7.24.21 {9} int lval vaddr 
+IDENT "stack" 7.24.16 {9} variable struct stack param lval (7.21.12)
+IDENT "top" 7.24.23 {0} 
+IDENT "str" 7.24.30 {9} string variable param lval (7.21.37)
+FUNCTION "" 7.27.1 {9} string function 
+TYPE_ID "" 7.27.1 {0} 
+STRING "string" 7.27.1 {0} 
+IDENT "pop" 7.27.8 {0} 
+PARAM "(" 7.27.12 {0} 
+TYPE_ID "" 7.27.13 {10} variable struct stack param lval 
+PTR "ptr" 7.27.13 {0} 
+IDENT "stack" 7.27.24 {0} 
+IDENT "stack" 7.27.31 {0} 
+BLOCK "{" 7.27.38 {10} 
+TYPE_ID "" 7.28.4 {10} string variable local lval vaddr (7.28.4)
+STRING "string" 7.28.4 {0} 
+IDENT "tmp" 7.28.11 {0} 
+INDEX "[" 7.28.28 {10} string variable local lval vaddr 
+ARROW "->" 7.28.22 {10} string array lval vaddr 
+IDENT "stack" 7.28.17 {10} variable struct stack param lval (7.27.13)
+IDENT "data" 7.28.24 {0} 
+ARROW "->" 7.28.34 {10} int lval vaddr 
+IDENT "stack" 7.28.29 {10} variable struct stack param lval (7.27.13)
+IDENT "top" 7.28.36 {0} 
+BLOCK "{" 7.29.4 {10} 
+IF "if" 7.29.5 {10} 
+NOT "not" 7.29.9 {10} int vreg 
+NE "!=" 7.29.25 {10} int vreg 
+ARROW "->" 7.29.19 {10} int lval vaddr 
+IDENT "stack" 7.29.14 {10} variable struct stack param lval (7.27.13)
+IDENT "top" 7.29.21 {0} 
+'-' "-" 7.29.29 {10} int const vreg 
+INTCON "1" 7.29.30 {10} int const 
+CALL "(" 7.29.40 {0} void function (6.22.1)
+IDENT "fail" 7.29.35 {0} 
+STRINGCON ""stack->top != EMPTY"" 7.29.41 {10} string const 
+STRINGCON ""40-arraystack.oc"" 7.29.64 {10} string const 
+INTCON "29" 7.29.84 {10} int const 
+';' ";" 7.29.89 {0} 
+'=' "=" 7.30.15 {10} int lval vreg vaddr 
+ARROW "->" 7.30.9 {10} int lval vaddr 
+IDENT "stack" 7.30.4 {10} variable struct stack param lval (7.27.13)
+IDENT "top" 7.30.11 {0} 
+'-' "-" 7.30.28 {10} int vreg 
+ARROW "->" 7.30.22 {10} int lval vaddr 
+IDENT "stack" 7.30.17 {10} variable struct stack param lval (7.27.13)
+IDENT "top" 7.30.24 {0} 
+INTCON "1" 7.30.30 {10} int const 
+RETURN "return" 7.31.4 {10} 
+IDENT "tmp" 7.31.11 {10} string variable local lval (7.28.4)
+FUNCTION "" 7.34.1 {10} int function 
+TYPE_ID "" 7.34.1 {0} 
+INT "int" 7.34.1 {0} 
+IDENT "empty" 7.34.5 {0} 
+PARAM "(" 7.34.11 {0} 
+TYPE_ID "" 7.34.12 {11} variable struct stack param lval 
+PTR "ptr" 7.34.12 {0} 
+IDENT "stack" 7.34.23 {0} 
+IDENT "stack" 7.34.30 {0} 
+BLOCK "{" 7.34.37 {11} 
+RETURN "return" 7.35.4 {11} 
+EQ "==" 7.35.22 {11} int vreg 
+ARROW "->" 7.35.16 {11} int lval vaddr 
+IDENT "stack" 7.35.11 {11} variable struct stack param lval (7.34.12)
+IDENT "top" 7.35.18 {0} 
+'-' "-" 7.35.26 {11} int const vreg 
+INTCON "1" 7.35.27 {11} int const 
+FUNCTION "" 7.38.1 {11} int function 
+TYPE_ID "" 7.38.1 {0} 
+INT "int" 7.38.1 {0} 
+IDENT "main" 7.38.5 {0} 
+PARAM "(" 7.38.10 {0} 
+TYPE_ID "" 7.38.11 {12} int variable param lval 
+INT "int" 7.38.11 {0} 
+IDENT "argc" 7.38.15 {0} 
+TYPE_ID "" 7.38.21 {12} string array variable param lval 
+ARRAY "array" 7.38.21 {0} 
+STRING "string" 7.38.27 {0} 
+IDENT "argv" 7.38.35 {0} 
+BLOCK "{" 7.38.41 {12} 
+TYPE_ID "" 7.39.4 {12} variable struct stack local lval vreg (7.39.4)
+PTR "ptr" 7.39.4 {0} 
+IDENT "stack" 7.39.15 {0} 
+IDENT "stack" 7.39.22 {0} 
+CALL "(" 7.39.40 {12} variable struct stack local lval vreg (7.13.1)
+IDENT "new_stack" 7.39.30 {0} 
+INTCON "100" 7.39.41 {12} int const 
+TYPE_ID "" 7.40.4 {12} int variable local lval vreg (7.40.4)
+INT "int" 7.40.4 {0} 
+IDENT "argi" 7.40.8 {0} 
+INTCON "0" 7.40.15 {12} int variable local lval vreg 
+WHILE "while" 7.41.4 {12} 
+LT "<" 7.41.16 {12} int vreg 
+IDENT "argi" 7.41.11 {12} int variable local lval (7.40.4)
+IDENT "argc" 7.41.18 {12} int variable param lval (7.38.11)
+BLOCK "{" 7.41.24 {12} 
+CALL "(" 7.42.12 {8} void function (7.21.1)
+IDENT "push" 7.42.7 {0} 
+IDENT "stack" 7.42.13 {12} variable struct stack local lval (7.39.4)
+INDEX "[" 7.42.24 {12} string lval vaddr 
+IDENT "argv" 7.42.20 {12} string array variable param lval (7.38.21)
+IDENT "argi" 7.42.25 {12} int variable local lval (7.40.4)
+'=' "=" 7.43.12 {12} int variable local lval vreg 
+IDENT "argi" 7.43.7 {12} int variable local lval (7.40.4)
+'+' "+" 7.43.19 {12} int vreg 
+IDENT "argi" 7.43.14 {12} int variable local lval (7.40.4)
+INTCON "1" 7.43.21 {12} int const 
+WHILE "while" 7.45.4 {12} 
+NOT "not" 7.45.11 {12} int vreg 
+CALL "(" 7.45.21 {10} int function (7.34.1)
+IDENT "empty" 7.45.15 {0} 
+IDENT "stack" 7.45.22 {12} variable struct stack local lval (7.39.4)
+BLOCK "{" 7.45.30 {12} 
+CALL "(" 7.46.14 {3} void function (6.26.1)
+IDENT "putstr" 7.46.7 {0} 
+CALL "(" 7.46.19 {9} string function (7.27.1)
+IDENT "pop" 7.46.15 {0} 
+IDENT "stack" 7.46.20 {12} variable struct stack local lval (7.39.4)
+CALL "(" 7.47.14 {1} void function (6.24.1)
+IDENT "putchr" 7.47.7 {0} 
+CHARCON "'\n'" 7.47.15 {12} int const 
+RETURN "return" 7.49.4 {12} 
+INTCON "0" 7.49.11 {12} int const 

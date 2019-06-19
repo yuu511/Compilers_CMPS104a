@@ -1,0 +1,28 @@
+main (7.32.1) {8} int function 
+   argc (7.32.11) {9} int variable param lval 0
+   argv (7.32.21) {9} string array variable param lval 1
+   argi (7.33.4) {9} int variable local lval 2
+   arg (7.34.4) {9} string variable local lval 3
+
+atoi (7.5.1) {7} int function 
+   str (7.5.11) {8} string variable param lval 0
+   neg (7.6.4) {8} int variable local lval 1
+   num (7.7.4) {8} int variable local lval 2
+   digit (7.8.4) {8} int variable local lval 3
+   contin (7.15.7) {8} int variable local lval 4
+   chr (7.20.13) {8} int variable local lval 5
+
+getstr (6.29.1) {5} string function 
+
+fail (6.22.1) {0} void function 
+
+putchr (6.24.1) {1} void function 
+
+getchr (6.28.1) {4} int function 
+
+putstr (6.26.1) {3} void function 
+
+getln (6.30.1) {6} string function 
+
+putint (6.25.1) {2} void function 
+
