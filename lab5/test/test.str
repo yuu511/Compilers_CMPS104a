@@ -1,0 +1,10 @@
+string_set[   0]:    3729804957429652673 0x19e99e8->"<<ROOT>>"
+                      21606623943142546 0x19edad8->"{"
+string_set[   1]:   13686721134187162920 0x19e9a08->"}"
+string_set[   3]:   12597418120160561823 0x19e9938->"int"
+string_set[   4]:    5344662657899890615 0x19edec8->";"
+string_set[   6]:    6142509188972423790 0x19edf48->""
+                   15118982290295364091 0x19edde8->"test"
+load_factor = 0.636
+bucket_count = 11
+max_bucket_size = 2

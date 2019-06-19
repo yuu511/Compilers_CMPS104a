@@ -1,0 +1,8 @@
+mami (5.226.1) {0} struct mami 
+
+sayaka (5.225.1) {0} struct sayaka 
+
+test (5.232.1) {1} int function 
+   one (5.232.10) {2} variable struct mami param lval 0
+   p (5.233.3) {2} int variable local lval 1
+

@@ -1,0 +1,9 @@
+int struct_exists(const string *sname,location *l = nullptr){
+  if (sname != nullptr){
+    if (struct_t->find(sname)==struct_t->end()){
+      errprintf ("struct %s not found in field ptr: %zd.%zd.%zd\n",
+                 sname, l->lloc.filenr,
+                 l->lloc.linenr, l->lloc.offset);
+    }
+  }
+}

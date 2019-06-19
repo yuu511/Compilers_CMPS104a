@@ -1,0 +1,20 @@
+96-unterminated.oc:6:15: warning: missing terminating " character [enabled by default]
+    string s = "abc;
+               ^
+96-unterminated.oc:7:13: warning: missing terminating ' character [enabled by default]
+    char c = 'a;
+             ^
+96-unterminated.oc:8:8: warning: missing terminating " character [enabled by default]
+    s = "abcd\";
+        ^
+96-unterminated.oc:9:8: warning: missing terminating " character [enabled by default]
+    s = "abc|\
+        ^
+¸û÷:5.15: invalid token ("\*/")
+¸û÷:5.20: syntax error, unexpected ';'
+¸û÷:6.15: invalid token ("abc;)
+¸û÷:7.9: syntax error, unexpected TOK_IDENT
+¸û÷:7.13: invalid token ('a;)
+¸û÷:8.8: invalid token ("abcd\";)
+¸û÷:9.8: invalid token ("abc|   ;)
+¸û÷:11.8: invalid token (23foobar)
