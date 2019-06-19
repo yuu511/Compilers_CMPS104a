@@ -15,13 +15,12 @@ string dump_ast_attrib(astree *sym);
 
 astree::astree (int symbol_, const location& lloc_, const char* info, 
                 attr_bitset attributes_, int block_number_, 
-                symbol_table* struct_ptr_,const string* sname_) {
+                const string* sname_) {
    symbol = symbol_;
    lloc = lloc_;
    lexinfo = string_set::intern (info);
    attributes = attributes_;
    block_number = block_number_;
-   struct_ptr = struct_ptr_;
    lloc_orig.filenr = 0;
    lloc_orig.linenr = 0;
    lloc_orig.offset = 0;

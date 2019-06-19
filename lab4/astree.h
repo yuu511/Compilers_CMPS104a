@@ -36,18 +36,16 @@ struct astree {
    location lloc;            // source location
    const string* lexinfo;    // pointer to lexical information
    vector<astree*> children; // children of this n-way node
-   const string* sname;      // if structure, name, else nullptr
 
    // appended fields for asg4
-   attr_bitset attributes;
+   const string* sname;      // if structure, name, else nullptr
    int block_number;
-   symbol_table* struct_ptr;   
+   attr_bitset attributes;
    location lloc_orig;           
 
    // Functions.
    astree (int symbol, const location&, const char* lexinfo,
            attr_bitset=0, int block_number=0, 
-           symbol_table* struct_ptr=nullptr,
            const string* sname = nullptr);
    ~astree();
    astree* adopt (astree* child1, astree* child2 = nullptr);

@@ -25,7 +25,7 @@ symbol *p_expression(astree *s);
 symbol::symbol (astree* ast_, size_t block_nr_){
   attributes = ast_->attributes;  
   sequence = 0;
-  fields = ast_->struct_ptr;
+  fields = nullptr;
   lloc = ast_->lloc;
   block_nr = block_nr_;
   parameters = nullptr;
@@ -376,7 +376,6 @@ void p_struct (astree *s){
         id = c->children[1]->lexinfo;
       }
     }
-
     if (t_code == TOK_VOID){
        errprintf ("VOID may not be a struct param:%zd.%zd.%zd\n",
                    f->lloc.filenr, f->lloc.linenr,
