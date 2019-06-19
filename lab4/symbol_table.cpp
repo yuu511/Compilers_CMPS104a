@@ -990,13 +990,13 @@ symbol *p_field (astree *s){
              found_struct->fields->end()){
           symbol *found_field = 
           found_struct->fields->find(field_name)->second;
-          sym->attributes[static_cast<int>(attr::VOID)]   = 
+          sym->attributes[static_cast<int>(attr::VOID)] = 
             found_field->attributes[static_cast<int>(attr::VOID)];   
-          sym->attributes[static_cast<int>(attr::INT)]    = 
+          sym->attributes[static_cast<int>(attr::INT)] = 
             found_field->attributes[static_cast<int>(attr::INT)];   
-          sym->attributes[static_cast<int>(attr::TYPEID)]    = 
+          sym->attributes[static_cast<int>(attr::TYPEID)] = 
             found_field->attributes[static_cast<int>(attr::TYPEID)];   
-          sym->attributes[static_cast<int>(attr::ARRAY)]  = 
+          sym->attributes[static_cast<int>(attr::ARRAY)] = 
             found_field->attributes[static_cast<int>(attr::ARRAY)];   
           sym->attributes[static_cast<int>(attr::STRING)] = 
             found_field->attributes[static_cast<int>(attr::STRING)];   
@@ -1229,7 +1229,6 @@ void p_return (astree *s){
           s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
    }
 }
-
 
 // Main function,handles all members of language
 void gen_table(astree *s){
