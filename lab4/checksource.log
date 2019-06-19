@@ -1,7 +1,0 @@
-checksource: improper character \x09 = ^I (tab)
-   file "symbol_table.cpp": 11 errors: lines 441--442, 444, 457--460, 
-        465, 467, 469, 599
-checksource: line length > 72 characters
-   file "symbol_table.cpp": 22 errors: lines 415--419, 441, 465, 622, 
-        676, 751, 949--953, 989--992, 1011, 1166, 1168
-checksource: TOTAL COMPLAINTS: 33
