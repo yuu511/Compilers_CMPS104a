@@ -1,2 +1,4 @@
-¨«ã:4.9: syntax error, unexpected ';'
-¨«ã:7.10: invalid source character (.)
+È>ù:4.9: syntax error, unexpected ';'
+È>ù:6.8: syntax error, unexpected TOK_IDENT
+È>ù:7.10: invalid source character (.)
+return called outside function 4.5.1

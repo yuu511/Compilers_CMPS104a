@@ -10,11 +10,11 @@
 96-unterminated.oc:9:8: warning: missing terminating " character [enabled by default]
     s = "abc|\
         ^
-ёыч:5.15: invalid token ("\*/")
-ёыч:5.20: syntax error, unexpected ';'
-ёыч:6.15: invalid token ("abc;)
-ёыч:7.9: syntax error, unexpected TOK_IDENT
-ёыч:7.13: invalid token ('a;)
-ёыч:8.8: invalid token ("abcd\";)
-ёыч:9.8: invalid token ("abc|   ;)
-ёыч:11.8: invalid token (23foobar)
+Ш.d:5.15: invalid token ("\*/")
+Ш.d:5.20: syntax error, unexpected ';'
+Ш.d:6.15: invalid token ("abc;)
+Ш.d:7.9: syntax error, unexpected TOK_IDENT
+Ш.d:7.13: invalid token ('a;)
+Ш.d:8.8: invalid token ("abcd\";)
+Ш.d:9.8: invalid token ("abc|   ;)
+Ш.d:11.8: invalid token (23foobar)

@@ -1,3 +1,60 @@
-HK:9.4: syntax error, unexpected '[', expecting TOK_IDENT
-HK:13.14: syntax error, unexpected '[', expecting TOK_IDENT
-HK:16.1: syntax error, unexpected TOK_INT, expecting ';'
+h.q:9.4: syntax error, unexpected '[', expecting TOK_IDENT
+h.q:10.11: syntax error, unexpected ']'
+h.q:13.14: syntax error, unexpected '[', expecting TOK_IDENT
+h.q:16.1: syntax error, unexpected TOK_INT, expecting ';'
+h.q:31.1: syntax error, unexpected '}'
+prototype foo defined multiple times: 5.12.1
+function f not found: 5.18.5
+astree_attribs called on nullptr
+function f not found: 5.19.6
+astree_attribs called on nullptr
+ident bar not found in table: 5.20.10
+type mismatch: math expr 5.20.8
+ident b not found in table: 5.21.8
+ident c not found in table: 5.21.12
+ident d not found in table: 5.21.16
+assignment to non-lval: 5.21.12
+assignment to non-lval: 5.21.8
+not compatible assignment: 5.12.11
+ident test not found in table: 5.22.4
+ident abc not found in table: 5.22.11
+ident def not found in table: 5.22.17
+type mismatch: math expr 5.22.15
+ident ghi not found in table: 5.22.23
+type mismatch: math expr 5.22.21
+assignment to non-lval: 5.22.4
+not compatible assignment: 5.22.4
+ident this not found in table: 5.23.4
+type mismatch: math expr 5.23.9
+type mismatch: math expr 5.23.18
+ident b not found in table: 5.24.15
+type mismatch: math expr 5.24.13
+ident f not found in table: 5.24.18
+ident f not found in table: 5.24.22
+type mismatch: math expr 5.24.24
+assignment to non-lval: 5.24.18
+not compatible assignment: 5.24.18
+return value mismatch : 5.25.4
+attempting to index something thatis not a string or array :5.26.5
+ident i not found in table: 5.26.6
+attempting to index with a non-int index :5.26.5
+ident b not found in table: 5.26.11
+attempting to index something thatis not a string or array :5.26.12
+ident j not found in table: 5.26.13
+attempting to index with a non-int index :5.26.12
+ident TRUE not found in table: 5.28.11
+invalid expr for loop: 5.28.4
+ident b not found in table: 5.28.25
+assignment to non-lval: 5.28.25
+not compatible assignment: 5.28.25
+ident b not found in table: 5.29.13
+incompatible comparison: 5.29.10
+function f not found: 5.29.18
+astree_attribs called on nullptr
+ident b not found in table: 5.30.13
+incompatible comparison: 5.30.10
+ident y not found in table: 5.30.16
+assignment to non-lval: 5.30.16
+not compatible assignment: 5.30.16
+function f not found: 5.30.30
+astree_attribs called on nullptr
