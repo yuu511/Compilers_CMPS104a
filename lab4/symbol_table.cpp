@@ -69,6 +69,7 @@ symbol* symbol::symbol_deepcopy(astree *ast){
 void astree_attribs(symbol *sym, astree *ast){
   if (sym == nullptr || ast == nullptr){
     errprintf ("astree_attribs called on nullptr\n");
+    return;
   }
   ast->attributes = sym->attributes;
   ast->block_number = sym->block_nr;
@@ -956,7 +957,9 @@ symbol *p_call(astree *s){
     }
   }
   astree_attribs(test,s);
-  s->lloc_orig = test->lloc;
+  if (s != nullptr && test != nullptr){
+    s->lloc_orig = test->lloc;
+  }
   return ret;
 }
 
@@ -1178,8 +1181,9 @@ void p_typeid(astree *s){
       return;
     }
   }
-  s->lloc_orig = sym->lloc;
-
+  if (s != nullptr && sym != nullptr){
+    s->lloc_orig = sym->lloc;
+  }
   if (current != 0 && local != nullptr){
     sym->sequence = local->size();
     sym->attributes.set(static_cast<int>(attr::LOCAL));
