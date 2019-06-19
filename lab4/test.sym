@@ -2,7 +2,11 @@ mami (5.226.1) {0} struct mami
 
 sayaka (5.225.1) {0} struct sayaka 
 
-test (5.228.1) {1} int function 
-   one (5.228.10) {2} variable struct mami param lval 0
-   p (5.229.3) {2} int variable local lval 1
+test (5.232.1) {2} int function 
+   one (5.232.10) {3} variable struct mami param lval 0
+   p (5.233.3) {3} int variable local lval 1
+   z (5.234.3) {3} int variable local lval 2
+
+ret (5.228.1) {1} int function 
+   x (5.229.3) {2} int variable local lval 0
 

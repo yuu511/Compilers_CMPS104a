@@ -955,8 +955,8 @@ symbol *p_call(astree *s){
       ret->sname = test->sname;
     }
   }
-  astree_attribs(ret,s);
-  s->lloc_orig = ret->lloc;
+  astree_attribs(test,s);
+  s->lloc_orig = test->lloc;
   return ret;
 }
 

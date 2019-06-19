@@ -15,18 +15,35 @@ IDENT "one" 5.227.27 {0}
 FUNCTION "" 5.228.1 {1} int function 
 TYPE_ID "" 5.228.1 {0} 
 INT "int" 5.228.1 {0} 
-IDENT "test" 5.228.5 {0} 
+IDENT "ret" 5.228.5 {0} 
 PARAM "(" 5.228.9 {0} 
-TYPE_ID "" 5.228.10 {2} variable struct mami param lval 
-PTR "ptr" 5.228.10 {0} 
-IDENT "mami" 5.228.21 {0} 
-IDENT "one" 5.228.27 {0} 
-BLOCK "{" 5.228.32 {2} 
+BLOCK "{" 5.228.11 {2} 
 TYPE_ID "" 5.229.3 {2} int variable local lval vreg (5.229.3)
 INT "int" 5.229.3 {0} 
-IDENT "p" 5.229.7 {0} 
-'+' "+" 5.229.13 {2} int variable local lval vreg 
-INTCON "5" 5.229.11 {2} int const 
-INTCON "10" 5.229.15 {2} int const 
+IDENT "x" 5.229.7 {0} 
+INTCON "5" 5.229.10 {2} int variable local lval vreg 
 RETURN "return" 5.230.3 {2} 
-IDENT "p" 5.230.10 {2} int variable local lval (5.229.3)
+IDENT "x" 5.230.10 {2} int variable local lval (5.229.3)
+FUNCTION "" 5.232.1 {2} int function 
+TYPE_ID "" 5.232.1 {0} 
+INT "int" 5.232.1 {0} 
+IDENT "test" 5.232.5 {0} 
+PARAM "(" 5.232.9 {0} 
+TYPE_ID "" 5.232.10 {3} variable struct mami param lval 
+PTR "ptr" 5.232.10 {0} 
+IDENT "mami" 5.232.21 {0} 
+IDENT "one" 5.232.27 {0} 
+BLOCK "{" 5.232.32 {3} 
+TYPE_ID "" 5.233.3 {3} int variable local lval vreg (5.233.3)
+INT "int" 5.233.3 {0} 
+IDENT "p" 5.233.7 {0} 
+'+' "+" 5.233.13 {3} int variable local lval vreg 
+INTCON "5" 5.233.11 {3} int const 
+INTCON "10" 5.233.15 {3} int const 
+TYPE_ID "" 5.234.3 {3} int variable local lval vreg (5.234.3)
+INT "int" 5.234.3 {0} 
+IDENT "z" 5.234.7 {0} 
+CALL "(" 5.234.14 {3} int variable local lval vreg (5.228.1)
+IDENT "ret" 5.234.11 {0} 
+RETURN "return" 5.235.3 {3} 
+IDENT "p" 5.235.10 {3} int variable local lval (5.233.3)
