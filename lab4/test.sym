@@ -1,6 +1,8 @@
-sayaka (5.221.1) {0} struct sayaka 
+mami (5.226.1) {0} struct mami 
 
-mami (5.220.1) {0} struct mami 
+sayaka (5.225.1) {0} struct sayaka 
 
-test (5.223.1) {0} array function struct sayaka 
+test (5.227.1) {0} array function struct sayaka 
+   one (5.227.32) {1} variable struct mami param lval 0
+   p (5.228.3) {1} array variable struct sayaka local lval 1
 

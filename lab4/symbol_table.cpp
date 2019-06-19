@@ -879,10 +879,7 @@ symbol *p_ident (astree *s){
     s->lloc.linenr,
     s->lloc.offset);
   } else { 
-    sym->attributes = test->attributes;
-    if (test->sname != nullptr){
-      sym->sname = test->sname;
-    }
+    sym = test->symbol_deepcopy(s);
   }
   return sym;
 }
@@ -1214,22 +1211,24 @@ void p_return (astree *s){
   }
   symbol *ret = p_expression(s->children[0]);
   if (ret != nullptr){
-    if (
-      func->attributes[static_cast<int>(attr::ARRAY)]  != ret->attributes[static_cast<int>(attr::ARRAY)] ||
-      func->attributes[static_cast<int>(attr::STRING)] != ret->attributes[static_cast<int>(attr::STRING)] || 
-      func->attributes[static_cast<int>(attr::INT)]    != ret->attributes[static_cast<int>(attr::INT)] || 
-      func->attributes[static_cast<int>(attr::TYPEID)] != ret->attributes[static_cast<int>(attr::TYPEID)]){
+    if (!compare_types(func->attributes,ret->attributes))
       errprintf ( "return value mismatch : %zd.%zd.%zd\n",
        s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
+     if (!(func->sname != nullptr) != !(ret->sname !=nullptr))
+       errprintf ("attempt to return a ptr to a non-ptr: %zd.%zd.%zd\n",
+          s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
      if (func->sname != nullptr && ret->sname !=nullptr)
        if (func -> sname != ret->sname ){
          errprintf (
          "struct return value mismatch : %zd.%zd.%zd\n",
           s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
        }
+     delete ret;
    }
-   delete ret;
-  }
+   else {
+     errprintf ("return expression invalid :%zd.%zd.%zd",
+          s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
+   }
 }
 
 
