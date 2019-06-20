@@ -21,7 +21,6 @@ int next_block = 1;
 const string *current_function;
 symbol *p_expression(astree *s);
 
-
 symbol::symbol (astree* ast_, size_t block_nr_){
   attributes = ast_->attributes;  
   sequence = 0;
@@ -31,7 +30,6 @@ symbol::symbol (astree* ast_, size_t block_nr_){
   parameters = nullptr;
   sname = nullptr;
 }
-
 
 symbol::~symbol(){
   if (yydebug) {
@@ -1337,4 +1335,12 @@ void dump_all_tables(FILE* out){
     print_struct(out,itor.first,itor.second);  
   }
   print_map(out,global);
+}
+
+symbol_table *r_struct(){
+  return struct_t;
+}
+
+unordered_map<const string*,symbol_table*> *r_master(){
+  return master;
 }

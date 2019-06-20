@@ -33,4 +33,8 @@ void free_symbol();
 
 void dump_all_tables(FILE* outfile);
 
+symbol_table *r_struct();
+
+unordered_map<const string*,symbol_table*> *r_master();
+
 #endif

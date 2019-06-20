@@ -52,7 +52,7 @@ start     : program            { $$ = $1 = nullptr; }
 
 program   : program structdef { $$ = $1->adopt($2); }
           | program function  { $$ = $1->adopt($2); }
-          | program statement { $$ = $1->adopt($2); }
+          | program vardecl   { $$ = $1->adopt($2); }
           | program error '}' { $$ = $1; destroy($3); }
           | program error ';' { $$ = $1; destroy($3); }
           | { $$ = parser::root; }

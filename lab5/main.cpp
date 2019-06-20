@@ -23,6 +23,7 @@ using namespace std;
 #include "lyutils.h"
 #include "astree.h"
 #include "symbol_table.h"
+#include "3ac.h"
 
 const string CPP = "/usr/bin/cpp -nostdinc";
 string command = CPP;
@@ -153,7 +154,9 @@ int main (int argc, char** argv) {
    FILE *symfp;
    append = ".sym";
    symfp = appendopen (input_stripped,append);
-   lexer::symfp(symfp);
+   FILE *oilfp;
+   append = ".oil";
+   oilfp = appendopen (input_stripped,append);
 
    // Run the c preprocessor and pipe the output to yyin.
    exec_cpp(filename);
@@ -170,11 +173,15 @@ int main (int argc, char** argv) {
    // generate the symbol table
    gen_table(parser::root);
 
-   // dump all tables
-   dump_all_tables(symfp);
+   // generate the oil file
+   emit_3ac(parser::root,r_struct(),r_master());
 
    // dump the astree
    astree::draw_attrib(astfp,parser::root);
+
+   // dump all symbol tables
+   dump_all_tables(symfp);
+
 
    // personal debug flag 
    if (a_debug)
@@ -185,6 +192,7 @@ int main (int argc, char** argv) {
    e_close(strfp);
    e_close(astfp);
    e_close(symfp);
+   e_close(oilfp);
 
    // free memory 
    free_symbol();
