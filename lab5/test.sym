@@ -1,13 +1,17 @@
 mami (5.226.1) {0} struct mami 
+   one (5.226.15) int field 0
+   two (5.227.18) string field 1
+   sayaka (5.228.18) field struct sayaka 2
+   madoka (5.229.18) int array field 3
 
 sayaka (5.225.1) {0} struct sayaka 
 
-test (5.233.1) {2} int function 
-   one (5.233.10) {3} variable struct mami param lval 0
-   p (5.234.3) {3} int variable local lval 1
+test (5.237.1) {2} int function 
+   one (5.237.10) {3} variable struct mami param lval 0
+   p (5.238.3) {3} int variable local lval 1
 
-ret (5.229.1) {1} int function 
-   x (5.230.3) {2} int variable local lval 0
+ret (5.233.1) {1} int function 
+   x (5.234.3) {2} int variable local lval 0
 
-z (5.227.1) {0} int variable lval 
+z (5.231.1) {0} int variable lval 
 

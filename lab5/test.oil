@@ -1,0 +1,8 @@
+.struct mami
+.field int madoka
+.field int one
+.field struct sayaka sayaka
+.field ptr two
+
+.struct sayaka
+
