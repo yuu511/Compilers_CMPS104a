@@ -10,16 +10,16 @@ string parse_typesize(symbol *sym){
     st.append("int ");
     return st;
   }
+  if (a[static_cast<int>(attr::STRING)] || a[static_cast<int>(attr::ARRAY)]){
+    st.append ("ptr ");
+    return st;
+  }
   if (a[static_cast<int>(attr::TYPEID)]){
     st.append ("struct ");
     if (sym -> sname !=nullptr){
       st.append (sym->sname->c_str());
       st.append (" ");
     }
-    return st;
-  }
-  if (a[static_cast<int>(attr::STRING)] || a[static_cast<int>(attr::ARRAY)]){
-    st.append ("ptr ");
     return st;
   }
   return st;
