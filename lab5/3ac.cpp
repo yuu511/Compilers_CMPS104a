@@ -4,7 +4,7 @@
 #include "lyutils.h"
 #include "auxlib.h"
 
-vector<string> *all_strings  = new vector <string>();
+vector<const string*> *all_strings  = new vector <const string*>();
 
 string parse_typesize(symbol *sym){
   attr_bitset a = sym->attributes;
@@ -76,14 +76,30 @@ void ac_globalvar(astree *child, unordered_map<const string*, symbol_table*> *ma
           break;
         case static_cast<int>(attr::STRING):
           if (child->children.size() > 2 ){
-
+            //parse the expr
+            if (child->children[2]->children.size() == 0){
+              all_strings->push_back(child->children[2]->lexinfo);
+            }
+            else {
+              errprintf ("global variable may not have non-static value assigned to it\n");
+            }
           } else {
-            
+            fprintf (out,"%s: .global string\n",child->children[1]->lexinfo->c_str());
           }
           break;
       }
     }
   }
+}
+
+//emit all string constants.
+void emit_string(FILE *out){
+  int i = 0;
+  for (auto itor: *all_strings){
+    fprintf (out,".s%d: %s\n",i,itor->c_str());
+    i++;
+  }
+  fprintf (out,"\n");
 }
 
 void ac_traverse(astree *s, unordered_map<const string*, symbol_table*> *master, FILE *out){
@@ -101,6 +117,7 @@ void ac_traverse(astree *s, unordered_map<const string*, symbol_table*> *master,
     }
   }
   // emit string constants here
+  emit_string(out);
 }
 
 void emit_3ac(astree *s, symbol_table *struct_table, unordered_map<const string*,symbol_table*> *master,FILE *out){

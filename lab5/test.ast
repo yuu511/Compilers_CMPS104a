@@ -1,0 +1,22 @@
+ROOT "<<ROOT>>" 0.0.0 {0} 
+STRUCT "struct" 5.232.1 {0} struct mami 
+IDENT "mami" 5.232.8 {0} 
+STRUCT "struct" 5.233.1 {0} struct sayaka 
+IDENT "sayaka" 5.233.8 {0} 
+TYPE_ID "" 5.234.1 {0} variable struct mami lval vreg (5.234.1)
+PTR "ptr" 5.234.1 {0} 
+IDENT "mami" 5.234.13 {0} 
+IDENT "thing" 5.234.19 {0} 
+ALLOC "alloc" 5.234.27 {0} variable struct mami lval vreg 
+IDENT "mami" 5.234.41 {0} 
+TYPE_ID "" 5.235.1 {0} string variable lval vreg (5.235.1)
+STRING "string" 5.235.1 {0} 
+IDENT "test" 5.235.8 {0} 
+STRINGCON ""fk"" 5.235.15 {0} string variable lval vreg 
+TYPE_ID "" 5.236.1 {0} string variable lval vreg (5.236.1)
+STRING "string" 5.236.1 {0} 
+IDENT "zoop" 5.236.8 {0} 
+STRINGCON ""wip"" 5.236.15 {0} string variable lval vreg 
+TYPE_ID "" 5.237.1 {0} string variable lval (5.237.1)
+STRING "string" 5.237.1 {0} 
+IDENT "yes" 5.237.8 {0} 
