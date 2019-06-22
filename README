@@ -1,6 +1,11 @@
 Compiler for the fictuous oc language, which is mostly a subset of c++.
 Built in c++,with GNU toolchain (Flex + Bison).
-lab1: C-Preprocessor
-lab2: Scanner
-lab3: Parser
-lab4: Symbol table and type checker
+The completed project is in the lab5 folder.
+Each module of the compiler emits an output file.
+lab1: C-Preprocessor : .str
+lab2: Scanner: .tok
+lab3: Parser: .ast
+lab4: Symbol table and type checker: .sym
+lab5: Three Adress Code: .oil
+
+Check out Lab{n}/test for examples.
