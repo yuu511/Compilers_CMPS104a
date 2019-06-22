@@ -4,7 +4,7 @@ The completed project is in the lab5 folder.
 Each module of the compiler emits an output file.
 lab1: C-Preprocessor : .str
 lab2: Scanner: .tok
-lab3: Parser: .ast
+lab3: Parser (Abstract Syntax Tree): .ast
 lab4: Symbol table and type checker: .sym
 lab5: Three Adress Code: .oil
 
