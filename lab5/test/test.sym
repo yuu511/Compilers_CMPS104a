@@ -1,0 +1,11 @@
+allofem (4.8.1) {0} struct allofem 
+   one (4.8.18) int field 0
+   two (4.9.18) string field 1
+   homura (4.10.18) field struct none 2
+   sayaka (4.11.18) int array field 3
+
+onearg (4.4.1) {0} struct onearg 
+   trivial (4.4.15) int field 0
+
+test (4.3.1) {0} struct test 
+

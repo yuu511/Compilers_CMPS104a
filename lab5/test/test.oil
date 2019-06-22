@@ -1,0 +1,13 @@
+.struct none
+
+.struct allofem
+.field int sayaka
+.field struct none homura
+.field ptr two
+.field int one
+
+.struct onearg
+.field int trivial
+
+.struct test
+

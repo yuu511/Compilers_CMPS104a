@@ -1,14 +1,14 @@
-ROOT "<<ROOT>>" 0.0.0
-| FUNCTION "" 5.11.1
-| | TYPE_ID "" 5.11.1
-| | | VOID "void" 5.11.1
-| | | IDENT "foo" 5.11.6
-| | PARAM "(" 5.11.9
-| FUNCTION "" 5.12.1
-| | TYPE_ID "" 5.12.1
-| | | VOID "void" 5.12.1
-| | | IDENT "foo" 5.12.6
-| | PARAM "(" 5.12.10
-| | | TYPE_ID "" 5.12.11
-| | | | INT "int" 5.12.11
-| | | | IDENT "a" 5.12.15
+ROOT "<<ROOT>>" 0.0.0 {0} 
+FUNCTION "" 5.11.1 {0} void function 
+TYPE_ID "" 5.11.1 {0} 
+VOID "void" 5.11.1 {0} 
+IDENT "foo" 5.11.6 {0} 
+PARAM "(" 5.11.9 {0} 
+FUNCTION "" 5.12.1 {1} void function 
+TYPE_ID "" 5.12.1 {0} 
+VOID "void" 5.12.1 {0} 
+IDENT "foo" 5.12.6 {0} 
+PARAM "(" 5.12.10 {0} 
+TYPE_ID "" 5.12.11 {2} int variable param lval 
+INT "int" 5.12.11 {0} 
+IDENT "a" 5.12.15 {0} 

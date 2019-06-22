@@ -1,7 +1,38 @@
-# 141 "test.oc"
-    5 141.001 123 '{'           {
-    5 141.002 125 '}'           }
-# 158 "test.oc"
-    6 158.001 259 TOK_INT       int
-    6 158.005 278 TOK_IDENT     test
-    6 158.009  59 ';'           ;
+#   3 "test.oc"
+    4   3.001 265 TOK_STRUCT    struct
+    4   3.008 278 TOK_IDENT     test
+    4   3.012 123 '{'           {
+    4   3.013 125 '}'           }
+    4   3.014  59 ';'           ;
+    4   4.001 265 TOK_STRUCT    struct
+    4   4.008 278 TOK_IDENT     onearg
+    4   4.014 123 '{'           {
+    4   4.015 259 TOK_INT       int
+    4   4.019 278 TOK_IDENT     trivial
+    4   4.026  59 ';'           ;
+    4   4.027 125 '}'           }
+    4   4.028  59 ';'           ;
+    4   8.001 265 TOK_STRUCT    struct
+    4   8.008 278 TOK_IDENT     allofem
+    4   8.016 123 '{'           {
+    4   8.018 259 TOK_INT       int
+    4   8.022 278 TOK_IDENT     one
+    4   8.025  59 ';'           ;
+    4   9.018 260 TOK_STRING    string
+    4   9.025 278 TOK_IDENT     two
+    4   9.028  59 ';'           ;
+    4  10.018 270 TOK_PTR       ptr
+    4  10.022  60 '<'           <
+    4  10.023 265 TOK_STRUCT    struct
+    4  10.030 278 TOK_IDENT     none
+    4  10.035  62 '>'           >
+    4  10.037 278 TOK_IDENT     homura
+    4  10.043  59 ';'           ;
+    4  11.018 267 TOK_ARRAY     array
+    4  11.024  60 '<'           <
+    4  11.025 259 TOK_INT       int
+    4  11.028  62 '>'           >
+    4  11.030 278 TOK_IDENT     sayaka
+    4  11.036  59 ';'           ;
+    4  12.013 125 '}'           }
+    4  12.014  59 ';'           ;

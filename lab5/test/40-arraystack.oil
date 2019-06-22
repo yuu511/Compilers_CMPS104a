@@ -1,0 +1,5 @@
+.struct stack
+.field int top
+.field int size
+.field ptr data
+

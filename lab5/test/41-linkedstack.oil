@@ -1,0 +1,7 @@
+.struct stack
+.field struct node top
+
+.struct node
+.field struct node link
+.field ptr data
+
