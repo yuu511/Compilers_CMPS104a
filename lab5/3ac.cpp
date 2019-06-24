@@ -8,23 +8,33 @@ vector<const string*> *all_strings  = new vector <const string*>();
 vector<string*> *all_globals  = new vector <string*>();
 vector<string*> *all_functions  = new vector <string*>();
 
-string parse_typesize(symbol *sym){
-  attr_bitset a = sym->attributes;
-  string st = "";
-  if (a[static_cast<int>(attr::INT)]){
-    st.append("int ");
-    return st;
+// parse types of either symbol or astree
+// kind of turned into a mess because you need
+// a structure name for structure types.
+string parse_typesize(symbol *sym,astree *ast){ 
+  // xnor (throws an error if both nullptr or pointer exists for both)
+  if (!(sym) == !(ast)){
+    errprintf ("parse_typesize called incorrectly");
   }
+  attr_bitset a;
+  const string* sname;
+  sym == nullptr ? (a = ast->attributes, sname = ast->sname)  : (a = sym->attributes, sname = sym->sname);
+  string st = "";
+
   if (a[static_cast<int>(attr::TYPEID)]){
     st.append ("struct ");
-    if (sym -> sname !=nullptr){
-      st.append (sym->sname->c_str());
+    if (sname != nullptr){
+      st.append (sname->c_str());
       st.append (" ");
     }
     return st;
   }
   if (a[static_cast<int>(attr::STRING)] || a[static_cast<int>(attr::ARRAY)]){
     st.append ("ptr ");
+    return st;
+  }
+  if (a[static_cast<int>(attr::INT)]){
+    st.append("int ");
     return st;
   }
   return st;
@@ -39,7 +49,7 @@ void translate_struct (const string *name, symbol *sym, FILE *out){
   if (sym->fields != nullptr){
     for (auto itor: *(sym->fields)){
       fprintf (out,".field %s%s\n", 
-        parse_typesize(itor.second).c_str(),
+        parse_typesize(itor.second,nullptr).c_str(),
         itor.first->c_str());
     }
   }
@@ -56,49 +66,129 @@ void ac_struct(symbol_table *struct_table,FILE *out){
   }
 }
 
-void ac_globalvar(astree *child, unordered_map<const string*, symbol_table*> *master, FILE *out){
-  for (size_t i =0; i< child->attributes.size(); i++){
-    if (child->attributes[i]){
-      switch(i){
-        case static_cast<int>(attr::INT):
-          if (child->children.size() > 2 ){
-            //parse the expr
-            // manipulate string for string padding
-            string name = child->children[1]->lexinfo->c_str();
-            name += ":";
-            if (child->children[2]->children.size() == 0){
-              fprintf (out,"%-10s .global int %s\n",
-                       name.c_str(),
-                       child->children[2]->lexinfo->c_str());
-            }
-            else {
-              errprintf ("global variable may not have non-static value assigned to it\n");
-            }
+void parse_assignment(astree *child, FILE *out,string label){
+  astree *ident_node = child->children[1];
+  string name = ident_node->lexinfo->c_str();
+  name += ":";
+  attr_bitset a = child->attributes;
+  astree *assignment = child->children[2];
+  if (child->children.size() > 2 ){
+    if (a[static_cast<int>(attr::ARRAY)]){
+    }
+    if (a[static_cast<int>(attr::TYPEID)]){
+    }
+    if (a[static_cast<int>(attr::STRING)]){
+      if (child->children[2]->symbol == TOK_ALLOC){
+        if (child->children[2]->children.size() == 2){
+          if (child->children[2]->children[1]->children.size() > 0){
+
           }
           else {
-            string name = child->children[1]->lexinfo->c_str();
-            name += ":";
-            fprintf (out,"%-10s .global int\n",name.c_str());
+            assignment = child->children[2]->children[1];   
+            fprintf (out,"%-10s %s %smalloc(%s)\n",
+                     name.c_str(),
+                     label.c_str(),
+                     parse_typesize(nullptr,child).c_str(),
+                     assignment->lexinfo->c_str());
+             return;
           }
-          break;
-        case static_cast<int>(attr::STRING):
-          if (child->children.size() > 2 ){
-            //parse the expr
-            if (child->children[2]->children.size() == 0){
-              all_strings->push_back(child->children[2]->lexinfo);
-            }
-            else {
-              errprintf ("global variable may not have non-static value assigned to it\n");
-            }
-          } else {
-            string name = child->children[1]->lexinfo->c_str();
-            name += ":";
-            fprintf (out,"%-10s .global string\n",name.c_str());
-          }
-          break;
+        }
+      }
+      else {
+        
       }
     }
+    if (a[static_cast<int>(attr::INT)]){
+      if (assignment->children.size() > 2){
+        // parse the expr
+      } 
+      else {
+        fprintf (out,"%-10s %s %s%s\n",
+                 name.c_str(),
+                 label.c_str(),
+                 parse_typesize(nullptr,child).c_str(),
+                 assignment->lexinfo->c_str());
+      }
+      return;
+    }
   }
+  else {
+    fprintf (out,"%-10s .%s %s\n",
+             name.c_str(),
+             label.c_str(),
+             parse_typesize(nullptr,child).c_str());
+  }
+}
+
+void ac_globalvar(astree *child, unordered_map<const string*, symbol_table*> *master, FILE *out){
+  if (child->children.size() > 2){
+    if (child->children[2]->children.size() == 0){
+      parse_assignment(child,out,".global");
+    }
+    else {
+        if (child->children[2]->symbol == TOK_ALLOC){
+          if (child->children[2]->children.size() == 2){
+           if (child->children[2]->children[1]->children.size() != 0){
+             errprintf ("global variable may not have non-static value assigned to it\n");
+           }
+           else {
+             parse_assignment(child,out,".global");
+           }
+          }
+          else {
+            parse_assignment(child,out,".global");
+          }
+        }
+        else {
+          errprintf ("global variable may not have non-static value assigned to it\n");
+        }
+    }
+  }
+  else {
+    parse_assignment(child,out,".global");
+  }
+  // for (size_t i =0; i< child->attributes.size(); i++){
+  //   if (child->attributes[i]){
+  //     switch(i){
+  //       case static_cast<int>(attr::INT):
+  //         if (child->children.size() > 2 ){
+  //           //parse the expr
+  //           // manipulate string for string padding
+  //           string name = child->children[1]->lexinfo->c_str();
+  //           name += ":";
+  //           if (child->children[2]->children.size() == 0){
+  //             fprintf (out,"%-10s .global int %s\n",
+  //                      name.c_str(),
+  //                      child->children[2]->lexinfo->c_str());
+  //           }
+  //           else {
+  //             errprintf ("global variable may not have non-static value assigned to it\n");
+  //           }
+  //         }
+  //         else {
+  //           string name = child->children[1]->lexinfo->c_str();
+  //           name += ":";
+  //           fprintf (out,"%-10s .global int\n",name.c_str());
+  //         }
+  //         break;
+  //       case static_cast<int>(attr::STRING):
+  //         if (child->children.size() > 2 ){
+  //           //parse the expr
+  //           if (child->children[2]->children.size() == 0){
+  //             all_strings->push_back(child->children[2]->lexinfo);
+  //           }
+  //           else {
+  //             errprintf ("global variable may not have non-static value assigned to it\n");
+  //           }
+  //         } else {
+  //           string name = child->children[1]->lexinfo->c_str();
+  //           name += ":";
+  //           fprintf (out,"%-10s .global string\n",name.c_str());
+  //         }
+  //         break;
+  //     }
+  //   }
+  // }
 }
 
 //emit all string constants.

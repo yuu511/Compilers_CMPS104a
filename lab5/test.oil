@@ -1,9 +1,10 @@
+.struct mami
+.field ptr madoka
+.field struct sayaka sayaka
+.field int one
+.field ptr two
+.end 
 .struct sayaka
 .end 
-.struct mami
-.end 
 sadf:      .global int 5
-aaaaaaaaa: .global string
-x:         .global string
-.s0:       "fk"
-.s1:       "wip"
+z:         .global ptr malloc(5)

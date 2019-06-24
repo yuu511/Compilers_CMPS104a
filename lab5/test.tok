@@ -1,47 +1,41 @@
-# 232 "./examples/test.oc"
-    5 232.001 265 TOK_STRUCT    struct
-    5 232.008 278 TOK_IDENT     mami
-    5 232.013 123 '{'           {
-    5 232.014 125 '}'           }
-    5 232.015  59 ';'           ;
-    5 233.001 265 TOK_STRUCT    struct
-    5 233.008 278 TOK_IDENT     sayaka
-    5 233.014 123 '{'           {
-    5 233.015 125 '}'           }
-    5 233.016  59 ';'           ;
-    5 234.001 270 TOK_PTR       ptr
-    5 234.005  60 '<'           <
-    5 234.006 265 TOK_STRUCT    struct
-    5 234.013 278 TOK_IDENT     mami
-    5 234.017  62 '>'           >
-    5 234.019 278 TOK_IDENT     thing
-    5 234.025  61 '='           =
-    5 234.027 269 TOK_ALLOC     alloc
-    5 234.033  60 '<'           <
-    5 234.034 265 TOK_STRUCT    struct
-    5 234.041 278 TOK_IDENT     mami
-    5 234.045  62 '>'           >
-    5 234.047  40 '('           (
-    5 234.048  41 ')'           )
-    5 234.049  59 ';'           ;
-    5 235.001 260 TOK_STRING    string
-    5 235.008 278 TOK_IDENT     test
-    5 235.013  61 '='           =
-    5 235.015 281 TOK_STRINGCON "fk"
-    5 235.019  59 ';'           ;
-    5 236.001 260 TOK_STRING    string
-    5 236.008 278 TOK_IDENT     zoop
-    5 236.013  61 '='           =
-    5 236.015 281 TOK_STRINGCON "wip"
-    5 236.020  59 ';'           ;
+# 226 "./examples/test.oc"
+    5 226.001 265 TOK_STRUCT    struct
+    5 226.008 278 TOK_IDENT     mami
+    5 226.013 123 '{'           {
+    5 226.015 259 TOK_INT       int
+    5 226.019 278 TOK_IDENT     one
+    5 226.022  59 ';'           ;
+    5 227.018 260 TOK_STRING    string
+    5 227.025 278 TOK_IDENT     two
+    5 227.028  59 ';'           ;
+    5 228.018 270 TOK_PTR       ptr
+    5 228.022  60 '<'           <
+    5 228.023 265 TOK_STRUCT    struct
+    5 228.030 278 TOK_IDENT     sayaka
+    5 228.036  62 '>'           >
+    5 228.038 278 TOK_IDENT     sayaka
+    5 228.044  59 ';'           ;
+    5 229.018 267 TOK_ARRAY     array
+    5 229.024  60 '<'           <
+    5 229.025 259 TOK_INT       int
+    5 229.028  62 '>'           >
+    5 229.030 278 TOK_IDENT     madoka
+    5 229.036  59 ';'           ;
+    5 230.013 125 '}'           }
+    5 230.014  59 ';'           ;
     5 237.001 259 TOK_INT       int
     5 237.005 278 TOK_IDENT     sadf
     5 237.010  61 '='           =
     5 237.012 279 TOK_INTCON    5
     5 237.013  59 ';'           ;
-    5 238.001 260 TOK_STRING    string
-    5 238.008 278 TOK_IDENT     aaaaaaaaa
-    5 238.017  59 ';'           ;
     5 239.001 260 TOK_STRING    string
-    5 239.008 278 TOK_IDENT     x
-    5 239.009  59 ';'           ;
+    5 239.008 278 TOK_IDENT     z
+    5 239.010  61 '='           =
+    5 239.012 269 TOK_ALLOC     alloc
+    5 239.018  60 '<'           <
+    5 239.019 260 TOK_STRING    string
+    5 239.025  62 '>'           >
+    5 239.027  40 '('           (
+    5 239.028 279 TOK_INTCON    5
+    5 239.029  41 ')'           )
+    5 239.030  59 ';'           ;
