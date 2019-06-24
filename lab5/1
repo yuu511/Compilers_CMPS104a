@@ -1,8 +1,0 @@
-.struct sayaka
-
-.struct mami
-
-yes: .global string
-.s0: "fk"
-.s1: "wip"
-
