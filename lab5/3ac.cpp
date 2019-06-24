@@ -5,6 +5,8 @@
 #include "auxlib.h"
 
 vector<const string*> *all_strings  = new vector <const string*>();
+vector<string*> *all_globals  = new vector <string*>();
+vector<string*> *all_functions  = new vector <string*>();
 
 string parse_typesize(symbol *sym){
   attr_bitset a = sym->attributes;
@@ -13,16 +15,16 @@ string parse_typesize(symbol *sym){
     st.append("int ");
     return st;
   }
-  if (a[static_cast<int>(attr::STRING)] || a[static_cast<int>(attr::ARRAY)]){
-    st.append ("ptr ");
-    return st;
-  }
   if (a[static_cast<int>(attr::TYPEID)]){
     st.append ("struct ");
     if (sym -> sname !=nullptr){
       st.append (sym->sname->c_str());
       st.append (" ");
     }
+    return st;
+  }
+  if (a[static_cast<int>(attr::STRING)] || a[static_cast<int>(attr::ARRAY)]){
+    st.append ("ptr ");
     return st;
   }
   return st;
@@ -41,7 +43,7 @@ void translate_struct (const string *name, symbol *sym, FILE *out){
         itor.first->c_str());
     }
   }
-  fprintf (out, "\n");
+  fprintf (out, ".end \n");
 }
 
 void ac_struct(symbol_table *struct_table,FILE *out){
@@ -61,9 +63,12 @@ void ac_globalvar(astree *child, unordered_map<const string*, symbol_table*> *ma
         case static_cast<int>(attr::INT):
           if (child->children.size() > 2 ){
             //parse the expr
+            // manipulate string for string padding
+            string name = child->children[1]->lexinfo->c_str();
+            name += ":";
             if (child->children[2]->children.size() == 0){
-              fprintf (out,"%s: .global int %s\n",
-                       child->children[1]->lexinfo->c_str(),
+              fprintf (out,"%-10s .global int %s\n",
+                       name.c_str(),
                        child->children[2]->lexinfo->c_str());
             }
             else {
@@ -71,7 +76,9 @@ void ac_globalvar(astree *child, unordered_map<const string*, symbol_table*> *ma
             }
           }
           else {
-            fprintf (out,"%s: .global int\n",child->children[1]->lexinfo->c_str());
+            string name = child->children[1]->lexinfo->c_str();
+            name += ":";
+            fprintf (out,"%-10s .global int\n",name.c_str());
           }
           break;
         case static_cast<int>(attr::STRING):
@@ -84,7 +91,9 @@ void ac_globalvar(astree *child, unordered_map<const string*, symbol_table*> *ma
               errprintf ("global variable may not have non-static value assigned to it\n");
             }
           } else {
-            fprintf (out,"%s: .global string\n",child->children[1]->lexinfo->c_str());
+            string name = child->children[1]->lexinfo->c_str();
+            name += ":";
+            fprintf (out,"%-10s .global string\n",name.c_str());
           }
           break;
       }
@@ -96,10 +105,9 @@ void ac_globalvar(astree *child, unordered_map<const string*, symbol_table*> *ma
 void emit_string(FILE *out){
   int i = 0;
   for (auto itor: *all_strings){
-    fprintf (out,".s%d: %s\n",i,itor->c_str());
+    fprintf (out,".s%d%-7s %s\n",i,":",itor->c_str());
     i++;
   }
-  fprintf (out,"\n");
 }
 
 void ac_traverse(astree *s, unordered_map<const string*, symbol_table*> *master, FILE *out){
@@ -123,4 +131,10 @@ void ac_traverse(astree *s, unordered_map<const string*, symbol_table*> *master,
 void emit_3ac(astree *s, symbol_table *struct_table, unordered_map<const string*,symbol_table*> *master,FILE *out){
   ac_struct(struct_table,out);
   ac_traverse(s,master,out);
+}
+
+void free_3ac(){
+  delete(all_strings);
+  delete(all_globals);
+  delete(all_functions);
 }

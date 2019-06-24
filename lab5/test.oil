@@ -1,8 +1,9 @@
 .struct sayaka
-
+.end 
 .struct mami
-
-yes: .global string
-.s0: "fk"
-.s1: "wip"
-
+.end 
+sadf:      .global int 5
+aaaaaaaaa: .global string
+x:         .global string
+.s0:       "fk"
+.s1:       "wip"

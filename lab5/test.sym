@@ -2,11 +2,15 @@ sayaka (5.233.1) {0} struct sayaka
 
 mami (5.232.1) {0} struct mami 
 
-yes (5.237.1) {0} string variable lval 
+x (5.239.1) {0} string variable lval 
 
-zoop (5.236.1) {0} string variable lval 
+aaaaaaaaa (5.238.1) {0} string variable lval 
 
 thing (5.234.1) {0} variable struct mami lval 
 
+zoop (5.236.1) {0} string variable lval 
+
 test (5.235.1) {0} string variable lval 
+
+sadf (5.237.1) {0} int variable lval 
 

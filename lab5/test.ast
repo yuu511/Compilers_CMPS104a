@@ -17,6 +17,13 @@ TYPE_ID "" 5.236.1 {0} string variable lval vreg (5.236.1)
 STRING "string" 5.236.1 {0} 
 IDENT "zoop" 5.236.8 {0} 
 STRINGCON ""wip"" 5.236.15 {0} string variable lval vreg 
-TYPE_ID "" 5.237.1 {0} string variable lval (5.237.1)
-STRING "string" 5.237.1 {0} 
-IDENT "yes" 5.237.8 {0} 
+TYPE_ID "" 5.237.1 {0} int variable lval vreg (5.237.1)
+INT "int" 5.237.1 {0} 
+IDENT "sadf" 5.237.5 {0} 
+INTCON "5" 5.237.12 {0} int variable lval vreg 
+TYPE_ID "" 5.238.1 {0} string variable lval (5.238.1)
+STRING "string" 5.238.1 {0} 
+IDENT "aaaaaaaaa" 5.238.8 {0} 
+TYPE_ID "" 5.239.1 {0} string variable lval (5.239.1)
+STRING "string" 5.239.1 {0} 
+IDENT "x" 5.239.8 {0} 

@@ -34,6 +34,14 @@
     5 236.013  61 '='           =
     5 236.015 281 TOK_STRINGCON "wip"
     5 236.020  59 ';'           ;
-    5 237.001 260 TOK_STRING    string
-    5 237.008 278 TOK_IDENT     yes
-    5 237.011  59 ';'           ;
+    5 237.001 259 TOK_INT       int
+    5 237.005 278 TOK_IDENT     sadf
+    5 237.010  61 '='           =
+    5 237.012 279 TOK_INTCON    5
+    5 237.013  59 ';'           ;
+    5 238.001 260 TOK_STRING    string
+    5 238.008 278 TOK_IDENT     aaaaaaaaa
+    5 238.017  59 ';'           ;
+    5 239.001 260 TOK_STRING    string
+    5 239.008 278 TOK_IDENT     x
+    5 239.009  59 ';'           ;
