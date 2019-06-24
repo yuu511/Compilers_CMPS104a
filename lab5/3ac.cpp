@@ -126,69 +126,20 @@ void ac_globalvar(astree *child, unordered_map<const string*, symbol_table*> *ma
       parse_assignment(child,out,".global");
     }
     else {
-        if (child->children[2]->symbol == TOK_ALLOC){
-          if (child->children[2]->children.size() == 2){
-           if (child->children[2]->children[1]->children.size() != 0){
-             errprintf ("global variable may not have non-static value assigned to it\n");
-           }
-           else {
-             parse_assignment(child,out,".global");
-           }
-          }
-          else {
-            parse_assignment(child,out,".global");
-          }
+      if (child->children[2]->symbol == TOK_ALLOC){
+        if (child->children[2]->children.size() == 2){
+         if (child->children[2]->children[1]->children.size() != 0){
+           errprintf ("global variable may not have non-static value assigned to it\n");
+           return;
+         }
         }
-        else {
-          errprintf ("global variable may not have non-static value assigned to it\n");
-        }
+      }
+      parse_assignment(child,out,".global");
     }
   }
   else {
     parse_assignment(child,out,".global");
   }
-  // for (size_t i =0; i< child->attributes.size(); i++){
-  //   if (child->attributes[i]){
-  //     switch(i){
-  //       case static_cast<int>(attr::INT):
-  //         if (child->children.size() > 2 ){
-  //           //parse the expr
-  //           // manipulate string for string padding
-  //           string name = child->children[1]->lexinfo->c_str();
-  //           name += ":";
-  //           if (child->children[2]->children.size() == 0){
-  //             fprintf (out,"%-10s .global int %s\n",
-  //                      name.c_str(),
-  //                      child->children[2]->lexinfo->c_str());
-  //           }
-  //           else {
-  //             errprintf ("global variable may not have non-static value assigned to it\n");
-  //           }
-  //         }
-  //         else {
-  //           string name = child->children[1]->lexinfo->c_str();
-  //           name += ":";
-  //           fprintf (out,"%-10s .global int\n",name.c_str());
-  //         }
-  //         break;
-  //       case static_cast<int>(attr::STRING):
-  //         if (child->children.size() > 2 ){
-  //           //parse the expr
-  //           if (child->children[2]->children.size() == 0){
-  //             all_strings->push_back(child->children[2]->lexinfo);
-  //           }
-  //           else {
-  //             errprintf ("global variable may not have non-static value assigned to it\n");
-  //           }
-  //         } else {
-  //           string name = child->children[1]->lexinfo->c_str();
-  //           name += ":";
-  //           fprintf (out,"%-10s .global string\n",name.c_str());
-  //         }
-  //         break;
-  //     }
-  //   }
-  // }
 }
 
 //emit all string constants.
