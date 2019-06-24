@@ -7,4 +7,4 @@
 .struct sayaka
 .end 
 sadf:      .global int 5
-z:         .global ptr malloc(5)
+z:         .global ptr 0

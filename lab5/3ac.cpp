@@ -78,9 +78,9 @@ void parse_assignment(astree *child, FILE *out,string label){
     if (a[static_cast<int>(attr::TYPEID)]){
     }
     if (a[static_cast<int>(attr::STRING)]){
-      if (child->children[2]->symbol == TOK_ALLOC){
-        if (child->children[2]->children.size() == 2){
-          if (child->children[2]->children[1]->children.size() > 0){
+      if (assignment->symbol == TOK_ALLOC){
+        if (assignment->children.size() == 2){
+          if (assignment->children[1]->children.size() > 0){
 
           }
           else {
@@ -94,7 +94,12 @@ void parse_assignment(astree *child, FILE *out,string label){
           }
         }
       }
-      else {
+      else if (assignment->symbol == TOK_NULLPTR) {
+        fprintf (out,"%-10s %s %s%s\n",
+                 name.c_str(),
+                 label.c_str(),
+                 parse_typesize(nullptr,child).c_str(),
+                 "0");
         
       }
     }
@@ -122,24 +127,23 @@ void parse_assignment(astree *child, FILE *out,string label){
 
 void ac_globalvar(astree *child, unordered_map<const string*, symbol_table*> *master, FILE *out){
   if (child->children.size() > 2){
-    if (child->children[2]->children.size() == 0){
-      parse_assignment(child,out,".global");
-    }
-    else {
-      if (child->children[2]->symbol == TOK_ALLOC){
-        if (child->children[2]->children.size() == 2){
-         if (child->children[2]->children[1]->children.size() != 0){
+    astree *assignment = child->children[2];
+    if (assignment->children.size() != 0){
+      if (assignment->symbol == TOK_ALLOC){
+        if (assignment->children.size() == 2){
+         if (assignment->children[1]->children.size() != 0){
            errprintf ("global variable may not have non-static value assigned to it\n");
            return;
          }
         }
       }
-      parse_assignment(child,out,".global");
+      else if (assignment->children.size()>0){
+        errprintf ("global variable may not have non-static value assigned to it\n");
+        return;
+      }
     }
   }
-  else {
-    parse_assignment(child,out,".global");
-  }
+  parse_assignment(child,out,".global");
 }
 
 //emit all string constants.

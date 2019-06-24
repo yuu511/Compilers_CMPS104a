@@ -1,0 +1,257 @@
+/* structure tests */
+
+// struct incomplete{};
+// struct onearg{int trivial;};
+// struct testptr { ptr <struct test > homura; };
+// struct testarray { array <ptr <struct onearg >> sayaka; };
+// struct allofem {};
+// struct allofem { int one;
+//                  string two;
+//                  ptr <struct none > homura; 
+//                  array <int> sayaka;
+// 	           };
+
+// struct all2 { int one;
+//                  string two;
+//                  ptr <struct onearg > homura; 
+//                  array <ptr <struct onearg >> sayaka;
+// 	        };
+
+/* vardecl tests */
+
+// string test = "aaaa\0\n\t\\bbbbbb";
+// string ok = "asdffadasdffasfjkjzj";
+// int test2 = '\\';
+// int test2 = '\'';
+// int test3 = '\"';
+// int test4 = '\0';
+// int test5 = '\n';
+// int test6 = '\t';
+// int one;
+// int two = -5*+3+0xDEADBEEF/5%01231235;
+// int test = test -> fk;
+// int test2 = ye;
+// int test3 = test[5];
+// string test4 = alloc < string > (5);
+// string test5 = alloc < struct homura > ();
+// string test5 = alloc < array<string> > (5);
+// int test = (-5+5)*3;
+// int test = -5+5*3;
+// int test = ami();
+
+/* test a wide range of expressions in a function call  */
+
+// int test2 = homu(
+//       5+5,
+//       -5,
+// 		 alloc < string >(5), 
+// 		 alloc < struct homura >(),
+// 		 alloc < array<string> > (5),
+// 		 meta(5,"stringcon"), 
+// 		 (5*5), 
+// 		 test, 
+// 		 test[5],
+// 		 test->homura, 
+// 		 5, 
+// 		 'c', 
+// 		 "stringcon", 
+// 		 nullptr
+// 		);
+
+/* block tests */
+
+// {}
+// {;}
+// {
+//   int one;
+//   int two = -5*+3+0xDEADBEEF/5%01231235;
+//   int test = test -> fk;
+//   int test2 = ye;
+//   int test3 = test[5];
+// }
+
+/* statement tests */
+
+/* dangling else */
+// if (argc == 1)
+// if (argv == 2) mid = mid + 1;
+// else inc = inc + 1;
+// else dec = dec + 1;
+
+/* ifelse block statement */
+// if (argc == 1) {
+//   if (test == aident) {
+//     while (inc==5 ) { 
+//       inc = inc + 1;
+//     }
+//     putstr ("foo");
+//     int one = 5;
+//     if (test == say) 
+//       putstr ("bar");
+//     else putstr ("belse");
+//   }
+//   else putstr ("baz");
+// }
+// else 
+//   test = homura;
+
+/* function tests */
+
+// int trivial () {}
+// int test () {
+//   int one;
+//   int two = -5*+3+0xDEADBEEF/5%01231235;
+// }
+
+// if (argc == 1)
+// if (argv == 2)
+// x = function( 5 + arr[5] );
+
+
+// int parameters (int test, string foo, int ye) {
+//  int one;
+//  int two = -5*+3+0xDEADBEEF/5%01231235;
+//  int test = test -> fk;
+//  int test2 = ye;
+//  int test3 = test[5];
+//  string test4 = alloc < string > (5);
+//  string test5 = alloc < struct homura > ();
+//  string test5 = alloc < array<string> > (5);
+//  int test = (-5+5)*3;
+//  int test = -5+5*3;
+//  int test = ami();
+//  /* test a wide range of expr ..  */
+//  int test2 = homu(
+//  5+5,
+//  -5,
+//  alloc < string >(5), 
+//  alloc < struct homura >(),
+//  alloc < array<string> > (5),
+//  meta(5,"stringcon"), 
+//  (5*5), 
+//  test, 
+//  test[5],
+//  test->homura, 
+//  5, 
+//  'c', 
+//  "stringcon", 
+//  nullptr
+//  );
+// }
+
+/* error throwing stuff */
+// string notclosed = "a;
+// string notvalid = "\a\basdffdsk";
+// char test = '\a';
+
+
+
+/* midterm test parse */
+
+//  int fac (int i ){
+//    int n = 1;
+//    while (i > 1) {
+//       n = n*i;
+//       i=i-1;
+//    }
+//    return n;
+//  }
+// while (n != 1 ) {
+//   if (n%2 == 0) n = n/2;
+//   else n= n*3 + 1;
+// }
+// int test;
+// int test = 5;
+// struct test{};
+// struct mami{};
+// 
+// int x = 5;
+// int function(){
+// 
+// }
+// struct none {};
+// 
+// struct allofem { int one;
+//                  string two;
+//                  ptr <struct none > homura; 
+//                  array <int> sayaka;
+// 	           };
+
+// array<int> board = nullptr;
+// 
+// int is_safe (int newcol){
+//    int col = 0;
+//    int diagonal = 0;
+//    if (board[newcol] == board[col]) return 1;
+// }
+// 
+// int function2 (int mami, string homura){
+// 
+// }
+// void parse (int i){
+//   // test->field;
+//   // string testu = alloc < string > (5+32312312);
+//   // int y = 5;
+//   // nosuchstring = "new";
+//   // // ptr< struct mami> homu = alloc < struct test > ();
+//   // array<ptr<struct test>> stuff = alloc < array<ptr<struct test>> > (5);
+//   int x = 5;
+//   if ( 'a' == 5 ){
+//   }
+//   while ( 'a' == 5 )
+//     x = x + 1;
+//   ptr <struct allofem> homu = alloc < struct allofem> ();
+//   ptr <struct none> sayaka = homu->homura;
+//   // string x = function ();
+//   array <int> ident;
+//   ident[5] = 3;
+//   string test = "test";
+//   int d = test[5+3];
+//   d = 'a';
+//   return;
+// }
+// }
+
+/* function prototype tests */
+// int fac (array<int> p1,array <ptr <struct all2 >>p2,int p3,ptr <struct all2> p4);
+// ptr <struct all2> fac2(); 
+// array <int> fac3();
+// array <ptr <struct all2 >> fac3();
+// struct mami{};
+// struct sayaka{};
+// 
+// array<ptr<struct sayaka>> test(ptr<struct mami> one);
+// 
+// struct sayaka{};
+struct mami    { int one;
+                 string two;
+                 ptr <struct sayaka> sayaka; 
+                 array <int> madoka;
+	           };
+// int z;
+// struct sayaka{};
+// ptr <struct mami> thing =  alloc <struct mami> ();
+// ptr <struct mami> thing2;
+// string test = "fk";
+// string zoop = "wip";
+int sadf = 5;
+// string x = "aaaa";
+string z = nullptr;
+// ptr <struct mami> za = alloc <struct mami> ();
+// array<ptr<struct mami>> x = alloc<array<ptr<struct mami>>>(5);
+// int zee;
+// string aaaaaaaaa;
+// string x;
+// int test(ptr<struct mami> one);
+// int ret (){
+//   int x =5;
+//   return x;
+// }
+// int test(ptr<struct mami> one) {
+//   int p = 5 + 10;
+//   p = 10;
+//   /// int z = ret();
+//   return z;
+// }
+// 
+
