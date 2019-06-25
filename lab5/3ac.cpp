@@ -6,8 +6,10 @@
 
 vector<const string*> *all_strings  = new vector <const string*>();
 ac3_table *all_globals = new ac3_table; 
+
 vector<pair<const string*,ac3_table*>> *all_functions 
 = new vector<pair<const string*,ac3_table*>>();
+
 unordered_map <symbol_table*, ac3_table*> *table_lookup = 
 new unordered_map<symbol_table*, ac3_table*>;
 
@@ -57,6 +59,7 @@ template <class Type> string parse_typesize(const Type &o){
     st.append("int ");
     return st;
   }
+  // void return
   return st;
 }
 
@@ -239,10 +242,16 @@ void emit_globaldef(FILE *out){
   }
 }
 
-void emit_functions(FILE *out){
+void emit_functions(all_tables *table, FILE *out){
   // print out all functions
   for (auto itor: *all_functions){
-    
+    symbol *ret = table->global->find(itor.first)->second;
+    string fname;
+    fname.append(itor.first->c_str());
+    fname.append(":");
+    //print out the function header    
+    fprintf(out,"%-10s .function %s\n",
+    fname.c_str(), parse_typesize(ret).c_str()); 
   }
 }
 
@@ -280,6 +289,7 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
   // emit global definitions here
   emit_globaldef(out);
   //emit function definitions here
+  emit_functions(table,out);
 }
 
 void emit_3ac(astree *s, all_tables *table, FILE *out){

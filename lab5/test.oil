@@ -11,12 +11,5 @@
 .struct onearg
 .field int trivial
 .end 
-.s0:       "asdfasdfafdsaf"
-homu:      .global int 
-x:         .global int 5
-z:         .global ptr 
-mami:      .global ptr (.s0)
-sayaka:    .global ptr nullptr
-madoka:    .global ptr nullptr
-kyuubei:   .global struct allofem nullptr
-cheese:    .global struct allofem call malloc (sizeof struct allofem)
+fac:       .function int 
+z:         .function 
