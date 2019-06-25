@@ -103,7 +103,7 @@ void parse_assignment(astree *child,symbol_table *current){
     symbol *sym;
     if (a[static_cast<int>(attr::ARRAY)]){
       if (assignment->symbol == TOK_ALLOC){
-
+          
       }
       else if (assignment->symbol == TOK_NULLPTR){
         ret->append(assignment->lexinfo->c_str());
