@@ -7,6 +7,7 @@
 
 vector<const string*> *all_strings  = new vector <const string*>();
 ac3_table *all_globals = new ac3_table; 
+ac3_table *all_functions = new ac3_table;
 unordered_map <symbol_table*, ac3_table*> *table_lookup = 
 new unordered_map<symbol_table*, ac3_table*>;
 
@@ -32,6 +33,11 @@ void free_3ac(){
   for (auto itor: *all_globals){
     delete itor.second;
   }
+  delete all_globals;
+  for (auto itor: *all_functions){
+    delete itor.second;
+  }
+  delete all_functions;
   delete all_globals;
   delete all_strings;
   delete table_lookup;
@@ -89,7 +95,7 @@ void emit_struct(all_tables *table,FILE *out){
 }
 
 // requires the expression to be parsed,
-// output file, and symbol table containing the 
+// and symbol table containing the 
 // context of the variable to be parsed in question
 void parse_assignment(astree *child,symbol_table *current){
   astree *ident_node = child->children[1];
@@ -140,7 +146,7 @@ void parse_assignment(astree *child,symbol_table *current){
           }
           else {
             assignment = child->children[2]->children[1];   
-             eturn;
+            return;
           }
         }
       }
@@ -200,6 +206,11 @@ void ac_globalvar(astree *child, all_tables *table){
   parse_assignment(child,table->global);
 }
 
+
+void ac_function (astree *child, all_tables *table){
+
+}
+
 //emit all string constants.
 void emit_string(FILE *out){
   int i = 0;
@@ -224,6 +235,7 @@ void emit_globaldef(FILE *out){
   }
 }
 
+
 void ac_traverse(astree *s, all_tables *table, FILE *out){
   if ( s == nullptr || table == nullptr || out == nullptr ){
     errprintf("ac_traverse called on uninitialized structure!\n");
@@ -234,8 +246,10 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
       // process the global variable
       ac_globalvar(child,table);
     }
-    else {
-      // else process the function
+    else if (child->symbol == TOK_FUNCTION 
+             && !(child->attributes[static_cast<int>(attr::PROTOTYPE)])) {
+      // else process the function (non-prototype)
+      ac_function(child,table);
     }
   }
   // emit structs
