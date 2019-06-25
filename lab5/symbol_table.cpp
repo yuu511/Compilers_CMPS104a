@@ -821,7 +821,7 @@ symbol *p_alloc(astree *s){
     }
     else {
       errprintf("nonexistent struct referenced: %s: (%zd.%zd.%zd)\n",
-                 s->children[0]->lexinfo,
+                 s->children[0]->lexinfo->c_str(),
                  s->lloc.filenr,
                  s->lloc.linenr,
                  s->lloc.offset);
@@ -855,7 +855,7 @@ symbol *p_alloc(astree *s){
         }
         else {
           errprintf("nonexistent struct referenced %s: %zd.%zd.%zd\n",
-                     s->children[0]->children[0]->children[0]->lexinfo,
+                     s->children[0]->children[0]->children[0]->lexinfo->c_str(),
                      s->lloc.filenr,
                      s->lloc.linenr,
                      s->lloc.offset);
