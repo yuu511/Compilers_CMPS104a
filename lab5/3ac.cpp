@@ -94,10 +94,11 @@ void emit_struct(all_tables *table,FILE *out){
   }
 }
 
-// requires the expression to be parsed,
+// requires the typeid to be parsed,
 // and symbol table containing the 
 // context of the variable to be parsed in question
 void parse_initialization(astree *child,symbol_table *current){
+  ac3_table *found = table_lookup->find(current)->second;
   astree *ident_node = child->children[1];
   string name = ident_node->lexinfo->c_str();
   name += ":";
@@ -120,7 +121,6 @@ void parse_initialization(astree *child,symbol_table *current){
       ac = new ac3(sym,child);
       ac->ret = ret;
       ac->t1 = t1;
-      ac3_table *found = table_lookup->find(current)->second;
       found->push_back(ac);
       return;
     }
@@ -139,7 +139,6 @@ void parse_initialization(astree *child,symbol_table *current){
       ac = new ac3(sym,child);
       ac->ret = ret;
       ac->t1 = t1;
-      ac3_table *found = table_lookup->find(current)->second;
       found->push_back(ac);
       return;
     }
@@ -169,7 +168,6 @@ void parse_initialization(astree *child,symbol_table *current){
       ac = new ac3(sym,child);
       ac->ret = ret;
       ac->t1 = t1;
-      ac3_table *found = table_lookup->find(current)->second;
       found->push_back(ac);
       return;
     }
@@ -185,7 +183,6 @@ void parse_initialization(astree *child,symbol_table *current){
       ac = new ac3(sym,child);
       ac->ret = ret;
       ac->t1 = t1;
-      ac3_table *found = table_lookup->find(current)->second;
       found->push_back(ac);
       return;
     }
@@ -193,7 +190,6 @@ void parse_initialization(astree *child,symbol_table *current){
   else {
     symbol *sym = current->find(ident_node->lexinfo)->second;
     ac = new ac3(sym,child); 
-    ac3_table *found = table_lookup->find(current)->second;
     string *ret = new string();
     ret->append(ident_node->lexinfo->c_str());
     ac->ret = ret;
@@ -265,6 +261,9 @@ void emit_globaldef(FILE *out){
   }
 }
 
+void emit_functions(FILE *out){
+  
+}
 
 void ac_traverse(astree *s, all_tables *table, FILE *out){
   if ( s == nullptr || table == nullptr || out == nullptr ){
