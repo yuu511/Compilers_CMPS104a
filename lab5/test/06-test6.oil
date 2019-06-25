@@ -1,4 +1,4 @@
 .struct bar
-
+.end 
 .struct foo
-
+.end 

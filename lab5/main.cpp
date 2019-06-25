@@ -172,12 +172,12 @@ int main (int argc, char** argv) {
    if (a_debug){
      astree::draw (stderr,parser::root);
    }
+   
    // dump the hashed tokenset to file.
    string_set::dump(strfp);
 
    // generate the symbol table
    gen_table(parser::root);
-
 
    // generate the oil file
    emit_3ac(parser::root,get_tables(),oilfp);

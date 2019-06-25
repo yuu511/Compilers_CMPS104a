@@ -291,8 +291,10 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
       // process the global variable
       ac_globalvar(child,table);
     }
+    // ensure the function is valid, and not a prototype
     else if (child->symbol == TOK_FUNCTION 
-             && !(child->attributes[static_cast<int>(attr::PROTOTYPE)])) {
+             && table->global->count(child->children[0]->lexinfo)
+             && !(child->attributes[static_cast<int>(attr::PROTOTYPE)])){
       // else process the function (non-prototype)
       astree *name = child->children[0]->children[1];
       symbol_table *found = table->master->find(name->lexinfo)->second;
@@ -319,6 +321,11 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
 }
 
 void emit_3ac(astree *s, all_tables *table, FILE *out){
+  if (s == nullptr || table == nullptr || out == nullptr){
+    errprintf ("parse failed, or invalid table or file ptr called,"
+    "stopping generation of assembly\n");
+    return;
+  }
   table_lookup->emplace(table->global,all_globals);
   ac_traverse(s,table,out);
 }

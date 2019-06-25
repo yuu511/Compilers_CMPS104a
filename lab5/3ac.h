@@ -15,11 +15,11 @@ using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)
 struct ac3 {
   symbol *sym;
   astree *expr;
-  string *ret;
-  string *op;
-  string *t1;
-  string *t2;
-  string *label;
+  string *ret = nullptr;
+  string *op = nullptr;
+  string *t1 = nullptr;
+  string *t2 = nullptr;
+  string *label = nullptr;
   instruction_bitset itype = 0;
   int last_reg = -1;
   ac3(symbol *sym, astree *expr=nullptr);

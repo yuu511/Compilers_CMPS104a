@@ -5,38 +5,38 @@ node (7.5.1) {0} struct node
    data (7.6.4) string field 0
    link (7.7.4) field struct node 1
 
-pop (7.33.1) {10} string function 
-   stack (7.33.13) {11} variable struct stack param lval 0
-   tmp (7.34.4) {11} string variable local lval 1
-
 main (7.41.1) {11} int function 
    argc (7.41.11) {12} int variable param lval 0
    argv (7.41.21) {12} string array variable param lval 1
    argi (7.42.4) {12} int variable local lval 2
    stack (7.43.4) {12} variable struct stack local lval 3
 
-putint (6.25.1) {2} void function 
-
-getln (6.30.1) {6} string function 
-
 push (7.25.1) {9} void function 
    stack (7.25.12) {10} variable struct stack param lval 0
    str (7.25.37) {10} string variable param lval 1
    tmp (7.26.4) {10} variable struct node local lval 2
 
-empty (7.14.1) {7} int function 
-   stack (7.14.12) {8} variable struct stack param lval 0
-
-putstr (6.26.1) {3} void function 
-
-getchr (6.28.1) {4} int function 
-
-putchr (6.24.1) {1} void function 
-
-fail (6.22.1) {0} void function 
-
-getstr (6.29.1) {5} string function 
+pop (7.33.1) {10} string function 
+   stack (7.33.13) {11} variable struct stack param lval 0
+   tmp (7.34.4) {11} string variable local lval 1
 
 new_stack (7.19.1) {8} function struct stack 
    stack (7.20.4) {9} variable struct stack local lval 0
+
+getln (6.30.1) {6} string function 
+
+putchr (6.24.1) {1} void function 
+
+empty (7.14.1) {7} int function 
+   stack (7.14.12) {8} variable struct stack param lval 0
+
+fail (6.22.1) {0} void function 
+
+putint (6.25.1) {2} void function 
+
+putstr (6.26.1) {3} void function 
+
+getstr (6.29.1) {5} string function 
+
+getchr (6.28.1) {4} int function 
 

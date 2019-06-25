@@ -1,4 +1,4 @@
-‘º:4.4: syntax error, unexpected '[', expecting TOK_IDENT
+@ÿN°U:4.4: syntax error, unexpected '[', expecting TOK_IDENT
 ident a not found in table: 4.10.12
 ident b not found in table: 4.10.16
 type mismatch: math expr 4.10.14
