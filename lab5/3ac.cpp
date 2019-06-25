@@ -259,7 +259,8 @@ void emit_functions(all_tables *table, FILE *out){
     string f_vlabel = ".param";
     for (size_t i = 0; i < block->size(); i++){
       for (auto itor2: *block){
-         // params should come before variables(test)
+         // params should come before variables by design, 
+	 // so only check for when the transition arrives
          if (itor2.second->sequence == i){
 	   if (itor2.second->attributes[static_cast<int>(attr::LOCAL)]){
              f_vlabel = ".local";
@@ -272,6 +273,11 @@ void emit_functions(all_tables *table, FILE *out){
          }
       }
     }
+    //print out the statements
+    
+    //print out the ending statements
+    fprintf (out,"return\n");
+    fprintf (out,".end\n");
   }
 }
 

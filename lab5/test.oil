@@ -18,6 +18,10 @@ fac:       .function int
 .local int n
 .local int f
 .local ptr ma
+return
+.end
 z:         .function 
 .param int i
 .local int n
+return
+.end
