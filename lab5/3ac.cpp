@@ -3,25 +3,17 @@
 #include "astree.h"
 #include "lyutils.h"
 #include "auxlib.h"
-#include <map>
 
 vector<const string*> *all_strings  = new vector <const string*>();
 ac3_table *all_globals = new ac3_table; 
-vector<ac3_table*> *all_functions = new vector<ac3_table*>();
+vector<pair<const string*,ac3_table*>> *all_functions 
+= new vector<pair<const string*,ac3_table*>>();
 unordered_map <symbol_table*, ac3_table*> *table_lookup = 
 new unordered_map<symbol_table*, ac3_table*>;
 
-ac3::ac3(symbol *sym_, astree *expr_ = nullptr,
-         string *label_ = nullptr,string *ret_ = nullptr, 
-	 string *op_ = nullptr, string *t1_ = nullptr, 
-	 string *t2_ = nullptr){
+ac3::ac3(symbol *sym_, astree *expr_){
   sym = sym_;
   expr = expr_;
-  label = label_;
-  ret = ret_;
-  op = op_;
-  t1 = t1_;
-  t2 = t2_;
 }
 
 ac3::~ac3(){
@@ -121,6 +113,7 @@ void parse_initialization(astree *child,symbol_table *current){
       ac = new ac3(sym,child);
       ac->ret = ret;
       ac->t1 = t1;
+      ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(ac);
       return;
     }
@@ -139,6 +132,7 @@ void parse_initialization(astree *child,symbol_table *current){
       ac = new ac3(sym,child);
       ac->ret = ret;
       ac->t1 = t1;
+      ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(ac);
       return;
     }
@@ -168,6 +162,7 @@ void parse_initialization(astree *child,symbol_table *current){
       ac = new ac3(sym,child);
       ac->ret = ret;
       ac->t1 = t1;
+      ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(ac);
       return;
     }
@@ -183,6 +178,7 @@ void parse_initialization(astree *child,symbol_table *current){
       ac = new ac3(sym,child);
       ac->ret = ret;
       ac->t1 = t1;
+      ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(ac);
       return;
     }
@@ -193,6 +189,7 @@ void parse_initialization(astree *child,symbol_table *current){
     string *ret = new string();
     ret->append(ident_node->lexinfo->c_str());
     ac->ret = ret;
+    ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
     found->push_back(ac);
   }
 }
@@ -216,25 +213,6 @@ void ac_globalvar(astree *child, all_tables *table){
 
 void ac_function (astree *child, symbol_table *found){
   ac3_table *current = table_lookup->find(found)->second;
-  int current_register = 0;
-  //first, print params and local variables.
-  for (size_t i = 0; i< found->size(); i++){
-    for (auto itor: *found){
-      if (itor.second->sequence == i){
-        string *ret = new string();
-        ac3 *ac = new ac3(itor.second);
-	if (itor.second->attributes[static_cast<int>(attr::PARAM)])
-	  ret->append(".param ");
-	else if (itor.second->attributes[static_cast<int>(attr::LOCAL)])
-	  ret->append(".local ");
-	ret->append(parse_typesize(itor.second));
-	ret->append(itor.first->c_str());
-	ac->ret = ret;
-	current->push_back(ac);
-        continue;
-      }
-    }
-  }
 }
 
 //emit all string constants.
@@ -262,7 +240,10 @@ void emit_globaldef(FILE *out){
 }
 
 void emit_functions(FILE *out){
-  
+  // print out all functions
+  for (auto itor: *all_functions){
+    
+  }
 }
 
 void ac_traverse(astree *s, all_tables *table, FILE *out){
@@ -284,7 +265,7 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
       if (found!=nullptr && !(table_lookup->count(found))){
         ac3_table *new_function = new ac3_table;
 	table_lookup->emplace(found,new_function);
-	all_functions->push_back(new_function);
+	all_functions->push_back(make_pair(name->lexinfo,new_function));
         ac_function(child,found);
       }
       else {
