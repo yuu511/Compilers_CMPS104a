@@ -1,13 +1,22 @@
-.struct mami
-.field ptr madoka
-.field struct sayaka sayaka
+.struct allofem
+.field ptr sayaka
+.field struct none homura
 .field int one
 .field ptr two
 .end 
-.struct sayaka
+.struct none
 .end 
-.s0:       "hehe"
-x:         .global ptr (.s0)
-y:         .global ptr nullptr
-z:         .global int 'a'
-thing:     .global struct mami nullptr
+.struct test
+.end 
+.struct onearg
+.field int trivial
+.end 
+.s0:       "asdfasdfafdsaf"
+homu:      .global int 
+x:         .global int 5
+z:         .global ptr 
+mami:      .global ptr (.s0)
+sayaka:    .global ptr nullptr
+madoka:    .global ptr nullptr
+kyuubei:   .global struct allofem nullptr
+cheese:    .global struct allofem call malloc (sizeof struct allofem)

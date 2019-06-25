@@ -13,10 +13,12 @@ struct ac3 {
   string *op;
   string *t1;
   string *t2;
+  string *label;
   ac3(symbol *sym, astree *expr,
-       string *ret, string *op,
-       string *t1, string *t2);
+       string *label, string *ret, 
+       string *op, string *t1, 
+       string *t2);
   ~ac3();
 };
 
-using ac3_table = map <const string*,ac3*>;
+using ac3_table = vector<ac3*>;

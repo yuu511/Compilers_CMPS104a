@@ -7,15 +7,17 @@
 
 vector<const string*> *all_strings  = new vector <const string*>();
 ac3_table *all_globals = new ac3_table; 
-ac3_table *all_functions = new ac3_table;
+vector<ac3_table*> *all_functions = new vector<ac3_table*>();
 unordered_map <symbol_table*, ac3_table*> *table_lookup = 
 new unordered_map<symbol_table*, ac3_table*>;
 
-ac3::ac3(symbol *sym_, astree *expr_,
-         string *ret_ = nullptr, string *op_ = nullptr,
-         string *t1_ = nullptr, string *t2_ = nullptr){
+ac3::ac3(symbol *sym_, astree *expr_ = nullptr,
+         string *label_ = nullptr,string *ret_ = nullptr, 
+	 string *op_ = nullptr, string *t1_ = nullptr, 
+	 string *t2_ = nullptr){
   sym = sym_;
   expr = expr_;
+  label = label_;
   ret = ret_;
   op = op_;
   t1 = t1_;
@@ -30,17 +32,15 @@ ac3::~ac3(){
 }
 
 void free_3ac(){
-  for (auto itor: *all_globals){
+  for (auto itor : *table_lookup){
+    for( auto itor2: *itor.second){
+      delete itor2;
+    }
     delete itor.second;
   }
-  delete all_globals;
-  for (auto itor: *all_functions){
-    delete itor.second;
-  }
-  delete all_functions;
-  delete all_globals;
-  delete all_strings;
   delete table_lookup;
+  delete all_functions;
+  delete all_strings;
 }
 
 // parse types of either symbol or astree
@@ -97,7 +97,7 @@ void emit_struct(all_tables *table,FILE *out){
 // requires the expression to be parsed,
 // and symbol table containing the 
 // context of the variable to be parsed in question
-void parse_assignment(astree *child,symbol_table *current){
+void parse_initialization(astree *child,symbol_table *current){
   astree *ident_node = child->children[1];
   string name = ident_node->lexinfo->c_str();
   name += ":";
@@ -106,36 +106,41 @@ void parse_assignment(astree *child,symbol_table *current){
   if (child->children.size() > 2 ){
     astree *assignment = child->children[2];
     string *ret = new string();
+    string *t1 = new string();
     symbol *sym;
     if (a[static_cast<int>(attr::ARRAY)]){
       if (assignment->symbol == TOK_ALLOC){
           
       }
       else if (assignment->symbol == TOK_NULLPTR){
-        ret->append(assignment->lexinfo->c_str());
+        t1->append(assignment->lexinfo->c_str());
       }
+      ret->append(ident_node->lexinfo->c_str());
       sym = current->find(ident_node->lexinfo)->second;
-      ac = new ac3(sym,child); 
+      ac = new ac3(sym,child);
       ac->ret = ret;
+      ac->t1 = t1;
       ac3_table *found = table_lookup->find(current)->second;
-      found->emplace(ident_node->lexinfo,ac);
+      found->push_back(ac);
       return;
     }
     if (a[static_cast<int>(attr::TYPEID)]){
       if (assignment->symbol == TOK_ALLOC){
-        ret->append("call malloc (");   
-        ret->append("sizeof struct ");
-        ret->append(assignment->children[0]->lexinfo->c_str());
-        ret->append(")");
+        t1->append("call malloc (");   
+        t1->append("sizeof struct ");
+        t1->append(assignment->children[0]->lexinfo->c_str());
+        t1->append(")");
       }
       else if (assignment->symbol == TOK_NULLPTR){
-        ret->append(assignment->lexinfo->c_str());
+        t1->append(assignment->lexinfo->c_str());
       }
+      ret->append(ident_node->lexinfo->c_str());
       sym = current->find(ident_node->lexinfo)->second;
-      ac = new ac3(sym,child); 
+      ac = new ac3(sym,child);
       ac->ret = ret;
+      ac->t1 = t1;
       ac3_table *found = table_lookup->find(current)->second;
-      found->emplace(ident_node->lexinfo,ac);
+      found->push_back(ac);
       return;
     }
     if (a[static_cast<int>(attr::STRING)]){
@@ -151,19 +156,21 @@ void parse_assignment(astree *child,symbol_table *current){
         }
       }
       else if (assignment->symbol == TOK_NULLPTR) {
-        ret->append(assignment->lexinfo->c_str());
+        t1->append(assignment->lexinfo->c_str());
       }
       else if (assignment->symbol == TOK_STRINGCON) {
-        ret->append("(.s");
-        ret->append(to_string(all_strings->size()));
-        ret->append(")");
+        t1->append("(.s");
+        t1->append(to_string(all_strings->size()));
+        t1->append(")");
         all_strings->push_back(assignment->lexinfo);
       }
+      ret->append(ident_node->lexinfo->c_str());
       sym = current->find(ident_node->lexinfo)->second;
-      ac = new ac3(sym,child); 
+      ac = new ac3(sym,child);
       ac->ret = ret;
+      ac->t1 = t1;
       ac3_table *found = table_lookup->find(current)->second;
-      found->emplace(ident_node->lexinfo,ac);
+      found->push_back(ac);
       return;
     }
     if (a[static_cast<int>(attr::INT)]){
@@ -171,13 +178,15 @@ void parse_assignment(astree *child,symbol_table *current){
         // parse the expr
       } 
       else {
-        ret->append(assignment->lexinfo->c_str());
+        t1->append(assignment->lexinfo->c_str());
       }
+      ret->append(ident_node->lexinfo->c_str());
       sym = current->find(ident_node->lexinfo)->second;
-      ac = new ac3(sym,child); 
+      ac = new ac3(sym,child);
       ac->ret = ret;
+      ac->t1 = t1;
       ac3_table *found = table_lookup->find(current)->second;
-      found->emplace(ident_node->lexinfo,ac);
+      found->push_back(ac);
       return;
     }
   }
@@ -185,7 +194,10 @@ void parse_assignment(astree *child,symbol_table *current){
     symbol *sym = current->find(ident_node->lexinfo)->second;
     ac = new ac3(sym,child); 
     ac3_table *found = table_lookup->find(current)->second;
-    found->emplace(ident_node->lexinfo,ac);
+    string *ret = new string();
+    ret->append(ident_node->lexinfo->c_str());
+    ac->ret = ret;
+    found->push_back(ac);
   }
 }
 
@@ -203,12 +215,30 @@ void ac_globalvar(astree *child, all_tables *table){
       return;
     }
   }
-  parse_assignment(child,table->global);
+  parse_initialization(child,table->global);
 }
 
-
-void ac_function (astree *child, all_tables *table){
-
+void ac_function (astree *child, symbol_table *found){
+  ac3_table *current = table_lookup->find(found)->second;
+  int current_register = 0;
+  //first, print params and local variables.
+  for (size_t i = 0; i< found->size(); i++){
+    for (auto itor: *found){
+      if (itor.second->sequence == i){
+        string *ret = new string();
+        ac3 *ac = new ac3(itor.second);
+	if (itor.second->attributes[static_cast<int>(attr::PARAM)])
+	  ret->append(".param ");
+	else if (itor.second->attributes[static_cast<int>(attr::LOCAL)])
+	  ret->append(".local ");
+	ret->append(parse_typesize(itor.second));
+	ret->append(itor.first->c_str());
+	ac->ret = ret;
+	current->push_back(ac);
+        continue;
+      }
+    }
+  }
 }
 
 //emit all string constants.
@@ -222,14 +252,14 @@ void emit_string(FILE *out){
 
 void emit_globaldef(FILE *out){
   for (auto itor: *all_globals){
-    string name = itor.first->c_str();
+    string name = *(itor->ret);
     name += ":";
     fprintf (out,"%-10s .%s %s",
              name.c_str(),
              "global",
-             parse_typesize(itor.second->sym).c_str());
-    if (itor.second->ret !=nullptr){
-      fprintf (out,"%s",itor.second->ret->c_str());
+             parse_typesize(itor->sym).c_str());
+    if (itor->t1 !=nullptr){
+      fprintf (out,"%s",itor->t1->c_str());
     }
     fprintf (out,"\n");
   }
@@ -249,7 +279,18 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
     else if (child->symbol == TOK_FUNCTION 
              && !(child->attributes[static_cast<int>(attr::PROTOTYPE)])) {
       // else process the function (non-prototype)
-      ac_function(child,table);
+      astree *name = child->children[0]->children[1];
+      symbol_table *found = table->master->find(name->lexinfo)->second;
+      // no duplicate functions
+      if (found!=nullptr && !(table_lookup->count(found))){
+        ac3_table *new_function = new ac3_table;
+	table_lookup->emplace(found,new_function);
+	all_functions->push_back(new_function);
+        ac_function(child,found);
+      }
+      else {
+        errprintf("3ac: function already defined\n");
+      }
     }
   }
   // emit structs
