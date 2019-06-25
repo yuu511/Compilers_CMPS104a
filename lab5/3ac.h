@@ -14,3 +14,5 @@ struct ac3 {
   string *t2;
   ac3(symbol *sym, astree *expr);
 };
+
+using ac3_table = map <const string*,ac3*>;

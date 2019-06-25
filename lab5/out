@@ -1,854 +1,155 @@
-./oc -@ast -y ./examples/test.oc
-Starting parse
-Entering state 0
-Reducing stack by rule 7 (line 58):
--> $$ = nterm program (0x556c1c259d90->{TOK_ROOT 0.0.0 "<<ROOT>>":)
-Stack now 0
-Entering state 2
-Reading a token: Next token is token TOK_STRUCT (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct":)
-Shifting token TOK_STRUCT (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct":)
-Entering state 8
-Reading a token: Next token is token TOK_IDENT (0x556c1c2600d0->{TOK_IDENT 5.226.8 "mami":)
-Shifting token TOK_IDENT (0x556c1c2600d0->{TOK_IDENT 5.226.8 "mami":)
-Entering state 19
-Reading a token: Next token is token '{' (0x556c1c260190->{'{' 5.226.13 "{":)
-Shifting token '{' (0x556c1c260190->{'{' 5.226.13 "{":)
-Entering state 25
-Reading a token: Next token is token TOK_INT (0x556c1c260250->{TOK_INT 5.226.15 "int":)
-Shifting token TOK_INT (0x556c1c260250->{TOK_INT 5.226.15 "int":)
-Entering state 6
-Reducing stack by rule 23 (line 113):
-   $1 = token TOK_INT (0x556c1c260250->{TOK_INT 5.226.15 "int":)
--> $$ = nterm plaintype (0x556c1c260250->{TOK_INT 5.226.15 "int":)
-Stack now 0 2 8 19 25
-Entering state 15
-Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x556c1c260250->{TOK_INT 5.226.15 "int":)
--> $$ = nterm type (0x556c1c260250->{TOK_INT 5.226.15 "int":)
-Stack now 0 2 8 19 25
-Entering state 35
-Reading a token: Next token is token TOK_IDENT (0x556c1c260310->{TOK_IDENT 5.226.19 "one":)
-Shifting token TOK_IDENT (0x556c1c260310->{TOK_IDENT 5.226.19 "one":)
-Entering state 60
-Reading a token: Next token is token ';' (0x556c1c260430->{';' 5.226.22 ";":)
-Shifting token ';' (0x556c1c260430->{';' 5.226.22 ";":)
-Entering state 93
-Reducing stack by rule 11 (line 77):
-   $1 = token TOK_STRUCT (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct":)
-   $2 = token TOK_IDENT (0x556c1c2600d0->{TOK_IDENT 5.226.8 "mami":)
-   $3 = token '{' (0x556c1c260190->{'{' 5.226.13 "{":)
-   $4 = nterm type (0x556c1c260250->{TOK_INT 5.226.15 "int":)
-   $5 = token TOK_IDENT (0x556c1c260310->{TOK_IDENT 5.226.19 "one":)
-   $6 = token ';' (0x556c1c260430->{';' 5.226.22 ";":)
-Deleting astree (0x556c1c260190->{'{' 5.226.13 "{":)
-Deleting astree (0x556c1c260430->{';' 5.226.22 ";":)
--> $$ = nterm sargs (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct": 0x556c1c2600d0 0x556c1c2604f0)
-Stack now 0 2
-Entering state 12
-Reading a token: Next token is token TOK_STRING (0x556c1c260430->{TOK_STRING 5.227.18 "string":)
-Shifting token TOK_STRING (0x556c1c260430->{TOK_STRING 5.227.18 "string":)
-Entering state 7
-Reducing stack by rule 25 (line 115):
-   $1 = token TOK_STRING (0x556c1c260430->{TOK_STRING 5.227.18 "string":)
--> $$ = nterm plaintype (0x556c1c260430->{TOK_STRING 5.227.18 "string":)
-Stack now 0 2 12
-Entering state 15
-Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x556c1c260430->{TOK_STRING 5.227.18 "string":)
--> $$ = nterm type (0x556c1c260430->{TOK_STRING 5.227.18 "string":)
-Stack now 0 2 12
-Entering state 23
-Reading a token: Next token is token TOK_IDENT (0x556c1c260190->{TOK_IDENT 5.227.25 "two":)
-Shifting token TOK_IDENT (0x556c1c260190->{TOK_IDENT 5.227.25 "two":)
-Entering state 29
-Reading a token: Next token is token ';' (0x556c1c260650->{';' 5.227.28 ";":)
-Shifting token ';' (0x556c1c260650->{';' 5.227.28 ";":)
-Entering state 38
-Reducing stack by rule 10 (line 72):
-   $1 = nterm sargs (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct": 0x556c1c2600d0 0x556c1c2604f0)
-   $2 = nterm type (0x556c1c260430->{TOK_STRING 5.227.18 "string":)
-   $3 = token TOK_IDENT (0x556c1c260190->{TOK_IDENT 5.227.25 "two":)
-   $4 = token ';' (0x556c1c260650->{';' 5.227.28 ";":)
-Deleting astree (0x556c1c260650->{';' 5.227.28 ";":)
--> $$ = nterm sargs (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct": 0x556c1c2600d0 0x556c1c2604f0 0x556c1c2606d0)
-Stack now 0 2
-Entering state 12
-Reading a token: Next token is token TOK_PTR (0x556c1c260650->{TOK_PTR 5.228.18 "ptr":)
-Shifting token TOK_PTR (0x556c1c260650->{TOK_PTR 5.228.18 "ptr":)
-Entering state 10
-Reading a token: Next token is token '<' (0x556c1c2607b0->{'<' 5.228.22 "<":)
-Shifting token '<' (0x556c1c2607b0->{'<' 5.228.22 "<":)
-Entering state 21
-Reading a token: Next token is token TOK_STRUCT (0x556c1c260930->{TOK_STRUCT 5.228.23 "struct":)
-Shifting token TOK_STRUCT (0x556c1c260930->{TOK_STRUCT 5.228.23 "struct":)
-Entering state 27
-Reading a token: Next token is token TOK_IDENT (0x556c1c2609b0->{TOK_IDENT 5.228.30 "sayaka":)
-Shifting token TOK_IDENT (0x556c1c2609b0->{TOK_IDENT 5.228.30 "sayaka":)
-Entering state 37
-Reading a token: Next token is token '>' (0x556c1c260a70->{'>' 5.228.36 ">":)
-Shifting token '>' (0x556c1c260a70->{'>' 5.228.36 ">":)
-Entering state 61
-Reducing stack by rule 26 (line 116):
-   $1 = token TOK_PTR (0x556c1c260650->{TOK_PTR 5.228.18 "ptr":)
-   $2 = token '<' (0x556c1c2607b0->{'<' 5.228.22 "<":)
-   $3 = token TOK_STRUCT (0x556c1c260930->{TOK_STRUCT 5.228.23 "struct":)
-   $4 = token TOK_IDENT (0x556c1c2609b0->{TOK_IDENT 5.228.30 "sayaka":)
-   $5 = token '>' (0x556c1c260a70->{'>' 5.228.36 ">":)
-Deleting astree (0x556c1c260930->{TOK_STRUCT 5.228.23 "struct":)
-Deleting astree (0x556c1c2607b0->{'<' 5.228.22 "<":)
-Deleting astree (0x556c1c260a70->{'>' 5.228.36 ">":)
--> $$ = nterm plaintype (0x556c1c260650->{TOK_PTR 5.228.18 "ptr": 0x556c1c2609b0)
-Stack now 0 2 12
-Entering state 15
-Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x556c1c260650->{TOK_PTR 5.228.18 "ptr": 0x556c1c2609b0)
--> $$ = nterm type (0x556c1c260650->{TOK_PTR 5.228.18 "ptr": 0x556c1c2609b0)
-Stack now 0 2 12
-Entering state 23
-Reading a token: Next token is token TOK_IDENT (0x556c1c260a70->{TOK_IDENT 5.228.38 "sayaka":)
-Shifting token TOK_IDENT (0x556c1c260a70->{TOK_IDENT 5.228.38 "sayaka":)
-Entering state 29
-Reading a token: Next token is token ';' (0x556c1c2607b0->{';' 5.228.44 ";":)
-Shifting token ';' (0x556c1c2607b0->{';' 5.228.44 ";":)
-Entering state 38
-Reducing stack by rule 10 (line 72):
-   $1 = nterm sargs (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct": 0x556c1c2600d0 0x556c1c2604f0 0x556c1c2606d0)
-   $2 = nterm type (0x556c1c260650->{TOK_PTR 5.228.18 "ptr": 0x556c1c2609b0)
-   $3 = token TOK_IDENT (0x556c1c260a70->{TOK_IDENT 5.228.38 "sayaka":)
-   $4 = token ';' (0x556c1c2607b0->{';' 5.228.44 ";":)
-Deleting astree (0x556c1c2607b0->{';' 5.228.44 ";":)
--> $$ = nterm sargs (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct": 0x556c1c2600d0 0x556c1c2604f0 0x556c1c2606d0 0x556c1c260930)
-Stack now 0 2
-Entering state 12
-Reading a token: Next token is token TOK_ARRAY (0x556c1c2607b0->{TOK_ARRAY 5.229.18 "array":)
-Shifting token TOK_ARRAY (0x556c1c2607b0->{TOK_ARRAY 5.229.18 "array":)
-Entering state 9
-Reading a token: Next token is token '<' (0x556c1c260b90->{'<' 5.229.24 "<":)
-Shifting token '<' (0x556c1c260b90->{'<' 5.229.24 "<":)
-Entering state 20
-Reading a token: Next token is token TOK_INT (0x556c1c260c10->{TOK_INT 5.229.25 "int":)
-Shifting token TOK_INT (0x556c1c260c10->{TOK_INT 5.229.25 "int":)
-Entering state 6
-Reducing stack by rule 23 (line 113):
-   $1 = token TOK_INT (0x556c1c260c10->{TOK_INT 5.229.25 "int":)
--> $$ = nterm plaintype (0x556c1c260c10->{TOK_INT 5.229.25 "int":)
-Stack now 0 2 12 9 20
-Entering state 26
-Reading a token: Next token is token '>' (0x556c1c260c90->{'>' 5.229.28 ">":)
-Shifting token '>' (0x556c1c260c90->{'>' 5.229.28 ">":)
-Entering state 36
-Reducing stack by rule 22 (line 108):
-   $1 = token TOK_ARRAY (0x556c1c2607b0->{TOK_ARRAY 5.229.18 "array":)
-   $2 = token '<' (0x556c1c260b90->{'<' 5.229.24 "<":)
-   $3 = nterm plaintype (0x556c1c260c10->{TOK_INT 5.229.25 "int":)
-   $4 = token '>' (0x556c1c260c90->{'>' 5.229.28 ">":)
-Deleting astree (0x556c1c260b90->{'<' 5.229.24 "<":)
-Deleting astree (0x556c1c260c90->{'>' 5.229.28 ">":)
--> $$ = nterm type (0x556c1c2607b0->{TOK_ARRAY 5.229.18 "array": 0x556c1c260c10)
-Stack now 0 2 12
-Entering state 23
-Reading a token: Next token is token TOK_IDENT (0x556c1c260c90->{TOK_IDENT 5.229.30 "madoka":)
-Shifting token TOK_IDENT (0x556c1c260c90->{TOK_IDENT 5.229.30 "madoka":)
-Entering state 29
-Reading a token: Next token is token ';' (0x556c1c260b90->{';' 5.229.36 ";":)
-Shifting token ';' (0x556c1c260b90->{';' 5.229.36 ";":)
-Entering state 38
-Reducing stack by rule 10 (line 72):
-   $1 = nterm sargs (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct": 0x556c1c2600d0 0x556c1c2604f0 0x556c1c2606d0 0x556c1c260930)
-   $2 = nterm type (0x556c1c2607b0->{TOK_ARRAY 5.229.18 "array": 0x556c1c260c10)
-   $3 = token TOK_IDENT (0x556c1c260c90->{TOK_IDENT 5.229.30 "madoka":)
-   $4 = token ';' (0x556c1c260b90->{';' 5.229.36 ";":)
-Deleting astree (0x556c1c260b90->{';' 5.229.36 ";":)
--> $$ = nterm sargs (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct": 0x556c1c2600d0 0x556c1c2604f0 0x556c1c2606d0 0x556c1c260930 0x556c1c260d50)
-Stack now 0 2
-Entering state 12
-Reading a token: Next token is token '}' (0x556c1c260b90->{'}' 5.230.13 "}":)
-Shifting token '}' (0x556c1c260b90->{'}' 5.230.13 "}":)
-Entering state 22
-Reading a token: Next token is token ';' (0x556c1c260e50->{';' 5.230.14 ";":)
-Shifting token ';' (0x556c1c260e50->{';' 5.230.14 ";":)
-Entering state 28
-Reducing stack by rule 8 (line 61):
-   $1 = nterm sargs (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct": 0x556c1c2600d0 0x556c1c2604f0 0x556c1c2606d0 0x556c1c260930 0x556c1c260d50)
-   $2 = token '}' (0x556c1c260b90->{'}' 5.230.13 "}":)
-   $3 = token ';' (0x556c1c260e50->{';' 5.230.14 ";":)
-Deleting astree (0x556c1c260b90->{'}' 5.230.13 "}":)
-Deleting astree (0x556c1c260e50->{';' 5.230.14 ";":)
--> $$ = nterm structdef (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct": 0x556c1c2600d0 0x556c1c2604f0 0x556c1c2606d0 0x556c1c260930 0x556c1c260d50)
-Stack now 0 2
-Entering state 11
-Reducing stack by rule 2 (line 53):
-   $1 = nterm program (0x556c1c259d90->{TOK_ROOT 0.0.0 "<<ROOT>>":)
-   $2 = nterm structdef (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct": 0x556c1c2600d0 0x556c1c2604f0 0x556c1c2606d0 0x556c1c260930 0x556c1c260d50)
--> $$ = nterm program (0x556c1c259d90->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x556c1c25f000)
-Stack now 0
-Entering state 2
-Reading a token: Next token is token TOK_INT (0x556c1c260e50->{TOK_INT 5.237.1 "int":)
-Shifting token TOK_INT (0x556c1c260e50->{TOK_INT 5.237.1 "int":)
-Entering state 6
-Reducing stack by rule 23 (line 113):
-   $1 = token TOK_INT (0x556c1c260e50->{TOK_INT 5.237.1 "int":)
--> $$ = nterm plaintype (0x556c1c260e50->{TOK_INT 5.237.1 "int":)
-Stack now 0 2
-Entering state 15
-Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x556c1c260e50->{TOK_INT 5.237.1 "int":)
--> $$ = nterm type (0x556c1c260e50->{TOK_INT 5.237.1 "int":)
-Stack now 0 2
-Entering state 14
-Reading a token: Next token is token TOK_IDENT (0x556c1c260b90->{TOK_IDENT 5.237.5 "sadf":)
-Shifting token TOK_IDENT (0x556c1c260b90->{TOK_IDENT 5.237.5 "sadf":)
-Entering state 24
-Reading a token: Next token is token '=' (0x556c1c260f10->{'=' 5.237.10 "=":)
-Shifting token '=' (0x556c1c260f10->{'=' 5.237.10 "=":)
-Entering state 30
-Reading a token: Next token is token TOK_INTCON (0x556c1c260fd0->{TOK_INTCON 5.237.12 "5":)
-Shifting token TOK_INTCON (0x556c1c260fd0->{TOK_INTCON 5.237.12 "5":)
-Entering state 43
-Reducing stack by rule 57 (line 197):
-   $1 = token TOK_INTCON (0x556c1c260fd0->{TOK_INTCON 5.237.12 "5":)
--> $$ = nterm constant (0x556c1c260fd0->{TOK_INTCON 5.237.12 "5":)
-Stack now 0 2 14 24 30
-Entering state 54
-Reducing stack by rule 46 (line 146):
-   $1 = nterm constant (0x556c1c260fd0->{TOK_INTCON 5.237.12 "5":)
--> $$ = nterm expr (0x556c1c260fd0->{TOK_INTCON 5.237.12 "5":)
-Stack now 0 2 14 24 30
-Entering state 49
-Reading a token: Next token is token ';' (0x556c1c261090->{';' 5.237.13 ";":)
-Shifting token ';' (0x556c1c261090->{';' 5.237.13 ";":)
-Entering state 82
-Reducing stack by rule 19 (line 95):
-   $1 = nterm type (0x556c1c260e50->{TOK_INT 5.237.1 "int":)
-   $2 = token TOK_IDENT (0x556c1c260b90->{TOK_IDENT 5.237.5 "sadf":)
-   $3 = token '=' (0x556c1c260f10->{'=' 5.237.10 "=":)
-   $4 = nterm expr (0x556c1c260fd0->{TOK_INTCON 5.237.12 "5":)
-   $5 = token ';' (0x556c1c261090->{';' 5.237.13 ";":)
-Deleting astree (0x556c1c260f10->{'=' 5.237.10 "=":)
-Deleting astree (0x556c1c261090->{';' 5.237.13 ";":)
--> $$ = nterm vardecl (0x556c1c261110->{TOK_TYPE_ID 5.237.1 "": 0x556c1c260e50 0x556c1c260b90 0x556c1c260fd0)
-Stack now 0 2
-Entering state 13
-Reducing stack by rule 4 (line 55):
-   $1 = nterm program (0x556c1c259d90->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x556c1c25f000)
-   $2 = nterm vardecl (0x556c1c261110->{TOK_TYPE_ID 5.237.1 "": 0x556c1c260e50 0x556c1c260b90 0x556c1c260fd0)
--> $$ = nterm program (0x556c1c259d90->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x556c1c25f000 0x556c1c261110)
-Stack now 0
-Entering state 2
-Reading a token: Next token is token TOK_STRING (0x556c1c261090->{TOK_STRING 5.239.1 "string":)
-Shifting token TOK_STRING (0x556c1c261090->{TOK_STRING 5.239.1 "string":)
-Entering state 7
-Reducing stack by rule 25 (line 115):
-   $1 = token TOK_STRING (0x556c1c261090->{TOK_STRING 5.239.1 "string":)
--> $$ = nterm plaintype (0x556c1c261090->{TOK_STRING 5.239.1 "string":)
-Stack now 0 2
-Entering state 15
-Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x556c1c261090->{TOK_STRING 5.239.1 "string":)
--> $$ = nterm type (0x556c1c261090->{TOK_STRING 5.239.1 "string":)
-Stack now 0 2
-Entering state 14
-Reading a token: Next token is token TOK_IDENT (0x556c1c260f10->{TOK_IDENT 5.239.8 "z":)
-Shifting token TOK_IDENT (0x556c1c260f10->{TOK_IDENT 5.239.8 "z":)
-Entering state 24
-Reading a token: Next token is token '=' (0x556c1c261210->{'=' 5.239.10 "=":)
-Shifting token '=' (0x556c1c261210->{'=' 5.239.10 "=":)
-Entering state 30
-Reading a token: Next token is token TOK_ALLOC (0x556c1c261290->{TOK_ALLOC 5.239.12 "alloc":)
-Shifting token TOK_ALLOC (0x556c1c261290->{TOK_ALLOC 5.239.12 "alloc":)
-Entering state 40
-Reading a token: Next token is token '<' (0x556c1c261350->{'<' 5.239.18 "<":)
-Shifting token '<' (0x556c1c261350->{'<' 5.239.18 "<":)
-Entering state 62
-Reading a token: Next token is token TOK_STRING (0x556c1c2613d0->{TOK_STRING 5.239.19 "string":)
-Shifting token TOK_STRING (0x556c1c2613d0->{TOK_STRING 5.239.19 "string":)
-Entering state 94
-Reading a token: Next token is token '>' (0x556c1c261450->{'>' 5.239.25 ">":)
-Shifting token '>' (0x556c1c261450->{'>' 5.239.25 ">":)
-Entering state 131
-Reading a token: Next token is token '(' (0x556c1c2614d0->{'(' 5.239.27 "(":)
-Shifting token '(' (0x556c1c2614d0->{'(' 5.239.27 "(":)
-Entering state 141
-Reading a token: Next token is token TOK_INTCON (0x556c1c261590->{TOK_INTCON 5.239.28 "5":)
-Shifting token TOK_INTCON (0x556c1c261590->{TOK_INTCON 5.239.28 "5":)
-Entering state 43
-Reducing stack by rule 57 (line 197):
-   $1 = token TOK_INTCON (0x556c1c261590->{TOK_INTCON 5.239.28 "5":)
--> $$ = nterm constant (0x556c1c261590->{TOK_INTCON 5.239.28 "5":)
-Stack now 0 2 14 24 30 40 62 94 131 141
-Entering state 54
-Reducing stack by rule 46 (line 146):
-   $1 = nterm constant (0x556c1c261590->{TOK_INTCON 5.239.28 "5":)
--> $$ = nterm expr (0x556c1c261590->{TOK_INTCON 5.239.28 "5":)
-Stack now 0 2 14 24 30 40 62 94 131 141
-Entering state 147
-Reading a token: Next token is token ')' (0x556c1c261610->{')' 5.239.29 ")":)
-Shifting token ')' (0x556c1c261610->{')' 5.239.29 ")":)
-Entering state 152
-Reducing stack by rule 47 (line 149):
-   $1 = token TOK_ALLOC (0x556c1c261290->{TOK_ALLOC 5.239.12 "alloc":)
-   $2 = token '<' (0x556c1c261350->{'<' 5.239.18 "<":)
-   $3 = token TOK_STRING (0x556c1c2613d0->{TOK_STRING 5.239.19 "string":)
-   $4 = token '>' (0x556c1c261450->{'>' 5.239.25 ">":)
-   $5 = token '(' (0x556c1c2614d0->{'(' 5.239.27 "(":)
-   $6 = nterm expr (0x556c1c261590->{TOK_INTCON 5.239.28 "5":)
-   $7 = token ')' (0x556c1c261610->{')' 5.239.29 ")":)
-Deleting astree (0x556c1c261350->{'<' 5.239.18 "<":)
-Deleting astree (0x556c1c261450->{'>' 5.239.25 ">":)
-Deleting astree (0x556c1c2614d0->{'(' 5.239.27 "(":)
-Deleting astree (0x556c1c261610->{')' 5.239.29 ")":)
--> $$ = nterm allocator (0x556c1c261290->{TOK_ALLOC 5.239.12 "alloc": 0x556c1c2613d0 0x556c1c261590)
-Stack now 0 2 14 24 30
-Entering state 50
-Reducing stack by rule 42 (line 140):
-   $1 = nterm allocator (0x556c1c261290->{TOK_ALLOC 5.239.12 "alloc": 0x556c1c2613d0 0x556c1c261590)
--> $$ = nterm expr (0x556c1c261290->{TOK_ALLOC 5.239.12 "alloc": 0x556c1c2613d0 0x556c1c261590)
-Stack now 0 2 14 24 30
-Entering state 49
-Reading a token: Next token is token ';' (0x556c1c261610->{';' 5.239.30 ";":)
-Shifting token ';' (0x556c1c261610->{';' 5.239.30 ";":)
-Entering state 82
-Reducing stack by rule 19 (line 95):
-   $1 = nterm type (0x556c1c261090->{TOK_STRING 5.239.1 "string":)
-   $2 = token TOK_IDENT (0x556c1c260f10->{TOK_IDENT 5.239.8 "z":)
-   $3 = token '=' (0x556c1c261210->{'=' 5.239.10 "=":)
-   $4 = nterm expr (0x556c1c261290->{TOK_ALLOC 5.239.12 "alloc": 0x556c1c2613d0 0x556c1c261590)
-   $5 = token ';' (0x556c1c261610->{';' 5.239.30 ";":)
-Deleting astree (0x556c1c261210->{'=' 5.239.10 "=":)
-Deleting astree (0x556c1c261610->{';' 5.239.30 ";":)
--> $$ = nterm vardecl (0x556c1c2614d0->{TOK_TYPE_ID 5.239.1 "": 0x556c1c261090 0x556c1c260f10 0x556c1c261290)
-Stack now 0 2
-Entering state 13
-Reducing stack by rule 4 (line 55):
-   $1 = nterm program (0x556c1c259d90->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x556c1c25f000 0x556c1c261110)
-   $2 = nterm vardecl (0x556c1c2614d0->{TOK_TYPE_ID 5.239.1 "": 0x556c1c261090 0x556c1c260f10 0x556c1c261290)
--> $$ = nterm program (0x556c1c259d90->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x556c1c25f000 0x556c1c261110 0x556c1c2614d0)
-Stack now 0
-Entering state 2
-Reading a token: Next token is token TOK_PTR (0x556c1c261610->{TOK_PTR 5.240.1 "ptr":)
-Shifting token TOK_PTR (0x556c1c261610->{TOK_PTR 5.240.1 "ptr":)
-Entering state 10
-Reading a token: Next token is token '<' (0x556c1c261210->{'<' 5.240.5 "<":)
-Shifting token '<' (0x556c1c261210->{'<' 5.240.5 "<":)
-Entering state 21
-Reading a token: Next token is token TOK_STRUCT (0x556c1c261450->{TOK_STRUCT 5.240.6 "struct":)
-Shifting token TOK_STRUCT (0x556c1c261450->{TOK_STRUCT 5.240.6 "struct":)
-Entering state 27
-Reading a token: Next token is token TOK_IDENT (0x556c1c261350->{TOK_IDENT 5.240.13 "mami":)
-Shifting token TOK_IDENT (0x556c1c261350->{TOK_IDENT 5.240.13 "mami":)
-Entering state 37
-Reading a token: Next token is token '>' (0x556c1c2618d0->{'>' 5.240.17 ">":)
-Shifting token '>' (0x556c1c2618d0->{'>' 5.240.17 ">":)
-Entering state 61
-Reducing stack by rule 26 (line 116):
-   $1 = token TOK_PTR (0x556c1c261610->{TOK_PTR 5.240.1 "ptr":)
-   $2 = token '<' (0x556c1c261210->{'<' 5.240.5 "<":)
-   $3 = token TOK_STRUCT (0x556c1c261450->{TOK_STRUCT 5.240.6 "struct":)
-   $4 = token TOK_IDENT (0x556c1c261350->{TOK_IDENT 5.240.13 "mami":)
-   $5 = token '>' (0x556c1c2618d0->{'>' 5.240.17 ">":)
-Deleting astree (0x556c1c261450->{TOK_STRUCT 5.240.6 "struct":)
-Deleting astree (0x556c1c261210->{'<' 5.240.5 "<":)
-Deleting astree (0x556c1c2618d0->{'>' 5.240.17 ">":)
--> $$ = nterm plaintype (0x556c1c261610->{TOK_PTR 5.240.1 "ptr": 0x556c1c261350)
-Stack now 0 2
-Entering state 15
-Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x556c1c261610->{TOK_PTR 5.240.1 "ptr": 0x556c1c261350)
--> $$ = nterm type (0x556c1c261610->{TOK_PTR 5.240.1 "ptr": 0x556c1c261350)
-Stack now 0 2
-Entering state 14
-Reading a token: Next token is token TOK_IDENT (0x556c1c2618d0->{TOK_IDENT 5.240.19 "za":)
-Shifting token TOK_IDENT (0x556c1c2618d0->{TOK_IDENT 5.240.19 "za":)
-Entering state 24
-Reading a token: Next token is token '=' (0x556c1c261210->{'=' 5.240.22 "=":)
-Shifting token '=' (0x556c1c261210->{'=' 5.240.22 "=":)
-Entering state 30
-Reading a token: Next token is token TOK_ALLOC (0x556c1c261450->{TOK_ALLOC 5.240.24 "alloc":)
-Shifting token TOK_ALLOC (0x556c1c261450->{TOK_ALLOC 5.240.24 "alloc":)
-Entering state 40
-Reading a token: Next token is token '<' (0x556c1c261990->{'<' 5.240.30 "<":)
-Shifting token '<' (0x556c1c261990->{'<' 5.240.30 "<":)
-Entering state 62
-Reading a token: Next token is token TOK_STRUCT (0x556c1c261a10->{TOK_STRUCT 5.240.31 "struct":)
-Shifting token TOK_STRUCT (0x556c1c261a10->{TOK_STRUCT 5.240.31 "struct":)
-Entering state 95
-Reading a token: Next token is token TOK_IDENT (0x556c1c261a90->{TOK_IDENT 5.240.38 "mami":)
-Shifting token TOK_IDENT (0x556c1c261a90->{TOK_IDENT 5.240.38 "mami":)
-Entering state 132
-Reading a token: Next token is token '>' (0x556c1c261b10->{'>' 5.240.42 ">":)
-Shifting token '>' (0x556c1c261b10->{'>' 5.240.42 ">":)
-Entering state 142
-Reading a token: Next token is token '(' (0x556c1c261b90->{'(' 5.240.44 "(":)
-Shifting token '(' (0x556c1c261b90->{'(' 5.240.44 "(":)
-Entering state 148
-Reading a token: Next token is token ')' (0x556c1c261c10->{')' 5.240.45 ")":)
-Shifting token ')' (0x556c1c261c10->{')' 5.240.45 ")":)
-Entering state 153
-Reducing stack by rule 48 (line 155):
-   $1 = token TOK_ALLOC (0x556c1c261450->{TOK_ALLOC 5.240.24 "alloc":)
-   $2 = token '<' (0x556c1c261990->{'<' 5.240.30 "<":)
-   $3 = token TOK_STRUCT (0x556c1c261a10->{TOK_STRUCT 5.240.31 "struct":)
-   $4 = token TOK_IDENT (0x556c1c261a90->{TOK_IDENT 5.240.38 "mami":)
-   $5 = token '>' (0x556c1c261b10->{'>' 5.240.42 ">":)
-   $6 = token '(' (0x556c1c261b90->{'(' 5.240.44 "(":)
-   $7 = token ')' (0x556c1c261c10->{')' 5.240.45 ")":)
-Deleting astree (0x556c1c261990->{'<' 5.240.30 "<":)
-Deleting astree (0x556c1c261a10->{TOK_STRUCT 5.240.31 "struct":)
-Deleting astree (0x556c1c261b10->{'>' 5.240.42 ">":)
-Deleting astree (0x556c1c261b90->{'(' 5.240.44 "(":)
-Deleting astree (0x556c1c261c10->{')' 5.240.45 ")":)
--> $$ = nterm allocator (0x556c1c261450->{TOK_ALLOC 5.240.24 "alloc": 0x556c1c261a90)
-Stack now 0 2 14 24 30
-Entering state 50
-Reducing stack by rule 42 (line 140):
-   $1 = nterm allocator (0x556c1c261450->{TOK_ALLOC 5.240.24 "alloc": 0x556c1c261a90)
--> $$ = nterm expr (0x556c1c261450->{TOK_ALLOC 5.240.24 "alloc": 0x556c1c261a90)
-Stack now 0 2 14 24 30
-Entering state 49
-Reading a token: Next token is token ';' (0x556c1c261c10->{';' 5.240.46 ";":)
-Shifting token ';' (0x556c1c261c10->{';' 5.240.46 ";":)
-Entering state 82
-Reducing stack by rule 19 (line 95):
-   $1 = nterm type (0x556c1c261610->{TOK_PTR 5.240.1 "ptr": 0x556c1c261350)
-   $2 = token TOK_IDENT (0x556c1c2618d0->{TOK_IDENT 5.240.19 "za":)
-   $3 = token '=' (0x556c1c261210->{'=' 5.240.22 "=":)
-   $4 = nterm expr (0x556c1c261450->{TOK_ALLOC 5.240.24 "alloc": 0x556c1c261a90)
-   $5 = token ';' (0x556c1c261c10->{';' 5.240.46 ";":)
-Deleting astree (0x556c1c261210->{'=' 5.240.22 "=":)
-Deleting astree (0x556c1c261c10->{';' 5.240.46 ";":)
--> $$ = nterm vardecl (0x556c1c261b90->{TOK_TYPE_ID 5.240.1 "": 0x556c1c261610 0x556c1c2618d0 0x556c1c261450)
-Stack now 0 2
-Entering state 13
-Reducing stack by rule 4 (line 55):
-   $1 = nterm program (0x556c1c259d90->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x556c1c25f000 0x556c1c261110 0x556c1c2614d0)
-   $2 = nterm vardecl (0x556c1c261b90->{TOK_TYPE_ID 5.240.1 "": 0x556c1c261610 0x556c1c2618d0 0x556c1c261450)
--> $$ = nterm program (0x556c1c259d90->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x556c1c25f000 0x556c1c261110 0x556c1c2614d0 0x556c1c261b90)
-Stack now 0
-Entering state 2
-Reading a token: Next token is token TOK_ARRAY (0x556c1c261c10->{TOK_ARRAY 5.241.1 "array":)
-Shifting token TOK_ARRAY (0x556c1c261c10->{TOK_ARRAY 5.241.1 "array":)
-Entering state 9
-Reading a token: Next token is token '<' (0x556c1c261210->{'<' 5.241.6 "<":)
-Shifting token '<' (0x556c1c261210->{'<' 5.241.6 "<":)
-Entering state 20
-Reading a token: Next token is token TOK_PTR (0x556c1c261b10->{TOK_PTR 5.241.7 "ptr":)
-Shifting token TOK_PTR (0x556c1c261b10->{TOK_PTR 5.241.7 "ptr":)
-Entering state 10
-Reading a token: Next token is token '<' (0x556c1c261a10->{'<' 5.241.10 "<":)
-Shifting token '<' (0x556c1c261a10->{'<' 5.241.10 "<":)
-Entering state 21
-Reading a token: Next token is token TOK_STRUCT (0x556c1c261990->{TOK_STRUCT 5.241.11 "struct":)
-Shifting token TOK_STRUCT (0x556c1c261990->{TOK_STRUCT 5.241.11 "struct":)
-Entering state 27
-Reading a token: Next token is token TOK_IDENT (0x556c1c261ce0->{TOK_IDENT 5.241.18 "mami":)
-Shifting token TOK_IDENT (0x556c1c261ce0->{TOK_IDENT 5.241.18 "mami":)
-Entering state 37
-Reading a token: Next token is token '>' (0x556c1c261d60->{'>' 5.241.22 ">":)
-Shifting token '>' (0x556c1c261d60->{'>' 5.241.22 ">":)
-Entering state 61
-Reducing stack by rule 26 (line 116):
-   $1 = token TOK_PTR (0x556c1c261b10->{TOK_PTR 5.241.7 "ptr":)
-   $2 = token '<' (0x556c1c261a10->{'<' 5.241.10 "<":)
-   $3 = token TOK_STRUCT (0x556c1c261990->{TOK_STRUCT 5.241.11 "struct":)
-   $4 = token TOK_IDENT (0x556c1c261ce0->{TOK_IDENT 5.241.18 "mami":)
-   $5 = token '>' (0x556c1c261d60->{'>' 5.241.22 ">":)
-Deleting astree (0x556c1c261990->{TOK_STRUCT 5.241.11 "struct":)
-Deleting astree (0x556c1c261a10->{'<' 5.241.10 "<":)
-Deleting astree (0x556c1c261d60->{'>' 5.241.22 ">":)
--> $$ = nterm plaintype (0x556c1c261b10->{TOK_PTR 5.241.7 "ptr": 0x556c1c261ce0)
-Stack now 0 2 9 20
-Entering state 26
-Reading a token: Next token is token '>' (0x556c1c261d60->{'>' 5.241.23 ">":)
-Shifting token '>' (0x556c1c261d60->{'>' 5.241.23 ">":)
-Entering state 36
-Reducing stack by rule 22 (line 108):
-   $1 = token TOK_ARRAY (0x556c1c261c10->{TOK_ARRAY 5.241.1 "array":)
-   $2 = token '<' (0x556c1c261210->{'<' 5.241.6 "<":)
-   $3 = nterm plaintype (0x556c1c261b10->{TOK_PTR 5.241.7 "ptr": 0x556c1c261ce0)
-   $4 = token '>' (0x556c1c261d60->{'>' 5.241.23 ">":)
-Deleting astree (0x556c1c261210->{'<' 5.241.6 "<":)
-Deleting astree (0x556c1c261d60->{'>' 5.241.23 ">":)
--> $$ = nterm type (0x556c1c261c10->{TOK_ARRAY 5.241.1 "array": 0x556c1c261b10)
-Stack now 0 2
-Entering state 14
-Reading a token: Next token is token TOK_IDENT (0x556c1c261d60->{TOK_IDENT 5.241.25 "x":)
-Shifting token TOK_IDENT (0x556c1c261d60->{TOK_IDENT 5.241.25 "x":)
-Entering state 24
-Reading a token: Next token is token '=' (0x556c1c261210->{'=' 5.241.27 "=":)
-Shifting token '=' (0x556c1c261210->{'=' 5.241.27 "=":)
-Entering state 30
-Reading a token: Next token is token TOK_ALLOC (0x556c1c261a10->{TOK_ALLOC 5.241.29 "alloc":)
-Shifting token TOK_ALLOC (0x556c1c261a10->{TOK_ALLOC 5.241.29 "alloc":)
-Entering state 40
-Reading a token: Next token is token '<' (0x556c1c261990->{'<' 5.241.34 "<":)
-Shifting token '<' (0x556c1c261990->{'<' 5.241.34 "<":)
-Entering state 62
-Reading a token: Next token is token TOK_ARRAY (0x556c1c261e20->{TOK_ARRAY 5.241.35 "array":)
-Shifting token TOK_ARRAY (0x556c1c261e20->{TOK_ARRAY 5.241.35 "array":)
-Entering state 96
-Reading a token: Next token is token '<' (0x556c1c261ea0->{'<' 5.241.40 "<":)
-Shifting token '<' (0x556c1c261ea0->{'<' 5.241.40 "<":)
-Entering state 133
-Reading a token: Next token is token TOK_PTR (0x556c1c261f20->{TOK_PTR 5.241.41 "ptr":)
-Shifting token TOK_PTR (0x556c1c261f20->{TOK_PTR 5.241.41 "ptr":)
-Entering state 10
-Reading a token: Next token is token '<' (0x556c1c261fa0->{'<' 5.241.44 "<":)
-Shifting token '<' (0x556c1c261fa0->{'<' 5.241.44 "<":)
-Entering state 21
-Reading a token: Next token is token TOK_STRUCT (0x556c1c262020->{TOK_STRUCT 5.241.45 "struct":)
-Shifting token TOK_STRUCT (0x556c1c262020->{TOK_STRUCT 5.241.45 "struct":)
-Entering state 27
-Reading a token: Next token is token TOK_IDENT (0x556c1c2620a0->{TOK_IDENT 5.241.52 "mami":)
-Shifting token TOK_IDENT (0x556c1c2620a0->{TOK_IDENT 5.241.52 "mami":)
-Entering state 37
-Reading a token: Next token is token '>' (0x556c1c262120->{'>' 5.241.56 ">":)
-Shifting token '>' (0x556c1c262120->{'>' 5.241.56 ">":)
-Entering state 61
-Reducing stack by rule 26 (line 116):
-   $1 = token TOK_PTR (0x556c1c261f20->{TOK_PTR 5.241.41 "ptr":)
-   $2 = token '<' (0x556c1c261fa0->{'<' 5.241.44 "<":)
-   $3 = token TOK_STRUCT (0x556c1c262020->{TOK_STRUCT 5.241.45 "struct":)
-   $4 = token TOK_IDENT (0x556c1c2620a0->{TOK_IDENT 5.241.52 "mami":)
-   $5 = token '>' (0x556c1c262120->{'>' 5.241.56 ">":)
-Deleting astree (0x556c1c262020->{TOK_STRUCT 5.241.45 "struct":)
-Deleting astree (0x556c1c261fa0->{'<' 5.241.44 "<":)
-Deleting astree (0x556c1c262120->{'>' 5.241.56 ">":)
--> $$ = nterm plaintype (0x556c1c261f20->{TOK_PTR 5.241.41 "ptr": 0x556c1c2620a0)
-Stack now 0 2 14 24 30 40 62 96 133
-Entering state 143
-Reading a token: Next token is token '>' (0x556c1c262120->{'>' 5.241.57 ">":)
-Shifting token '>' (0x556c1c262120->{'>' 5.241.57 ">":)
-Entering state 149
-Reading a token: Next token is token '>' (0x556c1c261fa0->{'>' 5.241.58 ">":)
-Shifting token '>' (0x556c1c261fa0->{'>' 5.241.58 ">":)
-Entering state 154
-Reading a token: Next token is token '(' (0x556c1c262020->{'(' 5.241.59 "(":)
-Shifting token '(' (0x556c1c262020->{'(' 5.241.59 "(":)
-Entering state 157
-Reading a token: Next token is token TOK_INTCON (0x556c1c2621c0->{TOK_INTCON 5.241.60 "5":)
-Shifting token TOK_INTCON (0x556c1c2621c0->{TOK_INTCON 5.241.60 "5":)
-Entering state 43
-Reducing stack by rule 57 (line 197):
-   $1 = token TOK_INTCON (0x556c1c2621c0->{TOK_INTCON 5.241.60 "5":)
--> $$ = nterm constant (0x556c1c2621c0->{TOK_INTCON 5.241.60 "5":)
-Stack now 0 2 14 24 30 40 62 96 133 143 149 154 157
-Entering state 54
-Reducing stack by rule 46 (line 146):
-   $1 = nterm constant (0x556c1c2621c0->{TOK_INTCON 5.241.60 "5":)
--> $$ = nterm expr (0x556c1c2621c0->{TOK_INTCON 5.241.60 "5":)
-Stack now 0 2 14 24 30 40 62 96 133 143 149 154 157
-Entering state 159
-Reading a token: Next token is token ')' (0x556c1c262240->{')' 5.241.61 ")":)
-Shifting token ')' (0x556c1c262240->{')' 5.241.61 ")":)
-Entering state 161
-Reducing stack by rule 49 (line 162):
-   $1 = token TOK_ALLOC (0x556c1c261a10->{TOK_ALLOC 5.241.29 "alloc":)
-   $2 = token '<' (0x556c1c261990->{'<' 5.241.34 "<":)
-   $3 = token TOK_ARRAY (0x556c1c261e20->{TOK_ARRAY 5.241.35 "array":)
-   $4 = token '<' (0x556c1c261ea0->{'<' 5.241.40 "<":)
-   $5 = nterm plaintype (0x556c1c261f20->{TOK_PTR 5.241.41 "ptr": 0x556c1c2620a0)
-   $6 = token '>' (0x556c1c262120->{'>' 5.241.57 ">":)
-   $7 = token '>' (0x556c1c261fa0->{'>' 5.241.58 ">":)
-   $8 = token '(' (0x556c1c262020->{'(' 5.241.59 "(":)
-   $9 = nterm expr (0x556c1c2621c0->{TOK_INTCON 5.241.60 "5":)
-   $10 = token ')' (0x556c1c262240->{')' 5.241.61 ")":)
-Deleting astree (0x556c1c261990->{'<' 5.241.34 "<":)
-Deleting astree (0x556c1c261ea0->{'<' 5.241.40 "<":)
-Deleting astree (0x556c1c262120->{'>' 5.241.57 ">":)
-Deleting astree (0x556c1c261fa0->{'>' 5.241.58 ">":)
-Deleting astree (0x556c1c262020->{'(' 5.241.59 "(":)
-Deleting astree (0x556c1c262240->{')' 5.241.61 ")":)
--> $$ = nterm allocator (0x556c1c261a10->{TOK_ALLOC 5.241.29 "alloc": 0x556c1c261e20 0x556c1c2621c0)
-Stack now 0 2 14 24 30
-Entering state 50
-Reducing stack by rule 42 (line 140):
-   $1 = nterm allocator (0x556c1c261a10->{TOK_ALLOC 5.241.29 "alloc": 0x556c1c261e20 0x556c1c2621c0)
--> $$ = nterm expr (0x556c1c261a10->{TOK_ALLOC 5.241.29 "alloc": 0x556c1c261e20 0x556c1c2621c0)
-Stack now 0 2 14 24 30
-Entering state 49
-Reading a token: Next token is token ';' (0x556c1c262240->{';' 5.241.62 ";":)
-Shifting token ';' (0x556c1c262240->{';' 5.241.62 ";":)
-Entering state 82
-Reducing stack by rule 19 (line 95):
-   $1 = nterm type (0x556c1c261c10->{TOK_ARRAY 5.241.1 "array": 0x556c1c261b10)
-   $2 = token TOK_IDENT (0x556c1c261d60->{TOK_IDENT 5.241.25 "x":)
-   $3 = token '=' (0x556c1c261210->{'=' 5.241.27 "=":)
-   $4 = nterm expr (0x556c1c261a10->{TOK_ALLOC 5.241.29 "alloc": 0x556c1c261e20 0x556c1c2621c0)
-   $5 = token ';' (0x556c1c262240->{';' 5.241.62 ";":)
-Deleting astree (0x556c1c261210->{'=' 5.241.27 "=":)
-Deleting astree (0x556c1c262240->{';' 5.241.62 ";":)
--> $$ = nterm vardecl (0x556c1c262020->{TOK_TYPE_ID 5.241.1 "": 0x556c1c261c10 0x556c1c261d60 0x556c1c261a10)
-Stack now 0 2
-Entering state 13
-Reducing stack by rule 4 (line 55):
-   $1 = nterm program (0x556c1c259d90->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x556c1c25f000 0x556c1c261110 0x556c1c2614d0 0x556c1c261b90)
-   $2 = nterm vardecl (0x556c1c262020->{TOK_TYPE_ID 5.241.1 "": 0x556c1c261c10 0x556c1c261d60 0x556c1c261a10)
--> $$ = nterm program (0x556c1c259d90->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x556c1c25f000 0x556c1c261110 0x556c1c2614d0 0x556c1c261b90 0x556c1c262020)
-Stack now 0
-Entering state 2
-Reading a token: Now at end of input.
-Reducing stack by rule 1 (line 50):
-   $1 = nterm program (0x556c1c259d90->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x556c1c25f000 0x556c1c261110 0x556c1c2614d0 0x556c1c261b90 0x556c1c262020)
--> $$ = nterm start (nullptr)
-Stack now 0
-Entering state 1
-Now at end of input.
-Shifting token $end ()
-Entering state 3
-Stack now 0 1 3
-Cleanup: popping token $end ()
-Cleanup: popping nterm start (nullptr)
-Deleting symbol...
-0x556c1c263760->{5.237.1}
-attrib: int variable lval 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c2637b0->{5.237.12}
-attrib: int const 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c263800->{5.237.1}
-attrib: int variable lval vreg 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c2638a0->{5.239.28}
-attrib: int const 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c2637b0->{5.239.1}
-attrib: string variable lval 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c263760->{5.239.12}
-attrib: string vreg 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c2638a0->{5.239.1}
-attrib: string variable lval vreg 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c263760->{5.240.1}
-attrib: variable struct mami lval 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c2637b0->{5.240.24}
-attrib: struct mami vreg 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c263910->{5.240.1}
-attrib: variable struct mami lval vreg 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c263990->{5.241.60}
-attrib: int const 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c2637b0->{5.241.1}
-attrib: array variable struct mami lval 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c263760->{5.241.29}
-attrib: array struct mami 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c263990->{5.241.1}
-attrib: array variable struct mami lval vreg 
-sequence: 0
-fields: 
-block: 0
-params: 
-; TOK_ROOT "<<ROOT>>" (0.0.0)
-;    TOK_STRUCT "struct" (5.226.1)
-;       TOK_IDENT "mami" (5.226.8)
-;       TOK_TYPE_ID "" (5.226.15)
-;          TOK_INT "int" (5.226.15)
-;          TOK_IDENT "one" (5.226.19)
-;       TOK_TYPE_ID "" (5.227.18)
-;          TOK_STRING "string" (5.227.18)
-;          TOK_IDENT "two" (5.227.25)
-;       TOK_TYPE_ID "" (5.228.18)
-;          TOK_PTR "ptr" (5.228.18)
-;             TOK_IDENT "sayaka" (5.228.30)
-;          TOK_IDENT "sayaka" (5.228.38)
-;       TOK_TYPE_ID "" (5.229.18)
-;          TOK_ARRAY "array" (5.229.18)
-;             TOK_INT "int" (5.229.25)
-;          TOK_IDENT "madoka" (5.229.30)
-;    TOK_TYPE_ID "" (5.237.1)
-;       TOK_INT "int" (5.237.1)
-;       TOK_IDENT "sadf" (5.237.5)
-;       TOK_INTCON "5" (5.237.12)
-;    TOK_TYPE_ID "" (5.239.1)
-;       TOK_STRING "string" (5.239.1)
-;       TOK_IDENT "z" (5.239.8)
-;       TOK_ALLOC "alloc" (5.239.12)
-;          TOK_STRING "string" (5.239.19)
-;          TOK_INTCON "5" (5.239.28)
-;    TOK_TYPE_ID "" (5.240.1)
-;       TOK_PTR "ptr" (5.240.1)
-;          TOK_IDENT "mami" (5.240.13)
-;       TOK_IDENT "za" (5.240.19)
-;       TOK_ALLOC "alloc" (5.240.24)
-;          TOK_IDENT "mami" (5.240.38)
-;    TOK_TYPE_ID "" (5.241.1)
-;       TOK_ARRAY "array" (5.241.1)
-;          TOK_PTR "ptr" (5.241.7)
-;             TOK_IDENT "mami" (5.241.18)
-;       TOK_IDENT "x" (5.241.25)
-;       TOK_ALLOC "alloc" (5.241.29)
-;          TOK_ARRAY "array" (5.241.35)
-;             TOK_PTR "ptr" (5.241.41)
-;                TOK_IDENT "mami" (5.241.52)
-;          TOK_INTCON "5" (5.241.60)
-Deleting symbol...
-0x556c1c263910->{5.241.1}
-attrib: array variable struct mami lval 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c2636d0->{5.237.1}
-attrib: int variable lval 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c2638a0->{5.240.1}
-attrib: variable struct mami lval 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c263800->{5.239.1}
-attrib: string variable lval 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c2633d0->{5.226.1}
-attrib: struct mami 
-sequence: 0
-fields: int array field madoka field struct sayaka sayaka int field one string field two 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c263680->{5.229.18}
-attrib: int array field 
-sequence: 3
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c2635a0->{5.228.18}
-attrib: field struct sayaka 
-sequence: 2
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c2634a0->{5.226.15}
-attrib: int field 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c263530->{5.227.18}
-attrib: string field 
-sequence: 1
-fields: 
-block: 0
-params: 
-Deleting symbol...
-0x556c1c2635f0->{5.228.18}
-attrib: struct sayaka 
-sequence: 0
-fields: 
-block: 0
-params: 
-Deleting astree (0x556c1c2621c0->{TOK_INTCON 5.241.60 "5":)
-Deleting astree (0x556c1c2620a0->{TOK_IDENT 5.241.52 "mami":)
-Deleting astree (0x556c1c261f20->{TOK_PTR 5.241.41 "ptr":)
-Deleting astree (0x556c1c261e20->{TOK_ARRAY 5.241.35 "array":)
-Deleting astree (0x556c1c261a10->{TOK_ALLOC 5.241.29 "alloc":)
-Deleting astree (0x556c1c261d60->{TOK_IDENT 5.241.25 "x":)
-Deleting astree (0x556c1c261ce0->{TOK_IDENT 5.241.18 "mami":)
-Deleting astree (0x556c1c261b10->{TOK_PTR 5.241.7 "ptr":)
-Deleting astree (0x556c1c261c10->{TOK_ARRAY 5.241.1 "array":)
-Deleting astree (0x556c1c262020->{TOK_TYPE_ID 5.241.1 "":)
-Deleting astree (0x556c1c261a90->{TOK_IDENT 5.240.38 "mami":)
-Deleting astree (0x556c1c261450->{TOK_ALLOC 5.240.24 "alloc":)
-Deleting astree (0x556c1c2618d0->{TOK_IDENT 5.240.19 "za":)
-Deleting astree (0x556c1c261350->{TOK_IDENT 5.240.13 "mami":)
-Deleting astree (0x556c1c261610->{TOK_PTR 5.240.1 "ptr":)
-Deleting astree (0x556c1c261b90->{TOK_TYPE_ID 5.240.1 "":)
-Deleting astree (0x556c1c261590->{TOK_INTCON 5.239.28 "5":)
-Deleting astree (0x556c1c2613d0->{TOK_STRING 5.239.19 "string":)
-Deleting astree (0x556c1c261290->{TOK_ALLOC 5.239.12 "alloc":)
-Deleting astree (0x556c1c260f10->{TOK_IDENT 5.239.8 "z":)
-Deleting astree (0x556c1c261090->{TOK_STRING 5.239.1 "string":)
-Deleting astree (0x556c1c2614d0->{TOK_TYPE_ID 5.239.1 "":)
-Deleting astree (0x556c1c260fd0->{TOK_INTCON 5.237.12 "5":)
-Deleting astree (0x556c1c260b90->{TOK_IDENT 5.237.5 "sadf":)
-Deleting astree (0x556c1c260e50->{TOK_INT 5.237.1 "int":)
-Deleting astree (0x556c1c261110->{TOK_TYPE_ID 5.237.1 "":)
-Deleting astree (0x556c1c260c90->{TOK_IDENT 5.229.30 "madoka":)
-Deleting astree (0x556c1c260c10->{TOK_INT 5.229.25 "int":)
-Deleting astree (0x556c1c2607b0->{TOK_ARRAY 5.229.18 "array":)
-Deleting astree (0x556c1c260d50->{TOK_TYPE_ID 5.229.18 "":)
-Deleting astree (0x556c1c260a70->{TOK_IDENT 5.228.38 "sayaka":)
-Deleting astree (0x556c1c2609b0->{TOK_IDENT 5.228.30 "sayaka":)
-Deleting astree (0x556c1c260650->{TOK_PTR 5.228.18 "ptr":)
-Deleting astree (0x556c1c260930->{TOK_TYPE_ID 5.228.18 "":)
-Deleting astree (0x556c1c260190->{TOK_IDENT 5.227.25 "two":)
-Deleting astree (0x556c1c260430->{TOK_STRING 5.227.18 "string":)
-Deleting astree (0x556c1c2606d0->{TOK_TYPE_ID 5.227.18 "":)
-Deleting astree (0x556c1c260310->{TOK_IDENT 5.226.19 "one":)
-Deleting astree (0x556c1c260250->{TOK_INT 5.226.15 "int":)
-Deleting astree (0x556c1c2604f0->{TOK_TYPE_ID 5.226.15 "":)
-Deleting astree (0x556c1c2600d0->{TOK_IDENT 5.226.8 "mami":)
-Deleting astree (0x556c1c25f000->{TOK_STRUCT 5.226.1 "struct":)
-Deleting astree (0x556c1c259d90->{TOK_ROOT 0.0.0 "<<ROOT>>":)
+g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3ac.cpp
+In file included from /usr/include/c++/7/ext/alloc_traits.h:36:0,
+                 from /usr/include/c++/7/bits/basic_string.h:40,
+                 from /usr/include/c++/7/string:52,
+                 from /usr/include/c++/7/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:1,
+                 from 3ac.cpp:1:
+/usr/include/c++/7/bits/alloc_traits.h: In instantiation of ‘struct std::allocator_traits<ac3*>’:
+/usr/include/c++/7/ext/alloc_traits.h:50:10:   required from ‘struct __gnu_cxx::__alloc_traits<ac3*>’
+/usr/include/c++/7/bits/stl_vector.h:77:21:   required from ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>’
+/usr/include/c++/7/bits/stl_vector.h:216:11:   required from ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’
+3ac.cpp:8:76:   required from here
+/usr/include/c++/7/bits/alloc_traits.h:88:43: error: ‘ac3*’ is not a class, struct, or union type
+       typedef typename _Alloc::value_type value_type;
+                                           ^~~~~~~~~~
+/usr/include/c++/7/bits/alloc_traits.h:95:70: error: ‘ac3*’ is not a class, struct, or union type
+       using pointer = __detected_or_t<value_type*, __pointer, _Alloc>;
+                                                                      ^
+/usr/include/c++/7/bits/alloc_traits.h:135:79: error: ‘ac3*’ is not a class, struct, or union type
+       using const_pointer = typename _Ptr<__c_pointer, const value_type>::type;
+                                                                               ^
+/usr/include/c++/7/bits/alloc_traits.h: In instantiation of ‘struct std::allocator_traits<ac3*>::_Ptr<std::__allocator_traits_base::__v_pointer, void, void>’:
+/usr/include/c++/7/bits/alloc_traits.h:143:66:   required from ‘struct std::allocator_traits<ac3*>’
+/usr/include/c++/7/ext/alloc_traits.h:50:10:   required from ‘struct __gnu_cxx::__alloc_traits<ac3*>’
+/usr/include/c++/7/bits/stl_vector.h:77:21:   required from ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>’
+/usr/include/c++/7/bits/stl_vector.h:216:11:   required from ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’
+3ac.cpp:8:76:   required from here
+/usr/include/c++/7/bits/alloc_traits.h:102:71: error: ‘ac3*’ is not a class, struct, or union type
+    using type = typename pointer_traits<pointer>::template rebind<_Tp>;
+                                                                       ^
+/usr/include/c++/7/bits/alloc_traits.h: In instantiation of ‘struct std::allocator_traits<ac3*>::_Ptr<std::__allocator_traits_base::__cv_pointer, const void, void>’:
+/usr/include/c++/7/bits/alloc_traits.h:151:79:   required from ‘struct std::allocator_traits<ac3*>’
+/usr/include/c++/7/ext/alloc_traits.h:50:10:   required from ‘struct __gnu_cxx::__alloc_traits<ac3*>’
+/usr/include/c++/7/bits/stl_vector.h:77:21:   required from ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>’
+/usr/include/c++/7/bits/stl_vector.h:216:11:   required from ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’
+3ac.cpp:8:76:   required from here
+/usr/include/c++/7/bits/alloc_traits.h:102:71: error: ‘ac3*’ is not a class, struct, or union type
+/usr/include/c++/7/bits/alloc_traits.h: In instantiation of ‘struct std::allocator_traits<ac3*>’:
+/usr/include/c++/7/ext/alloc_traits.h:50:10:   required from ‘struct __gnu_cxx::__alloc_traits<ac3*>’
+/usr/include/c++/7/bits/stl_vector.h:77:21:   required from ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>’
+/usr/include/c++/7/bits/stl_vector.h:216:11:   required from ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’
+3ac.cpp:8:76:   required from here
+/usr/include/c++/7/bits/alloc_traits.h:159:68: error: ‘ac3*’ is not a class, struct, or union type
+       using difference_type = typename _Diff<_Alloc, pointer>::type;
+                                                                    ^
+/usr/include/c++/7/bits/alloc_traits.h:167:70: error: ‘ac3*’ is not a class, struct, or union type
+       using size_type = typename _Size<_Alloc, difference_type>::type;
+                                                                      ^
+In file included from /usr/include/c++/7/bits/basic_string.h:40:0,
+                 from /usr/include/c++/7/string:52,
+                 from /usr/include/c++/7/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:1,
+                 from 3ac.cpp:1:
+/usr/include/c++/7/ext/alloc_traits.h: In instantiation of ‘struct __gnu_cxx::__alloc_traits<ac3*>’:
+/usr/include/c++/7/bits/stl_vector.h:77:21:   required from ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>’
+/usr/include/c++/7/bits/stl_vector.h:216:11:   required from ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’
+3ac.cpp:8:76:   required from here
+/usr/include/c++/7/ext/alloc_traits.h:66:23: error: no members matching ‘__gnu_cxx::__alloc_traits<ac3*>::_Base_type {aka std::allocator_traits<ac3*>}::allocate’ in ‘__gnu_cxx::__alloc_traits<ac3*>::_Base_type {aka struct std::allocator_traits<ac3*>}’
+     using _Base_type::allocate;
+                       ^~~~~~~~
+/usr/include/c++/7/ext/alloc_traits.h:67:23: error: no members matching ‘__gnu_cxx::__alloc_traits<ac3*>::_Base_type {aka std::allocator_traits<ac3*>}::deallocate’ in ‘__gnu_cxx::__alloc_traits<ac3*>::_Base_type {aka struct std::allocator_traits<ac3*>}’
+     using _Base_type::deallocate;
+                       ^~~~~~~~~~
+/usr/include/c++/7/ext/alloc_traits.h:70:23: error: no members matching ‘__gnu_cxx::__alloc_traits<ac3*>::_Base_type {aka std::allocator_traits<ac3*>}::max_size’ in ‘__gnu_cxx::__alloc_traits<ac3*>::_Base_type {aka struct std::allocator_traits<ac3*>}’
+     using _Base_type::max_size;
+                       ^~~~~~~~
+In file included from /usr/include/c++/7/ext/alloc_traits.h:36:0,
+                 from /usr/include/c++/7/bits/basic_string.h:40,
+                 from /usr/include/c++/7/string:52,
+                 from /usr/include/c++/7/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:1,
+                 from 3ac.cpp:1:
+/usr/include/c++/7/bits/alloc_traits.h: In substitution of ‘template<class _Alloc, class _Up> using __alloc_rebind = typename std::__allocator_traits_base::__rebind<_Alloc, _Up>::type [with _Alloc = ac3*; _Up = const std::__cxx11::basic_string<char>*]’:
+/usr/include/c++/7/bits/alloc_traits.h:206:50:   required by substitution of ‘template<class _Alloc> template<class _Tp> using rebind_alloc = std::__alloc_rebind<_Alloc, _Tp> [with _Tp = const std::__cxx11::basic_string<char>*; _Alloc = ac3*]’
+/usr/include/c++/7/ext/alloc_traits.h:117:65:   required from ‘struct __gnu_cxx::__alloc_traits<ac3*>::rebind<const std::__cxx11::basic_string<char>*>’
+/usr/include/c++/7/bits/stl_vector.h:77:21:   required from ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>’
+/usr/include/c++/7/bits/stl_vector.h:216:11:   required from ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’
+3ac.cpp:8:76:   required from here
+/usr/include/c++/7/bits/alloc_traits.h:76:79: error: no type named ‘type’ in ‘struct std::__allocator_traits_base::__rebind<ac3*, const std::__cxx11::basic_string<char>*, void>’
+       = typename __allocator_traits_base::template __rebind<_Alloc, _Up>::type;
+                                                                               ^
+In file included from /usr/include/c++/7/vector:64:0,
+                 from symbol_table.h:7,
+                 from 3ac.h:1,
+                 from 3ac.cpp:1:
+/usr/include/c++/7/bits/stl_vector.h: In instantiation of ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’:
+3ac.cpp:8:76:   required from here
+/usr/include/c++/7/bits/stl_vector.h:247:20: error: no members matching ‘std::vector<const std::__cxx11::basic_string<char>*, ac3*>::_Base {aka std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>}::_M_allocate’ in ‘std::vector<const std::__cxx11::basic_string<char>*, ac3*>::_Base {aka struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>}’
+       using _Base::_M_allocate;
+                    ^~~~~~~~~~~
+/usr/include/c++/7/bits/stl_vector.h:248:20: error: no members matching ‘std::vector<const std::__cxx11::basic_string<char>*, ac3*>::_Base {aka std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>}::_M_deallocate’ in ‘std::vector<const std::__cxx11::basic_string<char>*, ac3*>::_Base {aka struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>}’
+       using _Base::_M_deallocate;
+                    ^~~~~~~~~~~~~
+/usr/include/c++/7/bits/stl_vector.h:250:20: error: no members matching ‘std::vector<const std::__cxx11::basic_string<char>*, ac3*>::_Base {aka std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>}::_M_get_Tp_allocator’ in ‘std::vector<const std::__cxx11::basic_string<char>*, ac3*>::_Base {aka struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>}’
+       using _Base::_M_get_Tp_allocator;
+                    ^~~~~~~~~~~~~~~~~~~
+3ac.cpp: In function ‘void parse_assignment(all_tables*, astree*, FILE*, symbol_table*)’:
+3ac.cpp:122:52: error: cannot convert ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>::iterator {aka std::__detail::_Node_iterator<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false, false>}’ to ‘symbol*’ in initialization
+     symbol *sym = current->find(ident_node->lexinfo);
+                                                    ^
+3ac.cpp:123:24: error: expected primary-expression before ‘,’ token
+     ac = new ac3(symbol,nullptr);
+                        ^
+3ac.cpp:122:13: warning: unused variable ‘sym’ [-Wunused-variable]
+     symbol *sym = current->find(ident_node->lexinfo);
+             ^~~
+3ac.cpp:129:18: error: switch quantity not an integer
+   switch (current){
+                  ^
+3ac.cpp:130:18: error: could not convert ‘table->all_tables::global’ from ‘symbol_table* {aka std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*}’ to ‘<type error>’
+     case (table->global):
+          ~~~~~~~~^~~~~~~
+3ac.cpp:131:20: error: ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’ has no member named ‘emplace’
+       all_globals->emplace(ident_node->lexinfo,ac);
+                    ^~~~~~~
+3ac.cpp:69:63: warning: unused parameter ‘out’ [-Wunused-parameter]
+ void parse_assignment(all_tables *table, astree *child, FILE *out,symbol_table *current){
+                                                               ^~~
+In file included from /usr/include/c++/7/vector:64:0,
+                 from symbol_table.h:7,
+                 from 3ac.h:1,
+                 from 3ac.cpp:1:
+/usr/include/c++/7/bits/stl_vector.h: In instantiation of ‘std::_Vector_base<_Tp, _Alloc>::~_Vector_base() [with _Tp = const std::__cxx11::basic_string<char>*; _Alloc = ac3*]’:
+/usr/include/c++/7/bits/stl_vector.h:263:15:   required from ‘std::vector<_Tp, _Alloc>::vector() [with _Tp = const std::__cxx11::basic_string<char>*; _Alloc = ac3*]’
+3ac.cpp:8:76:   required from here
+/usr/include/c++/7/bits/stl_vector.h:162:37: error: ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>::_Vector_impl’ has no member named ‘_M_start’; did you mean ‘_M_swap_data’?
+       { _M_deallocate(this->_M_impl._M_start, this->_M_impl._M_end_of_storage
+                       ~~~~~~~~~~~~~~^~~~~~~~
+                       _M_swap_data
+/usr/include/c++/7/bits/stl_vector.h:162:61: error: ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>::_Vector_impl’ has no member named ‘_M_end_of_storage’
+       { _M_deallocate(this->_M_impl._M_start, this->_M_impl._M_end_of_storage
+                                               ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+/usr/include/c++/7/bits/stl_vector.h:163:25: error: ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>::_Vector_impl’ has no member named ‘_M_start’; did you mean ‘_M_swap_data’?
+         - this->_M_impl._M_start); }
+           ~~~~~~~~~~~~~~^~~~~~~~
+           _M_swap_data
+/usr/include/c++/7/bits/stl_vector.h:162:22: error: ‘_M_deallocate’ was not declared in this scope
+       { _M_deallocate(this->_M_impl._M_start, this->_M_impl._M_end_of_storage
+         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         - this->_M_impl._M_start); }
+         ~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/7/bits/stl_vector.h: In instantiation of ‘std::_Vector_base<_Tp, _Alloc>::_Vector_impl::_Vector_impl() [with _Tp = const std::__cxx11::basic_string<char>*; _Alloc = ac3*]’:
+/usr/include/c++/7/bits/stl_vector.h:127:17:   required from ‘std::_Vector_base<_Tp, _Alloc>::_Vector_base() [with _Tp = const std::__cxx11::basic_string<char>*; _Alloc = ac3*]’
+/usr/include/c++/7/bits/stl_vector.h:263:15:   required from ‘std::vector<_Tp, _Alloc>::vector() [with _Tp = const std::__cxx11::basic_string<char>*; _Alloc = ac3*]’
+3ac.cpp:8:76:   required from here
+/usr/include/c++/7/bits/stl_vector.h:89:65: error: using invalid field ‘std::_Vector_base<_Tp, _Alloc>::_Vector_impl::_M_start’
+  : _Tp_alloc_type(), _M_start(), _M_finish(), _M_end_of_storage()
+                                                                 ^
+/usr/include/c++/7/bits/stl_vector.h:89:65: error: using invalid field ‘std::_Vector_base<_Tp, _Alloc>::_Vector_impl::_M_finish’
+/usr/include/c++/7/bits/stl_vector.h:89:65: error: using invalid field ‘std::_Vector_base<_Tp, _Alloc>::_Vector_impl::_M_end_of_storage’
+Makefile:55: recipe for target '3ac.o' failed
+make: *** [3ac.o] Error 1

@@ -3,9 +3,12 @@
 #include "astree.h"
 #include "lyutils.h"
 #include "auxlib.h"
+#include <map>
 
 vector<const string*> *all_strings  = new vector <const string*>();
-vector <ac3*> *all_globals = new vector <ac3*>(); 
+ac3_table *all_globals = new ac3_table; 
+unordered_map <symbol_table*, ac3_table*> *table_lookup = 
+new unordered_map<symbol_table*, ac3_table*>;
 
 ac3::ac3(symbol *sym_, astree *expr_){
   sym = sym_;
@@ -63,12 +66,16 @@ void ac_struct(all_tables *table,FILE *out){
   }
 }
 
-void parse_assignment(all_tables *table,astree *child, FILE *out,string label){
+// requires the expression to be parsed,
+// output file, and symbol table containing the 
+// context of the variable to be parsed in question
+void parse_assignment(astree *child, FILE *out,symbol_table *current){
   astree *ident_node = child->children[1];
   string name = ident_node->lexinfo->c_str();
   name += ":";
   attr_bitset a = child->attributes;
   astree *assignment = child->children[2];
+  ac3 *ac;
   if (child->children.size() > 2 ){
     if (a[static_cast<int>(attr::ARRAY)]){
     }
@@ -92,11 +99,11 @@ void parse_assignment(all_tables *table,astree *child, FILE *out,string label){
         }
       }
       else if (assignment->symbol == TOK_NULLPTR) {
-        fprintf (out,"%-10s %s %s%s\n",
-                 name.c_str(),
-                 label.c_str(),
-                 parse_typesize(child).c_str(),
-                 "0");
+        // fprintf (out,"%-10s %s %s%s\n",
+        //          name.c_str(),
+        //          label.c_str(),
+        //          parse_typesize(child).c_str(),
+        //          "0");
         
       }
     }
@@ -105,21 +112,24 @@ void parse_assignment(all_tables *table,astree *child, FILE *out,string label){
         // parse the expr
       } 
       else {
-        fprintf (out,"%-10s %s %s%s\n",
-                 name.c_str(),
-                 label.c_str(),
-                 parse_typesize(child).c_str(),
-                 assignment->lexinfo->c_str());
+        // fprintf (out,"%-10s %s %s%s\n",
+        //          name.c_str(),
+        //          label.c_str(),
+        //          parse_typesize(child).c_str(),
+        //          assignment->lexinfo->c_str());
       }
       return;
     }
   }
   else {
+    symbol *sym = current->find(ident_node->lexinfo)->second;
+    ac = new ac3(sym,nullptr); 
     // fprintf (out,"%-10s .%s %s\n",
     //          name.c_str(),
     //          label.c_str(),
     //          parse_typesize(child).c_str());
   }
+  map < 
 }
 
 void ac_globalvar(astree *child, all_tables *table, FILE *out){
@@ -140,7 +150,7 @@ void ac_globalvar(astree *child, all_tables *table, FILE *out){
       }
     }
   }
-  parse_assignment(table,child,out,".global");
+  parse_assignment(child,out,table->global);
 }
 
 //emit all string constants.
@@ -174,6 +184,7 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
 }
 
 void emit_3ac(astree *s, all_tables *table, FILE *out){
+  table_lookup->emplace(table->global,all_globals);
   ac_struct(table,out);
   ac_traverse(s,table,out);
 }
