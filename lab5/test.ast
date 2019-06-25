@@ -1,25 +1,24 @@
 ROOT "<<ROOT>>" 0.0.0 {0} 
-STRUCT "struct" 5.226.1 {0} struct mami 
-IDENT "mami" 5.226.8 {0} 
-TYPE_ID "" 5.226.15 {0} int field 
-INT "int" 5.226.15 {0} 
-IDENT "one" 5.226.19 {0} 
-TYPE_ID "" 5.227.18 {0} string field 
-STRING "string" 5.227.18 {0} 
-IDENT "two" 5.227.25 {0} 
-TYPE_ID "" 5.228.18 {0} field struct sayaka 
-PTR "ptr" 5.228.18 {0} 
-IDENT "sayaka" 5.228.30 {0} 
-IDENT "sayaka" 5.228.38 {0} 
-TYPE_ID "" 5.229.18 {0} int array field 
-ARRAY "array" 5.229.18 {0} 
-INT "int" 5.229.25 {0} 
-IDENT "madoka" 5.229.30 {0} 
-TYPE_ID "" 5.237.1 {0} int variable lval vreg (5.237.1)
-INT "int" 5.237.1 {0} 
-IDENT "sadf" 5.237.5 {0} 
-INTCON "5" 5.237.12 {0} int variable lval vreg 
-TYPE_ID "" 5.239.1 {0} string variable lval vreg (5.239.1)
-STRING "string" 5.239.1 {0} 
-IDENT "z" 5.239.8 {0} 
-NULLPTR "nullptr" 5.239.12 {0} string variable lval vreg 
+STRUCT "struct" 4.3.1 {0} struct test 
+IDENT "test" 4.3.8 {0} 
+STRUCT "struct" 4.4.1 {0} struct onearg 
+IDENT "onearg" 4.4.8 {0} 
+TYPE_ID "" 4.4.15 {0} int field 
+INT "int" 4.4.15 {0} 
+IDENT "trivial" 4.4.19 {0} 
+STRUCT "struct" 4.8.1 {0} struct allofem 
+IDENT "allofem" 4.8.8 {0} 
+TYPE_ID "" 4.8.18 {0} int field 
+INT "int" 4.8.18 {0} 
+IDENT "one" 4.8.22 {0} 
+TYPE_ID "" 4.9.18 {0} string field 
+STRING "string" 4.9.18 {0} 
+IDENT "two" 4.9.25 {0} 
+TYPE_ID "" 4.10.18 {0} field struct none 
+PTR "ptr" 4.10.18 {0} 
+IDENT "none" 4.10.30 {0} 
+IDENT "homura" 4.10.37 {0} 
+TYPE_ID "" 4.11.18 {0} int array field 
+ARRAY "array" 4.11.18 {0} 
+INT "int" 4.11.25 {0} 
+IDENT "sayaka" 4.11.30 {0} 

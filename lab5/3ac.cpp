@@ -5,20 +5,17 @@
 #include "auxlib.h"
 
 vector<const string*> *all_strings  = new vector <const string*>();
-vector<string*> *all_globals  = new vector <string*>();
-vector<string*> *all_functions  = new vector <string*>();
+vector <ac3*> *all_globals = new vector <ac3*>(); 
+
+ac3::ac3(symbol *sym_, astree *expr_){
+  sym = sym_;
+  expr = expr_;
+}
 
 // parse types of either symbol or astree
-// kind of turned into a mess because you need
-// a structure name for structure types.
-string parse_typesize(symbol *sym,astree *ast){ 
-  // xnor (throws an error if both nullptr or pointer exists for both)
-  if (!(sym) == !(ast)){
-    errprintf ("parse_typesize called incorrectly");
-  }
-  attr_bitset a;
-  const string* sname;
-  sym == nullptr ? (a = ast->attributes, sname = ast->sname)  : (a = sym->attributes, sname = sym->sname);
+template <class Type> string parse_typesize(const Type &o){ 
+  attr_bitset a = o->attributes;
+  const string *sname = o->sname;
   string st = "";
 
   if (a[static_cast<int>(attr::TYPEID)]){
@@ -49,24 +46,24 @@ void translate_struct (const string *name, symbol *sym, FILE *out){
   if (sym->fields != nullptr){
     for (auto itor: *(sym->fields)){
       fprintf (out,".field %s%s\n", 
-        parse_typesize(itor.second,nullptr).c_str(),
+        parse_typesize(itor.second).c_str(),
         itor.first->c_str());
     }
   }
   fprintf (out, ".end \n");
 }
 
-void ac_struct(symbol_table *struct_table,FILE *out){
-  if (struct_table == nullptr){
+void ac_struct(all_tables *table,FILE *out){
+  if (table->struct_t == nullptr){
     errprintf("ac_struct called on null struct_table");
     return;
   }
-  for (auto itor: *struct_table){
+  for (auto itor: *(table->struct_t)){
     translate_struct(itor.first,itor.second,out);  
   }
 }
 
-void parse_assignment(astree *child, FILE *out,string label){
+void parse_assignment(all_tables *table,astree *child, FILE *out,string label){
   astree *ident_node = child->children[1];
   string name = ident_node->lexinfo->c_str();
   name += ":";
@@ -85,11 +82,11 @@ void parse_assignment(astree *child, FILE *out,string label){
           }
           else {
             assignment = child->children[2]->children[1];   
-            fprintf (out,"%-10s %s %smalloc(%s)\n",
-                     name.c_str(),
-                     label.c_str(),
-                     parse_typesize(nullptr,child).c_str(),
-                     assignment->lexinfo->c_str());
+            // fprintf (out,"%-10s %s %smalloc(%s)\n",
+            //          name.c_str(),
+            //          label.c_str(),
+            //          parse_typesize(child).c_str(),
+            //          assignment->lexinfo->c_str());
              return;
           }
         }
@@ -98,7 +95,7 @@ void parse_assignment(astree *child, FILE *out,string label){
         fprintf (out,"%-10s %s %s%s\n",
                  name.c_str(),
                  label.c_str(),
-                 parse_typesize(nullptr,child).c_str(),
+                 parse_typesize(child).c_str(),
                  "0");
         
       }
@@ -111,21 +108,21 @@ void parse_assignment(astree *child, FILE *out,string label){
         fprintf (out,"%-10s %s %s%s\n",
                  name.c_str(),
                  label.c_str(),
-                 parse_typesize(nullptr,child).c_str(),
+                 parse_typesize(child).c_str(),
                  assignment->lexinfo->c_str());
       }
       return;
     }
   }
   else {
-    fprintf (out,"%-10s .%s %s\n",
-             name.c_str(),
-             label.c_str(),
-             parse_typesize(nullptr,child).c_str());
+    // fprintf (out,"%-10s .%s %s\n",
+    //          name.c_str(),
+    //          label.c_str(),
+    //          parse_typesize(child).c_str());
   }
 }
 
-void ac_globalvar(astree *child, unordered_map<const string*, symbol_table*> *master, FILE *out){
+void ac_globalvar(astree *child, all_tables *table, FILE *out){
   if (child->children.size() > 2){
     astree *assignment = child->children[2];
     if (assignment->children.size() != 0){
@@ -143,7 +140,7 @@ void ac_globalvar(astree *child, unordered_map<const string*, symbol_table*> *ma
       }
     }
   }
-  parse_assignment(child,out,".global");
+  parse_assignment(table,child,out,".global");
 }
 
 //emit all string constants.
@@ -155,15 +152,15 @@ void emit_string(FILE *out){
   }
 }
 
-void ac_traverse(astree *s, unordered_map<const string*, symbol_table*> *master, FILE *out){
-  if ( s == nullptr || master == nullptr || out == nullptr ){
+void ac_traverse(astree *s, all_tables *table, FILE *out){
+  if ( s == nullptr || table == nullptr || out == nullptr ){
     errprintf("ac_traverse called on uninitialized structure!\n");
     return;
   }
   for (astree *child: s->children){
     if (child->symbol == TOK_TYPE_ID){
       // process the global variable
-      ac_globalvar(child,master,out);
+      ac_globalvar(child,table,out);
     }
     else {
       // else process the function
@@ -171,15 +168,15 @@ void ac_traverse(astree *s, unordered_map<const string*, symbol_table*> *master,
   }
   // emit string constants here
   emit_string(out);
+  // emit global definitions here
+
+  //emit function definitions here
 }
 
-void emit_3ac(astree *s, symbol_table *struct_table, unordered_map<const string*,symbol_table*> *master,FILE *out){
-  ac_struct(struct_table,out);
-  ac_traverse(s,master,out);
+void emit_3ac(astree *s, all_tables *table, FILE *out){
+  ac_struct(table,out);
+  ac_traverse(s,table,out);
 }
 
 void free_3ac(){
-  delete(all_strings);
-  delete(all_globals);
-  delete(all_functions);
 }

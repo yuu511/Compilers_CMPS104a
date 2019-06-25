@@ -1,10 +1,11 @@
-mami (5.226.1) {0} struct mami 
-   one (5.226.15) int field 0
-   two (5.227.18) string field 1
-   sayaka (5.228.18) field struct sayaka 2
-   madoka (5.229.18) int array field 3
+allofem (4.8.1) {0} struct allofem 
+   one (4.8.18) int field 0
+   two (4.9.18) string field 1
+   homura (4.10.18) field struct none 2
+   sayaka (4.11.18) int array field 3
 
-z (5.239.1) {0} string variable lval 
+test (4.3.1) {0} struct test 
 
-sadf (5.237.1) {0} int variable lval 
+onearg (4.4.1) {0} struct onearg 
+   trivial (4.4.15) int field 0
 

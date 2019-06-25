@@ -174,7 +174,7 @@ int main (int argc, char** argv) {
    gen_table(parser::root);
 
    // generate the oil file
-   emit_3ac(parser::root,r_struct(),r_master(),oilfp);
+   emit_3ac(parser::root,get_tables(),oilfp);
 
    // dump the astree
    astree::draw_attrib(astfp,parser::root);

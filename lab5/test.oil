@@ -1,10 +1,13 @@
-.struct mami
-.field ptr madoka
-.field struct sayaka sayaka
+.struct allofem
+.field ptr sayaka
+.field struct none homura
 .field int one
 .field ptr two
 .end 
-.struct sayaka
+.struct none
 .end 
-sadf:      .global int 5
-z:         .global ptr 0
+.struct test
+.end 
+.struct onearg
+.field int trivial
+.end 

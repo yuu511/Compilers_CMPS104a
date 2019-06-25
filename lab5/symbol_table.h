@@ -27,14 +27,21 @@ struct symbol {
   void dump_symbol (FILE* outfile, symbol *sym);
 };
 
+struct all_tables{
+  symbol_table *struct_t;
+  symbol_table *global;
+  unordered_map<const string*,symbol_table*> *master;
+  all_tables(symbol_table *struct_t,
+              symbol_table *global,
+              unordered_map<const string*,symbol_table*> *master);
+};
+
 void gen_table(astree* node);
 
 void free_symbol();
 
 void dump_all_tables(FILE* outfile);
 
-symbol_table *r_struct();
-
-unordered_map<const string*,symbol_table*> *r_master();
+all_tables *get_tables();
 
 #endif

@@ -1,6 +1,6 @@
-#line 1 "yylex.cpp"
+#line 2 "yylex.cpp"
 
-#line 3 "yylex.cpp"
+#line 4 "yylex.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -632,10 +632,10 @@ char *yytext;
 
 #define YY_USER_ACTION  { lexer::advance(); }
 
-#line 635 "yylex.cpp"
+#line 636 "yylex.cpp"
 #define YY_NO_INPUT 1
 /*%option verbose*/
-#line 638 "yylex.cpp"
+#line 639 "yylex.cpp"
 
 #define INITIAL 0
 
@@ -915,7 +915,7 @@ YY_DECL
 /* %% [7.0] user's declarations go here */
 #line 34 "scanner.l"
 
-#line 918 "yylex.cpp"
+#line 919 "yylex.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1233,7 +1233,7 @@ YY_RULE_SETUP
 #line 85 "scanner.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 1236 "yylex.cpp"
+#line 1237 "yylex.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 

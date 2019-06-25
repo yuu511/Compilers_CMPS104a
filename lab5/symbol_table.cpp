@@ -21,6 +21,13 @@ int next_block = 1;
 const string *current_function;
 symbol *p_expression(astree *s);
 
+all_tables::all_tables(symbol_table *struct_t_,symbol_table *global_,
+unordered_map<const string*,symbol_table*> *master_){
+  struct_t = struct_t_;
+  global = global_;
+  master = master_;
+}
+
 symbol::symbol (astree* ast_, size_t block_nr_){
   attributes = ast_->attributes;  
   sequence = 0;
@@ -1337,10 +1344,7 @@ void dump_all_tables(FILE* out){
   print_map(out,global);
 }
 
-symbol_table *r_struct(){
-  return struct_t;
-}
-
-unordered_map<const string*,symbol_table*> *r_master(){
-  return master;
+all_tables *get_tables(){
+  all_tables *ret = new all_tables(struct_t,global,master);
+  return ret;
 }
