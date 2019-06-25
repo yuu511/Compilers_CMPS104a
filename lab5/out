@@ -1,155 +1,93 @@
 g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3ac.cpp
-In file included from /usr/include/c++/7/ext/alloc_traits.h:36:0,
-                 from /usr/include/c++/7/bits/basic_string.h:40,
-                 from /usr/include/c++/7/string:52,
-                 from /usr/include/c++/7/bitset:47,
+3ac.cpp: In function ‘void parse_assignment(astree*, symbol_table*)’:
+3ac.cpp:133:40: error: no matching function for call to ‘std::__cxx11::basic_string<char>::append(std::vector<const std::__cxx11::basic_string<char>*>::size_type)’
+  133 |         ret->append(all_strings->size());
+      |                                        ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
                  from symbol_table.h:4,
                  from 3ac.h:1,
                  from 3ac.cpp:1:
-/usr/include/c++/7/bits/alloc_traits.h: In instantiation of ‘struct std::allocator_traits<ac3*>’:
-/usr/include/c++/7/ext/alloc_traits.h:50:10:   required from ‘struct __gnu_cxx::__alloc_traits<ac3*>’
-/usr/include/c++/7/bits/stl_vector.h:77:21:   required from ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>’
-/usr/include/c++/7/bits/stl_vector.h:216:11:   required from ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’
-3ac.cpp:8:76:   required from here
-/usr/include/c++/7/bits/alloc_traits.h:88:43: error: ‘ac3*’ is not a class, struct, or union type
-       typedef typename _Alloc::value_type value_type;
-                                           ^~~~~~~~~~
-/usr/include/c++/7/bits/alloc_traits.h:95:70: error: ‘ac3*’ is not a class, struct, or union type
-       using pointer = __detected_or_t<value_type*, __pointer, _Alloc>;
-                                                                      ^
-/usr/include/c++/7/bits/alloc_traits.h:135:79: error: ‘ac3*’ is not a class, struct, or union type
-       using const_pointer = typename _Ptr<__c_pointer, const value_type>::type;
-                                                                               ^
-/usr/include/c++/7/bits/alloc_traits.h: In instantiation of ‘struct std::allocator_traits<ac3*>::_Ptr<std::__allocator_traits_base::__v_pointer, void, void>’:
-/usr/include/c++/7/bits/alloc_traits.h:143:66:   required from ‘struct std::allocator_traits<ac3*>’
-/usr/include/c++/7/ext/alloc_traits.h:50:10:   required from ‘struct __gnu_cxx::__alloc_traits<ac3*>’
-/usr/include/c++/7/bits/stl_vector.h:77:21:   required from ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>’
-/usr/include/c++/7/bits/stl_vector.h:216:11:   required from ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’
-3ac.cpp:8:76:   required from here
-/usr/include/c++/7/bits/alloc_traits.h:102:71: error: ‘ac3*’ is not a class, struct, or union type
-    using type = typename pointer_traits<pointer>::template rebind<_Tp>;
-                                                                       ^
-/usr/include/c++/7/bits/alloc_traits.h: In instantiation of ‘struct std::allocator_traits<ac3*>::_Ptr<std::__allocator_traits_base::__cv_pointer, const void, void>’:
-/usr/include/c++/7/bits/alloc_traits.h:151:79:   required from ‘struct std::allocator_traits<ac3*>’
-/usr/include/c++/7/ext/alloc_traits.h:50:10:   required from ‘struct __gnu_cxx::__alloc_traits<ac3*>’
-/usr/include/c++/7/bits/stl_vector.h:77:21:   required from ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>’
-/usr/include/c++/7/bits/stl_vector.h:216:11:   required from ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’
-3ac.cpp:8:76:   required from here
-/usr/include/c++/7/bits/alloc_traits.h:102:71: error: ‘ac3*’ is not a class, struct, or union type
-/usr/include/c++/7/bits/alloc_traits.h: In instantiation of ‘struct std::allocator_traits<ac3*>’:
-/usr/include/c++/7/ext/alloc_traits.h:50:10:   required from ‘struct __gnu_cxx::__alloc_traits<ac3*>’
-/usr/include/c++/7/bits/stl_vector.h:77:21:   required from ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>’
-/usr/include/c++/7/bits/stl_vector.h:216:11:   required from ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’
-3ac.cpp:8:76:   required from here
-/usr/include/c++/7/bits/alloc_traits.h:159:68: error: ‘ac3*’ is not a class, struct, or union type
-       using difference_type = typename _Diff<_Alloc, pointer>::type;
-                                                                    ^
-/usr/include/c++/7/bits/alloc_traits.h:167:70: error: ‘ac3*’ is not a class, struct, or union type
-       using size_type = typename _Size<_Alloc, difference_type>::type;
-                                                                      ^
-In file included from /usr/include/c++/7/bits/basic_string.h:40:0,
-                 from /usr/include/c++/7/string:52,
-                 from /usr/include/c++/7/bitset:47,
+/usr/include/c++/9.1.0/bits/basic_string.h:1263:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’ <near match>
+ 1263 |       append(const _CharT* __s)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1263:7: note:   conversion of argument 1 would be ill-formed:
+3ac.cpp:133:38: error: invalid conversion from ‘std::vector<const std::__cxx11::basic_string<char>*>::size_type’ {aka ‘long unsigned int’} to ‘const char*’ [-fpermissive]
+  133 |         ret->append(all_strings->size());
+      |                     ~~~~~~~~~~~~~~~~~^~
+      |                                      |
+      |                                      std::vector<const std::__cxx11::basic_string<char>*>::size_type {aka long unsigned int}
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
                  from symbol_table.h:4,
                  from 3ac.h:1,
                  from 3ac.cpp:1:
-/usr/include/c++/7/ext/alloc_traits.h: In instantiation of ‘struct __gnu_cxx::__alloc_traits<ac3*>’:
-/usr/include/c++/7/bits/stl_vector.h:77:21:   required from ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>’
-/usr/include/c++/7/bits/stl_vector.h:216:11:   required from ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’
-3ac.cpp:8:76:   required from here
-/usr/include/c++/7/ext/alloc_traits.h:66:23: error: no members matching ‘__gnu_cxx::__alloc_traits<ac3*>::_Base_type {aka std::allocator_traits<ac3*>}::allocate’ in ‘__gnu_cxx::__alloc_traits<ac3*>::_Base_type {aka struct std::allocator_traits<ac3*>}’
-     using _Base_type::allocate;
-                       ^~~~~~~~
-/usr/include/c++/7/ext/alloc_traits.h:67:23: error: no members matching ‘__gnu_cxx::__alloc_traits<ac3*>::_Base_type {aka std::allocator_traits<ac3*>}::deallocate’ in ‘__gnu_cxx::__alloc_traits<ac3*>::_Base_type {aka struct std::allocator_traits<ac3*>}’
-     using _Base_type::deallocate;
-                       ^~~~~~~~~~
-/usr/include/c++/7/ext/alloc_traits.h:70:23: error: no members matching ‘__gnu_cxx::__alloc_traits<ac3*>::_Base_type {aka std::allocator_traits<ac3*>}::max_size’ in ‘__gnu_cxx::__alloc_traits<ac3*>::_Base_type {aka struct std::allocator_traits<ac3*>}’
-     using _Base_type::max_size;
-                       ^~~~~~~~
-In file included from /usr/include/c++/7/ext/alloc_traits.h:36:0,
-                 from /usr/include/c++/7/bits/basic_string.h:40,
-                 from /usr/include/c++/7/string:52,
-                 from /usr/include/c++/7/bitset:47,
+/usr/include/c++/9.1.0/bits/basic_string.h:1221:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1221 |       append(const basic_string& __str)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1221:34: note:   no known conversion for argument 1 from ‘std::vector<const std::__cxx11::basic_string<char>*>::size_type’ {aka ‘long unsigned int’} to ‘const std::__cxx11::basic_string<char>&’
+ 1221 |       append(const basic_string& __str)
+      |              ~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1238:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+ 1238 |       append(const basic_string& __str, size_type __pos, size_type __n = npos)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1238:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:1250:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+ 1250 |       append(const _CharT* __s, size_type __n)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1250:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:1280:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, _CharT) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+ 1280 |       append(size_type __n, _CharT __c)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1280:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:1290:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::initializer_list<_Tp>) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1290 |       append(initializer_list<_CharT> __l)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1290:39: note:   no known conversion for argument 1 from ‘std::vector<const std::__cxx11::basic_string<char>*>::size_type’ {aka ‘long unsigned int’} to ‘std::initializer_list<char>’
+ 1290 |       append(initializer_list<_CharT> __l)
+      |              ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1309:9: note: candidate: ‘template<class _InputIterator, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(_InputIterator, _InputIterator) [with _InputIterator = _InputIterator; <template-parameter-2-2> = <template-parameter-1-2>; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1309 |         append(_InputIterator __first, _InputIterator __last)
+      |         ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1309:9: note:   template argument deduction/substitution failed:
+3ac.cpp:133:40: note:   candidate expects 2 arguments, 1 provided
+  133 |         ret->append(all_strings->size());
+      |                                        ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
                  from symbol_table.h:4,
                  from 3ac.h:1,
                  from 3ac.cpp:1:
-/usr/include/c++/7/bits/alloc_traits.h: In substitution of ‘template<class _Alloc, class _Up> using __alloc_rebind = typename std::__allocator_traits_base::__rebind<_Alloc, _Up>::type [with _Alloc = ac3*; _Up = const std::__cxx11::basic_string<char>*]’:
-/usr/include/c++/7/bits/alloc_traits.h:206:50:   required by substitution of ‘template<class _Alloc> template<class _Tp> using rebind_alloc = std::__alloc_rebind<_Alloc, _Tp> [with _Tp = const std::__cxx11::basic_string<char>*; _Alloc = ac3*]’
-/usr/include/c++/7/ext/alloc_traits.h:117:65:   required from ‘struct __gnu_cxx::__alloc_traits<ac3*>::rebind<const std::__cxx11::basic_string<char>*>’
-/usr/include/c++/7/bits/stl_vector.h:77:21:   required from ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>’
-/usr/include/c++/7/bits/stl_vector.h:216:11:   required from ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’
-3ac.cpp:8:76:   required from here
-/usr/include/c++/7/bits/alloc_traits.h:76:79: error: no type named ‘type’ in ‘struct std::__allocator_traits_base::__rebind<ac3*, const std::__cxx11::basic_string<char>*, void>’
-       = typename __allocator_traits_base::template __rebind<_Alloc, _Up>::type;
-                                                                               ^
-In file included from /usr/include/c++/7/vector:64:0,
-                 from symbol_table.h:7,
+/usr/include/c++/9.1.0/bits/basic_string.h:1320:9: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1320 |         append(const _Tp& __svt)
+      |         ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1320:9: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/9.1.0/bits/move.h:55,
+                 from /usr/include/c++/9.1.0/bits/stl_pair.h:59,
+                 from /usr/include/c++/9.1.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/9.1.0/bits/char_traits.h:39,
+                 from /usr/include/c++/9.1.0/string:40,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
                  from 3ac.h:1,
                  from 3ac.cpp:1:
-/usr/include/c++/7/bits/stl_vector.h: In instantiation of ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’:
-3ac.cpp:8:76:   required from here
-/usr/include/c++/7/bits/stl_vector.h:247:20: error: no members matching ‘std::vector<const std::__cxx11::basic_string<char>*, ac3*>::_Base {aka std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>}::_M_allocate’ in ‘std::vector<const std::__cxx11::basic_string<char>*, ac3*>::_Base {aka struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>}’
-       using _Base::_M_allocate;
-                    ^~~~~~~~~~~
-/usr/include/c++/7/bits/stl_vector.h:248:20: error: no members matching ‘std::vector<const std::__cxx11::basic_string<char>*, ac3*>::_Base {aka std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>}::_M_deallocate’ in ‘std::vector<const std::__cxx11::basic_string<char>*, ac3*>::_Base {aka struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>}’
-       using _Base::_M_deallocate;
-                    ^~~~~~~~~~~~~
-/usr/include/c++/7/bits/stl_vector.h:250:20: error: no members matching ‘std::vector<const std::__cxx11::basic_string<char>*, ac3*>::_Base {aka std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>}::_M_get_Tp_allocator’ in ‘std::vector<const std::__cxx11::basic_string<char>*, ac3*>::_Base {aka struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>}’
-       using _Base::_M_get_Tp_allocator;
-                    ^~~~~~~~~~~~~~~~~~~
-3ac.cpp: In function ‘void parse_assignment(all_tables*, astree*, FILE*, symbol_table*)’:
-3ac.cpp:122:52: error: cannot convert ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>::iterator {aka std::__detail::_Node_iterator<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false, false>}’ to ‘symbol*’ in initialization
-     symbol *sym = current->find(ident_node->lexinfo);
-                                                    ^
-3ac.cpp:123:24: error: expected primary-expression before ‘,’ token
-     ac = new ac3(symbol,nullptr);
-                        ^
-3ac.cpp:122:13: warning: unused variable ‘sym’ [-Wunused-variable]
-     symbol *sym = current->find(ident_node->lexinfo);
-             ^~~
-3ac.cpp:129:18: error: switch quantity not an integer
-   switch (current){
-                  ^
-3ac.cpp:130:18: error: could not convert ‘table->all_tables::global’ from ‘symbol_table* {aka std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*}’ to ‘<type error>’
-     case (table->global):
-          ~~~~~~~~^~~~~~~
-3ac.cpp:131:20: error: ‘class std::vector<const std::__cxx11::basic_string<char>*, ac3*>’ has no member named ‘emplace’
-       all_globals->emplace(ident_node->lexinfo,ac);
-                    ^~~~~~~
-3ac.cpp:69:63: warning: unused parameter ‘out’ [-Wunused-parameter]
- void parse_assignment(all_tables *table, astree *child, FILE *out,symbol_table *current){
-                                                               ^~~
-In file included from /usr/include/c++/7/vector:64:0,
-                 from symbol_table.h:7,
+/usr/include/c++/9.1.0/type_traits: In substitution of ‘template<bool _Cond, class _Tp> using enable_if_t = typename std::enable_if::type [with bool _Cond = std::integral_constant<bool, false>::value; _Tp = std::__cxx11::basic_string<char>&]’:
+/usr/include/c++/9.1.0/bits/basic_string.h:117:8:   required by substitution of ‘template<class _CharT, class _Traits, class _Alloc> template<class _Tp, class _Res> using _If_sv = std::enable_if_t<std::__and_<std::is_convertible<const _Tp&, std::basic_string_view<_CharT, _Traits> >, std::__not_<std::is_convertible<const _Tp*, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>*> >, std::__not_<std::is_convertible<const _Tp&, const _CharT*> > >::value, _Res> [with _Tp = long unsigned int; _Res = std::__cxx11::basic_string<char>&; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+/usr/include/c++/9.1.0/bits/basic_string.h:1320:9:   required by substitution of ‘template<class _Tp> std::__cxx11::basic_string<char>::_If_sv<_Tp, std::__cxx11::basic_string<char>&> std::__cxx11::basic_string<char>::append<_Tp>(const _Tp&) [with _Tp = long unsigned int]’
+3ac.cpp:133:40:   required from here
+/usr/include/c++/9.1.0/type_traits:2426:11: error: no type named ‘type’ in ‘struct std::enable_if<false, std::__cxx11::basic_string<char>&>’
+ 2426 |     using enable_if_t = typename enable_if<_Cond, _Tp>::type;
+      |           ^~~~~~~~~~~
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
                  from 3ac.h:1,
                  from 3ac.cpp:1:
-/usr/include/c++/7/bits/stl_vector.h: In instantiation of ‘std::_Vector_base<_Tp, _Alloc>::~_Vector_base() [with _Tp = const std::__cxx11::basic_string<char>*; _Alloc = ac3*]’:
-/usr/include/c++/7/bits/stl_vector.h:263:15:   required from ‘std::vector<_Tp, _Alloc>::vector() [with _Tp = const std::__cxx11::basic_string<char>*; _Alloc = ac3*]’
-3ac.cpp:8:76:   required from here
-/usr/include/c++/7/bits/stl_vector.h:162:37: error: ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>::_Vector_impl’ has no member named ‘_M_start’; did you mean ‘_M_swap_data’?
-       { _M_deallocate(this->_M_impl._M_start, this->_M_impl._M_end_of_storage
-                       ~~~~~~~~~~~~~~^~~~~~~~
-                       _M_swap_data
-/usr/include/c++/7/bits/stl_vector.h:162:61: error: ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>::_Vector_impl’ has no member named ‘_M_end_of_storage’
-       { _M_deallocate(this->_M_impl._M_start, this->_M_impl._M_end_of_storage
-                                               ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
-/usr/include/c++/7/bits/stl_vector.h:163:25: error: ‘struct std::_Vector_base<const std::__cxx11::basic_string<char>*, ac3*>::_Vector_impl’ has no member named ‘_M_start’; did you mean ‘_M_swap_data’?
-         - this->_M_impl._M_start); }
-           ~~~~~~~~~~~~~~^~~~~~~~
-           _M_swap_data
-/usr/include/c++/7/bits/stl_vector.h:162:22: error: ‘_M_deallocate’ was not declared in this scope
-       { _M_deallocate(this->_M_impl._M_start, this->_M_impl._M_end_of_storage
-         ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         - this->_M_impl._M_start); }
-         ~~~~~~~~~~~~~~~~~~~~~~~~~
-/usr/include/c++/7/bits/stl_vector.h: In instantiation of ‘std::_Vector_base<_Tp, _Alloc>::_Vector_impl::_Vector_impl() [with _Tp = const std::__cxx11::basic_string<char>*; _Alloc = ac3*]’:
-/usr/include/c++/7/bits/stl_vector.h:127:17:   required from ‘std::_Vector_base<_Tp, _Alloc>::_Vector_base() [with _Tp = const std::__cxx11::basic_string<char>*; _Alloc = ac3*]’
-/usr/include/c++/7/bits/stl_vector.h:263:15:   required from ‘std::vector<_Tp, _Alloc>::vector() [with _Tp = const std::__cxx11::basic_string<char>*; _Alloc = ac3*]’
-3ac.cpp:8:76:   required from here
-/usr/include/c++/7/bits/stl_vector.h:89:65: error: using invalid field ‘std::_Vector_base<_Tp, _Alloc>::_Vector_impl::_M_start’
-  : _Tp_alloc_type(), _M_start(), _M_finish(), _M_end_of_storage()
-                                                                 ^
-/usr/include/c++/7/bits/stl_vector.h:89:65: error: using invalid field ‘std::_Vector_base<_Tp, _Alloc>::_Vector_impl::_M_finish’
-/usr/include/c++/7/bits/stl_vector.h:89:65: error: using invalid field ‘std::_Vector_base<_Tp, _Alloc>::_Vector_impl::_M_end_of_storage’
-Makefile:55: recipe for target '3ac.o' failed
-make: *** [3ac.o] Error 1
+/usr/include/c++/9.1.0/bits/basic_string.h:1335:2: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1335 |  append(const _Tp& __svt, size_type __pos, size_type __n = npos)
+      |  ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1335:2: note:   template argument deduction/substitution failed:
+3ac.cpp:133:40: note:   candidate expects 3 arguments, 1 provided
+  133 |         ret->append(all_strings->size());
+      |                                        ^
+make: *** [Makefile:55: 3ac.o] Error 1

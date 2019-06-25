@@ -1,13 +1,10 @@
-.struct allofem
-.field ptr sayaka
-.field struct none homura
+.struct mami
+.field ptr madoka
+.field struct sayaka sayaka
 .field int one
 .field ptr two
 .end 
-.struct none
+.struct sayaka
 .end 
-.struct test
-.end 
-.struct onearg
-.field int trivial
-.end 
+.s0:       "hehe"
+x:         .global ptr (.s0)

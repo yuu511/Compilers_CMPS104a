@@ -1,5 +1,6 @@
 #include "symbol_table.h"
 #include "astree.h"
+#include <map>
 
 void emit_3ac(astree *root, all_tables *table, FILE *out);
 
@@ -12,7 +13,10 @@ struct ac3 {
   string *op;
   string *t1;
   string *t2;
-  ac3(symbol *sym, astree *expr);
+  ac3(symbol *sym, astree *expr,
+       string *ret, string *op,
+       string *t1, string *t2);
+  ~ac3();
 };
 
 using ac3_table = map <const string*,ac3*>;

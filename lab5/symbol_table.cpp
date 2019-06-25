@@ -16,6 +16,9 @@ symbol_table *local;
 symbol_table *struct_t = new symbol_table();
 unordered_map<const string*,symbol_table*> *master = 
 new unordered_map<const string*,symbol_table*>;
+// pointers to master,struct_t, and global
+all_tables *table_ptrs;
+
 int current = 0;
 int next_block = 1;
 const string *current_function;
@@ -1290,6 +1293,7 @@ void p_return (astree *s){
 void gen_table(astree *s){
   switch(s->symbol){
     case TOK_ROOT:
+      table_ptrs = new all_tables(struct_t,global,master);
       master->emplace(s->lexinfo,global);      
       for (astree* child: s->children) gen_table(child);        
       break;
@@ -1335,6 +1339,7 @@ void free_symbol(){
   }
   struct_t->clear();
   delete struct_t;
+  delete table_ptrs;
 }
 
 void dump_all_tables(FILE* out){
@@ -1345,6 +1350,5 @@ void dump_all_tables(FILE* out){
 }
 
 all_tables *get_tables(){
-  all_tables *ret = new all_tables(struct_t,global,master);
-  return ret;
+  return table_ptrs;
 }

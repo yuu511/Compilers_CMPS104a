@@ -167,11 +167,17 @@ int main (int argc, char** argv) {
    // information to token file.
    int parse_rc = yyparse();
 
+   // personal debug flag ,
+   // draws astree to stderr
+   if (a_debug){
+     astree::draw (stderr,parser::root);
+   }
    // dump the hashed tokenset to file.
    string_set::dump(strfp);
 
    // generate the symbol table
    gen_table(parser::root);
+
 
    // generate the oil file
    emit_3ac(parser::root,get_tables(),oilfp);
@@ -182,10 +188,6 @@ int main (int argc, char** argv) {
    // dump all symbol tables
    dump_all_tables(symfp);
 
-
-   // personal debug flag 
-   if (a_debug)
-     astree::print (stderr,parser::root);
    // Close all files.
    e_close(yyin);
    e_close(tokfp);
@@ -195,8 +197,8 @@ int main (int argc, char** argv) {
    e_close(oilfp);
 
    // free memory 
-   free_symbol();
    free_3ac();
+   free_symbol();
    yylex_destroy();
    if (parse_rc) {
       errprintf("parse failed (%d)\n", parse_rc);
