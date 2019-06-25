@@ -9,11 +9,15 @@ test (5.159.1) {0} struct test
 onearg (5.160.1) {0} struct onearg 
    trivial (5.160.15) int field 0
 
-z (6.187.1) {1} void function 
-   i (6.187.9) {2} int variable param lval 0
-   n (6.188.3) {2} int variable local lval 1
+z (6.189.1) {1} void function 
+   i (6.189.9) {2} int variable param lval 0
+   n (6.190.3) {2} int variable local lval 1
 
 fac (6.178.1) {0} int function 
    i (6.178.10) {1} int variable param lval 0
-   n (6.179.3) {1} int variable local lval 1
+   z (6.178.17) {1} int variable param lval 1
+   x (6.178.24) {1} string variable param lval 2
+   n (6.179.3) {1} int variable local lval 3
+   f (6.180.3) {1} int variable local lval 4
+   ma (6.181.3) {1} string variable local lval 5
 

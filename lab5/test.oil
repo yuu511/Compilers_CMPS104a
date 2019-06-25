@@ -12,4 +12,12 @@
 .field int trivial
 .end 
 fac:       .function int 
+.param int i
+.param int z
+.param ptr x
+.local int n
+.local int f
+.local ptr ma
 z:         .function 
+.param int i
+.local int n

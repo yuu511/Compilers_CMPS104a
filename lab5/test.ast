@@ -30,54 +30,68 @@ PARAM "(" 6.178.9 {0}
 TYPE_ID "" 6.178.10 {1} int variable param lval 
 INT "int" 6.178.10 {0} 
 IDENT "i" 6.178.14 {0} 
-BLOCK "{" 6.178.17 {1} 
+TYPE_ID "" 6.178.17 {1} int variable param lval 
+INT "int" 6.178.17 {0} 
+IDENT "z" 6.178.21 {0} 
+TYPE_ID "" 6.178.24 {1} string variable param lval 
+STRING "string" 6.178.24 {0} 
+IDENT "x" 6.178.31 {0} 
+BLOCK "{" 6.178.33 {1} 
 TYPE_ID "" 6.179.3 {1} int variable local lval vreg (6.179.3)
 INT "int" 6.179.3 {0} 
 IDENT "n" 6.179.7 {0} 
 INTCON "1" 6.179.11 {1} int variable local lval vreg 
-WHILE "while" 6.180.3 {1} 
-GT ">" 6.180.12 {1} int vreg 
-IDENT "i" 6.180.10 {1} int variable param lval (6.178.10)
-INTCON "1" 6.180.14 {1} int const 
-BLOCK "{" 6.180.17 {1} 
-'=' "=" 6.181.8 {1} int variable local lval vreg 
-IDENT "n" 6.181.6 {1} int variable local lval (6.179.3)
-'*' "*" 6.181.11 {1} int vreg 
-IDENT "n" 6.181.10 {1} int variable local lval (6.179.3)
-IDENT "i" 6.181.12 {1} int variable param lval (6.178.10)
-'=' "=" 6.182.7 {1} int variable param lval vreg 
-IDENT "i" 6.182.6 {1} int variable param lval (6.178.10)
-'-' "-" 6.182.9 {1} int vreg 
-IDENT "i" 6.182.8 {1} int variable param lval (6.178.10)
-INTCON "1" 6.182.10 {1} int const 
-RETURN "return" 6.184.3 {1} 
-IDENT "n" 6.184.10 {1} int variable local lval (6.179.3)
-FUNCTION "" 6.187.1 {1} void function 
-TYPE_ID "" 6.187.1 {0} 
-VOID "void" 6.187.1 {0} 
-IDENT "z" 6.187.6 {0} 
-PARAM "(" 6.187.8 {0} 
-TYPE_ID "" 6.187.9 {2} int variable param lval 
-INT "int" 6.187.9 {0} 
-IDENT "i" 6.187.13 {0} 
-BLOCK "{" 6.187.16 {2} 
-TYPE_ID "" 6.188.3 {2} int variable local lval vreg (6.188.3)
-INT "int" 6.188.3 {0} 
-IDENT "n" 6.188.7 {0} 
-INTCON "1" 6.188.11 {2} int variable local lval vreg 
-WHILE "while" 6.189.3 {2} 
-GT ">" 6.189.12 {2} int vreg 
-IDENT "i" 6.189.10 {2} int variable param lval (6.187.9)
-INTCON "1" 6.189.14 {2} int const 
-BLOCK "{" 6.189.17 {2} 
-'=' "=" 6.190.8 {2} int variable local lval vreg 
-IDENT "n" 6.190.6 {2} int variable local lval (6.188.3)
-'*' "*" 6.190.11 {2} int vreg 
-IDENT "n" 6.190.10 {2} int variable local lval (6.188.3)
-IDENT "i" 6.190.12 {2} int variable param lval (6.187.9)
-'=' "=" 6.191.7 {2} int variable param lval vreg 
-IDENT "i" 6.191.6 {2} int variable param lval (6.187.9)
-'-' "-" 6.191.9 {2} int vreg 
-IDENT "i" 6.191.8 {2} int variable param lval (6.187.9)
-INTCON "1" 6.191.10 {2} int const 
-RETURN "return" 6.193.3 {0} 
+TYPE_ID "" 6.180.3 {1} int variable local lval vreg (6.180.3)
+INT "int" 6.180.3 {0} 
+IDENT "f" 6.180.7 {0} 
+INTCON "123213213321" 6.180.11 {1} int variable local lval vreg 
+TYPE_ID "" 6.181.3 {1} string variable local lval vreg (6.181.3)
+STRING "string" 6.181.3 {0} 
+IDENT "ma" 6.181.10 {0} 
+NULLPTR "nullptr" 6.181.15 {1} string variable local lval vreg 
+WHILE "while" 6.182.3 {1} 
+GT ">" 6.182.12 {1} int vreg 
+IDENT "i" 6.182.10 {1} int variable param lval (6.178.10)
+INTCON "1" 6.182.14 {1} int const 
+BLOCK "{" 6.182.17 {1} 
+'=' "=" 6.183.8 {1} int variable local lval vreg 
+IDENT "n" 6.183.6 {1} int variable local lval (6.179.3)
+'*' "*" 6.183.11 {1} int vreg 
+IDENT "n" 6.183.10 {1} int variable local lval (6.179.3)
+IDENT "i" 6.183.12 {1} int variable param lval (6.178.10)
+'=' "=" 6.184.7 {1} int variable param lval vreg 
+IDENT "i" 6.184.6 {1} int variable param lval (6.178.10)
+'-' "-" 6.184.9 {1} int vreg 
+IDENT "i" 6.184.8 {1} int variable param lval (6.178.10)
+INTCON "1" 6.184.10 {1} int const 
+RETURN "return" 6.186.3 {1} 
+IDENT "n" 6.186.10 {1} int variable local lval (6.179.3)
+FUNCTION "" 6.189.1 {1} void function 
+TYPE_ID "" 6.189.1 {0} 
+VOID "void" 6.189.1 {0} 
+IDENT "z" 6.189.6 {0} 
+PARAM "(" 6.189.8 {0} 
+TYPE_ID "" 6.189.9 {2} int variable param lval 
+INT "int" 6.189.9 {0} 
+IDENT "i" 6.189.13 {0} 
+BLOCK "{" 6.189.16 {2} 
+TYPE_ID "" 6.190.3 {2} int variable local lval vreg (6.190.3)
+INT "int" 6.190.3 {0} 
+IDENT "n" 6.190.7 {0} 
+INTCON "1" 6.190.11 {2} int variable local lval vreg 
+WHILE "while" 6.191.3 {2} 
+GT ">" 6.191.12 {2} int vreg 
+IDENT "i" 6.191.10 {2} int variable param lval (6.189.9)
+INTCON "1" 6.191.14 {2} int const 
+BLOCK "{" 6.191.17 {2} 
+'=' "=" 6.192.8 {2} int variable local lval vreg 
+IDENT "n" 6.192.6 {2} int variable local lval (6.190.3)
+'*' "*" 6.192.11 {2} int vreg 
+IDENT "n" 6.192.10 {2} int variable local lval (6.190.3)
+IDENT "i" 6.192.12 {2} int variable param lval (6.189.9)
+'=' "=" 6.193.7 {2} int variable param lval vreg 
+IDENT "i" 6.193.6 {2} int variable param lval (6.189.9)
+'-' "-" 6.193.9 {2} int vreg 
+IDENT "i" 6.193.8 {2} int variable param lval (6.189.9)
+INTCON "1" 6.193.10 {2} int const 
+RETURN "return" 6.195.3 {0} 
