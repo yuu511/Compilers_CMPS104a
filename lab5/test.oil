@@ -8,3 +8,6 @@
 .end 
 .s0:       "hehe"
 x:         .global ptr (.s0)
+y:         .global ptr nullptr
+z:         .global int 'a'
+thing:     .global struct mami nullptr

@@ -19,3 +19,16 @@ TYPE_ID "" 5.233.1 {0} string variable lval vreg (5.233.1)
 STRING "string" 5.233.1 {0} 
 IDENT "x" 5.233.8 {0} 
 STRINGCON ""hehe"" 5.233.12 {0} string variable lval vreg 
+TYPE_ID "" 5.234.1 {0} string variable lval vreg (5.234.1)
+STRING "string" 5.234.1 {0} 
+IDENT "y" 5.234.8 {0} 
+NULLPTR "nullptr" 5.234.12 {0} string variable lval vreg 
+TYPE_ID "" 5.235.1 {0} int variable lval vreg (5.235.1)
+INT "int" 5.235.1 {0} 
+IDENT "z" 5.235.5 {0} 
+CHARCON "'a'" 5.235.9 {0} int variable lval vreg 
+TYPE_ID "" 5.236.1 {0} variable struct mami lval vreg (5.236.1)
+PTR "ptr" 5.236.1 {0} 
+IDENT "mami" 5.236.13 {0} 
+IDENT "thing" 5.236.19 {0} 
+NULLPTR "nullptr" 5.236.27 {0} variable struct mami lval vreg 

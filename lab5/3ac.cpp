@@ -99,9 +99,38 @@ void parse_assignment(astree *child,symbol_table *current){
   ac3 *ac;
   if (child->children.size() > 2 ){
     astree *assignment = child->children[2];
+    string *ret = new string();
+    symbol *sym;
     if (a[static_cast<int>(attr::ARRAY)]){
+      if (assignment->symbol == TOK_ALLOC){
+
+      }
+      else if (assignment->symbol == TOK_NULLPTR){
+        ret->append(assignment->lexinfo->c_str());
+      }
+      sym = current->find(ident_node->lexinfo)->second;
+      ac = new ac3(sym,child); 
+      ac->ret = ret;
+      ac3_table *found = table_lookup->find(current)->second;
+      found->emplace(ident_node->lexinfo,ac);
+      return;
     }
     if (a[static_cast<int>(attr::TYPEID)]){
+      if (assignment->symbol == TOK_ALLOC){
+        ret->append("call malloc (");   
+        ret->append("sizeof struct ");
+        ret->append(assignment->children[0]->lexinfo->c_str());
+        ret->append(")");
+      }
+      else if (assignment->symbol == TOK_NULLPTR){
+        ret->append(assignment->lexinfo->c_str());
+      }
+      sym = current->find(ident_node->lexinfo)->second;
+      ac = new ac3(sym,child); 
+      ac->ret = ret;
+      ac3_table *found = table_lookup->find(current)->second;
+      found->emplace(ident_node->lexinfo,ac);
+      return;
     }
     if (a[static_cast<int>(attr::STRING)]){
       if (assignment->symbol == TOK_ALLOC){
@@ -111,32 +140,22 @@ void parse_assignment(astree *child,symbol_table *current){
           }
           else {
             assignment = child->children[2]->children[1];   
-            // fprintf (out,"%-10s %s %smalloc(%s)\n",
-            //          name.c_str(),
-            //          label.c_str(),
-            //          parse_typesize(child).c_str(),
-            //          assignment->lexinfo->c_str());
-             return;
+             eturn;
           }
         }
       }
       else if (assignment->symbol == TOK_NULLPTR) {
-        // fprintf (out,"%-10s %s %s%s\n",
-        //          name.c_str(),
-        //          label.c_str(),
-        //          parse_typesize(child).c_str(),
-        //          "0");
+        ret->append(assignment->lexinfo->c_str());
       }
       else if (assignment->symbol == TOK_STRINGCON) {
-        symbol *sym = current->find(ident_node->lexinfo)->second;
-        ac = new ac3(sym,child); 
-        string *ret = new string();
         ret->append("(.s");
         ret->append(to_string(all_strings->size()));
         ret->append(")");
-        ac->ret = ret;
         all_strings->push_back(assignment->lexinfo);
       }
+      sym = current->find(ident_node->lexinfo)->second;
+      ac = new ac3(sym,child); 
+      ac->ret = ret;
       ac3_table *found = table_lookup->find(current)->second;
       found->emplace(ident_node->lexinfo,ac);
       return;
@@ -146,12 +165,11 @@ void parse_assignment(astree *child,symbol_table *current){
         // parse the expr
       } 
       else {
-        string *ret = new string();
-        symbol *sym = current->find(ident_node->lexinfo)->second;
-        ac = new ac3(sym,child); 
         ret->append(assignment->lexinfo->c_str());
-        ac->ret = ret;
       }
+      sym = current->find(ident_node->lexinfo)->second;
+      ac = new ac3(sym,child); 
+      ac->ret = ret;
       ac3_table *found = table_lookup->find(current)->second;
       found->emplace(ident_node->lexinfo,ac);
       return;
@@ -168,19 +186,15 @@ void parse_assignment(astree *child,symbol_table *current){
 void ac_globalvar(astree *child, all_tables *table){
   if (child->children.size() > 2){
     astree *assignment = child->children[2];
-    if (assignment->children.size() != 0){
-      if (assignment->symbol == TOK_ALLOC){
-        if (assignment->children.size() == 2){
-         if (assignment->children[1]->children.size() != 0){
-           errprintf ("global variable may not have non-static value assigned to it\n");
-           return;
-         }
-        }
-      }
-      else if (assignment->children.size()>0){
+    if (assignment->symbol == TOK_ALLOC){
+      if (child->children[0]->symbol != TOK_PTR){
         errprintf ("global variable may not have non-static value assigned to it\n");
         return;
       }
+    }
+    else if (assignment->children.size()>0){
+      errprintf ("global variable may not have non-static value assigned to it\n");
+      return;
     }
   }
   parse_assignment(child,table->global);

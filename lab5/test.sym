@@ -4,5 +4,11 @@ mami (5.226.1) {0} struct mami
    sayaka (5.228.18) field struct sayaka 2
    madoka (5.229.18) int array field 3
 
+z (5.235.1) {0} int variable lval 
+
+thing (5.236.1) {0} variable struct mami lval 
+
 x (5.233.1) {0} string variable lval 
+
+y (5.234.1) {0} string variable lval 
 

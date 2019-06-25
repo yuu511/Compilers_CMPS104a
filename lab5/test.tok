@@ -28,3 +28,22 @@
     5 233.010  61 '='           =
     5 233.012 281 TOK_STRINGCON "hehe"
     5 233.018  59 ';'           ;
+    5 234.001 260 TOK_STRING    string
+    5 234.008 278 TOK_IDENT     y
+    5 234.010  61 '='           =
+    5 234.012 266 TOK_NULLPTR   nullptr
+    5 234.019  59 ';'           ;
+    5 235.001 259 TOK_INT       int
+    5 235.005 278 TOK_IDENT     z
+    5 235.007  61 '='           =
+    5 235.009 280 TOK_CHARCON   'a'
+    5 235.012  59 ';'           ;
+    5 236.001 270 TOK_PTR       ptr
+    5 236.005  60 '<'           <
+    5 236.006 265 TOK_STRUCT    struct
+    5 236.013 278 TOK_IDENT     mami
+    5 236.017  62 '>'           >
+    5 236.019 278 TOK_IDENT     thing
+    5 236.025  61 '='           =
+    5 236.027 266 TOK_NULLPTR   nullptr
+    5 236.034  59 ';'           ;
