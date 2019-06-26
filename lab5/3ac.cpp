@@ -14,9 +14,9 @@ unordered_map <symbol_table*, ac3_table*> *table_lookup =
 new unordered_map<symbol_table*, ac3_table*>;
 
 // blank string filler for formatting
-ac3::ac3(symbol *sym_, astree *expr_){
-  sym = sym_;
+ac3::ac3(astree *expr_,symbol *sym_){
   expr = expr_;
+  sym = sym_;
   ret = new string();
   *ret = "";
   op = new string();
@@ -101,17 +101,21 @@ void emit_struct(all_tables *table,FILE *out){
   }
 }
 
+void p_expr(astree *expr, ac3_table *current){
+
+}
+
 // requires the typeid to be parsed,
 // and symbol table containing the 
 // context of the variable to be parsed in question
 void parse_initialization(astree *child,symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   astree *ident_node = child->children[1];
+  symbol *sym = current->find(ident_node->lexinfo)->second;
   string name = ident_node->lexinfo->c_str();
   name += ":";
   attr_bitset a = child->attributes;
-  symbol *sym = current->find(ident_node->lexinfo)->second;
-  ac3 *ac = new ac3(sym,child);
+  ac3 *ac = new ac3(child,sym);
   if (child->children.size() > 2 ){
     astree *assignment = child->children[2];
     if (a[static_cast<int>(attr::ARRAY)]){
@@ -260,7 +264,7 @@ void emit_functions(all_tables *table, FILE *out){
     for (size_t i = 0; i < block->size(); i++){
       for (auto itor2: *block){
          // params should come before variables by design, 
-	 // so only check for when the transition arrives
+	    // so only check for when the transition arrives
          if (itor2.second->sequence == i){
 	   if (itor2.second->attributes[static_cast<int>(attr::LOCAL)]){
              f_vlabel = ".local";
@@ -285,23 +289,13 @@ void emit_functions(all_tables *table, FILE *out){
     // print them
     for (auto stmt: *found){
       if (stmt->itype[static_cast<int>(instruction::ASSIGNMENT)]){
-         string label = "";
-         string ret = "";
-	 string t1= "";
-	 string t2= "";
-	 string op= "";
-         if (stmt->label) label = *(stmt->label);  
-         if (stmt->ret)   ret   = *(stmt->ret);  
-         if (stmt->t1)    t1    = *(stmt->t1);  
-         if (stmt->t2)    t2    = *(stmt->t2);  
-         if (stmt->op)    op    = *(stmt->op);  
-	 // LABEL RET = T1 OPERATOR T2
-         fprintf(out,"%-10s %s = %s %s %s\n",
-	         label.c_str(),
-		 ret.c_str(),
-		 t1.c_str(),
-		 op.c_str(),
-		 t2.c_str());
+	  // LABEL RET = T1 OPERATOR T2
+        fprintf(out,"%-10s %s = %s %s %s\n",
+	            stmt->label->c_str(),
+	            stmt->ret->c_str(),
+	            stmt->t1->c_str(),
+	            stmt->op->c_str(),
+	            stmt->t2->c_str());
       }
     }
     //print out the ending statements
@@ -332,13 +326,13 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
         found = table->master->find(name->lexinfo)->second;
       } else {
         errprintf ("3ac: invalid function definition. Stopping address code generation \n");
-	return;
+	    return;
       }
       // no duplicate functions
       if (found!=nullptr && !(table_lookup->count(found))){
         ac3_table *new_function = new ac3_table;
-	table_lookup->emplace(found,new_function);
-	all_functions->push_back(make_pair(name->lexinfo,new_function));
+	    table_lookup->emplace(found,new_function);
+	    all_functions->push_back(make_pair(name->lexinfo,new_function));
         ac_function(child,found);
       }
       else {

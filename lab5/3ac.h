@@ -13,8 +13,8 @@ enum class instruction{
 using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)>;
 
 struct ac3 {
-  symbol *sym;
   astree *expr;
+  symbol *sym;
   string *ret = nullptr;
   string *op = nullptr;
   string *t1 = nullptr;
@@ -22,7 +22,7 @@ struct ac3 {
   string *label = nullptr;
   instruction_bitset itype = 0;
   int last_reg = -1;
-  ac3(symbol *sym, astree *expr=nullptr);
+  ac3( astree *expr,symbol *sym = nullptr);
   ~ac3();
 };
 
