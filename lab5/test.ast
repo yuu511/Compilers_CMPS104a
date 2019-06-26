@@ -27,7 +27,10 @@ TYPE_ID "" 6.176.1 {0}
 VOID "void" 6.176.1 {0} 
 IDENT "trivial" 6.176.6 {0} 
 PARAM "(" 6.176.14 {0} 
-BLOCK "{" 6.176.16 {1} 
+TYPE_ID "" 6.176.15 {1} int variable param lval 
+INT "int" 6.176.15 {0} 
+IDENT "entropy" 6.176.19 {0} 
+BLOCK "{" 6.176.27 {1} 
 TYPE_ID "" 6.177.3 {1} int variable local lval (6.177.3)
 INT "int" 6.177.3 {0} 
 IDENT "homu" 6.177.7 {0} 

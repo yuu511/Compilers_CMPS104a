@@ -263,7 +263,7 @@ void emit_functions(all_tables *table, FILE *out){
     fname.append(itor.first->c_str());
     fname.append(":");
     //print out the function header    
-    fprintf(out,"%-10s .function %s\n",
+    fprintf(out,"%-10s.function %s\n",
     fname.c_str(), parse_typesize(type).c_str()); 
     //print out the function params and variables
     string f_vlabel = ".param";
@@ -275,7 +275,7 @@ void emit_functions(all_tables *table, FILE *out){
 	   if (itor2.second->attributes[static_cast<int>(attr::LOCAL)]){
              f_vlabel = ".local";
 	   }
-	   fprintf (out,"%s %s%s\n",
+	   fprintf (out,"          %s %s%s\n",
 	            f_vlabel.c_str(),
 		    parse_typesize(itor2.second).c_str(),
 		    itor2.first->c_str());
