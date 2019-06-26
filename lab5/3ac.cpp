@@ -214,8 +214,17 @@ void ac_globalvar(astree *child, all_tables *table){
   parse_initialization(child,table->global);
 }
 
-void ac_function (astree *child, symbol_table *found){
-  ac3_table *current = table_lookup->find(found)->second;
+void ac_function (astree *s, symbol_table *found){
+  // ac3_table *current = table_lookup->find(found)->second;
+  // process the statements encompassed within the function block
+  switch(s->symbol){
+    case TOK_FUNCTION:
+      for(astree *stmt: s->children[2]->children) ac_function(stmt,found);
+    break;
+    case TOK_TYPE_ID:
+      parse_initialization(s,found);
+    break;
+  }
 }
 
 //emit all string constants.
@@ -291,13 +300,14 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
       // process the global variable
       ac_globalvar(child,table);
     }
+    // else process the function
     // ensure the function is valid, and not a prototype
     else if (child->symbol == TOK_FUNCTION 
              && !(child->attributes[static_cast<int>(attr::PROTOTYPE)])
              && table->global->count(child->children[0]->children[1]->lexinfo)){
-      // else process the function (non-prototype)
       astree *name = child->children[0]->children[1];
       symbol_table *found;
+      // find symbol table associated with function
       if (table->master->find(name->lexinfo) != table->master->end()){
         found = table->master->find(name->lexinfo)->second;
       } else {

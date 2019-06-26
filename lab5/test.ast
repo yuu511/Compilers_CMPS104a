@@ -1,0 +1,58 @@
+ROOT "<<ROOT>>" 0.0.0 {0} 
+STRUCT "struct" 5.159.1 {0} struct test 
+IDENT "test" 5.159.8 {0} 
+STRUCT "struct" 5.160.1 {0} struct onearg 
+IDENT "onearg" 5.160.8 {0} 
+TYPE_ID "" 5.160.15 {0} int field 
+INT "int" 5.160.15 {0} 
+IDENT "trivial" 5.160.19 {0} 
+STRUCT "struct" 5.161.1 {0} struct allofem 
+IDENT "allofem" 5.161.8 {0} 
+TYPE_ID "" 5.161.18 {0} int field 
+INT "int" 5.161.18 {0} 
+IDENT "one" 5.161.22 {0} 
+TYPE_ID "" 5.162.18 {0} string field 
+STRING "string" 5.162.18 {0} 
+IDENT "two" 5.162.25 {0} 
+TYPE_ID "" 5.163.18 {0} field struct none 
+PTR "ptr" 5.163.18 {0} 
+IDENT "none" 5.163.30 {0} 
+IDENT "homura" 5.163.37 {0} 
+TYPE_ID "" 5.164.18 {0} int array field 
+ARRAY "array" 5.164.18 {0} 
+INT "int" 5.164.25 {0} 
+IDENT "sayaka" 5.164.30 {0} 
+FUNCTION "" 6.176.1 {0} void function 
+TYPE_ID "" 6.176.1 {0} 
+VOID "void" 6.176.1 {0} 
+IDENT "trivial" 6.176.6 {0} 
+PARAM "(" 6.176.14 {0} 
+BLOCK "{" 6.176.16 {1} 
+TYPE_ID "" 6.177.3 {1} int variable local lval vreg (6.177.3)
+INT "int" 6.177.3 {0} 
+IDENT "n" 6.177.7 {0} 
+INTCON "1" 6.177.11 {1} int variable local lval vreg 
+FUNCTION "" 6.181.1 {1} int function 
+TYPE_ID "" 6.181.1 {0} 
+INT "int" 6.181.1 {0} 
+IDENT "fac" 6.181.5 {0} 
+PARAM "(" 6.181.9 {0} 
+TYPE_ID "" 6.181.10 {2} int variable param lval 
+INT "int" 6.181.10 {0} 
+IDENT "i" 6.181.14 {0} 
+TYPE_ID "" 6.181.17 {2} int variable param lval 
+INT "int" 6.181.17 {0} 
+IDENT "z" 6.181.21 {0} 
+TYPE_ID "" 6.181.24 {2} string variable param lval 
+STRING "string" 6.181.24 {0} 
+IDENT "x" 6.181.31 {0} 
+BLOCK "{" 6.181.33 {2} 
+FUNCTION "" 7.192.1 {2} void function 
+TYPE_ID "" 7.192.1 {0} 
+VOID "void" 7.192.1 {0} 
+IDENT "z" 7.192.6 {0} 
+PARAM "(" 7.192.8 {0} 
+TYPE_ID "" 7.192.9 {3} int variable param lval 
+INT "int" 7.192.9 {0} 
+IDENT "i" 7.192.13 {0} 
+BLOCK "{" 7.192.16 {3} 

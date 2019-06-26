@@ -1,0 +1,27 @@
+.struct allofem
+.field ptr sayaka
+.field struct none homura
+.field int one
+.field ptr two
+.end 
+.struct none
+.end 
+.struct test
+.end 
+.struct onearg
+.field int trivial
+.end 
+trivial:   .function 
+.local int n
+return
+.end
+fac:       .function int 
+.param int i
+.param int z
+.param ptr x
+return
+.end
+z:         .function 
+.param int i
+return
+.end

@@ -1,0 +1,43 @@
+==4850== Memcheck, a memory error detector
+==4850== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==4850== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==4850== Command: ./oc ./examples/test.oc
+==4850== 
+==4850== Invalid read of size 8
+==4850==    at 0x121185: parse_initialization(astree*, std::unordered_map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, symbol*, std::hash<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>, std::equal_to<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const* const, symbol*> > >*) (3ac.cpp:190)
+==4850==    by 0x12145F: ac_function(astree*, std::unordered_map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, symbol*, std::hash<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>, std::equal_to<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const* const, symbol*> > >*) (3ac.cpp:225)
+==4850==    by 0x12143E: ac_function(astree*, std::unordered_map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, symbol*, std::hash<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>, std::equal_to<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const* const, symbol*> > >*) (3ac.cpp:222)
+==4850==    by 0x121EA6: ac_traverse(astree*, all_tables*, _IO_FILE*) (3ac.cpp:322)
+==4850==    by 0x121FC5: emit_3ac(astree*, all_tables*, _IO_FILE*) (3ac.cpp:346)
+==4850==    by 0x12735A: main (main.cpp:185)
+==4850==  Address 0x10 is not stack'd, malloc'd or (recently) free'd
+==4850== 
+==4850== 
+==4850== Process terminating with default action of signal 11 (SIGSEGV)
+==4850==  Access not within mapped region at address 0x10
+==4850==    at 0x121185: parse_initialization(astree*, std::unordered_map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, symbol*, std::hash<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>, std::equal_to<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const* const, symbol*> > >*) (3ac.cpp:190)
+==4850==    by 0x12145F: ac_function(astree*, std::unordered_map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, symbol*, std::hash<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>, std::equal_to<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const* const, symbol*> > >*) (3ac.cpp:225)
+==4850==    by 0x12143E: ac_function(astree*, std::unordered_map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, symbol*, std::hash<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>, std::equal_to<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const* const, symbol*> > >*) (3ac.cpp:222)
+==4850==    by 0x121EA6: ac_traverse(astree*, all_tables*, _IO_FILE*) (3ac.cpp:322)
+==4850==    by 0x121FC5: emit_3ac(astree*, all_tables*, _IO_FILE*) (3ac.cpp:346)
+==4850==    by 0x12735A: main (main.cpp:185)
+==4850==  If you believe this happened as a result of a stack
+==4850==  overflow in your program's main thread (unlikely but
+==4850==  possible), you can try to increase the size of the
+==4850==  main thread stack using the --main-stacksize= flag.
+==4850==  The main thread stack size used in this run was 8388608.
+==4850== 
+==4850== HEAP SUMMARY:
+==4850==     in use at exit: 31,981 bytes in 206 blocks
+==4850==   total heap usage: 295 allocs, 89 frees, 121,589 bytes allocated
+==4850== 
+==4850== LEAK SUMMARY:
+==4850==    definitely lost: 0 bytes in 0 blocks
+==4850==    indirectly lost: 0 bytes in 0 blocks
+==4850==      possibly lost: 0 bytes in 0 blocks
+==4850==    still reachable: 31,981 bytes in 206 blocks
+==4850==         suppressed: 0 bytes in 0 blocks
+==4850== Rerun with --leak-check=full to see details of leaked memory
+==4850== 
+==4850== For counts of detected and suppressed errors, rerun with: -v
+==4850== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
