@@ -13,9 +13,20 @@ vector<pair<const string*,ac3_table*>> *all_functions
 unordered_map <symbol_table*, ac3_table*> *table_lookup = 
 new unordered_map<symbol_table*, ac3_table*>;
 
+// blank string filler for formatting
 ac3::ac3(symbol *sym_, astree *expr_){
   sym = sym_;
   expr = expr_;
+  ret = new string();
+  *ret = "";
+  op = new string();
+  *op = "";
+  t1 = new string();
+  *t1 = "";
+  t2 = new string();
+  *t2 = "";
+  label = new string();
+  *label = "";
 }
 
 ac3::~ac3(){
@@ -23,6 +34,7 @@ ac3::~ac3(){
   delete op;
   delete t1;
   delete t2;
+  delete label;
 }
 
 void free_3ac(){
@@ -100,37 +112,31 @@ void parse_initialization(astree *child,symbol_table *current){
   attr_bitset a = child->attributes;
   symbol *sym = current->find(ident_node->lexinfo)->second;
   ac3 *ac = new ac3(sym,child);
-  string *ret = new string();
   if (child->children.size() > 2 ){
     astree *assignment = child->children[2];
-    string *t1 = new string();
     if (a[static_cast<int>(attr::ARRAY)]){
       if (assignment->symbol == TOK_ALLOC){
           
       }
       else if (assignment->symbol == TOK_NULLPTR){
-        t1->append(assignment->lexinfo->c_str());
+        ac->t1->append(assignment->lexinfo->c_str());
       }
-      ret->append(ident_node->lexinfo->c_str());
-      ac->ret = ret;
-      ac->t1 = t1;
+      ac->ret->append(ident_node->lexinfo->c_str());
       ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(ac);
       return;
     }
     if (a[static_cast<int>(attr::TYPEID)]){
       if (assignment->symbol == TOK_ALLOC){
-        t1->append("call malloc (");   
-        t1->append("sizeof struct ");
-        t1->append(assignment->children[0]->lexinfo->c_str());
-        t1->append(")");
+        ac->t1->append("call malloc (");   
+        ac->t1->append("sizeof struct ");
+        ac->t1->append(assignment->children[0]->lexinfo->c_str());
+        ac->t1->append(")");
       }
       else if (assignment->symbol == TOK_NULLPTR){
-        t1->append(assignment->lexinfo->c_str());
+        ac->t1->append(assignment->lexinfo->c_str());
       }
-      ret->append(ident_node->lexinfo->c_str());
-      ac->ret = ret;
-      ac->t1 = t1;
+      ac->ret->append(ident_node->lexinfo->c_str());
       ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(ac);
       return;
@@ -148,17 +154,15 @@ void parse_initialization(astree *child,symbol_table *current){
         }
       }
       else if (assignment->symbol == TOK_NULLPTR) {
-        t1->append(assignment->lexinfo->c_str());
+        ac->t1->append(assignment->lexinfo->c_str());
       }
       else if (assignment->symbol == TOK_STRINGCON) {
-        t1->append("(.s");
-        t1->append(to_string(all_strings->size()));
-        t1->append(")");
+        ac->t1->append("(.s");
+        ac->t1->append(to_string(all_strings->size()));
+        ac->t1->append(")");
         all_strings->push_back(assignment->lexinfo);
       }
-      ret->append(ident_node->lexinfo->c_str());
-      ac->ret = ret;
-      ac->t1 = t1;
+      ac->ret->append(ident_node->lexinfo->c_str());
       ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(ac);
       return;
@@ -168,19 +172,16 @@ void parse_initialization(astree *child,symbol_table *current){
         // parse the expr
       } 
       else {
-        t1->append(assignment->lexinfo->c_str());
+        ac->t1->append(assignment->lexinfo->c_str());
       }
-      ret->append(ident_node->lexinfo->c_str());
-      ac->ret = ret;
-      ac->t1 = t1;
+      ac->ret->append(ident_node->lexinfo->c_str());
       ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(ac);
       return;
     }
   }
   else {
-    ret->append(ident_node->lexinfo->c_str());
-    ac->ret = ret;
+    ac->ret->append(ident_node->lexinfo->c_str());
     ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
     found->push_back(ac);
   }
