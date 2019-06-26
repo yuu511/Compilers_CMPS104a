@@ -101,6 +101,7 @@ void emit_struct(all_tables *table,FILE *out){
   }
 }
 
+// parses expr and emits appropriate operation.
 void p_expr(astree *expr, ac3_table *current){
 
 }
@@ -111,11 +112,11 @@ void p_expr(astree *expr, ac3_table *current){
 void parse_initialization(astree *child,symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   astree *ident_node = child->children[1];
-  symbol *sym = current->find(ident_node->lexinfo)->second;
+ // symbol *sym = current->find(ident_node->lexinfo)->second;
   string name = ident_node->lexinfo->c_str();
   name += ":";
   attr_bitset a = child->attributes;
-  ac3 *ac = new ac3(child,sym);
+  ac3 *ac = new ac3(child);
   if (child->children.size() > 2 ){
     astree *assignment = child->children[2];
     if (a[static_cast<int>(attr::ARRAY)]){
@@ -238,7 +239,7 @@ void emit_globaldef(FILE *out){
     fprintf (out,"%-10s .%s %s",
              name.c_str(),
              "global",
-             parse_typesize(itor->sym).c_str());
+             parse_typesize(itor->expr).c_str());
     if (itor->t1 !=nullptr){
       fprintf (out,"%s",itor->t1->c_str());
     }
