@@ -100,7 +100,7 @@ again :
 	gmake --no-print-directory spotless deps ci all lis
 
 test : ${EXECBIN}
-	./${EXECBIN} -@ast -y ${TESTOC}
+	./${EXECBIN} -@ast ${TESTOC}
 
 valgrind : ${EXECBIN}
 	 valgrind ./${EXECBIN} -@ast -y ${TESTOC}
