@@ -222,7 +222,8 @@ void ac_function (astree *s, symbol_table *found){
       for(astree *stmt: s->children[2]->children) ac_function(stmt,found);
     break;
     case TOK_TYPE_ID:
-      parse_initialization(s,found);
+      if (s->children.size() > 2)
+        parse_initialization(s,found);
     break;
   }
 }
@@ -256,14 +257,14 @@ void emit_functions(all_tables *table, FILE *out){
   for (auto itor: *all_functions){
     // get symbol associated with function and
     // symbol table associated with functions block
-    symbol *ret = table->global->find(itor.first)->second;
+    symbol *type = table->global->find(itor.first)->second;
     symbol_table *block = table->master->find(itor.first)->second;
     string fname;
     fname.append(itor.first->c_str());
     fname.append(":");
     //print out the function header    
     fprintf(out,"%-10s .function %s\n",
-    fname.c_str(), parse_typesize(ret).c_str()); 
+    fname.c_str(), parse_typesize(type).c_str()); 
     //print out the function params and variables
     string f_vlabel = ".param";
     for (size_t i = 0; i < block->size(); i++){
@@ -282,8 +283,36 @@ void emit_functions(all_tables *table, FILE *out){
          }
       }
     }
-    //print out the statements
-    
+    // fetch statements associated with function
+    ac3_table *found;
+    if (table_lookup->count(block))
+      found = table_lookup->find(block)->second;
+    else{
+      errprintf ("ac3 table not found for function %s",fname.c_str());
+      continue;
+    }
+    // print them
+    for (auto stmt: *found){
+      if (stmt->itype[static_cast<int>(instruction::ASSIGNMENT)]){
+         string label = "";
+         string ret = "";
+	 string t1= "";
+	 string t2= "";
+	 string op= "";
+         if (stmt->label) label = *(stmt->label);  
+         if (stmt->ret)   ret   = *(stmt->ret);  
+         if (stmt->t1)    t1    = *(stmt->t1);  
+         if (stmt->t2)    t2    = *(stmt->t2);  
+         if (stmt->op)    op    = *(stmt->op);  
+	 // LABEL RET = T1 OPERATOR T2
+         fprintf(out,"%-10s%s = %s %s %s\n",
+	         label.c_str(),
+		 ret.c_str(),
+		 t1.c_str(),
+		 op.c_str(),
+		 t2.c_str());
+      }
+    }
     //print out the ending statements
     fprintf (out,"return\n");
     fprintf (out,".end\n");

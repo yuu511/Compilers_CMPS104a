@@ -11,8 +11,22 @@
 .struct onearg
 .field int trivial
 .end 
+.s0:       "asdfasdfafdsaf"
 trivial:   .function 
-.local int n
+.local int homu
+.local int x
+.local ptr z
+.local ptr mami
+.local ptr sayaka
+.local ptr madoka
+.local struct allofem kyuubei
+.local struct allofem cheese
+          x = 5  
+          mami = (.s0)  
+          sayaka = nullptr  
+          madoka = nullptr  
+          kyuubei = nullptr  
+          cheese = call malloc (sizeof struct allofem)  
 return
 .end
 fac:       .function int 
