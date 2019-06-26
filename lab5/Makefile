@@ -73,7 +73,7 @@ lis : ${LISTSRC} tests
 
 clean :
 	- rm ${OBJECTS} ${ALLGENS} ${REPORTS} \
-	${DEPSFILE} *.str *.tok *.ast *.log
+	${DEPSFILE} *.str *.tok *.ast *.sym *.oil *.log
 	- rm ${foreach test, ${TESTINS:.in=}, \
 	${patsubst %, ${test}.%, out err log}}
 
