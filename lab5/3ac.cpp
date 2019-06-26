@@ -102,8 +102,39 @@ void emit_struct(all_tables *table,FILE *out){
 }
 
 // parses expr and emits appropriate operation.
-void p_expr(astree *expr, ac3_table *current){
-
+void p_expr(astree *expr, ac3_table *current, int largest,
+            const string *orig_assignment = nullptr){
+  int orig_largest = largest-1;
+  string ret;
+  string reg1;
+  string reg2;
+  if (expr->children.size() > 1){
+    if (expr->children[0]->children.size() > 1){
+      reg1.append("$t");
+      reg1.append(to_string(largest));
+      largest++;
+      p_expr(expr->children[0],current,largest);
+    }
+    else {
+      reg1 = expr->children[0]->lexinfo->c_str();
+    }
+    if (expr->children[1]->children.size() > 1){
+      reg2.append("$t");
+      reg2.append(to_string(largest));
+      largest++;
+      p_expr(expr->children[1],current,largest);
+    }
+    else {
+      reg2 = expr->children[1]->lexinfo->c_str();
+    }
+  }
+  ret.append("$t");
+  ret.append(to_string(orig_largest));
+  if (orig_assignment){
+    ret = orig_assignment->c_str(); 
+  }
+  printf ("%s = %s %s %s\n", ret.c_str(),reg1.c_str(),
+  expr->lexinfo->c_str(),reg2.c_str());
 }
 
 // requires the typeid to be parsed,
@@ -173,8 +204,15 @@ void parse_initialization(astree *child,symbol_table *current){
       return;
     }
     if (a[static_cast<int>(attr::INT)]){
-      if (assignment->children.size() > 2){
+      if (assignment->children.size() > 1){
+        // get largest register
+	int largest = 0;
+	if (found->size()){
+	  largest = found->back()->last_reg + 1;
+	}
         // parse the expr
+	p_expr(assignment,found,largest,ident_node->lexinfo);
+	return;
       } 
       else {
         ac->t1->append(assignment->lexinfo->c_str());
@@ -271,10 +309,10 @@ void emit_functions(all_tables *table, FILE *out){
              f_vlabel = ".local";
 	   }
 	   fprintf (out,"%-10s %s %s%s\n",
-            "",
-	        f_vlabel.c_str(),
-		    parse_typesize(itor2.second).c_str(),
-		    itor2.first->c_str());
+                    "",
+	            f_vlabel.c_str(),
+	            parse_typesize(itor2.second).c_str(),
+	            itor2.first->c_str());
            continue;
          }
       }

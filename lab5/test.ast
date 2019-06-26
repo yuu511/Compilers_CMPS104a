@@ -1,71 +1,103 @@
 ROOT "<<ROOT>>" 0.0.0 {0} 
-STRUCT "struct" 4.3.1 {0} struct mami 
-IDENT "mami" 4.3.8 {0} 
-TYPE_ID "" 4.3.15 {0} int field 
-INT "int" 4.3.15 {0} 
-IDENT "one" 4.3.19 {0} 
-TYPE_ID "" 4.4.18 {0} string field 
-STRING "string" 4.4.18 {0} 
-IDENT "two" 4.4.25 {0} 
-TYPE_ID "" 4.5.18 {0} field struct sayaka 
-PTR "ptr" 4.5.18 {0} 
-IDENT "sayaka" 4.5.30 {0} 
-IDENT "sayaka" 4.5.38 {0} 
-TYPE_ID "" 4.6.18 {0} int array field 
-ARRAY "array" 4.6.18 {0} 
-INT "int" 4.6.25 {0} 
-IDENT "madoka" 4.6.30 {0} 
-TYPE_ID "" 4.10.1 {0} int variable lval (4.10.1)
-INT "int" 4.10.1 {0} 
-IDENT "a" 4.10.5 {0} 
-TYPE_ID "" 4.11.1 {0} int variable lval vreg (4.11.1)
-INT "int" 4.11.1 {0} 
-IDENT "b" 4.11.5 {0} 
-INTCON "5" 4.11.9 {0} int variable lval vreg 
-TYPE_ID "" 4.12.1 {0} int variable lval vreg (4.12.1)
-INT "int" 4.12.1 {0} 
-IDENT "c" 4.12.5 {0} 
-CHARCON "'a'" 4.12.9 {0} int variable lval vreg 
-TYPE_ID "" 4.13.1 {0} string variable lval (4.13.1)
-STRING "string" 4.13.1 {0} 
-IDENT "w" 4.13.8 {0} 
-TYPE_ID "" 4.14.1 {0} string variable lval vreg (4.14.1)
-STRING "string" 4.14.1 {0} 
-IDENT "x" 4.14.8 {0} 
-STRINGCON ""hehe"" 4.14.12 {0} string variable lval vreg 
-TYPE_ID "" 4.15.1 {0} string variable lval vreg (4.15.1)
-STRING "string" 4.15.1 {0} 
-IDENT "y" 4.15.8 {0} 
-NULLPTR "nullptr" 4.15.12 {0} string variable lval vreg 
-TYPE_ID "" 4.16.1 {0} variable struct mami lval vreg (4.16.1)
-PTR "ptr" 4.16.1 {0} 
-IDENT "mami" 4.16.13 {0} 
-IDENT "thing" 4.16.19 {0} 
-NULLPTR "nullptr" 4.16.27 {0} variable struct mami lval vreg 
-TYPE_ID "" 4.17.1 {0} variable struct mami lval vreg (4.17.1)
-PTR "ptr" 4.17.1 {0} 
-IDENT "mami" 4.17.13 {0} 
-IDENT "thing2" 4.17.19 {0} 
-ALLOC "alloc" 4.17.28 {0} variable struct mami lval vreg 
-IDENT "mami" 4.17.42 {0} 
-TYPE_ID "" 4.18.1 {0} int array variable lval vreg (4.18.1)
-ARRAY "array" 4.18.1 {0} 
-INT "int" 4.18.7 {0} 
-IDENT "thing3" 4.18.12 {0} 
-NULLPTR "nullptr" 4.18.21 {0} int array variable lval vreg 
-FUNCTION "" 4.22.1 {0} void function 
-TYPE_ID "" 4.22.1 {0} 
-VOID "void" 4.22.1 {0} 
-IDENT "trivial" 4.22.6 {0} 
-PARAM "(" 4.22.14 {0} 
-TYPE_ID "" 4.22.15 {1} int variable param lval 
-INT "int" 4.22.15 {0} 
-IDENT "x" 4.22.19 {0} 
-BLOCK "{" 4.22.21 {1} 
-TYPE_ID "" 4.23.3 {1} int variable local lval vreg (4.23.3)
-INT "int" 4.23.3 {0} 
-IDENT "z" 4.23.7 {0} 
-INTCON "5" 4.23.11 {1} int variable local lval vreg 
-'=' "=" 4.24.5 {1} int variable local lval vreg 
-IDENT "z" 4.24.3 {1} int variable local lval (4.23.3)
-INTCON "3" 4.24.7 {1} int const 
+STRUCT "struct" 5.159.1 {0} struct test 
+IDENT "test" 5.159.8 {0} 
+STRUCT "struct" 5.160.1 {0} struct onearg 
+IDENT "onearg" 5.160.8 {0} 
+TYPE_ID "" 5.160.15 {0} int field 
+INT "int" 5.160.15 {0} 
+IDENT "trivial" 5.160.19 {0} 
+STRUCT "struct" 5.161.1 {0} struct allofem 
+IDENT "allofem" 5.161.8 {0} 
+TYPE_ID "" 5.161.18 {0} int field 
+INT "int" 5.161.18 {0} 
+IDENT "one" 5.161.22 {0} 
+TYPE_ID "" 5.162.18 {0} string field 
+STRING "string" 5.162.18 {0} 
+IDENT "two" 5.162.25 {0} 
+TYPE_ID "" 5.163.18 {0} field struct none 
+PTR "ptr" 5.163.18 {0} 
+IDENT "none" 5.163.30 {0} 
+IDENT "homura" 5.163.37 {0} 
+TYPE_ID "" 5.164.18 {0} int array field 
+ARRAY "array" 5.164.18 {0} 
+INT "int" 5.164.25 {0} 
+IDENT "sayaka" 5.164.30 {0} 
+FUNCTION "" 6.176.1 {0} void function 
+TYPE_ID "" 6.176.1 {0} 
+VOID "void" 6.176.1 {0} 
+IDENT "trivial" 6.176.6 {0} 
+PARAM "(" 6.176.14 {0} 
+TYPE_ID "" 6.176.15 {1} int variable param lval 
+INT "int" 6.176.15 {0} 
+IDENT "entropy" 6.176.19 {0} 
+BLOCK "{" 6.176.27 {1} 
+TYPE_ID "" 6.177.3 {1} int variable local lval (6.177.3)
+INT "int" 6.177.3 {0} 
+IDENT "homu" 6.177.7 {0} 
+TYPE_ID "" 6.178.3 {1} int variable local lval vreg (6.178.3)
+INT "int" 6.178.3 {0} 
+IDENT "x" 6.178.7 {0} 
+INTCON "5" 6.178.11 {1} int variable local lval vreg 
+TYPE_ID "" 6.179.3 {1} string variable local lval (6.179.3)
+STRING "string" 6.179.3 {0} 
+IDENT "z" 6.179.10 {0} 
+TYPE_ID "" 6.180.3 {1} string variable local lval vreg (6.180.3)
+STRING "string" 6.180.3 {0} 
+IDENT "mami" 6.180.10 {0} 
+STRINGCON ""asdfasdfafdsaf"" 6.180.17 {1} string variable local lval vreg 
+TYPE_ID "" 6.181.3 {1} string variable local lval vreg (6.181.3)
+STRING "string" 6.181.3 {0} 
+IDENT "sayaka" 6.181.10 {0} 
+NULLPTR "nullptr" 6.181.19 {1} string variable local lval vreg 
+TYPE_ID "" 6.182.3 {1} int array variable local lval vreg (6.182.3)
+ARRAY "array" 6.182.3 {0} 
+INT "int" 6.182.10 {0} 
+IDENT "madoka" 6.182.15 {0} 
+NULLPTR "nullptr" 6.182.24 {1} int array variable local lval vreg 
+TYPE_ID "" 6.183.3 {1} variable struct allofem local lval vreg (6.183.3)
+PTR "ptr" 6.183.3 {0} 
+IDENT "allofem" 6.183.15 {0} 
+IDENT "kyuubei" 6.183.24 {0} 
+NULLPTR "nullptr" 6.183.34 {1} variable struct allofem local lval vreg 
+TYPE_ID "" 6.184.3 {1} variable struct allofem local lval vreg (6.184.3)
+PTR "ptr" 6.184.3 {0} 
+IDENT "allofem" 6.184.15 {0} 
+IDENT "cheese" 6.184.24 {0} 
+ALLOC "alloc" 6.184.33 {1} variable struct allofem local lval vreg 
+IDENT "allofem" 6.184.46 {0} 
+FUNCTION "" 6.188.1 {1} int function 
+TYPE_ID "" 6.188.1 {0} 
+INT "int" 6.188.1 {0} 
+IDENT "fac" 6.188.5 {0} 
+PARAM "(" 6.188.9 {0} 
+TYPE_ID "" 6.188.10 {2} int variable param lval 
+INT "int" 6.188.10 {0} 
+IDENT "i" 6.188.14 {0} 
+TYPE_ID "" 6.188.17 {2} int variable param lval 
+INT "int" 6.188.17 {0} 
+IDENT "z" 6.188.21 {0} 
+TYPE_ID "" 6.188.24 {2} string variable param lval 
+STRING "string" 6.188.24 {0} 
+IDENT "x" 6.188.31 {0} 
+BLOCK "{" 6.188.33 {2} 
+TYPE_ID "" 6.189.3 {2} int variable local lval vreg (6.189.3)
+INT "int" 6.189.3 {0} 
+IDENT "n" 6.189.7 {0} 
+'-' "-" 6.189.26 {2} int variable local lval vreg 
+'+' "+" 6.189.21 {2} int vreg 
+'+' "+" 6.189.13 {2} int vreg 
+INTCON "5" 6.189.11 {2} int const 
+'*' "*" 6.189.17 {2} int vreg 
+INTCON "5" 6.189.15 {2} int const 
+INTCON "5" 6.189.19 {2} int const 
+INTCON "10" 6.189.23 {2} int const 
+INTCON "5" 6.189.28 {2} int const 
+FUNCTION "" 7.200.1 {2} void function 
+TYPE_ID "" 7.200.1 {0} 
+VOID "void" 7.200.1 {0} 
+IDENT "z" 7.200.6 {0} 
+PARAM "(" 7.200.8 {0} 
+TYPE_ID "" 7.200.9 {3} int variable param lval 
+INT "int" 7.200.9 {0} 
+IDENT "i" 7.200.13 {0} 
+BLOCK "{" 7.200.16 {3} 

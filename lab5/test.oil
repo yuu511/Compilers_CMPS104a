@@ -1,24 +1,43 @@
-.struct mami
-.field ptr madoka
-.field struct sayaka sayaka
+.struct allofem
+.field ptr sayaka
+.field struct none homura
 .field int one
 .field ptr two
 .end 
-.struct sayaka
+.struct none
 .end 
-.s0:       "hehe"
-a:         .global int 
-b:         .global int 5
-c:         .global int 'a'
-w:         .global ptr 
-x:         .global ptr (.s0)
-y:         .global ptr nullptr
-thing:     .global struct mami nullptr
-thing2:    .global struct mami call malloc (sizeof struct mami)
-thing3:    .global ptr nullptr
+.struct test
+.end 
+.struct onearg
+.field int trivial
+.end 
+.s0:       "asdfasdfafdsaf"
 trivial:   .function 
-           .param int x
-           .local int z
-           z = 5  
+           .param int entropy
+           .local int homu
+           .local int x
+           .local ptr z
+           .local ptr mami
+           .local ptr sayaka
+           .local ptr madoka
+           .local struct allofem kyuubei
+           .local struct allofem cheese
+           x = 5  
+           mami = (.s0)  
+           sayaka = nullptr  
+           madoka = nullptr  
+           kyuubei = nullptr  
+           cheese = call malloc (sizeof struct allofem)  
+return
+.end
+fac:       .function int 
+           .param int i
+           .param int z
+           .param ptr x
+           .local int n
+return
+.end
+z:         .function 
+           .param int i
 return
 .end
