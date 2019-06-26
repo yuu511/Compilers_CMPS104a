@@ -9,3 +9,4 @@ lab4: Symbol table and type checker: .sym
 lab5: Three Adress Code: .oil
 
 Check out Lab5/test for examples.
+Lab5/test/9* examples are designed to throw errors.
