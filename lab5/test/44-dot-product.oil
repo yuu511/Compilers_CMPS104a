@@ -1,0 +1,14 @@
+dot_product: .function int 
+.param int size
+.param ptr vec1
+.param ptr vec2
+.local int index
+.local int dot
+return
+.end
+main:      .function int 
+.local ptr vec1
+.local ptr vec2
+.local int index
+return
+.end

@@ -1,0 +1,18 @@
+move:      .function 
+.param ptr src
+.param ptr dst
+return
+.end
+towers:    .function 
+.param int ndisks
+.param ptr src
+.param ptr tmp
+.param ptr dst
+return
+.end
+main:      .function int 
+.param int argc
+.param ptr argv
+.local int count
+return
+.end

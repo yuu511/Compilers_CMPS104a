@@ -1,1 +1,20 @@
-./mk.tests: line 12: ../oc: No such file or directory
+96-unterminated.oc:6:15: warning: missing terminating " character
+    string s = "abc;
+               ^
+96-unterminated.oc:7:13: warning: missing terminating ' character
+    char c = 'a;
+             ^
+96-unterminated.oc:8:8: warning: missing terminating " character
+    s = "abcd\";
+        ^
+96-unterminated.oc:9:8: warning: missing terminating " character
+    s = "abc|\
+        ^
+@:5.15: invalid token ("\*/")
+@:5.20: syntax error, unexpected ';'
+@:6.15: invalid token ("abc;)
+@:7.9: syntax error, unexpected TOK_IDENT
+@:7.13: invalid token ('a;)
+@:8.8: invalid token ("abcd\";)
+@:9.8: invalid token ("abc|   ;)
+@:11.8: invalid token (23foobar)

@@ -3,3 +3,29 @@
 .field ptr data
 .field int size
 .end 
+new_stack: .function struct stack 
+.param int size
+.local struct stack stack
+return
+.end
+push:      .function 
+.param struct stack stack
+.param ptr str
+return
+.end
+pop:       .function ptr 
+.param struct stack stack
+.local ptr tmp
+return
+.end
+empty:     .function int 
+.param struct stack stack
+return
+.end
+main:      .function int 
+.param int argc
+.param ptr argv
+.local struct stack stack
+.local int argi
+return
+.end

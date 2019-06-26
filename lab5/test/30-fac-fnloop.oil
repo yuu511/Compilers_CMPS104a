@@ -1,0 +1,9 @@
+fac:       .function int 
+.param int n
+.local int f
+return
+.end
+main:      .function int 
+.local int n
+return
+.end

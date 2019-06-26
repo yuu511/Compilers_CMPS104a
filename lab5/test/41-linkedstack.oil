@@ -5,3 +5,29 @@
 .field struct node link
 .field ptr data
 .end 
+empty:     .function int 
+.param struct stack stack
+return
+.end
+new_stack: .function struct stack 
+.local struct stack stack
+return
+.end
+push:      .function 
+.param struct stack stack
+.param ptr str
+.local struct node tmp
+return
+.end
+pop:       .function ptr 
+.param struct stack stack
+.local ptr tmp
+return
+.end
+main:      .function int 
+.param int argc
+.param ptr argv
+.local int argi
+.local struct stack stack
+return
+.end

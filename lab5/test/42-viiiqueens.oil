@@ -1,1 +1,19 @@
 board:     .global ptr nullptr
+is_safe:   .function int 
+.param int newcol
+.local int col
+.local int diagonal
+return
+.end
+printqueens: .function 
+.local int col
+return
+.end
+queens:    .function 
+.param int newcol
+.local int row
+return
+.end
+main:      .function int 
+return
+.end

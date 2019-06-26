@@ -293,11 +293,17 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
     }
     // ensure the function is valid, and not a prototype
     else if (child->symbol == TOK_FUNCTION 
-             && table->global->count(child->children[0]->children[1]->lexinfo)
-             && !(child->attributes[static_cast<int>(attr::PROTOTYPE)])){
+             && !(child->attributes[static_cast<int>(attr::PROTOTYPE)])
+             && table->global->count(child->children[0]->children[1]->lexinfo)){
       // else process the function (non-prototype)
       astree *name = child->children[0]->children[1];
-      symbol_table *found = table->master->find(name->lexinfo)->second;
+      symbol_table *found;
+      if (table->master->find(name->lexinfo) != table->master->end()){
+        found = table->master->find(name->lexinfo)->second;
+      } else {
+        errprintf ("3ac: invalid function definition. Stopping address code generation \n");
+	return;
+      }
       // no duplicate functions
       if (found!=nullptr && !(table_lookup->count(found))){
         ac3_table *new_function = new ac3_table;

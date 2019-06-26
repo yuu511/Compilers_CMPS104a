@@ -1,3 +1,8 @@
 .struct foo
 .field int a
 .end 
+main:      .function int 
+.local int a
+.local struct foo b
+return
+.end

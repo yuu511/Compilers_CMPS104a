@@ -1,0 +1,13 @@
+collatz:   .function int 
+.param int n
+.local int c
+return
+.end
+test:      .function 
+.param int n
+.local int c
+return
+.end
+main:      .function int 
+return
+.end

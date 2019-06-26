@@ -1,0 +1,8 @@
+fibonacci: .function int 
+.param int n
+return
+.end
+main:      .function int 
+.local int n
+return
+.end

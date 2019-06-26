@@ -1,0 +1,5 @@
+main:      .function int 
+.param int argc
+.param ptr argv
+return
+.end

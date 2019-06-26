@@ -1,0 +1,5 @@
+main:      .function int 
+.local int number
+.local int done
+return
+.end

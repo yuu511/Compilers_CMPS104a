@@ -1,0 +1,20 @@
+strlen:    .function int 
+.param ptr str
+.local int len
+return
+.end
+strcat:    .function 
+.param ptr dest
+.param ptr src
+.local int pos
+.local int srcix
+return
+.end
+main:      .function int 
+.param int argc
+.param ptr argv
+.local int length
+.local int argi
+.local ptr concat
+return
+.end

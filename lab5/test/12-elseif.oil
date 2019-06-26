@@ -1,0 +1,4 @@
+main:      .function int 
+.param int argc
+return
+.end

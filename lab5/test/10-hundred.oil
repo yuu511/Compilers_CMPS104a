@@ -1,0 +1,4 @@
+main:      .function int 
+.local int count
+return
+.end

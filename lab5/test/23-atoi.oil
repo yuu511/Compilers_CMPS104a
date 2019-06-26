@@ -1,0 +1,16 @@
+atoi:      .function int 
+.param ptr str
+.local int neg
+.local int num
+.local int digit
+.local int contin
+.local int chr
+return
+.end
+main:      .function int 
+.param int argc
+.param ptr argv
+.local int argi
+.local ptr arg
+return
+.end

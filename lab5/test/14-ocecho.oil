@@ -1,0 +1,6 @@
+main:      .function int 
+.param int argc
+.param ptr argv
+.local int argi
+return
+.end

@@ -1,0 +1,6 @@
+main:      .function int 
+.local int prime
+.local int index
+.local ptr sieve
+return
+.end

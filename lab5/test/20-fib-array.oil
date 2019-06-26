@@ -1,0 +1,5 @@
+main:      .function int 
+.local ptr fibonacci
+.local int index
+return
+.end

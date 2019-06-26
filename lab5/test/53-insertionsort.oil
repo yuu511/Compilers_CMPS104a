@@ -1,0 +1,37 @@
+strcmp:    .function int 
+.param ptr s1
+.param ptr s2
+.local int index
+.local int contin
+.local int s1c
+.local int s2c
+.local int cmp
+return
+.end
+insertion_sort: .function 
+.param int size
+.param ptr words
+.local int sorted
+.local int slot
+.local ptr element
+.local int contin
+return
+.end
+print_array: .function 
+.param int size
+.param ptr words
+.local int index
+return
+.end
+read_words: .function int 
+.param int size
+.param ptr words
+.local int count
+.local ptr word
+return
+.end
+main:      .function int 
+.local int count
+.local ptr words
+return
+.end

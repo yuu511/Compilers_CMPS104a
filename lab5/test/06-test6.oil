@@ -2,3 +2,8 @@
 .end 
 .struct foo
 .end 
+main:      .function int 
+.local ptr s
+.local ptr sa
+return
+.end
