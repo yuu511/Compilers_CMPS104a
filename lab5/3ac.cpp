@@ -293,7 +293,7 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
     }
     // ensure the function is valid, and not a prototype
     else if (child->symbol == TOK_FUNCTION 
-             && table->global->count(child->children[0]->lexinfo)
+             && table->global->count(child->children[0]->children[1]->lexinfo)
              && !(child->attributes[static_cast<int>(attr::PROTOTYPE)])){
       // else process the function (non-prototype)
       astree *name = child->children[0]->children[1];

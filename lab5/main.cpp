@@ -172,21 +172,24 @@ int main (int argc, char** argv) {
    if (a_debug){
      astree::draw (stderr,parser::root);
    }
-   
-   // dump the hashed tokenset to file.
-   string_set::dump(strfp);
+  
+   // if  the parse was sucessful, move on.
+   if (!parse_rc){
+     // dump the hashed tokenset to file.
+     string_set::dump(strfp);
 
-   // generate the symbol table
-   gen_table(parser::root);
+     // generate the symbol table
+     gen_table(parser::root);
 
-   // generate the oil file
-   emit_3ac(parser::root,get_tables(),oilfp);
+     // generate the oil file
+     emit_3ac(parser::root,get_tables(),oilfp);
 
-   // dump the astree
-   astree::draw_attrib(astfp,parser::root);
+     // dump the astree
+     astree::draw_attrib(astfp,parser::root);
 
-   // dump all symbol tables
-   dump_all_tables(symfp);
+     // dump all symbol tables
+     dump_all_tables(symfp);
+   }
 
    // Close all files.
    e_close(yyin);

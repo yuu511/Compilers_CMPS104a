@@ -1,4 +1,4 @@
-#  22 "./oclib.h"
+#  22 "./test/oclib.h"
     6  22.001 258 TOK_VOID      void
     6  22.006 278 TOK_IDENT     fail
     6  22.011  40 '('           (
@@ -48,7 +48,7 @@
     6  30.013  40 '('           (
     6  30.014  41 ')'           )
     6  30.015  59 ';'           ;
-#   5 "./03-test3.oc"
+#   5 "./test/03-test3.oc"
     7   5.001 259 TOK_INT       int
     7   5.005 278 TOK_IDENT     main
     7   5.009  40 '('           (

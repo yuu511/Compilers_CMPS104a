@@ -1,4 +1,4 @@
-`¯ôºzU:9.4: syntax error, unexpected '[', expecting TOK_IDENT
-`¯ôºzU:13.14: syntax error, unexpected '[', expecting TOK_IDENT
-`¯ôºzU:16.1: syntax error, unexpected TOK_INT, expecting ';'
+`OmâV:9.4: syntax error, unexpected '[', expecting TOK_IDENT
+`OmâV:13.14: syntax error, unexpected '[', expecting TOK_IDENT
+`OmâV:16.1: syntax error, unexpected TOK_INT, expecting ';'
 prototype foo defined multiple times: 5.12.1
