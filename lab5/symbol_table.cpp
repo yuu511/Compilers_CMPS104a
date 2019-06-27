@@ -742,6 +742,15 @@ symbol *p_assignment (astree *parent, symbol *left, symbol *right){
   return ret;
 }
 
+symbol *p_CHARCON(astree *s){
+  symbol *sym = new symbol(s,current);
+  sym->attributes.set(static_cast<int>(attr::INT));
+  sym->attributes.set(static_cast<int>(attr::CHAR));
+  sym->attributes.set(static_cast<int>(attr::CONST));
+  astree_attribs(sym,s);
+  return sym;
+}
+
 symbol *p_INTCON(astree *s){
   symbol *sym = new symbol(s,current);
   sym->attributes.set(static_cast<int>(attr::INT));
@@ -988,47 +997,47 @@ symbol *p_call(astree *s){
 }
 
 symbol *p_index(astree *s){
- symbol *ident = p_expression(s->children[0]);
- if (ident != nullptr){
-   if (!(ident->attributes[static_cast<int>(attr::ARRAY)] ||
-         ident->attributes[static_cast<int>(attr::STRING)])){
-     errprintf (
-     "attempting to index something that" 
-     "is not a string or array :%zd.%zd.%zd\n",
-     s->lloc.filenr, s->lloc.linenr,
-     s->lloc.offset);
-   }
- }
-
- symbol *index = p_expression(s->children[1]); 
- if (index !=nullptr){
-   if (!(index->attributes[static_cast<int>(attr::INT)])){
-     errprintf (
-     "attempting to index with a non-" 
-     "int index :%zd.%zd.%zd\n",
-     s->lloc.filenr, s->lloc.linenr,
-     s->lloc.offset);
-   }
- }
-
- symbol *sym = new symbol(s,current);
- if (ident->attributes[static_cast<int>(attr::ARRAY)]){
-   sym->attributes[static_cast<int>(attr::VOID)]   = ident->attributes[static_cast<int>(attr::VOID)];   
-   sym->attributes[static_cast<int>(attr::INT)]    = ident->attributes[static_cast<int>(attr::INT)];   
-   sym->attributes[static_cast<int>(attr::TYPEID)] = ident->attributes[static_cast<int>(attr::TYPEID)];   
-   sym->attributes[static_cast<int>(attr::STRING)] = ident->attributes[static_cast<int>(attr::STRING)];   
-   if (ident->sname != nullptr){
-     sym->sname = ident->sname;
-   }
- } else if (ident->attributes[static_cast<int>(attr::STRING)]){
-   sym->attributes.set(static_cast<int>(attr::INT)); 
- }
- sym->attributes.set(static_cast<int>(attr::VADDR));
- sym->attributes.set(static_cast<int>(attr::LVAL));
- delete ident;
- delete index;
- astree_attribs(sym,s);
- return sym;
+  symbol *ident = p_expression(s->children[0]);
+  if (ident != nullptr){
+    if (!(ident->attributes[static_cast<int>(attr::ARRAY)] ||
+          ident->attributes[static_cast<int>(attr::STRING)])){
+      errprintf (
+      "attempting to index something that" 
+      "is not a string or array :%zd.%zd.%zd\n",
+      s->lloc.filenr, s->lloc.linenr,
+      s->lloc.offset);
+    }
+  }
+ 
+  symbol *index = p_expression(s->children[1]); 
+  if (index !=nullptr){
+    if (!(index->attributes[static_cast<int>(attr::INT)])){
+      errprintf (
+      "attempting to index with a non-" 
+      "int index :%zd.%zd.%zd\n",
+      s->lloc.filenr, s->lloc.linenr,
+      s->lloc.offset);
+    }
+  }
+ 
+  symbol *sym = new symbol(s,current);
+  if (ident->attributes[static_cast<int>(attr::ARRAY)]){
+    sym->attributes[static_cast<int>(attr::VOID)]   = ident->attributes[static_cast<int>(attr::VOID)];   
+    sym->attributes[static_cast<int>(attr::INT)]    = ident->attributes[static_cast<int>(attr::INT)];   
+    sym->attributes[static_cast<int>(attr::TYPEID)] = ident->attributes[static_cast<int>(attr::TYPEID)];   
+    sym->attributes[static_cast<int>(attr::STRING)] = ident->attributes[static_cast<int>(attr::STRING)];   
+    if (ident->sname != nullptr){
+      sym->sname = ident->sname;
+    }
+  } else if (ident->attributes[static_cast<int>(attr::STRING)]){
+    sym->attributes.set(static_cast<int>(attr::INT)); 
+  }
+  sym->attributes.set(static_cast<int>(attr::VADDR));
+  sym->attributes.set(static_cast<int>(attr::LVAL));
+  delete ident;
+  delete index;
+  astree_attribs(sym,s);
+  return sym;
 }
 
 symbol *p_field (astree *s){
@@ -1080,6 +1089,8 @@ symbol *p_field (astree *s){
 symbol *p_expression(astree *s){
   switch(s->symbol){
     case TOK_CHARCON:
+      return p_CHARCON(s); 
+      break;
     case TOK_INTCON:
       return p_INTCON(s); 
       break;

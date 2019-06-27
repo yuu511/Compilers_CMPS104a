@@ -13,6 +13,8 @@ vector<pair<const string*,ac3_table*>> *all_functions
 unordered_map <symbol_table*, ac3_table*> *table_lookup = 
 new unordered_map<symbol_table*, ac3_table*>;
 
+void p_operator(astree *expr, ac3_table *current, int largest,string stride);
+
 // blank string filler for formatting
 ac3::ac3(astree *expr_,symbol *sym_){
   expr = expr_;
@@ -101,50 +103,185 @@ void emit_struct(all_tables *table,FILE *out){
   }
 }
 
-// parses expr and emits appropriate operation.
-void p_expr(astree *expr, ac3_table *current, int largest,
-            string stride, const string *orig_assignment = nullptr){
-  int orig_largest = largest-1;
-  ac3 *ac = new ac3(expr);
-  string fill;
+// assign stride based on type 
+string assign_stride(astree *node){ 
+  attr_bitset a = node->attributes;
+  string ret = "";
+  if (a[static_cast<int>(attr::INT)]){
+    if (a[static_cast<int>(attr::CHAR)]){
+      ret = ":c";
+    }
+    else {
+      ret = ":i";
+    }
+  }
+  if (a[static_cast<int>(attr::STRING)]
+      ||a[static_cast<int>(attr::ARRAY)]){
+      ret = ":p";
+  }
+  return ret;
+}
+
+void p_eq(astree *expr, ac3_table *current, int largest,string stride){
+  astree *left;
+  astree *right;
+  switch (expr->symbol){
+    case TOK_TYPE_ID:
+      left = expr->children[1];
+      right = expr->children[2];
+      break;
+    case '=':
+      left = expr->children[0];
+      right = expr->children[1];
+      break;
+  }
+  if (expr->children.size() < 2){
+    errprintf ("p_eq called on one arg!");
+  }
+  ac3 *ac = new ac3(expr); 
   current->push_back(ac);
-  if (expr->children.size()){
-    if (expr->children[0]->children.size() > 1){
+  ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+  // left operand, going to either be an index or not an index (probably)
+  if (left->children.size() > 1){
+    largest++;
+    p_operator(expr,current,largest,stride);
+  }
+  else {
+    ac->ret->append(*(left->lexinfo));
+  }
+  if (right->children.size() > 1){
+    if (right->children[0]->children.size() > 1){
       ac->t1->append("$t");
       ac->t1->append(to_string(largest));
       ac->t1->append(stride);
+      p_operator(right->children[0],current,largest,stride);
       largest++;
-      p_expr(expr->children[0],current,largest,stride);
     }
     else {
-      ac->t1->append(*(expr->children[0]->lexinfo));
+      ac->t1->append(*(right->children[0]->lexinfo));
     }
-    if (expr->children[1]->children.size() > 1){
+    if (right->children[1]->children.size() > 1){
       ac->t2->append("$t");
       ac->t2->append(to_string(largest));
       ac->t2->append(stride);
+      p_operator(right->children[1],current,largest,stride);
       largest++;
-      p_expr(expr->children[1],current,largest,stride);
     }
     else {
-      ac->t2->append(*(expr->children[1]->lexinfo));
+      ac->t2->append(*(right->children[1]->lexinfo));
     }
-  } 
+    ac->op->append(*(right->lexinfo));
+  }
   else {
-    ac->t1->append(*(expr->lexinfo));
+    ac->t1->append(*(right->lexinfo));
   }
-  ac->ret->append("$t");
-  ac->ret->append(to_string(orig_largest));
-  ac->ret->append(stride);
-  if (orig_assignment){
-    *(ac->ret) = "";
-    ac->ret->append(*orig_assignment); 
-  }
-  ac->op->append(expr->lexinfo->c_str());
-  ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
-  // printf ("%s = %s %s %s\n", ret.c_str(),reg1.c_str(),
-  // expr->lexinfo->c_str(),reg2.c_str());
 }
+
+
+void p_binop(astree *expr, ac3_table *current, int largest,string stride){
+  if (expr->children.size() < 2 ){
+    errprintf ("p_binop called on one arg!");
+    return;
+  }
+  ac3 *ac = new ac3(expr); 
+  ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+  current->push_back(ac);
+  astree *left = expr->children[0];
+  astree *right = expr->children[1];
+  ac->op->append(*(expr->lexinfo));
+  ac->ret->append("$t");
+  ac->ret->append(to_string(largest));
+  ac->ret->append(stride);
+  if (left->children.size()>1){
+    ac->t1->append("$t");
+    ac->t1->append(to_string(largest));
+    ac->t1->append(stride);
+    p_operator(left,current,largest,stride);
+    largest++;
+  }
+  else {
+    ac->t1->append(*(left->lexinfo));
+  }
+  if (right->children.size()>1){
+    ac->t1->append("$t");
+    ac->t1->append(to_string(largest));
+    ac->t1->append(stride);
+    p_operator(right,current,largest,stride);
+    largest++;
+  }
+  else {
+    ac->t2->append(*(right->lexinfo));
+  }
+}
+
+// p_expr, version 2.
+void p_operator(astree *expr, ac3_table *current, int largest,string stride){
+  switch (expr->symbol){
+    case '+':
+    case '-':
+    case '*':
+    case '/':
+    case '%':
+    case '<':
+    case '>':
+    case TOK_EQ:
+    case TOK_NE:
+    case TOK_GT:
+    case TOK_LE:
+      p_binop(expr,current,largest,":i");
+      break;
+    case '=':
+    case TOK_TYPE_ID:
+      p_eq(expr,current,largest,stride);
+      break;
+  }
+}
+
+
+// parses expr and emits appropriate operation.
+// void p_expr(astree *expr, ac3_table *current, int largest,
+//             string stride, const string *orig_assignment = nullptr){
+//   int orig_largest = largest-1;
+//   ac3 *ac = new ac3(expr);
+//   string fill;
+//   current->push_back(ac);
+//   if (expr->children.size()){
+//     if (expr->children[0]->children.size() > 1){
+//       ac->t1->append("$t");
+//       ac->t1->append(to_string(largest));
+//       ac->t1->append(stride);
+//       largest++;
+//       p_expr(expr->children[0],current,largest,stride);
+//     }
+//     else {
+//       ac->t1->append(*(expr->children[0]->lexinfo));
+//     }
+//     if (expr->children[1]->children.size() > 1){
+//       ac->t2->append("$t");
+//       ac->t2->append(to_string(largest));
+//       ac->t2->append(stride);
+//       largest++;
+//       p_expr(expr->children[1],current,largest,stride);
+//     }
+//     else {
+//       ac->t2->append(*(expr->children[1]->lexinfo));
+//     }
+//   } 
+//   else {
+//     ac->t1->append(*(expr->lexinfo));
+//   }
+//   ac->ret->append("$t");
+//   ac->ret->append(to_string(orig_largest));
+//   ac->ret->append(stride);
+//   if (orig_assignment){
+//     *(ac->ret) = "";
+//     ac->ret->append(*orig_assignment); 
+//   }
+//   ac->op->append(expr->lexinfo->c_str());
+//   ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+//   // printf ("%s = %s %s %s\n", ret.c_str(),reg1.c_str(),
+//   // expr->lexinfo->c_str(),reg2.c_str());
+// }
 
 // requires the typeid to be parsed,
 // and symbol table containing the 
@@ -180,8 +317,7 @@ void parse_initialization(astree *child,symbol_table *current){
         break;
       case '=':
         assignment = child->children[1];
-	printf ("%s", child->children[1]->lexinfo->c_str());
-	break;
+	    break;
     }
     if (a[static_cast<int>(attr::ARRAY)]){
       if (assignment->symbol == TOK_ALLOC){
@@ -237,7 +373,7 @@ void parse_initialization(astree *child,symbol_table *current){
       return;
     }
     if (a[static_cast<int>(attr::INT)]){
-      p_expr(assignment,found,largest,":i",ident_node->lexinfo);
+      p_operator(child, found, largest,"i");
       return;
     }
   }

@@ -25,7 +25,7 @@ using symbol_entry = symbol_table::value_type;
 enum class attr {
   VOID, INT, NULLPTR_T, STRING, STRUCT, ARRAY, FUNCTION, VARIABLE,
   FIELD, TYPEID, PARAM, LOCAL, LVAL, CONST, VREG, VADDR, PROTOTYPE,
-  BITSET_SIZE
+  CHAR, BITSET_SIZE
 };
 using attr_bitset = bitset <static_cast<size_t>(attr::BITSET_SIZE)>;
 

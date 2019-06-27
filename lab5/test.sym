@@ -1,34 +1,28 @@
-allofem (5.161.1) {0} struct allofem 
-   one (5.161.18) int field 0
-   two (5.162.18) string field 1
-   homura (5.163.18) field struct none 2
-   sayaka (5.164.18) int array field 3
+mami (4.3.1) {0} struct mami 
+   one (4.3.15) int field 0
+   two (4.4.18) string field 1
+   sayaka (4.5.18) field struct sayaka 2
+   madoka (4.6.18) int array field 3
 
-test (5.159.1) {0} struct test 
+trivial (4.22.1) {0} void function 
+   x (4.22.15) {1} int variable param lval 0
+   z (4.23.3) {1} int variable local lval 1
 
-onearg (5.160.1) {0} struct onearg 
-   trivial (5.160.15) int field 0
+thing2 (4.17.1) {0} variable struct mami lval 
 
-fac (6.186.1) {0} int function 
-   i (6.186.10) {1} int variable param lval 0
-   z (6.186.17) {1} int variable param lval 1
-   x (6.186.24) {1} string variable param lval 2
-   y (6.187.3) {1} int variable local lval 3
-   n (6.188.3) {1} int variable local lval 4
+thing (4.16.1) {0} variable struct mami lval 
 
-cheese (6.183.1) {0} variable struct allofem lval 
+thing3 (4.18.1) {0} int array variable lval 
 
-kyuubei (6.182.1) {0} variable struct allofem lval 
+y (4.15.1) {0} string variable lval 
 
-x (6.177.1) {0} int variable lval 
+b (4.11.1) {0} int variable lval 
 
-homu (6.176.1) {0} int variable lval 
+a (4.10.1) {0} int variable lval 
 
-z (6.178.1) {0} string variable lval 
+c (4.12.1) {0} int variable lval 
 
-mami (6.179.1) {0} string variable lval 
+x (4.14.1) {0} string variable lval 
 
-sayaka (6.180.1) {0} string variable lval 
-
-madoka (6.181.1) {0} int array variable lval 
+w (4.13.1) {0} string variable lval 
 
