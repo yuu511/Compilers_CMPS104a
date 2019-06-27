@@ -105,36 +105,39 @@ void emit_struct(all_tables *table,FILE *out){
 void p_expr(astree *expr, ac3_table *current, int largest,
             const string *orig_assignment = nullptr){
   int orig_largest = largest-1;
-  string ret;
-  string reg1;
-  string reg2;
+  ac3 *ac = new ac3(expr);
+  string fill;
+  current->push_back(ac);
   if (expr->children.size() > 1){
     if (expr->children[0]->children.size() > 1){
-      reg1.append("$t");
-      reg1.append(to_string(largest));
+      ac->t1->append("$t");
+      ac->t1->append(to_string(largest));
       largest++;
       p_expr(expr->children[0],current,largest);
     }
     else {
-      reg1 = expr->children[0]->lexinfo->c_str();
+      ac->t1->append(*(expr->children[0]->lexinfo));
     }
     if (expr->children[1]->children.size() > 1){
-      reg2.append("$t");
-      reg2.append(to_string(largest));
+      ac->t2->append("$t");
+      ac->t2->append(to_string(largest));
       largest++;
       p_expr(expr->children[1],current,largest);
     }
     else {
-      reg2 = expr->children[1]->lexinfo->c_str();
+      ac->t2->append(*(expr->children[1]->lexinfo));
     }
   }
-  ret.append("$t");
-  ret.append(to_string(orig_largest));
+  ac->ret->append("$t");
+  ac->ret->append(to_string(orig_largest));
   if (orig_assignment){
-    ret = orig_assignment->c_str(); 
+    *(ac->ret) = "";
+    ac->ret->append(*orig_assignment); 
   }
-  printf ("%s = %s %s %s\n", ret.c_str(),reg1.c_str(),
-  expr->lexinfo->c_str(),reg2.c_str());
+  ac->op->append(expr->lexinfo->c_str());
+  ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+  // printf ("%s = %s %s %s\n", ret.c_str(),reg1.c_str(),
+  // expr->lexinfo->c_str(),reg2.c_str());
 }
 
 // requires the typeid to be parsed,
@@ -211,6 +214,7 @@ void parse_initialization(astree *child,symbol_table *current){
 	  largest = found->back()->last_reg + 1;
 	}
         // parse the expr
+	delete ac;
 	p_expr(assignment,found,largest,ident_node->lexinfo);
 	return;
       } 
