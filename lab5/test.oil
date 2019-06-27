@@ -12,36 +12,23 @@
 .field int trivial
 .end 
 .s0:       "asdfasdfafdsaf"
-trivial:   .function 
-           .param int entropy
-           .local int homu
-           .local int x
-           .local ptr z
-           .local ptr mami
-           .local ptr sayaka
-           .local ptr madoka
-           .local struct allofem kyuubei
-           .local struct allofem cheese
-           x = 5  
-           mami = (.s0)  
-           sayaka = nullptr  
-           madoka = nullptr  
-           kyuubei = nullptr  
-           cheese = call malloc (sizeof struct allofem)  
-return
-.end
+homu:      .global int 
+x:         .global int 5
+z:         .global ptr 
+mami:      .global ptr (.s0)
+sayaka:    .global ptr nullptr
+madoka:    .global ptr nullptr
+kyuubei:   .global struct allofem nullptr
+cheese:    .global struct allofem call malloc (sizeof struct allofem)
 fac:       .function int 
            .param int i
            .param int z
            .param ptr x
+           .local int y
            .local int n
-           n = $t0 - 5
-           $t0 = $t1 + 10
-           $t1 = 5 + $t2
-           $t2 = 5 * 5
-return
-.end
-z:         .function 
-           .param int i
-return
-.end
+           n = $t0:i * $t1:i
+           $t0:i = 5 + 5
+           $t1:i = 10 + 10
+           y = 5 + 5
+           return
+           .end

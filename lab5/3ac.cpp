@@ -103,17 +103,18 @@ void emit_struct(all_tables *table,FILE *out){
 
 // parses expr and emits appropriate operation.
 void p_expr(astree *expr, ac3_table *current, int largest,
-            const string *orig_assignment = nullptr){
+            string stride, const string *orig_assignment = nullptr){
   int orig_largest = largest-1;
   ac3 *ac = new ac3(expr);
   string fill;
   current->push_back(ac);
-  if (expr->children.size() > 1){
+  if (expr->children.size()){
     if (expr->children[0]->children.size() > 1){
       ac->t1->append("$t");
       ac->t1->append(to_string(largest));
+      ac->t1->append(stride);
       largest++;
-      p_expr(expr->children[0],current,largest);
+      p_expr(expr->children[0],current,largest,stride);
     }
     else {
       ac->t1->append(*(expr->children[0]->lexinfo));
@@ -121,15 +122,20 @@ void p_expr(astree *expr, ac3_table *current, int largest,
     if (expr->children[1]->children.size() > 1){
       ac->t2->append("$t");
       ac->t2->append(to_string(largest));
+      ac->t2->append(stride);
       largest++;
-      p_expr(expr->children[1],current,largest);
+      p_expr(expr->children[1],current,largest,stride);
     }
     else {
       ac->t2->append(*(expr->children[1]->lexinfo));
     }
+  } 
+  else {
+    ac->t1->append(*(expr->lexinfo));
   }
   ac->ret->append("$t");
   ac->ret->append(to_string(orig_largest));
+  ac->ret->append(stride);
   if (orig_assignment){
     *(ac->ret) = "";
     ac->ret->append(*orig_assignment); 
@@ -145,14 +151,38 @@ void p_expr(astree *expr, ac3_table *current, int largest,
 // context of the variable to be parsed in question
 void parse_initialization(astree *child,symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
-  astree *ident_node = child->children[1];
- // symbol *sym = current->find(ident_node->lexinfo)->second;
-  string name = ident_node->lexinfo->c_str();
+  astree *ident_node;
+  size_t min = 2;
+  switch (child->symbol){
+    case TOK_TYPE_ID:
+      ident_node = child->children[1];
+      min = 2;
+      break;
+    case '=':
+      ident_node = child->children[0];
+      min = 1;
+    break;
+  }
+  string name = *(ident_node->lexinfo);
   name += ":";
   attr_bitset a = child->attributes;
   ac3 *ac = new ac3(child);
-  if (child->children.size() > 2 ){
-    astree *assignment = child->children[2];
+  // get largest register
+  int largest = 0;
+  if (found->size()){
+    largest = found->back()->last_reg + 1;
+  }
+  if (child->children.size() > min ){
+    astree *assignment;
+    switch (child->symbol){
+      case TOK_TYPE_ID:
+        assignment = child->children[2];
+        break;
+      case '=':
+        assignment = child->children[1];
+	printf ("%s", child->children[1]->lexinfo->c_str());
+	break;
+    }
     if (a[static_cast<int>(attr::ARRAY)]){
       if (assignment->symbol == TOK_ALLOC){
           
@@ -207,23 +237,7 @@ void parse_initialization(astree *child,symbol_table *current){
       return;
     }
     if (a[static_cast<int>(attr::INT)]){
-      if (assignment->children.size() > 1){
-        // get largest register
-	int largest = 0;
-	if (found->size()){
-	  largest = found->back()->last_reg + 1;
-	}
-        // parse the expr
-	delete ac;
-	p_expr(assignment,found,largest,ident_node->lexinfo);
-	return;
-      } 
-      else {
-        ac->t1->append(assignment->lexinfo->c_str());
-      }
-      ac->ret->append(ident_node->lexinfo->c_str());
-      ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
-      found->push_back(ac);
+      p_expr(assignment,found,largest,":i",ident_node->lexinfo);
       return;
     }
   }
@@ -261,6 +275,9 @@ void ac_function (astree *s, symbol_table *found){
     case TOK_TYPE_ID:
       if (s->children.size() > 2)
         parse_initialization(s,found);
+    break;
+    case '=':
+      parse_initialization(s,found);
     break;
   }
 }
@@ -342,8 +359,8 @@ void emit_functions(all_tables *table, FILE *out){
       }
     }
     //print out the ending statements
-    fprintf (out,"return\n");
-    fprintf (out,".end\n");
+    fprintf (out,"%-10s return\n","");
+    fprintf (out,"%-10s .end\n","");
   }
 }
 
@@ -369,13 +386,13 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
         found = table->master->find(name->lexinfo)->second;
       } else {
         errprintf ("3ac: invalid function definition. Stopping address code generation \n");
-	    return;
+	return;
       }
       // no duplicate functions
       if (found!=nullptr && !(table_lookup->count(found))){
         ac3_table *new_function = new ac3_table;
-	    table_lookup->emplace(found,new_function);
-	    all_functions->push_back(make_pair(name->lexinfo,new_function));
+	table_lookup->emplace(found,new_function);
+	all_functions->push_back(make_pair(name->lexinfo,new_function));
         ac_function(child,found);
       }
       else {
