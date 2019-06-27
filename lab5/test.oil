@@ -1,26 +1,17 @@
-.struct mami
-.field ptr madoka
-.field struct sayaka sayaka
+.struct none
+.end 
+.struct allofem
+.field struct none homura
 .field int one
+.field ptr sayaka
 .field ptr two
 .end 
-.struct sayaka
+.struct test
 .end 
-.s0:       "hehe"
-a:         .global int 
-b:         .global int 5
-c:         .global int 'a'
-w:         .global ptr 
-x:         .global ptr (.s0)
-y:         .global ptr nullptr
-thing:     .global struct mami nullptr
-thing2:    .global struct mami call malloc (sizeof struct mami)
-thing3:    .global ptr nullptr
-trivial:   .function 
-           .param int x
-           .local int z
-           z = $t0:i + $t1:i
-           $t0:i = 5 + 3
-           $t1:i = 5 + 3
-           return
-           .end
+.struct onearg
+.field int trivial
+.end 
+homu:      .global int 
+mami:      .global ptr 
+madoka:    .global ptr 
+kyouko:    .global struct test 

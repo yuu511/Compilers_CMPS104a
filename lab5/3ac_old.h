@@ -1,5 +1,6 @@
 #include "symbol_table.h"
 #include "astree.h"
+#include <map>
 
 void emit_3ac(astree *root, all_tables *table, FILE *out);
 
@@ -11,26 +12,17 @@ enum class instruction{
 };
 using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)>;
 
-struct reg {
-  // exists if a register is a variable
-  string *ident;
-  // exists if a register is an actual register
-  int reg_number;
-  string *stride;
-  reg(string *ident);
-  reg(string *stride , int reg_number);
-  ~reg();
-};
-
-struct ac3{
+struct ac3 {
   astree *expr;
-  string *label;
-  reg *t0;
+  symbol *sym;
+  string *ret;
   string *op;
-  reg *t1;
-  reg *t2;
+  string *t1;
+  string *t2;
+  string *label;
   instruction_bitset itype = 0;
-  ac3(astree *expr,reg *t0 = nullptr);
+  int last_reg = -1;
+  ac3( astree *expr,symbol *sym = nullptr);
   ~ac3();
 };
 
