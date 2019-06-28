@@ -1,10 +1,10 @@
-.struct none
-.end 
 .struct allofem
+.field ptr sayaka
 .field struct none homura
 .field int one
-.field ptr sayaka
 .field ptr two
+.end 
+.struct none
 .end 
 .struct test
 .end 
@@ -12,6 +12,13 @@
 .field int trivial
 .end 
 homu:      .global int 
+homu_a:    .global int 5
 mami:      .global ptr 
 madoka:    .global ptr 
 kyouko:    .global struct test 
+z:         .function 
+           .param int i
+           .local int n
+           n = 1 + 3
+           return
+           .end

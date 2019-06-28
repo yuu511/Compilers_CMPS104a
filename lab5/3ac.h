@@ -19,6 +19,7 @@ struct reg {
   string *stride;
   reg(string *ident);
   reg(string *stride , int reg_number);
+  string str();
   ~reg();
 };
 

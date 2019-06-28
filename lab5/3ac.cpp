@@ -13,6 +13,8 @@ new vector<pair<const string*,ac3_table*>>();
 unordered_map <symbol_table*, ac3_table*> *table_lookup = 
 new unordered_map<symbol_table*, ac3_table*>;
 
+ac3 *p_stmt(astree *expr, symbol_table *current, string label);
+
 // first available reg
 int reg_count = -1;
 
@@ -25,6 +27,21 @@ reg::reg(string *stride_, int reg_number_){
   reg_number = reg_number_;
   stride = stride_;
   ident = nullptr;
+}
+
+string reg::str(){
+  string ret="";
+  if (ident != nullptr){
+    ret.append(*ident);
+  }
+  else {
+    ret.append("$t");
+    ret.append(to_string(reg_number));
+    if (stride){
+      ret.append(*stride);
+    }
+  }
+  return ret;
 }
 
 reg::~reg(){
@@ -55,7 +72,7 @@ ac3::~ac3(){
 ac3::ac3 (astree *expr_,reg *t0_ ){
   expr = expr_;
   t0 = t0_;
-  label = nullptr;
+  label = new string ("");
   op = nullptr;
   t1 = nullptr;
   t2 = nullptr;
@@ -87,6 +104,67 @@ template <class Type> string parse_typesize(const Type &o){
   return st;
 }
 
+// helper function for assignment
+ac3 *asg_int(astree *expr, symbol_table *current, string label){
+  ac3_table *found = table_lookup->find(current)->second;
+  astree *ident = expr->children[0];
+  astree *assignment = expr->children[1];
+  ac3 *ac = new ac3(expr);
+  if (expr->symbol == TOK_TYPE_ID){
+    ident = expr->children[1];
+    assignment = expr->children[2];
+  }
+  // parse the expressions
+  // check the two children
+  if (assignment->children.size() > 1){
+    string *t0 = new string(*(ident->lexinfo));   
+    ac->t0 = new reg(t0);
+    // must parse
+    if (assignment->children[0]->children.size() > 1){
+      string *stride;
+      if (ident->attributes[static_cast<int>(attr::CHAR)])
+        stride = new string (":c");
+      else {
+        stride = new string(":i"); 
+      }
+      ac->t1 = new reg(stride,reg_count);
+      p_stmt(assignment->children[0],current,"");
+      ++reg_count;
+    } 
+    else {
+      string *t1 = new string(*(assignment->children[0]->lexinfo)); 
+      ac->t1 =new reg(t1);
+    }
+    if (assignment->children[1]->children.size() > 1){
+      string *stride;
+      if (ident->attributes[static_cast<int>(attr::CHAR)])
+        stride = new string (":c");
+      else {
+        stride = new string(":i"); 
+      }
+      ac->t1 = new reg(stride,reg_count);
+      p_stmt(assignment->children[1],current,"");
+      ++reg_count;
+    } 
+    else {
+      string *t2 = new string(*(assignment->children[1]->lexinfo)); 
+      ac->t2 =new reg(t2);
+    }
+    ac->op = new string(*(assignment->lexinfo));
+  }
+  // case of a single assignment e.g. x = 5;
+  else {
+    string *t0 = new string(*(ident->lexinfo));   
+    string *t1 = new string(*(assignment->lexinfo));
+    ac->t0 = new reg(t0);
+    ac->t1 = new reg(t1);
+  }
+  *(ac->label) = label;
+  ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+  found->push_back(ac);
+  return ac;
+}
+
 // if 'tok_type_id'  it's an variable declaration
 // else if '=' it's an assignment
 ac3 *p_assignment(astree *expr, symbol_table *current, string label){
@@ -94,13 +172,24 @@ ac3 *p_assignment(astree *expr, symbol_table *current, string label){
   // a typeid can have no assignment (int x, for example)
   size_t min = 1;
   astree *ident = expr->children[0];
-  astree *assignment;
   if (expr->symbol == TOK_TYPE_ID){
     ident = expr->children[1];
     min = 2;
   }
   if (expr->children.size() > min){
-
+    attr_bitset a = expr->attributes;
+    if (a[static_cast<int>(attr::ARRAY)]){
+      // return asg_array(expr,current,label);
+    }
+    if (a[static_cast<int>(attr::TYPEID)]){
+      // return asg_typeid(expr, current,label);
+    }
+    if (a[static_cast<int>(attr::STRING)]){
+     // return asg_string(expr,current,label);
+    }
+    if (a[static_cast<int>(attr::INT)]){
+      return asg_int(expr,current,label);
+    }
   } 
   else {
     string *name = new string (*(ident->lexinfo));
@@ -116,6 +205,7 @@ ac3 *p_assignment(astree *expr, symbol_table *current, string label){
 ac3 *p_stmt(astree *expr, symbol_table *current, string label){
   switch (expr->symbol){
     case '=':
+    case TOK_TYPE_ID:
       return p_assignment(expr,current,label);
     default:
       ac3 *ac = new ac3(expr);
@@ -187,16 +277,85 @@ void emit_globaldef(FILE *out){
              name.c_str(),
              ".global",
              parse_typesize(itor->expr).c_str());
-    // if (itor->t1 !=nullptr){
-    //   fprintf (out,"%s",itor->t1->c_str());
-    // }
+    if (itor->t1 !=nullptr){
+      fprintf (out,"%s",itor->t1->ident->c_str());
+    }
     fprintf (out,"\n");
   }
 }
-//emit function definitions here
-// void emit_functions(all_tables *table, FILE *out){
-// 
-// }
+
+void emit_functions(all_tables *table, FILE *out){
+  // print out all functions
+  for (auto itor: *all_functions){
+    // get symbol associated with function and
+    // symbol table associated with functions block
+    symbol *type = table->global->find(itor.first)->second;
+    symbol_table *block = table->master->find(itor.first)->second;
+    
+    // function name
+    string fname;
+    fname.append(itor.first->c_str());
+    fname.append(":");
+     
+    //print out the function header    
+    fprintf(out,"%-10s .function %s\n",
+            fname.c_str(), 
+	    parse_typesize(type).c_str()); 
+     
+    //print out the function params and variables
+    string f_vlabel = ".param";
+    for (size_t i = 0; i < block->size(); i++){
+      for (auto itor2: *block){
+         // params should come before variables by design, 
+            // so only check for when the transition arrives
+         if (itor2.second->sequence == i){
+           if (itor2.second->attributes[static_cast<int>(attr::LOCAL)]){
+             f_vlabel = ".local";
+           }
+           fprintf (out,"%-10s %s %s%s\n",
+                    "",
+                    f_vlabel.c_str(),
+                    parse_typesize(itor2.second).c_str(),
+                    itor2.first->c_str());
+           continue;
+         }
+      }
+    }
+    // fetch statements associated with function
+    ac3_table *found;
+    if (table_lookup->count(block))
+      found = table_lookup->find(block)->second;
+    else{
+      errprintf ("ac3 table not found for function %s",fname.c_str());
+      continue;
+    }
+    // print them
+    for (auto stmt: *found){
+      if (stmt->itype[static_cast<int>(instruction::ASSIGNMENT)]){
+          // [LABEL] T0 = T1 OPERATOR T2
+          string label = "";
+          string t0="";
+          string t1="";
+          string op="";
+          string t2="";
+          if (stmt->label) label = *(stmt->label);
+          if (stmt->t0) t0 = stmt->t0->str();
+          if (stmt->t1) t1 = stmt->t1->str();
+          if (stmt->op) op = *(stmt->op);
+          if (stmt->t2) t2 = stmt->t2->str();
+          fprintf(out,"%-10s %s = %s %s %s\n",
+                      label.c_str(),
+                      t0.c_str(),
+                      t1.c_str(),
+                      op.c_str(),
+                      t2.c_str());
+      }
+    }
+    //print out the ending statements
+    fprintf (out,"%-10s return\n","");
+    fprintf (out,"%-10s .end\n","");
+  }
+}
 
 
 void ac_traverse(astree *s, all_tables *table, FILE *out){
@@ -229,7 +388,7 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
 	table_lookup->emplace(found,new_function);
 	all_functions->push_back(make_pair(name->lexinfo,new_function));
         reg_count = 0;
-        // for (astree *stmt: s->children[2]->children) p_stmt(s,found,"");
+        for (astree *stmt: child->children[2]->children) p_stmt(stmt,found,"");
       }
       else {
         errprintf("3ac: function already defined\n");
@@ -243,7 +402,7 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
   // emit global definitions here
   emit_globaldef(out);
   //emit function definitions here
-  // emit_functions(table,out);
+  emit_functions(table,out);
 }
 
 void emit_3ac(astree *root, all_tables *table, FILE *out){
