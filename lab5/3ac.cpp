@@ -13,6 +13,8 @@ new vector<pair<const string*,ac3_table*>>();
 unordered_map <symbol_table*, ac3_table*> *table_lookup = 
 new unordered_map<symbol_table*, ac3_table*>;
 
+all_tables *master;
+
 ac3 *p_stmt(astree *expr, symbol_table *current, string label);
 
 // first available reg
@@ -104,6 +106,143 @@ template <class Type> string parse_typesize(const Type &o){
   return st;
 }
 
+// given a binop, return a stride
+string get_stride(astree *expr,symbol_table *current){
+  // default: :i
+  string ret = ":i";
+  astree *left = expr->children[0];
+  switch(left->symbol){
+    case TOK_INTCON:
+    case '*':
+    case '/':
+    case '%':
+    case '+':
+    case '-':
+    case '=':
+    case TOK_LT:
+    case TOK_LE:
+    case TOK_GT:
+    case TOK_GE:
+    case TOK_NOT:
+    case TOK_EQ:
+    case TOK_NE:{
+      ret = ":i";
+    }
+      break;
+
+    case TOK_CHARCON:{
+      ret = ":c";
+    }
+      break;
+      
+    case TOK_STRINGCON:
+    case TOK_NULLPTR:
+    case TOK_ALLOC:
+    case TOK_INDEX:
+    case TOK_ARROW:{
+      ret = ":p";
+    }
+      break;
+    case TOK_CALL:{
+      symbol *type_l = master->global->find(left->children[0]->lexinfo)->second;
+      if (type_l->attributes[static_cast<int>(attr::INT)])
+        ret = "i";
+      if (type_l->attributes[static_cast<int>(attr::CHAR)])
+        ret = "c";
+      if (type_l->attributes[static_cast<int>(attr::TYPEID)] ||
+          type_l->attributes[static_cast<int>(attr::STRING)] ||
+	  type_l->attributes[static_cast<int>(attr::ARRAY)])
+        ret = "p";
+    }
+      break;
+    case TOK_IDENT: {
+      symbol *ident_l;
+      if(master->global->count(left->lexinfo)){
+        ident_l = master->global->find(left->lexinfo)->second;
+      }
+      if(current->count(left->lexinfo)){
+        ident_l = current->find(left->lexinfo)->second;
+      }
+      if (ident_l->attributes[static_cast<int>(attr::INT)])
+        ret = "i";
+      if (ident_l->attributes[static_cast<int>(attr::CHAR)])
+        ret = "c";
+      if (ident_l->attributes[static_cast<int>(attr::TYPEID)] ||
+          ident_l->attributes[static_cast<int>(attr::STRING)] ||
+	  ident_l->attributes[static_cast<int>(attr::ARRAY)])
+        ret = "p";
+    }
+      break;
+  }
+
+  astree *right = expr->children[1];
+  switch(right->symbol){
+    case TOK_INTCON:
+    case '*':
+    case '/':
+    case '%':
+    case '+':
+    case '-':
+    case '=':
+    case TOK_LT:
+    case TOK_LE:
+    case TOK_GT:
+    case TOK_GE:
+    case TOK_NOT:
+    case TOK_EQ:
+    case TOK_NE: {
+      ret = ":i";
+    }
+      break;
+
+    case TOK_CHARCON: {
+      ret = ":c";
+    }
+      break;
+      
+    case TOK_STRINGCON:
+    case TOK_NULLPTR:
+    case TOK_ALLOC:
+    case TOK_INDEX:
+    case TOK_ARROW: {
+      ret = ":p";
+    }
+      break;
+    case TOK_CALL: {
+      symbol *type_r = master->global->find(right->children[0]->lexinfo)->second;
+      if (type_r->attributes[static_cast<int>(attr::INT)])
+        ret = "i";
+      if (type_r->attributes[static_cast<int>(attr::CHAR)])
+        ret = "c";
+      if (type_r->attributes[static_cast<int>(attr::TYPEID)] ||
+          type_r->attributes[static_cast<int>(attr::STRING)] ||
+	  type_r->attributes[static_cast<int>(attr::ARRAY)])
+        ret = "p"; 
+    }
+      break;
+    case TOK_IDENT: {
+      symbol *ident_r;
+      if(master->global->count(right->lexinfo)){
+        ident_r = master->global->find(right->lexinfo)->second;
+      }
+      if(current->count(right->lexinfo)){
+        ident_r = current->find(right->lexinfo)->second;
+      }
+      if (ident_r->attributes[static_cast<int>(attr::INT)])
+        ret = "i";
+      if (ident_r->attributes[static_cast<int>(attr::CHAR)])
+        ret = "c";
+      if (ident_r->attributes[static_cast<int>(attr::TYPEID)] ||
+          ident_r->attributes[static_cast<int>(attr::STRING)] ||
+	  ident_r->attributes[static_cast<int>(attr::ARRAY)])
+        ret = "p";
+   }
+      break;
+  }
+  return ret;
+}
+
+
 // helper function for assignment
 ac3 *asg_int(astree *expr, symbol_table *current, string label){
   ac3_table *found = table_lookup->find(current)->second;
@@ -121,12 +260,7 @@ ac3 *asg_int(astree *expr, symbol_table *current, string label){
     ac->t0 = new reg(t0);
     // must parse
     if (assignment->children[0]->children.size() > 1){
-      string *stride;
-      if (ident->attributes[static_cast<int>(attr::CHAR)])
-        stride = new string (":c");
-      else {
-        stride = new string(":i"); 
-      }
+      string *stride = new string (get_stride(assignment->children[0],current));
       ac->t1 = new reg(stride,reg_count);
       p_stmt(assignment->children[0],current,"");
       ++reg_count;
@@ -136,12 +270,7 @@ ac3 *asg_int(astree *expr, symbol_table *current, string label){
       ac->t1 =new reg(t1);
     }
     if (assignment->children[1]->children.size() > 1){
-      string *stride;
-      if (ident->attributes[static_cast<int>(attr::CHAR)])
-        stride = new string (":c");
-      else {
-        stride = new string(":i"); 
-      }
+      string *stride = new string (get_stride(assignment->children[1],current));
       ac->t1 = new reg(stride,reg_count);
       p_stmt(assignment->children[1],current,"");
       ++reg_count;
@@ -201,12 +330,31 @@ ac3 *p_assignment(astree *expr, symbol_table *current, string label){
   return nullptr;
 }
 
+ac3 *p_binop(astree *expr, symbol_table *current, string label){
+
+}
+
 // return the first statement generated by the functions.
 ac3 *p_stmt(astree *expr, symbol_table *current, string label){
   switch (expr->symbol){
     case '=':
     case TOK_TYPE_ID:
       return p_assignment(expr,current,label);
+    case '+':
+    case '-':
+    case '*':
+    case '/':
+    case '%':
+    case TOK_EQ:
+    case TOK_NE:
+    case TOK_LT:
+    case TOK_LE:
+    case TOK_GT:
+    case TOK_GE:
+      return p_binop(expr,current,label);
+
+
+
     default:
       ac3 *ac = new ac3(expr);
       return ac;
@@ -411,6 +559,7 @@ void emit_3ac(astree *root, all_tables *table, FILE *out){
     "stopping generation of assembly\n");
     return;
   }
+  master = table;
   table_lookup->emplace(table->global,all_globals);
   ac_traverse(root,table,out);
 }

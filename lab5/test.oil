@@ -16,9 +16,14 @@ homu_a:    .global int 5
 mami:      .global ptr 
 madoka:    .global ptr 
 kyouko:    .global struct test 
+test:      .function int 
+           return
+           .end
 z:         .function 
            .param int i
+           .local int ne
            .local int n
-           n = 1 + 3
+           ne = (  
+           n = $t0:i + 5
            return
            .end
