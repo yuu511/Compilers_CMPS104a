@@ -104,6 +104,35 @@ template <class Type> string parse_typesize(const Type &o){
   return st;
 }
 
+string *assign_stride(astree *s){
+  string = new string("");
+  switch(s->symbol){
+    case TOK_CHARCON:
+    case TOK_INTCON:
+    case TOK_STRINGCON:
+    case TOK_NULLPTR:
+    case TOK_LT:
+    case TOK_LE:
+    case TOK_GT:
+    case TOK_GE:
+    case '*':
+    case '/':
+    case '%':
+    case TOK_NOT:
+    case '+':
+    case '-':
+    case '=':
+    case TOK_ALLOC:
+    case TOK_EQ:
+    case TOK_NE:
+    case TOK_IDENT:
+    case TOK_CALL:
+    case TOK_INDEX:
+    case TOK_ARROW:
+  }
+  return string;
+}
+
 // helper function for assignment
 ac3 *asg_int(astree *expr, symbol_table *current, string label){
   ac3_table *found = table_lookup->find(current)->second;
