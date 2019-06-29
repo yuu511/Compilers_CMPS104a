@@ -73,7 +73,7 @@ ac3::~ac3(){
 ac3::ac3 (astree *expr_,reg *t0_ ){
   expr = expr_;
   t0 = t0_;
-  label = new string ("");
+  label = nullptr;
   op = nullptr;
   t1 = nullptr;
   t2 = nullptr;
@@ -283,8 +283,7 @@ ac3 *p_assignment(astree *expr, symbol_table *current, string *label){
     }
   } 
   else {
-    string *name = new string (*(ident->lexinfo));
-    ac3 *ac = new ac3(expr,new reg(name));
+    ac3 *ac = new ac3(expr,new reg(ident->lexinfo));
     ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
     found->push_back(ac);
     return ac;
