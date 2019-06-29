@@ -1,29 +1,20 @@
-.struct allofem
-.field ptr sayaka
-.field struct none homura
+.struct mami
+.field ptr madoka
+.field struct sayaka sayaka
 .field int one
 .field ptr two
 .end 
-.struct none
+.struct sayaka
 .end 
-.struct test
-.end 
-.struct onearg
-.field int trivial
-.end 
-homu:      .global int 
-homu_a:    .global int 5
-mami:      .global ptr 
-madoka:    .global ptr 
-kyouko:    .global struct test 
-test:      .function int 
-           return
-           .end
-z:         .function 
-           .param int i
-           .local int ne
-           .local int n
-           ne = (  
-           n = $t0:i + 5
+a:         .global int 
+b:         .global int 5
+trivial:   .function 
+           .param int x
+           .local int z
+           z = $t0:i + $t1:i
+           $t0:i = 5 + 3
+           $t1:i = 5 + 3
+           z = 3  
+           z = 'c'  
            return
            .end

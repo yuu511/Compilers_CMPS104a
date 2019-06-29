@@ -13,11 +13,11 @@ using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)
 
 struct reg {
   // exists if a register is a variable
-  string *ident;
+  const string *ident;
   // exists if a register is an actual register
   int reg_number;
   string *stride;
-  reg(string *ident);
+  reg(const string *ident);
   reg(string *stride , int reg_number);
   string str();
   ~reg();
@@ -25,9 +25,9 @@ struct reg {
 
 struct ac3{
   astree *expr;
-  string *label;
+  const string *label;
   reg *t0;
-  string *op;
+  const string *op;
   reg *t1;
   reg *t2;
   instruction_bitset itype = 0;
