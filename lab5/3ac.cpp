@@ -90,7 +90,6 @@ template <class Type> string parse_typesize(const Type &o){
   attr_bitset a = o->attributes;
   const string *sname = o->sname;
   string st = "";
-
   if (a[static_cast<int>(attr::TYPEID)]){
     st.append ("struct ");
     if (sname != nullptr){
@@ -111,12 +110,9 @@ template <class Type> string parse_typesize(const Type &o){
   return st;
 }
 
-// given a binary operation, return a stride
 string get_stride(astree *expr,symbol_table *current){
-  // default: :i
-  string ret = ":i";
-  astree *left = expr->children[0];
-  switch(left->symbol){
+  string ret = "";
+  switch(expr->symbol){
     case TOK_INTCON:
     case '*':
     case '/':
@@ -134,12 +130,10 @@ string get_stride(astree *expr,symbol_table *current){
       ret = ":i";
     }
       break;
-
     case TOK_CHARCON:{
       ret = ":c";
     }
       break;
-      
     case TOK_STRINGCON:
     case TOK_NULLPTR:
     case TOK_ALLOC:
@@ -149,100 +143,56 @@ string get_stride(astree *expr,symbol_table *current){
     }
       break;
     case TOK_CALL:{
-      symbol *type_l = master->global->find(left->children[0]->lexinfo)->second;
-      if (type_l->attributes[static_cast<int>(attr::INT)])
-        ret = "i";
-      if (type_l->attributes[static_cast<int>(attr::CHAR)])
-        ret = "c";
-      if (type_l->attributes[static_cast<int>(attr::TYPEID)] ||
-          type_l->attributes[static_cast<int>(attr::STRING)] ||
-	  type_l->attributes[static_cast<int>(attr::ARRAY)])
-        ret = "p";
+      symbol *type = master->global->find(expr->lexinfo)->second;
+      if (type->attributes[static_cast<int>(attr::INT)])
+        ret = ":i";
+      if (type->attributes[static_cast<int>(attr::CHAR)])
+        ret = ":c";
+      if (type->attributes[static_cast<int>(attr::TYPEID)] ||
+          type->attributes[static_cast<int>(attr::STRING)] ||
+	      type->attributes[static_cast<int>(attr::ARRAY)])
+        ret = ":p";
     }
       break;
     case TOK_IDENT: {
-      symbol *ident_l;
-      if(master->global->count(left->lexinfo)){
-        ident_l = master->global->find(left->lexinfo)->second;
+      symbol *ident;
+      if(master->global->count(expr->lexinfo)){
+        ident = master->global->find(expr->lexinfo)->second;
       }
-      if(current->count(left->lexinfo)){
-        ident_l = current->find(left->lexinfo)->second;
+      if(current->count(expr->lexinfo)){
+        ident = current->find(expr->lexinfo)->second;
       }
-      if (ident_l->attributes[static_cast<int>(attr::INT)])
-        ret = "i";
-      if (ident_l->attributes[static_cast<int>(attr::CHAR)])
-        ret = "c";
-      if (ident_l->attributes[static_cast<int>(attr::TYPEID)] ||
-          ident_l->attributes[static_cast<int>(attr::STRING)] ||
-	  ident_l->attributes[static_cast<int>(attr::ARRAY)])
-        ret = "p";
+      if (ident->attributes[static_cast<int>(attr::INT)])
+        ret = ":i";
+      if (ident->attributes[static_cast<int>(attr::CHAR)])
+        ret = ":c";
+      if (ident->attributes[static_cast<int>(attr::TYPEID)] ||
+          ident->attributes[static_cast<int>(attr::STRING)] ||
+	  ident->attributes[static_cast<int>(attr::ARRAY)])
+        ret = ":p";
     }
       break;
   }
+  return ret;
+}
 
-  astree *right = expr->children[1];
-  switch(right->symbol){
-    case TOK_INTCON:
-    case '*':
-    case '/':
-    case '%':
-    case '+':
-    case '-':
-    case '=':
-    case TOK_LT:
-    case TOK_LE:
-    case TOK_GT:
-    case TOK_GE:
-    case TOK_NOT:
-    case TOK_EQ:
-    case TOK_NE: {
-      ret = ":i";
-    }
-      break;
-
-    case TOK_CHARCON: {
-      ret = ":c";
-    }
-      break;
-      
-    case TOK_STRINGCON:
-    case TOK_NULLPTR:
-    case TOK_ALLOC:
-    case TOK_INDEX:
-    case TOK_ARROW: {
-      ret = ":p";
-    }
-      break;
-    case TOK_CALL: {
-      symbol *type_r = master->global->find(right->children[0]->lexinfo)->second;
-      if (type_r->attributes[static_cast<int>(attr::INT)])
-        ret = ":i";
-      if (type_r->attributes[static_cast<int>(attr::CHAR)])
-        ret = ":c";
-      if (type_r->attributes[static_cast<int>(attr::TYPEID)] ||
-          type_r->attributes[static_cast<int>(attr::STRING)] ||
-	  type_r->attributes[static_cast<int>(attr::ARRAY)])
-        ret = ":p"; 
-    }
-      break;
-    case TOK_IDENT: {
-      symbol *ident_r;
-      if(master->global->count(right->lexinfo)){
-        ident_r = master->global->find(right->lexinfo)->second;
-      }
-      if(current->count(right->lexinfo)){
-        ident_r = current->find(right->lexinfo)->second;
-      }
-      if (ident_r->attributes[static_cast<int>(attr::INT)])
-        ret = ":i";
-      if (ident_r->attributes[static_cast<int>(attr::CHAR)])
-        ret = ":c";
-      if (ident_r->attributes[static_cast<int>(attr::TYPEID)] ||
-          ident_r->attributes[static_cast<int>(attr::STRING)] ||
-	  ident_r->attributes[static_cast<int>(attr::ARRAY)])
-        ret = ":p";
-   }
-      break;
+// given a binary operation, return a stride
+string stride_binop(astree *expr,symbol_table *current){
+  string ret = "";
+  string left = get_stride(expr->children[0],current);
+  string right = get_stride(expr->children[1],current);
+  if (left == ":i" || right == ":i"){
+    return ":i";
+  }
+  if (left == ":c" && right == ":c"){
+    return ":c";  
+  }
+  if (left == ":p" && right == ":p"){
+    return ":p";
+  }
+  if (left == ":c" && right == ":p" ||
+      left == ":p" && right == ":c"){
+    return ":i";
   }
   return ret;
 }
@@ -266,13 +216,8 @@ ac3 *asg_int(astree *expr, symbol_table *current, string *label){
 // else if '=' it's an assignment
 ac3 *p_assignment(astree *expr, symbol_table *current, string *label){
   ac3_table *found = table_lookup->find(current)->second;
-  // a typeid can have no assignment (int x, for example)
-  size_t min = 1;
-  astree *ident = expr->children[0];
-  if (expr->symbol == TOK_TYPE_ID){
-    ident = expr->children[1];
-    min = 2;
-  }
+  size_t min;
+  expr->symbol == TOK_TYPE_ID ? min = 2 : min = 1;
   if (expr->children.size() > min){
     attr_bitset a = expr->attributes;
     if (a[static_cast<int>(attr::ARRAY)]){
@@ -287,12 +232,16 @@ ac3 *p_assignment(astree *expr, symbol_table *current, string *label){
     if (a[static_cast<int>(attr::INT)]){
       return asg_int(expr,current,label);
     }
-  } 
+  }  
+  // only for global variables 
   else {
-    ac3 *ac = new ac3(expr,new reg(ident->lexinfo));
+    astree *ident;
+    expr->symbol == TOK_TYPE_ID 
+    ? ident = expr->children[1] : ident = expr->children[0]; 
+    ac3 *ac =new ac3(expr);
+    ac->t0 = new reg(ident->lexinfo);
     ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
     found->push_back(ac);
-    return ac;
   }
   return nullptr;
 }
@@ -306,22 +255,21 @@ ac3 *p_binop(astree *expr, symbol_table *current, string *label,const string *in
     ac->t0 = new reg(init);
   // otherwise, store in the first available register.
   else { 
-    ac->t0 = new reg(new string(get_stride(expr,current)),reg_count);
+    ac->t0 = new reg(new string(stride_binop(expr,current)),reg_count);
     ++reg_count;
   }
   // parse the expressions
   // check the two children
     if (expr->children[0]->children.size() > 1
         || expr->children[0]->symbol == TOK_CALL){
-      string *stride = new string (get_stride(expr->children[0],current));
+      string *stride = new string (stride_binop(expr->children[0],current));
       ac->t1 = new reg(stride,reg_count);
       p_expr(expr->children[0],current,label,nullptr);
-      printf("%d",reg_count);
     } 
     else if (expr->children[0]->children.size() == 1){
       if (expr->children[0]->children[0]->children.size() > 1){
         string *stride = 
-          new string(get_stride(expr->children[0]->children[0],current));
+          new string(stride_binop(expr->children[0]->children[0],current));
         reg *unary = new reg(stride,reg_count);
         unary->unop = new string(*(expr->children[0]->lexinfo));
         ac->t1 = unary;
@@ -339,19 +287,18 @@ ac3 *p_binop(astree *expr, symbol_table *current, string *label,const string *in
 
     if (expr->children[1]->children.size() > 1
         || expr->children[1]->symbol == TOK_CALL){
-      string *stride = new string (get_stride(expr->children[1],current));
+      string *stride = new string (stride_binop(expr->children[1],current));
       ac->t2 = new reg(stride,reg_count);
       p_expr(expr->children[1],current,label,nullptr);
     } 
     else if (expr->children[1]->children.size() == 1){
       if (expr->children[1]->children[0]->children.size() > 1){
         string *stride = 
-          new string(get_stride(expr->children[1]->children[0],current));
+          new string(stride_binop(expr->children[1]->children[0],current));
         reg *unary = new reg(stride,reg_count);
         unary->unop = new string(*(expr->children[1]->lexinfo));
         ac->t2 = unary;
         p_expr(expr->children[1]->children[0],current,label,nullptr);
-        printf("%d",reg_count);
       }
       else {
         reg *unary = new reg(expr->children[1]->children[0]->lexinfo);
@@ -378,10 +325,12 @@ ac3 *p_unop(astree *expr, symbol_table *current, string *label,const string *ini
   if (init) 
     ac->t0 = new reg(init);
   // otherwise, store in the first available register.
-  else 
+  else {
     ac->t0 = new reg(new string(":i"),reg_count);
+    ++reg_count;
+  }
   if (expr->children[0]->children.size() > 1){
-    string *stride = new string(get_stride(expr->children[0],current));
+    string *stride = new string(stride_binop(expr->children[0],current));
     reg *unary = new reg(stride,reg_count);
     unary->unop = new string(*(expr->lexinfo));
     ac->t1 = unary;
@@ -467,14 +416,18 @@ ac3 *p_expr(astree *expr, symbol_table *current, string *label,const string *ini
 
 // return the first statement generated by the functions.
 ac3 *p_stmt(astree *expr, symbol_table *current, string *label){
-  ac3_table *found = table_lookup->find(current)->second;
   switch (expr->symbol){
     case '=':
-    case TOK_TYPE_ID:
       return p_assignment(expr,current,label);
+    case TOK_TYPE_ID:
+      // ignore non-init vardecl e.g. int x;
+      if (expr->children.size() > 2)
+        return p_assignment(expr,current,label);
+      break;
     default:
       return p_expr(expr,current,label,nullptr);
   }
+  return nullptr;
 }
 
 void ac_globalvar(astree *child, all_tables *table){
@@ -597,22 +550,14 @@ void emit_functions(all_tables *table, FILE *out){
     for (auto stmt: *found){
       if (stmt->itype[static_cast<int>(instruction::ASSIGNMENT)]){
           // [LABEL] T0 = T1 OPERATOR T2
-          string label = "";
-          string t0="";
-          string t1="";
-          string op="";
-          string t2="";
-          if (stmt->label) label = *(stmt->label);
-          if (stmt->t0) t0 = stmt->t0->str();
-          if (stmt->t1) t1 = stmt->t1->str();
-          if (stmt->op) op = *(stmt->op);
-          if (stmt->t2) t2 = stmt->t2->str();
-          fprintf(out,"%-10s %s = %s %s %s\n",
-                      label.c_str(),
-                      t0.c_str(),
-                      t1.c_str(),
-                      op.c_str(),
-                      t2.c_str());
+          // = only appears if t1 exists
+          fprintf(out,"%-10s %s %s %s %s %s\n",
+                      stmt->label ? stmt->label->c_str() : "",
+                      stmt->t0 ? stmt->t0->str().c_str() : "" ,
+                      stmt->t1 ? "=" : "",
+                      stmt->t1 ? stmt->t1->str().c_str() : "",
+                      stmt->op ? stmt->op->c_str() : "",
+                      stmt->t2 ? stmt->t2->str().c_str() : "");
       }
     }
     //print out the ending statements

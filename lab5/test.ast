@@ -51,20 +51,21 @@ INTCON "3" 5.26.29 {2} int const
 '+' "+" 5.26.38 {2} int vreg 
 INTCON "5" 5.26.36 {2} int const 
 INTCON "3" 5.26.40 {2} int const 
-'=' "=" 5.27.5 {2} int variable local lval vreg 
-IDENT "z" 5.27.3 {2} int variable local lval (5.26.3)
-INTCON "3" 5.27.7 {2} int const 
+TYPE_ID "" 5.27.3 {2} int variable local lval (5.27.3)
+INT "int" 5.27.3 {0} 
+IDENT "y" 5.27.7 {0} 
 '=' "=" 5.28.5 {2} int variable local lval vreg 
 IDENT "z" 5.28.3 {2} int variable local lval (5.26.3)
-CHARCON "'c'" 5.28.7 {2} int const 
+INTCON "3" 5.28.7 {2} int const 
 '=' "=" 5.29.5 {2} int variable local lval vreg 
 IDENT "z" 5.29.3 {2} int variable local lval (5.26.3)
-'+' "+" 5.29.10 {2} int vreg 
-'+' "+" 5.29.8 {2} int vreg 
-INTCON "5" 5.29.7 {2} int const 
-INTCON "3" 5.29.9 {2} int const 
-INTCON "2" 5.29.11 {2} int const 
-'=' "=" 5.33.5 {2} int variable local lval vreg 
-IDENT "z" 5.33.3 {2} int variable local lval (5.26.3)
-NOT "not" 5.33.7 {2} int const vreg 
-INTCON "1" 5.33.11 {2} int const 
+CHARCON "'c'" 5.29.7 {2} int const 
+'=' "=" 5.30.5 {2} int variable local lval vreg 
+IDENT "y" 5.30.3 {2} int variable local lval (5.27.3)
+'=' "=" 5.30.9 {2} int variable local lval vreg 
+IDENT "z" 5.30.7 {2} int variable local lval (5.26.3)
+'+' "+" 5.30.14 {2} int vreg 
+'+' "+" 5.30.12 {2} int vreg 
+INTCON "5" 5.30.11 {2} int const 
+INTCON "3" 5.30.13 {2} int const 
+INTCON "2" 5.30.15 {2} int const 

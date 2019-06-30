@@ -14,6 +14,7 @@ call:      .function int
 trivial:   .function 
            .param int x
            .local int z
+           .local int y
            z = $t0:i + $t3:i
            $t0:i = $t1:c + $t2:i
            $t1:c = 'c' + 'a'
@@ -21,8 +22,8 @@ trivial:   .function
            $t3:i = 5 + 3
            z = 3  
            z = 'c'  
-           z = $t4:i + 2
-           $t4:i = 5 + 3
-           z = not1  
+           y = z = $t4:i
+           $t4:i = $t5:i + 2
+           $t5:i = 5 + 3
            return
            .end
