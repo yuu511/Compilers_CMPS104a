@@ -4,9 +4,11 @@ mami (4.3.1) {0} struct mami
    sayaka (4.5.18) field struct sayaka 2
    madoka (4.6.18) int array field 3
 
-trivial (5.22.1) {0} void function 
-   x (5.22.15) {1} int variable param lval 0
-   z (5.23.3) {1} int variable local lval 1
+trivial (5.25.1) {1} void function 
+   x (5.25.15) {2} int variable param lval 0
+   z (5.26.3) {2} int variable local lval 1
+
+call (5.20.1) {0} int function 
 
 a (4.10.1) {0} int variable lval 
 

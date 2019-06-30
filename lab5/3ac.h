@@ -17,6 +17,9 @@ struct reg {
   // exists if a register is an actual register
   int reg_number;
   string *stride;
+  // all registers may have a unary operator
+  string *unop;
+  // constructors
   reg(const string *ident);
   reg(string *stride , int reg_number);
   string str();
