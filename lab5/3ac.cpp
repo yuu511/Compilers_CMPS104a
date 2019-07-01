@@ -22,7 +22,7 @@ ac3 *p_expr(astree *expr, symbol_table *current, string *label,const string *ini
 // first available reg
 int reg_count = -1;
 // first while
-int while_count = 0;
+int while_count = -1;
 //first int
 int if_count = 0;
 
@@ -375,18 +375,29 @@ ac3 *p_static_int(astree *expr, symbol_table *current, string *label,const strin
 //}
 
 
+void p_if(astree *expr, symbol_table *current, string *label){ 
+  ac3_table *found = table_lookup->find(current)->second;
+}
+
 void p_while(astree *expr, symbol_table *current, string *label){ 
+  ++while_count;
+  int orig_while = while_count;
   ac3_table *found = table_lookup->find(current)->second;
 
-  /* while header */
-  string while_label = ".wh" + to_string(while_count) + ":";
-  string goto_label = ".od" + to_string(while_count);
-
-  string *wh_header = new string(while_label);
+  // if label exists, this while statement is enclosed within
+  // an if or while statement. emit the label to encapsulate this while.
   if (label){
-    wh_header->append(*label);
-    delete label;
+    ac3 *encapsulate = new ac3(expr);
+    encapsulate->label = label;
+    encapsulate->itype.set(static_cast<int>(instruction::LABEL_ONLY));
+    found->push_back(encapsulate);
   }
+
+  /* while header */
+  string while_label = ".wh" + to_string(orig_while);
+  string goto_label = ".od" + to_string(orig_while);
+
+  string *wh_header = new string(while_label + ":");
   astree *condition = expr->children[0];
   astree *block = expr->children[1];
   // parse expression, get regsister of return
@@ -416,9 +427,8 @@ void p_while(astree *expr, symbol_table *current, string *label){
   found->push_back(wh_goto);
 
   /* first statement */
-  string *first_label = new string(".do" + to_string(while_count) + ":");
+  string *first_label = new string(".do" + to_string(orig_while) + ":");
   if (block->children.size() > 0){
-    // first statement
     p_stmt(block->children[0],current,first_label); 
     // parse the rest of the statements
     for (size_t i = 1; i < block->children.size(); ++i){
@@ -443,8 +453,6 @@ void p_while(astree *expr, symbol_table *current, string *label){
   closing_stmt->label = new string(goto_label + ":");
   closing_stmt->itype.set(static_cast<int>(instruction::LABEL_ONLY));
   found->push_back(closing_stmt);
-   
-  ++while_count;
 }
 
 
@@ -495,6 +503,9 @@ void p_stmt(astree *expr, symbol_table *current, string *label){
       // ignore non-init vardecl e.g. int x;
       if (expr->children.size() > 2)
         p_assignment(expr,current,label);
+      break;
+    case TOK_IF:
+      p_if(expr,current,label);
       break;
     case TOK_WHILE:
       p_while(expr,current,label);
@@ -675,7 +686,8 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
       // find symbol table associated with function
       if (table->master->find(name->lexinfo) != table->master->end()){
         found = table->master->find(name->lexinfo)->second;
-      } else {
+      } 
+      else {
         errprintf ("3ac: invalid function definition. Stopping address code generation \n");
 	    return;
       }

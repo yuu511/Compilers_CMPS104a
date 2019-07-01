@@ -22,8 +22,13 @@ trivial:   .function
            $t4:i = 5 * 3
 .wh0:      $t5:i = x == 1
            goto .od0 if not $t5:i
-.do0:      z = z + 1
-           goto .wh0:  
+.do0:
+.wh1:      $t6:i = z == 3
+           goto .od1 if not $t6:i
+.do1:      x = x + 1
+           goto .wh1  
+.od1:
+           goto .wh0  
 .od0:
            return
            .end
