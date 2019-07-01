@@ -1,22 +1,48 @@
-==3750== Memcheck, a memory error detector
-==3750== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==3750== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
-==3750== Command: ./oc ./examples/test.oc
-==3750== 
-non-recognized expression parsed:TOK_CALL 
- parsing expr failed:  
-invalid statment passed :==3750== 
-==3750== HEAP SUMMARY:
-==3750==     in use at exit: 32 bytes in 1 blocks
-==3750==   total heap usage: 394 allocs, 393 frees, 139,934 bytes allocated
-==3750== 
-==3750== LEAK SUMMARY:
-==3750==    definitely lost: 32 bytes in 1 blocks
-==3750==    indirectly lost: 0 bytes in 0 blocks
-==3750==      possibly lost: 0 bytes in 0 blocks
-==3750==    still reachable: 0 bytes in 0 blocks
-==3750==         suppressed: 0 bytes in 0 blocks
-==3750== Rerun with --leak-check=full to see details of leaked memory
-==3750== 
-==3750== For counts of detected and suppressed errors, rerun with: -v
-==3750== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3ac.cpp
+3ac.cpp: In function ‘ac3* asg_int(astree*, symbol_table*, std::__cxx11::string*)’:
+3ac.cpp:236:51: error: no matching function for call to ‘to_string(instruction_bitset&)’
+       printf ("%s",to_string(new_assignment->itype).c_str());
+                                                   ^
+In file included from /usr/include/c++/7/string:52:0,
+                 from /usr/include/c++/7/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:1,
+                 from 3ac.cpp:1:
+/usr/include/c++/7/bits/basic_string.h:6405:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(int)
+   to_string(int __val)
+   ^~~~~~~~~
+/usr/include/c++/7/bits/basic_string.h:6405:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘int’
+/usr/include/c++/7/bits/basic_string.h:6410:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(unsigned int)
+   to_string(unsigned __val)
+   ^~~~~~~~~
+/usr/include/c++/7/bits/basic_string.h:6410:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘unsigned int’
+/usr/include/c++/7/bits/basic_string.h:6416:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(long int)
+   to_string(long __val)
+   ^~~~~~~~~
+/usr/include/c++/7/bits/basic_string.h:6416:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘long int’
+/usr/include/c++/7/bits/basic_string.h:6421:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(long unsigned int)
+   to_string(unsigned long __val)
+   ^~~~~~~~~
+/usr/include/c++/7/bits/basic_string.h:6421:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘long unsigned int’
+/usr/include/c++/7/bits/basic_string.h:6427:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(long long int)
+   to_string(long long __val)
+   ^~~~~~~~~
+/usr/include/c++/7/bits/basic_string.h:6427:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘long long int’
+/usr/include/c++/7/bits/basic_string.h:6433:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(long long unsigned int)
+   to_string(unsigned long long __val)
+   ^~~~~~~~~
+/usr/include/c++/7/bits/basic_string.h:6433:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘long long unsigned int’
+/usr/include/c++/7/bits/basic_string.h:6439:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(float)
+   to_string(float __val)
+   ^~~~~~~~~
+/usr/include/c++/7/bits/basic_string.h:6439:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘float’
+/usr/include/c++/7/bits/basic_string.h:6448:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(double)
+   to_string(double __val)
+   ^~~~~~~~~
+/usr/include/c++/7/bits/basic_string.h:6448:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘double’
+/usr/include/c++/7/bits/basic_string.h:6457:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(long double)
+   to_string(long double __val)
+   ^~~~~~~~~
+/usr/include/c++/7/bits/basic_string.h:6457:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘long double’
+Makefile:55: recipe for target '3ac.o' failed
+make: *** [3ac.o] Error 1
