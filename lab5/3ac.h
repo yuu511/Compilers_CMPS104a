@@ -7,7 +7,7 @@ void free_3ac();
 
 // instruction bitset for kind of instruction
 enum class instruction{
-  GOTO,RETURN,ASSIGNMENT,CALL,BITSET_SIZE
+  GOTO,ASSIGNMENT,LABEL_ONLY,CALL,BITSET_SIZE
 };
 using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)>;
 
@@ -28,7 +28,7 @@ struct reg {
 
 struct ac3{
   astree *expr;
-  const string *label;
+  string *label;
   reg *t0;
   const string *op;
   reg *t1;

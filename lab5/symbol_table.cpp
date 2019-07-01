@@ -1041,9 +1041,9 @@ symbol *p_index(astree *s){
 }
 
 symbol *p_field (astree *s){
- symbol *ident   = p_expression(s->children[0]);
- const string *field_name = s->children[1]->lexinfo;
- symbol *sym = new symbol (s,current);
+  symbol *ident   = p_expression(s->children[0]);
+  const string *field_name = s->children[1]->lexinfo;
+  symbol *sym = new symbol (s,current);
   if (ident->attributes[static_cast<int>(attr::TYPEID)] && ident->sname !=nullptr){
     if (struct_valid(ident->sname,sym->lloc)){
       symbol *found_struct = struct_t->find(ident->sname)->second; 

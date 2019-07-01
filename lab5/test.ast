@@ -40,7 +40,8 @@ BLOCK "{" 5.25.21 {2}
 TYPE_ID "" 5.26.3 {2} int variable local lval vreg (5.26.3)
 INT "int" 5.26.3 {0} 
 IDENT "z" 5.26.7 {0} 
-'+' "+" 5.26.33 {2} int variable local lval vreg 
+'+' "+" 5.26.41 {2} int variable local lval vreg 
+'+' "+" 5.26.33 {2} int vreg 
 '+' "+" 5.26.24 {2} int vreg 
 '+' "+" 5.26.17 {2} int vreg 
 CHARCON "'c'" 5.26.13 {2} int const 
@@ -48,24 +49,17 @@ CHARCON "'a'" 5.26.19 {2} int const
 '+' "+" 5.26.28 {2} int vreg 
 INTCON "5" 5.26.27 {2} int const 
 INTCON "3" 5.26.29 {2} int const 
-'+' "+" 5.26.38 {2} int vreg 
-INTCON "5" 5.26.36 {2} int const 
-INTCON "3" 5.26.40 {2} int const 
-TYPE_ID "" 5.27.3 {2} int variable local lval (5.27.3)
-INT "int" 5.27.3 {0} 
-IDENT "y" 5.27.7 {0} 
-'=' "=" 5.28.5 {2} int variable local lval vreg 
-IDENT "z" 5.28.3 {2} int variable local lval (5.26.3)
-INTCON "3" 5.28.7 {2} int const 
-'=' "=" 5.29.5 {2} int variable local lval vreg 
-IDENT "z" 5.29.3 {2} int variable local lval (5.26.3)
-CHARCON "'c'" 5.29.7 {2} int const 
-'=' "=" 5.30.5 {2} int variable local lval vreg 
-IDENT "y" 5.30.3 {2} int variable local lval (5.27.3)
-'=' "=" 5.30.9 {2} int variable local lval vreg 
-IDENT "z" 5.30.7 {2} int variable local lval (5.26.3)
-'+' "+" 5.30.14 {2} int vreg 
-'+' "+" 5.30.12 {2} int vreg 
-INTCON "5" 5.30.11 {2} int const 
-INTCON "3" 5.30.13 {2} int const 
-INTCON "2" 5.30.15 {2} int const 
+'*' "*" 5.26.37 {2} int vreg 
+INTCON "5" 5.26.35 {2} int const 
+INTCON "3" 5.26.39 {2} int const 
+INTCON "4" 5.26.43 {2} int const 
+WHILE "while" 5.27.3 {2} 
+EQ "==" 5.27.12 {2} int vreg 
+IDENT "x" 5.27.10 {2} int variable param lval (5.25.15)
+INTCON "1" 5.27.15 {2} int const 
+BLOCK "{" 5.27.17 {2} 
+'=' "=" 5.28.7 {2} int variable local lval vreg 
+IDENT "z" 5.28.5 {2} int variable local lval (5.26.3)
+'+' "+" 5.28.11 {2} int vreg 
+IDENT "z" 5.28.9 {2} int variable local lval (5.26.3)
+INTCON "1" 5.28.12 {2} int const 

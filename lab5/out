@@ -1,70 +1,14 @@
-ROOT "<<ROOT>>" 0.0.0
-| STRUCT "struct" 4.3.1
-| | IDENT "mami" 4.3.8
-| | TYPE_ID "" 4.3.15
-| | | INT "int" 4.3.15
-| | | IDENT "one" 4.3.19
-| | TYPE_ID "" 4.4.18
-| | | STRING "string" 4.4.18
-| | | IDENT "two" 4.4.25
-| | TYPE_ID "" 4.5.18
-| | | PTR "ptr" 4.5.18
-| | | | IDENT "sayaka" 4.5.30
-| | | IDENT "sayaka" 4.5.38
-| | TYPE_ID "" 4.6.18
-| | | ARRAY "array" 4.6.18
-| | | | INT "int" 4.6.25
-| | | IDENT "madoka" 4.6.30
-| TYPE_ID "" 4.10.1
-| | INT "int" 4.10.1
-| | IDENT "a" 4.10.5
-| TYPE_ID "" 4.11.1
-| | INT "int" 4.11.1
-| | IDENT "b" 4.11.5
-| | INTCON "5" 4.11.9
-| FUNCTION "" 5.20.1
-| | TYPE_ID "" 5.20.1
-| | | INT "int" 5.20.1
-| | | IDENT "call" 5.20.5
-| | PARAM "(" 5.20.10
-| | BLOCK "{" 5.20.12
-| FUNCTION "" 5.25.1
-| | TYPE_ID "" 5.25.1
-| | | VOID "void" 5.25.1
-| | | IDENT "trivial" 5.25.6
-| | PARAM "(" 5.25.14
-| | | TYPE_ID "" 5.25.15
-| | | | INT "int" 5.25.15
-| | | | IDENT "x" 5.25.19
-| | BLOCK "{" 5.25.21
-| | | TYPE_ID "" 5.26.3
-| | | | INT "int" 5.26.3
-| | | | IDENT "z" 5.26.7
-| | | | '+' "+" 5.26.33
-| | | | | '+' "+" 5.26.24
-| | | | | | '+' "+" 5.26.17
-| | | | | | | CHARCON "'c'" 5.26.13
-| | | | | | | CHARCON "'a'" 5.26.19
-| | | | | | '+' "+" 5.26.28
-| | | | | | | INTCON "5" 5.26.27
-| | | | | | | INTCON "3" 5.26.29
-| | | | | '+' "+" 5.26.38
-| | | | | | INTCON "5" 5.26.36
-| | | | | | INTCON "3" 5.26.40
-| | | '=' "=" 5.27.5
-| | | | IDENT "z" 5.27.3
-| | | | INTCON "3" 5.27.7
-| | | '=' "=" 5.28.5
-| | | | IDENT "z" 5.28.3
-| | | | CHARCON "'c'" 5.28.7
-| | | '=' "=" 5.29.5
-| | | | IDENT "z" 5.29.3
-| | | | '+' "+" 5.29.10
-| | | | | '+' "+" 5.29.8
-| | | | | | INTCON "5" 5.29.7
-| | | | | | INTCON "3" 5.29.9
-| | | | | INTCON "2" 5.29.11
-| | | '=' "=" 5.33.5
-| | | | IDENT "z" 5.33.3
-| | | | NOT "not" 5.33.7
-| | | | | INTCON "1" 5.33.11
+==12641== Memcheck, a memory error detector
+==12641== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==12641== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==12641== Command: ./oc ./examples/test.oc
+==12641== 
+==12641== 
+==12641== HEAP SUMMARY:
+==12641==     in use at exit: 0 bytes in 0 blocks
+==12641==   total heap usage: 388 allocs, 388 frees, 138,453 bytes allocated
+==12641== 
+==12641== All heap blocks were freed -- no leaks are possible
+==12641== 
+==12641== For counts of detected and suppressed errors, rerun with: -v
+==12641== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

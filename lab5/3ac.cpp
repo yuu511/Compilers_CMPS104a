@@ -5,6 +5,7 @@
 #include "auxlib.h"
 
 vector<const string*> *all_strings  = new vector <const string*>();
+
 ac3_table *all_globals = new ac3_table; 
 
 vector<pair<const string*,ac3_table*>> *all_functions = 
@@ -15,11 +16,15 @@ new unordered_map<symbol_table*, ac3_table*>;
 
 all_tables *master;
 
-ac3 *p_stmt(astree *expr, symbol_table *current, string *label);
+void p_stmt(astree *expr, symbol_table *current, string *label);
 ac3 *p_expr(astree *expr, symbol_table *current, string *label,const string *init);
 
 // first available reg
 int reg_count = -1;
+// first while
+int while_count = 0;
+//first int
+int if_count = 0;
 
 reg::reg(const string *ident_){
   ident = ident_; 
@@ -178,23 +183,15 @@ string get_stride(astree *expr,symbol_table *current){
 
 // given a binary operation, return a stride
 string stride_binop(astree *expr,symbol_table *current){
-  string ret = "";
   string left = get_stride(expr->children[0],current);
   string right = get_stride(expr->children[1],current);
-  if (left == ":i" || right == ":i"){
-    return ":i";
-  }
   if (left == ":c" && right == ":c"){
     return ":c";  
   }
   if (left == ":p" && right == ":p"){
     return ":p";
   }
-  if (left == ":c" && right == ":p" ||
-      left == ":p" && right == ":c"){
-    return ":i";
-  }
-  return ret;
+  return ":i";
 }
 
 
@@ -250,6 +247,9 @@ ac3 *p_binop(astree *expr, symbol_table *current, string *label,const string *in
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac = new ac3(expr); 
   found->push_back(ac);
+  ac->label = label;
+  ac->op = expr->lexinfo;
+  ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   // if a varaiable for expr exists, store it in variable
   if (init) 
     ac->t0 = new reg(init);
@@ -309,9 +309,6 @@ ac3 *p_binop(astree *expr, symbol_table *current, string *label,const string *in
     else {
       ac->t2 =new reg(expr->children[1]->lexinfo);
     }
-    ac->label = label;
-    ac->op = expr->lexinfo;
-    ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
     return ac;
 }
 
@@ -373,9 +370,83 @@ ac3 *p_static_int(astree *expr, symbol_table *current, string *label,const strin
   return ac;
 }
 
-ac3 *p_call(astree *expr, symbol_table *current, string *label,const string *init){
+//ac3 *p_call(astree *expr, symbol_table *current, string *label,const string *init){
+//
+//}
 
+
+void p_while(astree *expr, symbol_table *current, string *label){ 
+  ac3_table *found = table_lookup->find(current)->second;
+
+  /* while header */
+  string while_label = ".wh" + to_string(while_count) + ":";
+  string goto_label = ".od" + to_string(while_count);
+
+  string *wh_header = new string(while_label);
+  if (label){
+    wh_header->append(*label);
+    delete label;
+  }
+  astree *condition = expr->children[0];
+  astree *block = expr->children[1];
+  // parse expression, get regsister of return
+  
+  ac3 *while_expr = p_expr(condition,current,wh_header,nullptr);
+  reg *stored;
+  if (while_expr && while_expr->t0){
+    if (while_expr->t0->stride && while_expr->t0->reg_number){
+      stored = while_expr->t0;
+    }
+    else {
+      errprintf ("invalid expression passed in while loop"); 
+      return;
+    }
+  } 
+  else {
+    errprintf("invalid expression passed in while loop");
+    return;
+  }
+
+  /* goto statement */
+  reg *ret = new reg(new string(*(stored->stride)),stored->reg_number);
+  ret->unop = stored->unop;
+  ac3 *wh_goto = new ac3 (condition,ret); 
+  wh_goto->label = new string(goto_label);
+  wh_goto->itype.set(static_cast<int>(instruction::GOTO));
+  found->push_back(wh_goto);
+
+  /* first statement */
+  string *first_label = new string(".do" + to_string(while_count) + ":");
+  if (block->children.size() > 0){
+    // first statement
+    p_stmt(block->children[0],current,first_label); 
+    // parse the rest of the statements
+    for (size_t i = 1; i < block->children.size(); ++i){
+      p_stmt(block->children[i],current,nullptr);
+    }
+  } 
+  else {
+    ac3 *vacuous_while = new ac3(block);
+    vacuous_while->label = first_label;
+    vacuous_while->itype.set(static_cast<int>(instruction::LABEL_ONLY));
+    found->push_back(vacuous_while);
+  }
+
+  /* loop statment */
+  ac3 *loop_stmt = new ac3 (block);
+  loop_stmt->label = new string(while_label);
+  loop_stmt->itype.set(static_cast<int>(instruction::GOTO));
+  found->push_back(loop_stmt);
+
+  /* while end label */
+  ac3 *closing_stmt = new ac3(expr);
+  closing_stmt->label = new string(goto_label + ":");
+  closing_stmt->itype.set(static_cast<int>(instruction::LABEL_ONLY));
+  found->push_back(closing_stmt);
+   
+  ++while_count;
 }
+
 
 // return expression will be init if init not nullptr,
 // else assign the return to a register
@@ -404,9 +475,9 @@ ac3 *p_expr(astree *expr, symbol_table *current, string *label,const string *ini
     case TOK_INTCON:
       return p_static_int(expr,current,label,init);
       break;
-    case TOK_CALL:
-      return p_call(expr,current,label,init);
-      break;
+    // case TOK_CALL:
+    //   return p_call(expr,current,label,init);
+    //   break;
   }
   errprintf ("non-recognized expression parsed:%s \n "
              , parser::get_tname(expr->symbol));
@@ -415,19 +486,23 @@ ac3 *p_expr(astree *expr, symbol_table *current, string *label,const string *ini
 }
 
 // return the first statement generated by the functions.
-ac3 *p_stmt(astree *expr, symbol_table *current, string *label){
+void p_stmt(astree *expr, symbol_table *current, string *label){
   switch (expr->symbol){
     case '=':
-      return p_assignment(expr,current,label);
+      p_assignment(expr,current,label);
+      break;
     case TOK_TYPE_ID:
       // ignore non-init vardecl e.g. int x;
       if (expr->children.size() > 2)
-        return p_assignment(expr,current,label);
+        p_assignment(expr,current,label);
+      break;
+    case TOK_WHILE:
+      p_while(expr,current,label);
       break;
     default:
-      return p_expr(expr,current,label,nullptr);
+      p_expr(expr,current,label,nullptr);
+      break;
   }
-  return nullptr;
 }
 
 void ac_globalvar(astree *child, all_tables *table){
@@ -552,12 +627,25 @@ void emit_functions(all_tables *table, FILE *out){
           // [LABEL] T0 = T1 OPERATOR T2
           // = only appears if t1 exists
           fprintf(out,"%-10s %s %s %s %s %s\n",
-                      stmt->label ? stmt->label->c_str() : "",
-                      stmt->t0 ? stmt->t0->str().c_str() : "" ,
-                      stmt->t1 ? "=" : "",
-                      stmt->t1 ? stmt->t1->str().c_str() : "",
-                      stmt->op ? stmt->op->c_str() : "",
-                      stmt->t2 ? stmt->t2->str().c_str() : "");
+                  stmt->label ? stmt->label->c_str() : "",
+                  stmt->t0 ? stmt->t0->str().c_str() : "" ,
+                  stmt->t1 ? "=" : "",
+                  stmt->t1 ? stmt->t1->str().c_str() : "",
+                  stmt->op ? stmt->op->c_str() : "",
+                  stmt->t2 ? stmt->t2->str().c_str() : "");
+      }
+      if (stmt->itype[static_cast<int>(instruction::GOTO)]){
+        // goto [LABEL] if not [t0]
+        // if not appears only if t0 exists
+        fprintf (out,"%-10s goto %s %s %s\n",
+                 "",
+                 stmt->label ? stmt->label->c_str()    : "",
+                 stmt->t0 ? "if not" : "" ,
+                 stmt->t0 ? stmt->t0->str().c_str() : "" );
+      }
+      if (stmt->itype[static_cast<int>(instruction::LABEL_ONLY)]){
+        // [LABEL]
+        fprintf (out,"%s\n", stmt->label ? stmt->label->c_str() : "");
       }
     }
     //print out the ending statements
@@ -589,7 +677,7 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
         found = table->master->find(name->lexinfo)->second;
       } else {
         errprintf ("3ac: invalid function definition. Stopping address code generation \n");
-	return;
+	    return;
       }
       // no duplicate functions
       if (found!=nullptr && !(table_lookup->count(found))){
