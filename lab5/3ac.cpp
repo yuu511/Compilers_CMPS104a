@@ -17,7 +17,7 @@ new unordered_map<symbol_table*, ac3_table*>;
 all_tables *master;
 
 void p_stmt(astree *expr, symbol_table *current, string *label);
-ac3 *p_expr(astree *expr, symbol_table *current, string *label,const string *init);
+ac3 *p_expr(astree *expr, symbol_table *current, string *label);
 
 // first available reg
 int reg_count = -1;
@@ -27,6 +27,7 @@ int while_count = -1;
 int if_count = 0;
 
 reg::reg(const string *ident_){
+  reg_number = -1;
   ident = ident_; 
   stride = nullptr;
   unop = nullptr;
@@ -203,9 +204,9 @@ ac3 *asg_int(astree *expr, symbol_table *current, string *label){
     ident = expr->children[1];
     assignment = expr->children[2];
   }
-  ac3 *ac = p_expr(assignment,current,label,ident->lexinfo);   
-  ac->label = label;
-  ac->expr = expr;
+  ac3 *ac = p_expr(assignment,current,label);   
+  // ac->label = label;
+  // ac->expr = expr;
   return ac;
 }
 
@@ -243,98 +244,82 @@ ac3 *p_assignment(astree *expr, symbol_table *current, string *label){
   return nullptr;
 }
 
-ac3 *p_binop(astree *expr, symbol_table *current, string *label,const string *init){
+ac3 *p_binop(astree *expr, symbol_table *current, string *label){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac = new ac3(expr); 
-  found->push_back(ac);
-  ac->label = label;
   ac->op = expr->lexinfo;
   ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
-  // if a varaiable for expr exists, store it in variable
-  if (init) 
-    ac->t0 = new reg(init);
-  // otherwise, store in the first available register.
-  else { 
-    ac->t0 = new reg(new string(stride_binop(expr,current)),reg_count);
-    ++reg_count;
-  }
+  ac->t0 = new reg(new string(stride_binop(expr,current)),reg_count);
+  ++reg_count;
   // parse the expressions
   // check the two children
-    if (expr->children[0]->children.size() > 1
-        || expr->children[0]->symbol == TOK_CALL){
-      string *stride = new string (stride_binop(expr->children[0],current));
-      ac->t1 = new reg(stride,reg_count);
-      p_expr(expr->children[0],current,label,nullptr);
+  astree *left = expr->children[0];
+  if (left->children.size() > 0) {
+    string *stride = new string();
+    if (left->children.size() == 1){
+      stride->append(get_stride(left->children[0],current));
     } 
-    else if (expr->children[0]->children.size() == 1){
-      if (expr->children[0]->children[0]->children.size() > 1){
-        string *stride = 
-          new string(stride_binop(expr->children[0]->children[0],current));
-        reg *unary = new reg(stride,reg_count);
-        unary->unop = new string(*(expr->children[0]->lexinfo));
-        ac->t1 = unary;
-        p_expr(expr->children[0]->children[0],current,label,nullptr);
-      }
-      else {
-        reg *unary = new reg(expr->children[0]->children[0]->lexinfo);
-        unary->unop = new string(*(expr->children[0]->lexinfo));
-        ac->t1 = unary;
-      }
+    else  {
+      stride->append(stride_binop(left,current));
     }
-    else {
-      ac->t1 =new reg(expr->children[0]->lexinfo);
+    ac->t1 = new reg(stride,reg_count);
+    ac3 *top_left = p_expr(left,current,nullptr);
+    if (label){
+      top_left->label = new string(*label); 
+      label = nullptr;
     }
-
-    if (expr->children[1]->children.size() > 1
-        || expr->children[1]->symbol == TOK_CALL){
-      string *stride = new string (stride_binop(expr->children[1],current));
-      ac->t2 = new reg(stride,reg_count);
-      p_expr(expr->children[1],current,label,nullptr);
+  } 
+  else {
+    ac->t1 =new reg(left->lexinfo);
+  }
+  
+  astree *right = expr->children[1];
+  if (right->children.size() > 0){
+    string *stride = new string();
+    if (right->children.size() == 1){
+      stride->append(get_stride(right->children[0],current));
     } 
-    else if (expr->children[1]->children.size() == 1){
-      if (expr->children[1]->children[0]->children.size() > 1){
-        string *stride = 
-          new string(stride_binop(expr->children[1]->children[0],current));
-        reg *unary = new reg(stride,reg_count);
-        unary->unop = new string(*(expr->children[1]->lexinfo));
-        ac->t2 = unary;
-        p_expr(expr->children[1]->children[0],current,label,nullptr);
-      }
-      else {
-        reg *unary = new reg(expr->children[1]->children[0]->lexinfo);
-        unary->unop = new string(*(expr->children[1]->lexinfo));
-        ac->t2 = unary;
-      }
+    else  {
+      stride->append(stride_binop(right,current));
     }
-    else {
-      ac->t2 =new reg(expr->children[1]->lexinfo);
+    ac->t2 = new reg(stride,reg_count);
+    ac3 *top_right = p_expr(right,current,nullptr);
+    if (label){
+      top_right->label = new string(*label);
+      label = nullptr;
     }
-    return ac;
+  } 
+  else {
+    ac->t2 =new reg(right->lexinfo);
+  }
+  found->push_back(ac);
+  return ac;
 }
 
 
-ac3 *p_unop(astree *expr, symbol_table *current, string *label,const string *init){
+ac3 *p_unop(astree *expr, symbol_table *current, string *label){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac =new ac3(expr);
   found->push_back(ac);
+  ac->t0 = new reg(new string(":i"),reg_count);
+  ++reg_count;
 
-  // if a varaiable for expr exists, store it in variable
-  if (init) 
-    ac->t0 = new reg(init);
-  // otherwise, store in the first available register.
-  else {
-    ac->t0 = new reg(new string(":i"),reg_count);
-    ++reg_count;
-  }
-  if (expr->children[0]->children.size() > 1){
-    string *stride = new string(stride_binop(expr->children[0],current));
+  astree *assignment = expr->children[0];
+  if (assignment->children.size() > 0){
+    string *stride = new string();
+    if (assignment->children.size() == 1){
+      stride->append(get_stride(assignment->children[0],current));
+    } 
+    else {
+      stride->append(stride_binop(assignment,current));
+    }
     reg *unary = new reg(stride,reg_count);
     unary->unop = new string(*(expr->lexinfo));
     ac->t1 = unary;
-    p_expr(expr->children[0],current,label,nullptr);
+    p_expr(assignment,current,nullptr);
   }
   else {
-    reg *unary = new reg(expr->children[0]->lexinfo);
+    reg *unary = new reg(assignment->lexinfo);
     unary->unop = new string(*(expr->lexinfo));
     ac->t1 = unary;
   }
@@ -343,26 +328,23 @@ ac3 *p_unop(astree *expr, symbol_table *current, string *label,const string *ini
   return ac;
 }
 
-ac3 *p_polymorphic(astree *expr, symbol_table *current, string *label,const string *init){
+ac3 *p_polymorphic(astree *expr, symbol_table *current, string *label){
   if (expr->children.size() > 1){
-    return p_binop(expr,current,label,init);
+    return p_binop(expr,current,label);
   }
   else if (expr->children.size() == 1) {
-    return p_unop(expr,current,label,init);
+    return p_unop(expr,current,label);
   }
   // should never happen
   errprintf ("p_polymorphic called on expr with size 0");
   return nullptr;
 }
 
-ac3 *p_static_int(astree *expr, symbol_table *current, string *label,const string *init){
+ac3 *p_static_int(astree *expr, symbol_table *current, string *label){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac = new ac3(expr); 
-  if (init) 
-    ac->t0 = new reg(init);
-  // otherwise, store in the first available register.
-  else 
-    ac->t0 = new reg(new string(":i"),reg_count);
+  ac->t0 = new reg(new string(":i"),reg_count);
+  ++reg_count;
   ac->label = label; 
   ac->t1 = new reg(expr->lexinfo);  
   found->push_back(ac);
@@ -375,9 +357,9 @@ ac3 *p_static_int(astree *expr, symbol_table *current, string *label,const strin
 //}
 
 
-void p_if(astree *expr, symbol_table *current, string *label){ 
-  ac3_table *found = table_lookup->find(current)->second;
-}
+// void p_if(astree *expr, symbol_table *current, string *label){ 
+//   ac3_table *found = table_lookup->find(current)->second;
+// }
 
 void p_while(astree *expr, symbol_table *current, string *label){ 
   ++while_count;
@@ -402,14 +384,15 @@ void p_while(astree *expr, symbol_table *current, string *label){
   astree *block = expr->children[1];
   // parse expression, get regsister of return
   
-  ac3 *while_expr = p_expr(condition,current,wh_header,nullptr);
+   
+  ac3 *while_expr = p_expr(condition,current,wh_header);
   reg *stored;
   if (while_expr && while_expr->t0){
-    if (while_expr->t0->stride && while_expr->t0->reg_number){
+    if (while_expr->t0->stride != nullptr  && while_expr->t0->reg_number != -1){
       stored = while_expr->t0;
     }
     else {
-      errprintf ("invalid expression passed in while loop"); 
+      errprintf ("expression passed is not a register!");
       return;
     }
   } 
@@ -458,7 +441,7 @@ void p_while(astree *expr, symbol_table *current, string *label){
 
 // return expression will be init if init not nullptr,
 // else assign the return to a register
-ac3 *p_expr(astree *expr, symbol_table *current, string *label,const string *init){
+ac3 *p_expr(astree *expr, symbol_table *current, string *label){
   switch (expr->symbol){
     case '=':
     case '*':
@@ -470,18 +453,18 @@ ac3 *p_expr(astree *expr, symbol_table *current, string *label,const string *ini
     case TOK_LE:
     case TOK_GT:
     case TOK_GE:
-      return p_binop(expr,current,label,init);
+      return p_binop(expr,current,label);
       break;
     case '+':
     case '-':
-      return p_polymorphic(expr,current,label,init);
+      return p_polymorphic(expr,current,label);
       break;
     case TOK_NOT:
-      return p_unop(expr,current,label,init);
+      return p_unop(expr,current,label);
       break;
     case TOK_CHARCON:
     case TOK_INTCON:
-      return p_static_int(expr,current,label,init);
+      return p_static_int(expr,current,label);
       break;
     // case TOK_CALL:
     //   return p_call(expr,current,label,init);
@@ -504,14 +487,14 @@ void p_stmt(astree *expr, symbol_table *current, string *label){
       if (expr->children.size() > 2)
         p_assignment(expr,current,label);
       break;
-    case TOK_IF:
-      p_if(expr,current,label);
-      break;
+    // case TOK_IF:
+    //   p_if(expr,current,label);
+    //   break;
     case TOK_WHILE:
       p_while(expr,current,label);
       break;
     default:
-      p_expr(expr,current,label,nullptr);
+      p_expr(expr,current,label);
       break;
   }
 }

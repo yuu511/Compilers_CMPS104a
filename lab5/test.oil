@@ -6,28 +6,16 @@
 .end 
 .struct sayaka
 .end 
-a:         .global int 
-b:         .global int 5
 call:      .function int 
            return
            .end
 trivial:   .function 
            .param int x
            .local int z
-           z = $t0:i + 4
-           $t0:i = $t1:i + $t4:i
-           $t1:i = $t2:c + $t3:i
-           $t2:c = 'c' + 'a'
-           $t3:i = 5 + 3
-           $t4:i = 5 * 3
-.wh0:      $t5:i = x == 1
-           goto .od0 if not $t5:i
-.do0:
-.wh1:      $t6:i = z == 3
-           goto .od1 if not $t6:i
-.do1:      x = x + 1
-           goto .wh1  
-.od1:
+.wh0:      $t0:i = 1  
+           goto .od0 if not $t0:i
+.do0:      $t2:i = 6 + 6
+           $t1:i = $t2:i + 3
            goto .wh0  
 .od0:
            return

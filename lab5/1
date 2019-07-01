@@ -1,0 +1,47 @@
+/* asg 5 */
+//structs
+struct mami    { int one;
+                 string two;
+                 ptr <struct sayaka> sayaka; 
+                 array <int> madoka;
+	           };
+
+// global vars
+// int a;
+// int b = 5;
+// int c = 'a';
+// string w;
+// string x = "hehe";
+// string y = nullptr;
+// ptr <struct mami> thing = nullptr;
+// ptr <struct mami> thing2 = alloc <struct mami> ();
+// array<int> thing3 = nullptr;
+
+int call (){
+
+}
+
+// functions
+void trivial (int x){
+  // int z = 3 * x +1;
+  int z;
+  while (1){
+   // z = (('c' + 'a') + (--5+3)) + 5 * 3 + 4;
+   z = (6+6) + 3;
+  }
+  // int y;
+  // z = 3;
+  // z = 'c';
+  // y = z = 5+3+2;
+  // z = 5 + (-3+5);
+  // int za = call() + z;
+  //  z = - (3+3);
+  // z = not 1;
+  // z= (6*5) % (3*3);
+  // z = -(5*3);
+  // while ( x == 1 ) {
+  //   z =3;
+  // }
+}
+
+
