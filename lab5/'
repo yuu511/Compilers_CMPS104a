@@ -219,9 +219,8 @@ ac3 *asg_int(astree *expr, symbol_table *current, string *label){
   size_t first_index = found->size();
   if (parse->children.size() > 0){  
     ac3 *parsed = p_expr(parse,current);   
-    reg *top_reg = nullptr;
-    printf ("addr paresd: %p", (void *)parsed);
-    if (parsed  && parsed->t0){
+    reg *top_reg;
+    if (parsed && parsed->t0){
       if (parsed->t0->stride && parsed->t0->reg_number != -1){
         top_reg = new reg(new string(*(parsed->t0->stride),parsed->t0->reg_number));
       }
@@ -396,6 +395,10 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
   ++while_count;
   int orig_while = while_count;
   ac3_table *found = table_lookup->find(current)->second;
+  ac3 *while_expr;
+
+  // return top of statements
+  ac3 *top = while_expr;
 
   // if label exists, this while statement is enclosed within
   // an if or while statement. emit the label to encapsulate this while.
@@ -404,6 +407,7 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
     encapsulate->label = label;
     encapsulate->itype.set(static_cast<int>(instruction::LABEL_ONLY));
     found->push_back(encapsulate);
+    top = encapsulate;
   }
 
   /* while header */
@@ -415,9 +419,7 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
   astree *block = expr->children[1];
   // parse expression, get regsister of return
    
-  ac3 *header = new ac3(expr);
   ac3 *while_expr = p_expr(condition,current);
-  found->push_back(header);
   reg *stored;
   if (while_expr && while_expr->t0){
     if (while_expr->t0->stride != nullptr  && while_expr->t0->reg_number != -1){
@@ -432,8 +434,6 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
     errprintf("invalid expression passed in while loop");
     return nullptr;
   }
-  header->label = wh_header;
-  header->t0 = new reg(new string(*stored->stride),stored->reg_number);
 
   /* goto statement */
   reg *ret = new reg(new string(*(stored->stride)),stored->reg_number);
@@ -470,7 +470,6 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
   closing_stmt->label = new string(goto_label + ":");
   closing_stmt->itype.set(static_cast<int>(instruction::LABEL_ONLY));
   found->push_back(closing_stmt);
-  return header;
 }
 
 // add a label to the expr if it exists.

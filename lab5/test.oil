@@ -1,22 +1,28 @@
-.struct mami
-.field ptr madoka
-.field struct sayaka sayaka
+.struct allofem
+.field ptr sayaka
+.field struct none homura
 .field int one
 .field ptr two
 .end 
-.struct sayaka
+.struct none
 .end 
-call:      .function int 
+.struct test
+.end 
+.struct onearg
+.field int trivial
+.end 
+homu:      .global int 
+homu_a:    .global int 5
+mami:      .global ptr 
+madoka:    .global ptr 
+kyouko:    .global struct test 
+test:      .function int 
            return
            .end
-trivial:   .function 
-           .param int x
-           .local int z
-.wh0:      $t0:i = 1  
-           goto .od0 if not $t0:i
-.do0:      $t2:i = 6 + 6
-           $t1:i = $t2:i + 3
-           goto .wh0  
-.od0:
+z:         .function 
+           .param int i
+           .local int ne
+           .local int n
+           $t0:i = $t1:i + 5
            return
            .end
