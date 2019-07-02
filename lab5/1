@@ -25,9 +25,9 @@ int call (){
 void trivial (int x){
   // int z = 3 * x +1;
   int z;
-  while (1){
+  while (z+1 >= 3*x+5){
+   5;
    // z = (('c' + 'a') + (--5+3)) + 5 * 3 + 4;
-   z = (6+6) + 3;
   }
   // int y;
   // z = 3;

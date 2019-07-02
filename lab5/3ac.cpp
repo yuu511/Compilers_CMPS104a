@@ -22,7 +22,7 @@ ac3 *p_expr(astree *expr, symbol_table *current);
 // first available reg
 int reg_count = -1;
 // first while
-int while_count = -1;
+int while_count = 0;
 //first int
 int if_count = 0;
 
@@ -391,18 +391,118 @@ ac3 *p_static_int(astree *expr, symbol_table *current){
 //
 //}
 
+// check validity of loop condition
+int check_loop_validity (astree *s){
+  if (s == nullptr)
+    return 0;
+  switch (s->symbol){
+    case TOK_EQ:
+    case TOK_NE:
+    case TOK_GT:
+    case TOK_GE:
+    case TOK_LT:
+    case TOK_LE:
+    case TOK_NOT:
+    case TOK_IDENT:
+    case TOK_INTCON:
+    case TOK_CHARCON:
+    case TOK_NULLPTR:
+      return 1;
+  }
+  return 0;
+}
 
-// void p_if(astree *expr, symbol_table *current, string *label){ 
-//   ac3_table *found = table_lookup->find(current)->second;
-// }
+
+ac3 *p_if(astree *expr, symbol_table *current, string *label){ 
+  astree *condition = expr->children[0];
+  astree *if_statement = expr->children[1];
+  if (!check_loop_validity(condition)){
+    errprintf("invalid expr in loop!\n");
+    return nullptr;
+  }
+  int orig_if = if_count;
+  ++if_count;
+  ac3_table *found = table_lookup->find(current)->second;
+
+  // if label exists, this if statement is enclosed within
+  // another if or while statement. emit the label to encapsulate this if.
+  if (label){
+    ac3 *encapsulate = new ac3(expr);
+    encapsulate->label = label;
+    encapsulate->itype.set(static_cast<int>(instruction::LABEL_ONLY));
+    found->push_back(encapsulate);
+  }
+ 
+  /* if header */
+  size_t top = found->size();
+  string *if_header = new string(".if" + to_string(orig_if) + ":");
+  // go to else statement if it exists, else go to next statement outside if
+  string selection;
+  expr->children.size() > 2 ? selection = ".el" : selection = ".fi"; 
+  string goto_label = selection + to_string(orig_if);
+  // parse expr
+  ac3 *if_expr = p_expr(condition,current);
+  reg *stored;
+  if (if_expr && if_expr->t0){
+    if (if_expr->t0->stride != nullptr  && if_expr->t0->reg_number != -1){
+      stored = if_expr->t0;
+    }
+    else {
+      errprintf ("expression passed is not a register!");
+      return nullptr;
+    }
+  } 
+  else {
+    errprintf("invalid expression passed in if loop");
+    return nullptr;
+  }
+
+  // add label to element at saved index
+  found->at(top)->label = if_header;
+
+  /* goto statement */
+  reg *ret = new reg(new string(*(stored->stride)),stored->reg_number);
+  ret->unop = stored->unop;
+  ac3 *if_goto = new ac3 (condition,ret); 
+  if_goto->label = new string(goto_label);
+  if_goto->itype.set(static_cast<int>(instruction::GOTO));
+  found->push_back(if_goto);
+
+  /* first statement */
+  string *first_label = new string(".th" + to_string(orig_if) + ":");
+  p_stmt(if_statement,current,first_label);
+
+  /* parse else block, if it exists */
+  if (expr->children.size() > 2){
+    string *else_label = new string (goto_label + ":");
+    astree *else_statement = expr->children[2];
+    p_stmt(else_statement,current,else_label);
+  }
+
+  /* emit ending label */
+  ac3 *closing_stmt = new ac3(expr);
+  closing_stmt->label = new string(".fi" + to_string(orig_if) +  ":");
+  closing_stmt->itype.set(static_cast<int>(instruction::LABEL_ONLY));
+  found->push_back(closing_stmt);
+
+  return closing_stmt;
+}
 
 ac3 *p_while(astree *expr, symbol_table *current, string *label){ 
-  ++while_count;
+  astree *condition = expr->children[0];
+  astree *statement = expr->children[1];
+  // check validity of expression in loop condition
+  if (!check_loop_validity(condition)){
+    errprintf("invalid expr in loop!\n");
+    return nullptr;
+  }
+
   int orig_while = while_count;
+  ++while_count;
   ac3_table *found = table_lookup->find(current)->second;
 
   // if label exists, this while statement is enclosed within
-  // an if or while statement. emit the label to encapsulate this while.
+  // another if or while statement. emit the label to encapsulate this while.
   if (label){
     ac3 *encapsulate = new ac3(expr);
     encapsulate->label = label;
@@ -415,8 +515,6 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
   string goto_label = ".od" + to_string(orig_while);
 
   string *wh_header = new string(while_label + ":");
-  astree *condition = expr->children[0];
-  astree *block = expr->children[1];
   // get next index
   size_t top = found->size();
   // parse expression, get regsister of return
@@ -448,22 +546,10 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
 
   /* first statement */
   string *first_label = new string(".do" + to_string(orig_while) + ":");
-  if (block->children.size() > 0){
-    p_stmt(block->children[0],current,first_label); 
-    // parse the rest of the statements
-    for (size_t i = 1; i < block->children.size(); ++i){
-      p_stmt(block->children[i],current,nullptr);
-    }
-  } 
-  else {
-    ac3 *vacuous_while = new ac3(block);
-    vacuous_while->label = first_label;
-    vacuous_while->itype.set(static_cast<int>(instruction::LABEL_ONLY));
-    found->push_back(vacuous_while);
-  }
+  p_stmt(statement,current,first_label); 
 
   /* loop statment */
-  ac3 *loop_stmt = new ac3 (block);
+  ac3 *loop_stmt = new ac3 (statement);
   loop_stmt->label = new string(while_label);
   loop_stmt->itype.set(static_cast<int>(instruction::GOTO));
   found->push_back(loop_stmt);
@@ -511,10 +597,32 @@ ac3 *p_expr(astree *expr, symbol_table *current){
   return nullptr;
 }
 
+void p_block(astree *expr, symbol_table *current, string *label){
+  ac3_table *found = table_lookup->find(current)->second;
+  if (expr->children.size() > 0){
+    p_stmt(expr->children[0],current,label); 
+    // parse the rest of the statements
+    for (size_t i = 1; i < expr->children.size(); ++i){
+      p_stmt(expr->children[i],current,nullptr);
+    }
+  }
+  else{
+    if (label){
+      ac3 *vacuous_block = new ac3(expr);
+      vacuous_block->label = label;
+      vacuous_block->itype.set(static_cast<int>(instruction::LABEL_ONLY));
+      found->push_back(vacuous_block);
+    }
+  }
+}
+
 // return the first statement generated by the functions.
 void p_stmt(astree *expr, symbol_table *current, string *label){
   ac3 *ac;
   switch (expr->symbol){
+    case TOK_BLOCK:
+      p_block(expr,current,label);
+      break;
     case '=':
       ac = p_assignment(expr,current,label);
       break;
@@ -523,20 +631,21 @@ void p_stmt(astree *expr, symbol_table *current, string *label){
       if (expr->children.size() > 2)
         ac = p_assignment(expr,current,label);
       break;
-    // case TOK_IF:
-    //   p_if(expr,current,label);
-    //   break;
+    case TOK_IF:
+      ac = p_if(expr,current,label);
+      break;
     case TOK_WHILE:
       ac = p_while(expr,current,label);
       break;
     default:
+      ac3_table *found = table_lookup->find(current)->second;
+      size_t index = found->size();
       ac = p_expr(expr,current);
-      if (ac && label){
-        ac->label = label;
-      }
+      if (ac)
+        found->at(index)->label = label;
       break;
   }
-  if (!ac){
+  if (expr->symbol != TOK_BLOCK && !ac){
     errprintf ("invalid statment passed :%s",expr->lexinfo->c_str());
     return;
   }
@@ -676,7 +785,7 @@ void emit_functions(all_tables *table, FILE *out){
         // if not appears only if t0 exists
         fprintf (out,"%-10s goto %s %s %s\n",
                  "",
-                 stmt->label ? stmt->label->c_str()    : "",
+                 stmt->label ? stmt->label->c_str() : "",
                  stmt->t0 ? "if not" : "" ,
                  stmt->t0 ? stmt->t0->str().c_str() : "" );
       }
@@ -723,7 +832,8 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
 	    table_lookup->emplace(found,new_function);
 	    all_functions->push_back(make_pair(name->lexinfo,new_function));
         reg_count = 0;
-        for (astree *stmt: child->children[2]->children) p_stmt(stmt,found,nullptr);
+        p_stmt(child->children[2],found,nullptr);
+        // for (astree *stmt: child->children[2]->children) p_stmt(stmt,found,nullptr);
       }
       else {
         errprintf("3ac: function already defined\n");
