@@ -1,3 +1,6 @@
+#ifndef __3AC_H_
+#define __3AC_H_
+
 #include "symbol_table.h"
 #include "astree.h"
 
@@ -39,3 +42,5 @@ struct ac3{
 };
 
 using ac3_table = vector<ac3*>;
+
+#endif

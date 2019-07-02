@@ -4,6 +4,9 @@
 #include "lyutils.h"
 #include "auxlib.h"
 
+// all 3ac tables
+// all_3ac *ac_3;
+// all string constants used
 vector<const string*> *all_strings  = new vector <const string*>();
 
 ac3_table *all_globals = new ac3_table; 
@@ -11,20 +14,23 @@ ac3_table *all_globals = new ac3_table;
 vector<pair<const string*,ac3_table*>> *all_functions = 
 new vector<pair<const string*,ac3_table*>>();
 
+// for quick O(1) lookup between a function's
+// symbol table and 3ac representation
 unordered_map <symbol_table*, ac3_table*> *table_lookup = 
 new unordered_map<symbol_table*, ac3_table*>;
 
+// all symbol tables (generated in previous module symbol_table.cpp)
 all_tables *master;
 
-void p_stmt(astree *expr, symbol_table *current, string *label);
-ac3 *p_expr(astree *expr, symbol_table *current);
-
-// first available reg
+// first available reg (resets with function)
 int reg_count = -1;
 // first while
 int while_count = 0;
-//first int
+// first if
 int if_count = 0;
+
+void p_stmt(astree *expr, symbol_table *current, string *label);
+ac3 *p_expr(astree *expr, symbol_table *current);
 
 reg::reg(const string *ident_){
   reg_number = -1;
@@ -704,7 +710,6 @@ void emit_struct(all_tables *table,FILE *out){
     translate_struct(itor.first,itor.second,out);  
   }
 }
-
 
 // emit string constants here
 void emit_string(FILE *out){
