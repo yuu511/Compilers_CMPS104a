@@ -198,10 +198,12 @@ string stride_binop(astree *expr,symbol_table *current){
 // helper function for assignment
 ac3 *asg_int(astree *expr, symbol_table *current, string *label){
   ac3_table *found = table_lookup->find(current)->second;
-  // top of statements
-  ac3 *top;
+  // bot of statements
+  ac3 *bot;
   astree *ident;
   astree *parse;
+  // get index of top of statements
+  size_t top = found->size();
 
   if (expr->symbol == '='){
     ident = expr->children[0];
@@ -217,39 +219,41 @@ ac3 *asg_int(astree *expr, symbol_table *current, string *label){
   }
 
   if (parse->children.size() > 0){  
-    ac3 *new_assignment = new ac3(expr);
-    reg *assignment_reg = nullptr;
-    top = p_expr(parse,current);   
-    if (top && top->t0){
-      if (top->t0->stride && top->t0->reg_number != -1){
-        assignment_reg = new reg(new string(*(top->t0->stride)),top->t0->reg_number);
+    bot = new ac3(expr);
+    reg *bot_reg = nullptr;
+    ac3 *new_assignment = p_expr(parse,current);   
+    if (new_assignment && new_assignment->t0){
+      if (new_assignment->t0->stride && new_assignment->t0->reg_number != -1){
+        bot_reg = 
+ 	new reg(new string(*(new_assignment->t0->stride)),new_assignment->t0->reg_number);
       }
       else {
         errprintf("invalid reg for assignment parsed\n");
 	return nullptr;
       }
     }
-    if (assignment_reg){
-      new_assignment->t0 = new reg(ident->lexinfo);
-      new_assignment->t1 = assignment_reg;
-      new_assignment->itype.set(static_cast<int>(instruction::ASSIGNMENT));
-      found->push_back(new_assignment);
+    if (bot_reg){
+      bot->t0 = new reg(ident->lexinfo);
+      bot->t1 = bot_reg;
+      bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+      found->push_back(bot);
+      found->at(top)->label = label; 
+      return new_assignment;
     }
     else {
       errprintf ("parsing expr failed: %s \n",expr->lexinfo->c_str());
       return nullptr;
     }
-    top->label = label;
   }
   else {
-    top = new ac3(expr);
-    top->t0 = new reg(ident->lexinfo);
-    top->t1 = new reg(parse->lexinfo);
-    top->itype.set(static_cast<int>(instruction::ASSIGNMENT));
-    top->label = label;
-    found->push_back(top);
+    bot = new ac3(expr);
+    bot->t0 = new reg(ident->lexinfo);
+    bot->t1 = new reg(parse->lexinfo);
+    bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+    found->push_back(bot);
+    found->at(top)->label = label; 
   }
-  return top;
+  return bot;
 }
 
 // if 'tok_type_id'  it's an variable declaration
@@ -289,7 +293,6 @@ ac3 *p_binop(astree *expr, symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac = new ac3(expr); 
   ac->op = expr->lexinfo;
-  ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   ac->t0 = new reg(new string(stride_binop(expr,current)),reg_count);
   ++reg_count;
   // parse the expressions
@@ -325,6 +328,7 @@ ac3 *p_binop(astree *expr, symbol_table *current){
   else {
     ac->t2 =new reg(right->lexinfo);
   }
+  ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   found->push_back(ac);
   return ac;
 }
@@ -333,7 +337,6 @@ ac3 *p_binop(astree *expr, symbol_table *current){
 ac3 *p_unop(astree *expr, symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac =new ac3(expr);
-  found->push_back(ac);
   ac->t0 = new reg(new string(":i"),reg_count);
   ++reg_count;
 
@@ -357,6 +360,7 @@ ac3 *p_unop(astree *expr, symbol_table *current){
     ac->t1 = unary;
   }
   ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+  found->push_back(ac);
   return ac;
 }
 
@@ -368,7 +372,7 @@ ac3 *p_polymorphic(astree *expr, symbol_table *current){
     return p_unop(expr,current);
   }
   // should never happen
-  errprintf ("p_polymorphic called on expr with size 0");
+  errprintf("p_polymorphic called on expr with size 0");
   return nullptr;
 }
 
@@ -413,10 +417,10 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
   string *wh_header = new string(while_label + ":");
   astree *condition = expr->children[0];
   astree *block = expr->children[1];
+  // get next index
+  size_t top = found->size();
   // parse expression, get regsister of return
-   
   ac3 *while_expr = p_expr(condition,current);
-  while_expr->label = wh_header;
   reg *stored;
   if (while_expr && while_expr->t0){
     if (while_expr->t0->stride != nullptr  && while_expr->t0->reg_number != -1){
@@ -431,6 +435,8 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
     errprintf("invalid expression passed in while loop");
     return nullptr;
   }
+  // add label to element at saved index
+  found->at(top)->label = wh_header;
 
   /* goto statement */
   reg *ret = new reg(new string(*(stored->stride)),stored->reg_number);
@@ -467,7 +473,7 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
   closing_stmt->label = new string(goto_label + ":");
   closing_stmt->itype.set(static_cast<int>(instruction::LABEL_ONLY));
   found->push_back(closing_stmt);
-  return while_expr;
+  return closing_stmt;
 }
 
 // add a label to the expr if it exists.

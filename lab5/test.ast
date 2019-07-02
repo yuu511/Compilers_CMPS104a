@@ -55,17 +55,21 @@ TYPE_ID "" 7.208.9 {2} int variable param lval
 INT "int" 7.208.9 {0} 
 IDENT "i" 7.208.13 {0} 
 BLOCK "{" 7.208.16 {2} 
-WHILE "while" 7.210.3 {2} 
-INTCON "1" 7.210.10 {2} int const 
-BLOCK "{" 7.210.12 {2} 
-TYPE_ID "" 7.211.5 {2} int variable local lval vreg (7.211.5)
-INT "int" 7.211.5 {0} 
-IDENT "n" 7.211.9 {0} 
-'+' "+" 7.211.19 {2} int variable local lval vreg 
-'+' "+" 7.211.15 {2} int vreg 
-INTCON "1" 7.211.13 {2} int const 
-INTCON "3" 7.211.17 {2} int const 
-INTCON "5" 7.211.21 {2} int const 
-'=' "=" 7.212.7 {2} int variable local lval vreg 
-IDENT "n" 7.212.5 {2} int variable local lval (7.211.5)
-INTCON "5" 7.212.9 {2} int const 
+WHILE "while" 7.211.3 {2} 
+GT ">" 7.211.12 {2} int vreg 
+IDENT "i" 7.211.10 {2} int variable param lval (7.208.9)
+'+' "+" 7.211.16 {2} int vreg 
+INTCON "3" 7.211.15 {2} int const 
+INTCON "23" 7.211.17 {2} int const 
+BLOCK "{" 7.211.21 {2} 
+TYPE_ID "" 7.212.5 {2} int variable local lval vreg (7.212.5)
+INT "int" 7.212.5 {0} 
+IDENT "n" 7.212.9 {0} 
+'+' "+" 7.212.19 {2} int variable local lval vreg 
+'+' "+" 7.212.15 {2} int vreg 
+INTCON "1" 7.212.13 {2} int const 
+INTCON "3" 7.212.17 {2} int const 
+INTCON "5" 7.212.21 {2} int const 
+'=' "=" 7.213.7 {2} int variable local lval vreg 
+IDENT "n" 7.213.5 {2} int variable local lval (7.212.5)
+INTCON "5" 7.213.9 {2} int const 

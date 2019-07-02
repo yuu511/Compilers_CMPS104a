@@ -1,48 +1,18 @@
 g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3ac.cpp
-3ac.cpp: In function ‘ac3* asg_int(astree*, symbol_table*, std::__cxx11::string*)’:
-3ac.cpp:236:51: error: no matching function for call to ‘to_string(instruction_bitset&)’
-       printf ("%s",to_string(new_assignment->itype).c_str());
-                                                   ^
-In file included from /usr/include/c++/7/string:52:0,
-                 from /usr/include/c++/7/bitset:47,
-                 from symbol_table.h:4,
-                 from 3ac.h:1,
-                 from 3ac.cpp:1:
-/usr/include/c++/7/bits/basic_string.h:6405:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(int)
-   to_string(int __val)
-   ^~~~~~~~~
-/usr/include/c++/7/bits/basic_string.h:6405:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘int’
-/usr/include/c++/7/bits/basic_string.h:6410:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(unsigned int)
-   to_string(unsigned __val)
-   ^~~~~~~~~
-/usr/include/c++/7/bits/basic_string.h:6410:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘unsigned int’
-/usr/include/c++/7/bits/basic_string.h:6416:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(long int)
-   to_string(long __val)
-   ^~~~~~~~~
-/usr/include/c++/7/bits/basic_string.h:6416:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘long int’
-/usr/include/c++/7/bits/basic_string.h:6421:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(long unsigned int)
-   to_string(unsigned long __val)
-   ^~~~~~~~~
-/usr/include/c++/7/bits/basic_string.h:6421:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘long unsigned int’
-/usr/include/c++/7/bits/basic_string.h:6427:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(long long int)
-   to_string(long long __val)
-   ^~~~~~~~~
-/usr/include/c++/7/bits/basic_string.h:6427:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘long long int’
-/usr/include/c++/7/bits/basic_string.h:6433:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(long long unsigned int)
-   to_string(unsigned long long __val)
-   ^~~~~~~~~
-/usr/include/c++/7/bits/basic_string.h:6433:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘long long unsigned int’
-/usr/include/c++/7/bits/basic_string.h:6439:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(float)
-   to_string(float __val)
-   ^~~~~~~~~
-/usr/include/c++/7/bits/basic_string.h:6439:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘float’
-/usr/include/c++/7/bits/basic_string.h:6448:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(double)
-   to_string(double __val)
-   ^~~~~~~~~
-/usr/include/c++/7/bits/basic_string.h:6448:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘double’
-/usr/include/c++/7/bits/basic_string.h:6457:3: note: candidate: std::__cxx11::string std::__cxx11::to_string(long double)
-   to_string(long double __val)
-   ^~~~~~~~~
-/usr/include/c++/7/bits/basic_string.h:6457:3: note:   no known conversion for argument 1 from ‘instruction_bitset {aka std::bitset<4>}’ to ‘long double’
+3ac.cpp: In function ‘ac3* p_polymorphic(astree*, symbol_table*)’:
+3ac.cpp:375:3: error: ‘errprint’ was not declared in this scope
+   errprint("p_polymorphic called on expr with size 0");
+   ^~~~~~~~
+3ac.cpp:375:3: note: suggested alternative: ‘errprintf’
+   errprint("p_polymorphic called on expr with size 0");
+   ^~~~~~~~
+   errprintf
+3ac.cpp:376:3: error: ‘ac’ was not declared in this scope
+   ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+   ^~
+3ac.cpp:376:3: note: suggested alternative: ‘ac3’
+   ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+   ^~
+   ac3
 Makefile:55: recipe for target '3ac.o' failed
 make: *** [3ac.o] Error 1
