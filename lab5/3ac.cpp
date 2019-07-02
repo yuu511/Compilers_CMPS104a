@@ -436,11 +436,12 @@ ac3 *p_if(astree *expr, symbol_table *current, string *label){
   /* if header */
   size_t top = found->size();
   string *if_header = new string(".if" + to_string(orig_if) + ":");
-  // go to else statement if it exists, else go to next statement outside if
+  // if an else statement exists, then we must go to it.
+  // otherwise, just go to the end of the if statment.
   string selection;
   expr->children.size() > 2 ? selection = ".el" : selection = ".fi"; 
   string goto_label = selection + to_string(orig_if);
-  // parse expr
+  // parse if condition
   ac3 *if_expr = p_expr(condition,current);
   reg *stored;
   if (if_expr && if_expr->t0){
@@ -472,8 +473,16 @@ ac3 *p_if(astree *expr, symbol_table *current, string *label){
   string *first_label = new string(".th" + to_string(orig_if) + ":");
   p_stmt(if_statement,current,first_label);
 
-  /* parse else block, if it exists */
+  /* else parsing */
+  string exit_label = ".fi" + to_string(orig_if);
+  // if there is an else block
   if (expr->children.size() > 2){
+    // emit the goto for the case that the if statement is true
+    ac3 *if_true = new ac3 (expr->children[1]);
+    if_true->label = new string(exit_label);
+    if_true->itype.set(static_cast<int>(instruction::GOTO));
+    found->push_back(if_true);
+    // emit the else statement alternative
     string *else_label = new string (goto_label + ":");
     astree *else_statement = expr->children[2];
     p_stmt(else_statement,current,else_label);
@@ -481,7 +490,7 @@ ac3 *p_if(astree *expr, symbol_table *current, string *label){
 
   /* emit ending label */
   ac3 *closing_stmt = new ac3(expr);
-  closing_stmt->label = new string(".fi" + to_string(orig_if) +  ":");
+  closing_stmt->label = new string(exit_label + ":");
   closing_stmt->itype.set(static_cast<int>(instruction::LABEL_ONLY));
   found->push_back(closing_stmt);
 
