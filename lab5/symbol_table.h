@@ -36,7 +36,7 @@ struct all_tables{
               unordered_map<const string*,symbol_table*> *master);
 };
 
-void gen_table(astree* node);
+int ssymgen(astree* node);
 
 void free_symbol();
 

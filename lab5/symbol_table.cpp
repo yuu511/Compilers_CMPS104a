@@ -23,6 +23,7 @@ int current = 0;
 int next_block = 1;
 const string *current_function;
 symbol *p_expression(astree *s);
+void gen_table(astree *s);
 
 all_tables::all_tables(symbol_table *struct_t_,symbol_table *global_,
 unordered_map<const string*,symbol_table*> *master_){
@@ -1271,7 +1272,7 @@ void p_return (astree *s){
   if (s->children.size() < 1){
     if (!(func->attributes[static_cast<int>(attr::VOID)])){
       errprintf (
-      "return value mismatch : %zd.%zd.%zd\n",
+      "attempted to return a value for a void funtion %zd.%zd.%zd\n",
        s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
     }
     return;
@@ -1279,16 +1280,17 @@ void p_return (astree *s){
   symbol *ret = p_expression(s->children[0]);
   if (ret != nullptr){
     if (!compare_types(func->attributes,ret->attributes))
-      errprintf ( "return value mismatch : %zd.%zd.%zd\n",
-       s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
+       errprintf ( "return type mismatch : %zd.%zd.%zd\n",
+                   s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
      if (!(func->sname != nullptr) != !(ret->sname !=nullptr))
-       errprintf ("ptr and non-ptr matched: %zd.%zd.%zd\n",
-          s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
+       errprintf ("ptr and non-ptr return matched: %zd.%zd.%zd\n",
+                  s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
      if (func->sname != nullptr && ret->sname !=nullptr){
        if (func -> sname != ret->sname ){
-         errprintf (
-         "struct return value mismatch : %zd.%zd.%zd\n",
-          s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
+         errprintf ( "attempted to assign struct %s to %s in return"
+	             ": %zd.%zd.%zd\n",
+		      ret->sname->c_str(), func->sname->c_str(),
+                      s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
        }
      }
      s->block_number = current;
@@ -1333,6 +1335,14 @@ void gen_table(astree *s){
       delete sym;
       break;
   }
+}
+
+int ssymgen(astree *s){
+  gen_table(s);
+  if (exec::exit_status == EXIT_FAILURE)
+    return 1;
+  else 
+    return 0;
 }
 
 void free_symbol(){
