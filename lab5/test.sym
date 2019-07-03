@@ -11,6 +11,7 @@ onearg (5.160.1) {0} struct onearg
 
 z (6.208.1) {1} int function 
    i (6.208.8) {2} int variable param lval 0
+   y (6.209.3) {2} int variable local lval 1
 
 test (6.204.1) {0} int function 
    x (6.204.10) {1} int variable param lval 0

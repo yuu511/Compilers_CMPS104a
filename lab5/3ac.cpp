@@ -344,21 +344,12 @@ ac3 *p_binop(astree *expr, symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac = new ac3(expr); 
   ac->op = expr->lexinfo;
-  // ac->t0 = new reg(new string(stride_binop(expr,current)),reg_count);
   ac->t0 = new reg(new string (":i"),reg_count);
   ++reg_count;
   // parse the expressions
   // check the two children
   astree *left = expr->children[0];
   if (left->children.size() > 0) {
-    // string *stride = new string();
-    // if (left->children.size() == 1){
-    //   stride->append(get_stride(left->children[0],current));
-    // } 
-    // else  {
-    //   stride->append(stride_binop(left,current));
-    // }
-    // ac->t1 = new reg(stride,reg_count);
     ac->t1 = new reg(new string(":i"),reg_count);
     p_expr(left,current);
   } 
@@ -368,14 +359,6 @@ ac3 *p_binop(astree *expr, symbol_table *current){
   
   astree *right = expr->children[1];
   if (right->children.size() > 0){
-    // string *stride = new string();
-    // if (right->children.size() == 1){
-    //   stride->append(get_stride(right->children[0],current));
-    // } 
-    // else  {
-    //   stride->append(stride_binop(right,current));
-    // }
-    // ac->t2 = new reg(stride,reg_count);
     ac->t2 = new reg(new string(":i"),reg_count);
     p_expr(right,current);
   } 
@@ -396,15 +379,6 @@ ac3 *p_unop(astree *expr, symbol_table *current){
 
   astree *assignment = expr->children[0];
   if (assignment->children.size() > 0){
-    // string *stride = new string();
-    // if (assignment->children.size() == 1){
-    //   stride->append(get_stride(assignment->children[0],current));
-    //   stride->append(get_stride(assignment->children[0],current));
-    // } 
-    // else {
-    //   stride->append(stride_binop(assignment,current));
-    // }
-    // reg *unary = new reg(stride,reg_count);
     reg *unary = new reg(new string(":i"),reg_count);
     unary->unop = new string(*(expr->lexinfo));
     ac->t1 = unary;
@@ -467,16 +441,29 @@ ac3 *p_call(astree *expr, symbol_table *current, string *label){
       args->push_back(push);
     }
     reg *fname = new reg(new string (*(expr->children[0]->lexinfo)),args);
-    bot->t0 = fname; 
+    bot->t1 = fname; 
   } 
   else {
     reg *fname = new reg(new string (*(expr->children[0]->lexinfo)));
-    bot->t0 = fname;
+    bot->t1 = fname;
   }
   bot->itype.set(static_cast<int>(instruction::CALL));
   found->push_back(bot);
   found->at(index)->label = label;
   return bot;
+}
+
+// extra arguments for function call as an expression
+ac3 *p_call_expr (astree *expr, symbol_table *current){
+  // store function call in register
+  reg *ret = new reg(new string(":i"),reg_count);
+  ++reg_count;
+  ac3 *call = p_call(expr,current,nullptr);  
+  if (call)
+    call->t0 = ret;
+  else
+    errprintf("call not pared correctly");
+  return call;
 }
 
 // check validity of loop condition
@@ -658,7 +645,7 @@ ac3 *p_expr(astree *expr, symbol_table *current){
       return p_static_int(expr,current);
       break;
     case TOK_CALL:
-      return p_call(expr,current,nullptr);
+      return p_call_expr(expr,current);
       break;
   }
   errprintf ("non-recognized expression parsed:%s \n "
@@ -907,9 +894,11 @@ void emit_functions(all_tables *table, FILE *out){
       }
       if (stmt->itype[static_cast<int>(instruction::CALL)]){
         // call [FNAME] ( [ [ARG1] , [ARG2] , ... , [ARGN] ] )
-	fprintf (out, "%-10s call %s\n",
-	         "",
-		 stmt->t0 ? stmt->t0->str().c_str() : "");
+	fprintf (out, "%-10s %s%scall %s\n",
+	         stmt->label ? stmt->label->c_str() : "",
+                 stmt->t0 ? stmt->t0->str().c_str() : "",  
+                 stmt->t0 ? " = " : "",  
+		 stmt->t1 ? stmt->t1->str().c_str() : "");
 
       }
     }

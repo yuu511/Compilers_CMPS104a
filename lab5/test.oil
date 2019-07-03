@@ -18,7 +18,10 @@ test:      .function int
            .end
 z:         .function int 
            .param int i
-           $t1:i = 5 + 3
-           $t0:i = $t1:i + 2
-           call test($t0:i,"asdfsafdsa",)           return
+           .local int y
+           $t2:i = call test(5,"asfdsdf",)
+           $t1:i = call test($t2:i,"asdfsafdsa",)
+           $t0:i = i + $t1:i
+           y = $t0:i  
+           return
            .end

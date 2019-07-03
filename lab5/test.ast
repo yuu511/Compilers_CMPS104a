@@ -43,11 +43,15 @@ TYPE_ID "" 6.208.8 {2} int variable param lval
 INT "int" 6.208.8 {0} 
 IDENT "i" 6.208.12 {0} 
 BLOCK "{" 6.208.15 {2} 
-CALL "(" 6.209.7 {0} int function (6.204.1)
-IDENT "test" 6.209.3 {0} 
-'+' "+" 6.209.11 {2} int vreg 
-'+' "+" 6.209.9 {2} int vreg 
-INTCON "5" 6.209.8 {2} int const 
-INTCON "3" 6.209.10 {2} int const 
-INTCON "2" 6.209.12 {2} int const 
-STRINGCON ""asdfsafdsa"" 6.209.14 {2} string const 
+TYPE_ID "" 6.209.3 {2} int variable local lval vreg (6.209.3)
+INT "int" 6.209.3 {0} 
+IDENT "y" 6.209.7 {0} 
+'+' "+" 6.209.13 {2} int variable local lval vreg 
+IDENT "i" 6.209.11 {2} int variable param lval (6.208.8)
+CALL "(" 6.209.19 {0} int function (6.204.1)
+IDENT "test" 6.209.15 {0} 
+CALL "(" 6.209.24 {0} int function (6.204.1)
+IDENT "test" 6.209.20 {0} 
+INTCON "5" 6.209.25 {2} int const 
+STRINGCON ""asfdsdf"" 6.209.27 {2} string const 
+STRINGCON ""asdfsafdsa"" 6.209.38 {2} string const 
