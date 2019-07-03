@@ -31,9 +31,11 @@ void p_stmt(astree *expr, symbol_table *current, string *label);
 ac3 *p_expr(astree *expr, symbol_table *current);
 
 reg::reg(const string *ident_){
-  reg_number = -1;
   ident = ident_; 
+  reg_number = -1;
   stride = nullptr;
+  fname = nullptr;
+  parameters = nullptr;
   unop = nullptr;
 }
 
@@ -41,6 +43,17 @@ reg::reg(string *stride_, int reg_number_){
   reg_number = reg_number_;
   stride = stride_;
   ident = nullptr;
+  fname = nullptr;
+  parameters = nullptr;
+  unop = nullptr;
+}
+
+reg::reg(string *fname_, vector<reg*> *parameters_){
+  fname = fname_;
+  parameters= parameters_;
+  ident = nullptr;
+  reg_number = -1;
+  stride = nullptr;
   unop = nullptr;
 }
 
@@ -52,11 +65,25 @@ string reg::str(){
   if (ident != nullptr){
     ret.append(*ident);
   }
-  else {
+  else if (reg_number != -1) {
     ret.append("$t");
     ret.append(to_string(reg_number));
     if (stride){
       ret.append(*stride);
+    }
+  }
+  else if (fname != nullptr){
+    if (parameters){
+      ret.append(*fname);
+      ret.append("(");
+      for (auto itor: *parameters){
+        ret.append(itor->str());
+	ret.append(",");
+      }
+      ret.append(")");
+    } 
+    else {
+      ret.append("(" + *fname + ")");
     }
   }
   return ret;
@@ -197,6 +224,26 @@ string stride_binop(astree *expr,symbol_table *current){
     return ":p";
   }
   return ":i";
+}
+
+// parse expression, and return a register that it is stored in
+reg *expr_reg (astree *expr, symbol_table *current){
+  ac3 *parsed_expr  = p_expr(expr,current);
+  reg *stored = nullptr;
+  if (parsed_expr && parsed_expr->t1){
+    if (parsed_expr->t0->stride != nullptr  && parsed_expr->t0->reg_number != -1){
+      stored = parsed_expr->t0;
+    }
+    else {
+      errprintf ("expression passed is not a register!");
+      return nullptr;
+    }
+  } 
+  else {
+    errprintf("invalid expression passed in loop");
+    return nullptr;
+  }
+  return stored;
 }
 
 // helper function for assignment
@@ -396,9 +443,41 @@ ac3 *p_static_int(astree *expr, symbol_table *current){
   return ac;
 }
 
-//ac3 *p_call(astree *expr, symbol_table *current, string *label,const string *init){
-//
-//}
+ac3 *p_call(astree *expr, symbol_table *current, string *label){
+  ac3_table *found = table_lookup->find(current)->second;
+  size_t index = found->size();
+  ac3 *bot = new ac3(expr);
+  if (expr->children.size() > 1){
+    vector <reg*> *args = new vector <reg*>();
+    for (size_t i = 1; i < expr->children.size(); i++){
+      reg *push;
+      if (expr->children[i]->children.size() > 0){
+        reg *stored = expr_reg(expr->children[i],current);
+        if (stored){
+          push = new reg(new string(*(stored->stride)),stored->reg_number);
+	}
+        else {
+          errprintf ("return expression incorrectly parsed!");
+          return nullptr;
+        }
+      } 
+      else {
+        push = new reg(expr->children[i]->lexinfo);  
+      }
+      args->push_back(push);
+    }
+    reg *fname = new reg(new string (*(expr->children[0]->lexinfo)),args);
+    bot->t0 = fname; 
+  } 
+  else {
+    reg *fname = new reg(new string (*(expr->children[0]->lexinfo)));
+    bot->t0 = fname;
+  }
+  bot->itype.set(static_cast<int>(instruction::CALL));
+  found->push_back(bot);
+  found->at(index)->label = label;
+  return bot;
+}
 
 // check validity of loop condition
 int check_loop_validity (astree *s){
@@ -421,25 +500,6 @@ int check_loop_validity (astree *s){
   return 0;
 }
 
-// parse expression, and return a register that it is stored in
-reg *expr_reg (astree *expr, symbol_table *current){
-  ac3 *parsed_expr  = p_expr(expr,current);
-  reg *stored = nullptr;
-  if (parsed_expr && parsed_expr->t1){
-    if (parsed_expr->t0->stride != nullptr  && parsed_expr->t0->reg_number != -1){
-      stored = parsed_expr->t0;
-    }
-    else {
-      errprintf ("expression passed is not a register!");
-      return nullptr;
-    }
-  } 
-  else {
-    errprintf("invalid expression passed in loop");
-    return nullptr;
-  }
-  return stored;
-}
 
 ac3 *p_if(astree *expr, symbol_table *current, string *label){ 
   astree *condition = expr->children[0];
@@ -597,9 +657,9 @@ ac3 *p_expr(astree *expr, symbol_table *current){
     case TOK_INTCON:
       return p_static_int(expr,current);
       break;
-    // case TOK_CALL:
-    //   return p_call(expr,current,label,init);
-    //   break;
+    case TOK_CALL:
+      return p_call(expr,current,nullptr);
+      break;
   }
   errprintf ("non-recognized expression parsed:%s \n "
              , parser::get_tname(expr->symbol));
@@ -680,6 +740,9 @@ void p_stmt(astree *expr, symbol_table *current, string *label){
       break;
     case TOK_RETURN:
       ac = p_return(expr,current,label);
+      break;
+    case TOK_CALL:
+      ac = p_call(expr,current,label);
       break;
     default:
       ac3_table *found = table_lookup->find(current)->second;
@@ -841,6 +904,13 @@ void emit_functions(all_tables *table, FILE *out){
 	fprintf (out, "%-10s return %s\n",
 	         "",
 	         stmt->t0 ? stmt->t0->str().c_str(): "" );
+      }
+      if (stmt->itype[static_cast<int>(instruction::CALL)]){
+        // call [FNAME] ( [ [ARG1] , [ARG2] , ... , [ARGN] ] )
+	fprintf (out, "%-10s call %s\n",
+	         "",
+		 stmt->t0 ? stmt->t0->str().c_str() : "");
+
       }
     }
     //print out the ending statements

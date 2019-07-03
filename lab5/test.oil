@@ -11,45 +11,14 @@
 .struct onearg
 .field int trivial
 .end 
-homu:      .global int 
-homu_a:    .global int 5
-mami:      .global ptr 
-madoka:    .global ptr 
-kyouko:    .global struct test 
 test:      .function int 
+           .param int x
+           .param ptr z
            return
            .end
 z:         .function int 
            .param int i
-           .local int n
-.wh0:      $t1:i = 3 + 23
-           $t0:i = i > $t1:i
-           goto .od0 if not $t0:i
-.do0:      $t3:i = 1 + 3
-           $t2:i = $t3:i + 5
-           n = $t2:i  
-           n = 5  
-.if0:      $t4:i = i == 1
-           goto .el0 if not $t4:i
-.th0:      $t5:i = n + 1
-           n = $t5:i  
-           $t6:i = homu_a + 5
-           return $t6:i
-           goto .fi0  
-.el0:
-.if1:      $t7:i = n == 5
-           goto .el1 if not $t7:i
-.th1:      $t8:i = i + 1
-           i = $t8:i  
-           return homu
-           goto .fi1  
-.el1:      n = 0xFFFFF  
-.fi1:
-.fi0:
-           goto .wh0  
-.od0:
-           $t9:i = 0x112312312123213 + 5
-           n = $t9:i  
-           return n
-           return
+           $t1:i = 5 + 3
+           $t0:i = $t1:i + 2
+           call test($t0:i,"asdfsafdsa",)           return
            .end

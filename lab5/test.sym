@@ -9,19 +9,10 @@ test (5.159.1) {0} struct test
 onearg (5.160.1) {0} struct onearg 
    trivial (5.160.15) int field 0
 
-homu_a (6.177.1) {0} int variable lval 
+z (6.208.1) {1} int function 
+   i (6.208.8) {2} int variable param lval 0
 
-homu (6.176.1) {0} int variable lval 
-
-z (7.208.1) {1} int function 
-   i (7.208.8) {2} int variable param lval 0
-   n (7.212.5) {2} int variable local lval 1
-
-mami (6.178.1) {0} string variable lval 
-
-kyouko (6.180.1) {0} variable struct test lval 
-
-madoka (6.179.1) {0} int array variable lval 
-
-test (7.204.1) {0} int function 
+test (6.204.1) {0} int function 
+   x (6.204.10) {1} int variable param lval 0
+   z (6.204.18) {1} string variable param lval 1
 
