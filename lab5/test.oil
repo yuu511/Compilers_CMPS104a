@@ -1,10 +1,10 @@
+.struct none
+.end 
 .struct allofem
-.field ptr sayaka
 .field struct none homura
 .field int one
+.field ptr sayaka
 .field ptr two
-.end 
-.struct none
 .end 
 .struct test
 .end 

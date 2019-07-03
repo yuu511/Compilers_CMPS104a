@@ -91,6 +91,13 @@ string reg::str(){
 
 reg::~reg(){
   delete stride;
+  delete fname;
+  if (parameters){
+    for (auto itor : *parameters){
+      delete itor;
+    }
+  }
+  delete parameters;
   delete unop;
 }
 
