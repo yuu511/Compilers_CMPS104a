@@ -46,13 +46,13 @@ struct reg {
     the format of a 3-address code statement depends on 
     the type of instruction,represented by bitset attribute:
 
-    let tn = register (defined above)
+    let tn = register n (defined above)
 
-    ASSIGNMENT:
-    [LABEL] t0 = t1 OP t2
+    ASSIGNMENT (primary expression):
+    [LABEL] [t0]  = [t1] [OPERATOR] [t2] 
     
     GOTO:
-    goto LABEL [ if not t0 ]
+    goto [LABEL] if not [t0]
     
     LABEL_ONLY:
     [LABEL]
@@ -61,9 +61,10 @@ struct reg {
     [LABEL] return [t0]
 
     CALL:
-    [LABEL] [t0 = ] call t1 ( [ paramters[0],parameters[1] ... paramters[n] ] ) 
+    [LABEL] [t0] = call [t1] ( [ paramters[0],parameters[1] ... paramters[n] ] ) 
 
 */
+
 struct ac3{
   astree *expr;
   string *label;
@@ -76,6 +77,27 @@ struct ac3{
   ~ac3();
 };
 
+/*
+   all functions have an equivalent ac3 table 
+   (which is just a collection of statements, defined above)
+   all global declarations are also encapsulated within an ac3 table
+*/
+
 using ac3_table = vector<ac3*>;
+
+/*
+  all tables generated are stored in this object.
+  store function ac3 tables with function name for easy lookup.
+  all strings literals are stored in a vector.
+*/
+
+struct all_3ac{
+  ac3_table *all_globals;  
+  vector<pair<const string*,ac3_table*>> *all_functions;
+  vector<const string*> *all_strings;
+  all_3ac(ac3_table *all_globals, 
+          vector<pair<const string*,ac3_table*>> *all_functions,
+          vector<const string*> *all_strings);
+};
 
 #endif

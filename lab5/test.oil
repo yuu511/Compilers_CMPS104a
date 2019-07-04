@@ -1,0 +1,45 @@
+.struct mami
+.field ptr madoka
+.field struct sayaka sayaka
+.field int one
+.field ptr two
+.end 
+.struct sayaka
+.end 
+call:      .function int 
+           return
+           .end
+trivial:   .function 
+           .param int x
+           .local ptr thing3
+           .local int z
+           .local int lol
+           [ = 1  
+           $t1:i = 3 * x
+           $t0:i = $t1:i + 1
+           z = $t0:i  
+.if0:      $t3:i = z + 1
+           $t5:i = 3 * x
+           $t4:i = $t5:i + 5
+           $t2:i = $t3:i >= $t4:i
+           goto .el0 if not $t2:i
+.th0:
+           goto .fi0  
+.el0:
+.if1:      $t6:i = z == 0123123
+           goto .el1 if not $t6:i
+.th1:      $t7:i = x + 1
+           x = $t7:i  
+           goto .fi1  
+.el1:
+.if2:      $t8:i = x == 1
+           goto .el2 if not $t8:i
+.th2:
+           goto .fi2  
+.el2:
+.fi2:
+.fi1:
+.fi0:
+           x = 0xDEADBEEF  
+           return
+           .end

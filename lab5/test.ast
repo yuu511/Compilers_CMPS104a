@@ -1,0 +1,86 @@
+ROOT "<<ROOT>>" 0.0.0 {0} 
+STRUCT "struct" 4.3.1 {0} struct mami 
+IDENT "mami" 4.3.8 {0} 
+TYPE_ID "" 4.3.15 {0} int field 
+INT "int" 4.3.15 {0} 
+IDENT "one" 4.3.19 {0} 
+TYPE_ID "" 4.4.18 {0} string field 
+STRING "string" 4.4.18 {0} 
+IDENT "two" 4.4.25 {0} 
+TYPE_ID "" 4.5.18 {0} field struct sayaka 
+PTR "ptr" 4.5.18 {0} 
+IDENT "sayaka" 4.5.30 {0} 
+IDENT "sayaka" 4.5.38 {0} 
+TYPE_ID "" 4.6.18 {0} int array field 
+ARRAY "array" 4.6.18 {0} 
+INT "int" 4.6.25 {0} 
+IDENT "madoka" 4.6.30 {0} 
+FUNCTION "" 5.20.1 {0} int function 
+TYPE_ID "" 5.20.1 {0} 
+INT "int" 5.20.1 {0} 
+IDENT "call" 5.20.5 {0} 
+PARAM "(" 5.20.10 {0} 
+BLOCK "{" 5.20.12 {1} 
+FUNCTION "" 5.25.1 {1} void function 
+TYPE_ID "" 5.25.1 {0} 
+VOID "void" 5.25.1 {0} 
+IDENT "trivial" 5.25.6 {0} 
+PARAM "(" 5.25.14 {0} 
+TYPE_ID "" 5.25.15 {2} int variable param lval 
+INT "int" 5.25.15 {0} 
+IDENT "x" 5.25.19 {0} 
+BLOCK "{" 5.25.21 {2} 
+TYPE_ID "" 5.26.3 {2} int array variable local lval vreg (5.26.3)
+ARRAY "array" 5.26.3 {0} 
+INT "int" 5.26.9 {0} 
+IDENT "thing3" 5.26.14 {0} 
+ALLOC "alloc" 5.26.23 {2} int array variable local lval vreg 
+ARRAY "array" 5.26.29 {0} 
+INT "int" 5.26.35 {0} 
+INTCON "5" 5.26.41 {2} int const 
+'=' "=" 5.27.13 {2} int lval vreg vaddr 
+INDEX "[" 5.27.9 {2} int lval vaddr 
+IDENT "thing3" 5.27.3 {2} int array variable local lval (5.26.3)
+INTCON "0" 5.27.10 {2} int const 
+INTCON "1" 5.27.15 {2} int const 
+TYPE_ID "" 5.28.3 {2} int variable local lval vreg (5.28.3)
+INT "int" 5.28.3 {0} 
+IDENT "z" 5.28.7 {0} 
+'+' "+" 5.28.17 {2} int variable local lval vreg 
+'*' "*" 5.28.13 {2} int vreg 
+INTCON "3" 5.28.11 {2} int const 
+IDENT "x" 5.28.15 {2} int variable param lval (5.25.15)
+INTCON "1" 5.28.18 {2} int const 
+TYPE_ID "" 5.29.3 {2} int variable local lval (5.29.3)
+INT "int" 5.29.3 {0} 
+IDENT "lol" 5.29.7 {0} 
+IF "if" 5.30.3 {2} 
+GE ">=" 5.30.11 {2} int vreg 
+'+' "+" 5.30.8 {2} int vreg 
+IDENT "z" 5.30.7 {2} int variable local lval (5.28.3)
+INTCON "1" 5.30.9 {2} int const 
+'+' "+" 5.30.17 {2} int vreg 
+'*' "*" 5.30.15 {2} int vreg 
+INTCON "3" 5.30.14 {2} int const 
+IDENT "x" 5.30.16 {2} int variable param lval (5.25.15)
+INTCON "5" 5.30.18 {2} int const 
+BLOCK "{" 5.30.20 {2} 
+IF "if" 5.36.8 {2} 
+EQ "==" 5.36.14 {2} int vreg 
+IDENT "z" 5.36.12 {2} int variable local lval (5.28.3)
+INTCON "0123123" 5.36.17 {2} int const 
+BLOCK "{" 5.36.26 {2} 
+'=' "=" 5.37.6 {2} int variable param lval vreg 
+IDENT "x" 5.37.5 {2} int variable param lval (5.25.15)
+'+' "+" 5.37.8 {2} int vreg 
+IDENT "x" 5.37.7 {2} int variable param lval (5.25.15)
+INTCON "1" 5.37.9 {2} int const 
+IF "if" 5.39.8 {2} 
+EQ "==" 5.39.15 {2} int vreg 
+IDENT "x" 5.39.13 {2} int variable param lval (5.25.15)
+INTCON "1" 5.39.18 {2} int const 
+BLOCK "{" 5.39.20 {2} 
+BLOCK "{" 5.41.8 {2} 
+'=' "=" 5.43.4 {2} int variable param lval vreg 
+IDENT "x" 5.43.3 {2} int variable param lval (5.25.15)
+INTCON "0xDEADBEEF" 5.43.6 {2} int const 

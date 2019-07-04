@@ -20,11 +20,13 @@ new unordered_map<symbol_table*, ac3_table*>;
 // all symbol tables (generated in previous module symbol_table.cpp)
 all_tables *master;
 
-// first available reg (resets with function)
+/* global counters for registers and labels */
+
+// first available reg (resets with function declaration)
 int reg_count = -1;
-// first available while
+// first available while label
 int while_count = 0;
-// first available if
+// first available if label
 int if_count = 0;
 
 void p_stmt(astree *expr, symbol_table *current, string *label);
