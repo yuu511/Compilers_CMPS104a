@@ -14,16 +14,25 @@ enum class instruction{
 };
 using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)>;
 
+/* 
+   a register may be:
+   1. an identifier e.g. x
+   2. a temporary reigster e.g. $t0
+   3. a function call e.g. call foo(arg1,arg2) 
+
+   and be preceded by a unary operator (-,+,not)
+*/
+
 struct reg {
   // exists if a register is a variable
   const string *ident;
   // exists if a register is an actual register
   int reg_number;
   string *stride;
-  // register can be a function call
+  // exists if a register is a function
   string *fname;
   vector<reg*> *parameters;
-  // all registers may have a unary operator
+  // optional uanry operator
   string *unop;
   // constructors
   reg(const string *ident);
@@ -33,6 +42,28 @@ struct reg {
   ~reg();
 };
 
+/*
+    the format of a 3-address code statement depends on 
+    the type of instruction,represented by bitset attribute:
+
+    let tn = register (defined above)
+
+    ASSIGNMENT:
+    [LABEL] t0 = t1 OP t2
+    
+    GOTO:
+    goto LABEL [ if not t0 ]
+    
+    LABEL_ONLY:
+    [LABEL]
+
+    RETURN:
+    [LABEL] return [t0]
+
+    CALL:
+    [LABEL] [t0 = ] call t1 ( [ paramters[0],parameters[1] ... paramters[n] ] ) 
+
+*/
 struct ac3{
   astree *expr;
   string *label;

@@ -22,9 +22,9 @@ all_tables *master;
 
 // first available reg (resets with function)
 int reg_count = -1;
-// first while
+// first available while
 int while_count = 0;
-// first if
+// first available if
 int if_count = 0;
 
 void p_stmt(astree *expr, symbol_table *current, string *label);
@@ -913,8 +913,8 @@ void emit_functions(all_tables *table, FILE *out){
       }
       if (stmt->itype[static_cast<int>(instruction::RETURN)]){
         // return [EXPR]
-	fprintf (out, "%-10s return %s\n",
-	         "",
+	    fprintf (out, "%-10s return %s\n",
+	         stmt->label ? stmt->label->c_str() : "",
 	         stmt->t0 ? stmt->t0->str().c_str(): "" );
       }
       if (stmt->itype[static_cast<int>(instruction::CALL)]){
