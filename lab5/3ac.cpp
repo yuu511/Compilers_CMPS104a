@@ -80,12 +80,12 @@ string reg::str(){
       ret.append("(");
       for (auto itor: *parameters){
         ret.append(itor->str());
-	ret.append(",");
+ 	  ret.append(",");
       }
       ret.append(")");
     } 
     else {
-      ret.append("(" + *fname + ")");
+      ret.append(*fname + "(" + ")");
     }
   }
   return ret;
@@ -772,7 +772,7 @@ ac3 *p_return(astree *expr, symbol_table *current, string *label){
         bot->t0 = stored;
       else {
         errprintf ("3ac: return expression incorrectly parsed!");
-	return nullptr;
+	    return nullptr;
       }
     }
     else {
