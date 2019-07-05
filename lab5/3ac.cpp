@@ -103,6 +103,21 @@ reg::~reg(){
   delete unop;
 }
 
+reg *reg::deep_copy(){
+  reg *r= new reg(ident);  
+  r->reg_number = reg_number;
+  if (stride) r->stride = new string(*stride);
+  if (fname) r->fname = new string(*fname);
+  if (parameters){
+    r->parameters = new vector<reg*>();
+    for (auto itor: *parameters){
+      r->parameters->push_back(itor->deep_copy());
+    }
+  }
+  if (unop) r->unop = new string(*unop);
+  return r;
+}
+
 void free_3ac(){
   // for (auto itor : *table_lookup){
   //   for( auto itor2: *itor.second){
@@ -248,21 +263,14 @@ string stride_binop(astree *expr,symbol_table *current){
 // parse expression, and return a register that it is stored in
 reg *expr_reg (astree *expr, symbol_table *current){
   ac3 *parsed_expr  = p_expr(expr,current);
-  reg *stored = nullptr;
-  if (parsed_expr && parsed_expr->t1){
-    if (parsed_expr->t0->stride != nullptr  && parsed_expr->t0->reg_number != -1){
-      stored = parsed_expr->t0;
-    }
-    else {
-      errprintf ("3ac: expression passed is not a register!\n");
-      return nullptr;
-    }
-  } 
+  if (parsed_expr && parsed_expr->t0){
+    return parsed_expr->t0->deep_copy(); 
+  }
   else {
     errprintf("3ac: invalid expression passed in loop\n");
     return nullptr;
   }
-  return stored;
+  return nullptr;
 }
 
 // assign int to ident
@@ -270,30 +278,20 @@ ac3 *asg_int(astree *expr, symbol_table *current, string *label){
   ac3_table *found = table_lookup->find(current)->second;
   // bot of statements
   ac3 *bot;
-  astree *ident;
-  astree *parse;
   // get index of top of statements
   size_t top = found->size();
 
-  if (expr->symbol == '='){
-    ident = expr->children[0];
-    parse = expr->children[1];
-  }
-  else if (expr->symbol == TOK_TYPE_ID) {
-    ident = expr->children[1];
-    parse = expr->children[2];
-  } 
-  else {
-    errprintf ("3ac: ASSIGNMENT called on non = or TOK_TYPE_ID\n");
-    return nullptr;
-  }
+  int offset;
+  expr->symbol == TOK_TYPE_ID ? offset = 1 : offset = 0;
+  astree *ident = expr->children[0+offset];
+  astree *parse = expr->children[1+offset];
 
   if (parse->children.size() > 0){  
     bot = new ac3(expr);
     reg *bot_reg = expr_reg(parse,current);
     if (bot_reg){
       bot->t0 = new reg((ident->lexinfo));
-      bot->t1 = new reg(new string(*(bot_reg->stride)),bot_reg->reg_number);
+      bot->t1 = bot_reg;
       bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(bot);
       found->at(top)->label = label; 
@@ -314,12 +312,44 @@ ac3 *asg_int(astree *expr, symbol_table *current, string *label){
   return bot;
 }
 
+ac3 *asg_array(astree *expr, symbol_table *current, string *label){
+  ac3_table *found = table_lookup->find(current)->second;
+  ac3 *bot;
+  size_t top = found->size();
+
+  int offset;
+  expr->symbol == TOK_TYPE_ID ? offset = 1 : offset = 0;
+  astree *ident = expr->children[0+offset];
+  astree *parse = expr->children[1+offset];
+
+  if (parse->children.size() > 0 ){
+    if (parse->symbol == TOK_ALLOC){
+      bot = new ac3(expr);
+      astree *alloc_sz = parse->children[0]->children[1];
+      // if (alloc_sz->children.size() > 0){
+
+      // } 
+      // else {
+      // }
+    }
+  }
+  else {
+    bot = new ac3(expr);
+    bot->t0 = new reg(ident->lexinfo);
+    bot->t1 = new reg(parse->lexinfo);
+    bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+    found->push_back(bot);
+    found->at(top)->label = label;
+  }
+  return bot;
+}
+
 
 // check type, and call approriate parsing function
 ac3 *asg_check_type(astree *expr, symbol_table *current, string *label){
   attr_bitset a = expr->attributes;
   if (a[static_cast<int>(attr::ARRAY)]){
-    // return asg_array(expr,current,label);
+    return asg_array(expr,current,label);
   }
   if (a[static_cast<int>(attr::TYPEID)]){
     // return asg_typeid(expr, current,label);
@@ -458,8 +488,8 @@ ac3 *p_call(astree *expr, symbol_table *current, string *label){
       if (expr->children[i]->children.size() > 0){
         reg *stored = expr_reg(expr->children[i],current);
         if (stored){
-          push = new reg(new string(*(stored->stride)),stored->reg_number);
-	}
+          push = stored;
+	    }
         else {
           errprintf ("3ac: return expression incorrectly parsed!\n");
           return nullptr;
@@ -552,8 +582,7 @@ ac3 *p_if(astree *expr, symbol_table *current, string *label){
   found->at(top)->label = if_header;
 
   /* goto statement */
-  reg *ret = new reg(new string(*(stored->stride)),stored->reg_number);
-  ret->unop = stored->unop;
+  reg *ret = stored;
   ac3 *if_goto = new ac3 (condition,ret); 
   if_goto->label = new string(goto_label);
   if_goto->itype.set(static_cast<int>(instruction::GOTO));
@@ -623,7 +652,7 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
   found->at(top)->label = wh_header;
 
   /* goto statement */
-  reg *ret = new reg(new string(*(stored->stride)),stored->reg_number);
+  reg *ret = stored;
   ret->unop = stored->unop;
   ac3 *wh_goto = new ac3 (condition,ret); 
   wh_goto->label = new string(goto_label);
@@ -648,10 +677,38 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
   return closing_stmt;
 }
 
+// equals in the context of an expr
+ac3 *p_equals(astree *expr, symbol_table *current){
+  ac3_table *found = table_lookup->find(current)->second;
+  ac3 *ac = new ac3(expr);
+  astree *left = expr->children[0];
+  if (left->children.size() > 0) {
+    ac->t0 = new reg(new string(":i"),reg_count);
+    p_expr(left,current);
+  } 
+  else {
+    ac->t0 =new reg(left->lexinfo);
+  }
+  
+  astree *right = expr->children[1];
+  if (right->children.size() > 0){
+    ac->t1 = new reg(new string(":i"),reg_count);
+    p_expr(right,current);
+  } 
+  else {
+    ac->t1 =new reg(right->lexinfo);
+  }
+  ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+  found->push_back(ac);
+  return ac;
+}
+
 // add a label to the expr if it exists.
 ac3 *p_expr(astree *expr, symbol_table *current){
   switch (expr->symbol){
     case '=':
+      return p_equals(expr,current);
+      break;
     case '*':
     case '/':
     case '%':
@@ -712,7 +769,7 @@ ac3 *p_return(astree *expr, symbol_table *current, string *label){
     if (assignment->children.size() > 0){
       reg *stored = expr_reg(assignment,current);
       if (stored)
-        bot->t0 = new reg(new string(*(stored->stride)),stored->reg_number);
+        bot->t0 = stored;
       else {
         errprintf ("3ac: return expression incorrectly parsed!");
 	return nullptr;

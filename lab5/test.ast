@@ -15,6 +15,10 @@ TYPE_ID "" 4.6.18 {0} int array field
 ARRAY "array" 4.6.18 {0} 
 INT "int" 4.6.25 {0} 
 IDENT "madoka" 4.6.30 {0} 
+TYPE_ID "" 5.18.1 {0} int array variable lval (5.18.1)
+ARRAY "array" 5.18.1 {0} 
+INT "int" 5.18.7 {0} 
+IDENT "thing3" 5.18.12 {0} 
 FUNCTION "" 5.20.1 {0} int function 
 TYPE_ID "" 5.20.1 {0} 
 INT "int" 5.20.1 {0} 
@@ -30,28 +34,82 @@ TYPE_ID "" 5.25.15 {2} int variable param lval
 INT "int" 5.25.15 {0} 
 IDENT "x" 5.25.19 {0} 
 BLOCK "{" 5.25.21 {2} 
-TYPE_ID "" 5.28.3 {2} int variable local lval vreg (5.28.3)
-INT "int" 5.28.3 {0} 
-IDENT "z" 5.28.7 {0} 
-'+' "+" 5.28.17 {2} int variable local lval vreg 
-'*' "*" 5.28.13 {2} int vreg 
-INTCON "3" 5.28.11 {2} int const 
-IDENT "x" 5.28.15 {2} int variable param lval (5.25.15)
-INTCON "1" 5.28.18 {2} int const 
-'=' "=" 6.50.5 {2} int variable local lval vreg 
-IDENT "z" 6.50.3 {2} int variable local lval (5.28.3)
-'+' "+" 6.50.39 {2} int vreg 
-'+' "+" 6.50.31 {2} int vreg 
-'+' "+" 6.50.20 {2} int vreg 
-'+' "+" 6.50.13 {2} int vreg 
-CHARCON "'c'" 6.50.9 {2} int const 
-CHARCON "'a'" 6.50.15 {2} int const 
-'+' "+" 6.50.26 {2} int vreg 
-'-' "-" 6.50.23 {2} int const vreg 
-'-' "-" 6.50.24 {2} int const vreg 
-INTCON "5" 6.50.25 {2} int const 
-INTCON "3" 6.50.27 {2} int const 
-'*' "*" 6.50.35 {2} int vreg 
-INTCON "5" 6.50.33 {2} int const 
-INTCON "3" 6.50.37 {2} int const 
-INTCON "4" 6.50.41 {2} int const 
+TYPE_ID "" 5.30.3 {2} int variable local lval (5.30.3)
+INT "int" 5.30.3 {0} 
+IDENT "z" 5.30.7 {0} 
+TYPE_ID "" 5.31.3 {2} int variable local lval (5.31.3)
+INT "int" 5.31.3 {0} 
+IDENT "homu" 5.31.7 {0} 
+'=' "=" 5.32.5 {2} int variable param lval vreg 
+IDENT "x" 5.32.3 {2} int variable param lval (5.25.15)
+'=' "=" 5.32.9 {2} int variable local lval vreg 
+IDENT "z" 5.32.7 {2} int variable local lval (5.30.3)
+'=' "=" 5.32.16 {2} int variable local lval vreg 
+IDENT "homu" 5.32.11 {2} int variable local lval (5.31.3)
+'*' "*" 5.32.24 {2} int vreg 
+'*' "*" 5.32.20 {2} int vreg 
+INTCON "5" 5.32.18 {2} int const 
+INTCON "3" 5.32.22 {2} int const 
+INTCON "4" 5.32.25 {2} int const 
+TYPE_ID "" 5.33.3 {2} int variable local lval (5.33.3)
+INT "int" 5.33.3 {0} 
+IDENT "lol" 5.33.7 {0} 
+IF "if" 5.35.3 {2} 
+GE ">=" 5.35.11 {2} int vreg 
+'+' "+" 5.35.8 {2} int vreg 
+IDENT "z" 5.35.7 {2} int variable local lval (5.30.3)
+INTCON "1" 5.35.9 {2} int const 
+'+' "+" 5.35.17 {2} int vreg 
+'*' "*" 5.35.15 {2} int vreg 
+INTCON "3" 5.35.14 {2} int const 
+IDENT "x" 5.35.16 {2} int variable param lval (5.25.15)
+INTCON "5" 5.35.18 {2} int const 
+BLOCK "{" 5.35.20 {2} 
+WHILE "while" 5.36.5 {2} 
+LT "<" 5.36.16 {2} int vreg 
+IDENT "lol" 5.36.12 {2} int variable local lval (5.33.3)
+INTCON "5" 5.36.18 {2} int const 
+BLOCK "{" 5.36.20 {2} 
+'=' "=" 5.37.11 {2} int variable local lval vreg 
+IDENT "lol" 5.37.7 {2} int variable local lval (5.33.3)
+'+' "+" 5.37.17 {2} int vreg 
+IDENT "lol" 5.37.13 {2} int variable local lval (5.33.3)
+INTCON "1" 5.37.18 {2} int const 
+'=' "=" 5.39.6 {2} int variable local lval vreg 
+IDENT "z" 5.39.5 {2} int variable local lval (5.30.3)
+'+' "+" 5.39.8 {2} int vreg 
+IDENT "z" 5.39.7 {2} int variable local lval (5.30.3)
+INTCON "1" 5.39.9 {2} int const 
+IF "if" 5.41.8 {2} 
+EQ "==" 5.41.14 {2} int vreg 
+IDENT "z" 5.41.12 {2} int variable local lval (5.30.3)
+INTCON "0123123" 5.41.17 {2} int const 
+BLOCK "{" 5.41.26 {2} 
+'=' "=" 5.42.6 {2} int variable param lval vreg 
+IDENT "x" 5.42.5 {2} int variable param lval (5.25.15)
+'+' "+" 5.42.8 {2} int vreg 
+IDENT "x" 5.42.7 {2} int variable param lval (5.25.15)
+INTCON "1" 5.42.9 {2} int const 
+IF "if" 5.44.8 {2} 
+EQ "==" 5.44.15 {2} int vreg 
+IDENT "x" 5.44.13 {2} int variable param lval (5.25.15)
+INTCON "1" 5.44.18 {2} int const 
+BLOCK "{" 5.44.20 {2} 
+BLOCK "{" 5.46.8 {2} 
+'=' "=" 5.54.5 {2} int variable local lval vreg 
+IDENT "z" 5.54.3 {2} int variable local lval (5.30.3)
+'+' "+" 5.54.39 {2} int vreg 
+'+' "+" 5.54.31 {2} int vreg 
+'+' "+" 5.54.20 {2} int vreg 
+'+' "+" 5.54.13 {2} int vreg 
+CHARCON "'c'" 5.54.9 {2} int const 
+CHARCON "'a'" 5.54.15 {2} int const 
+'+' "+" 5.54.26 {2} int vreg 
+'-' "-" 5.54.23 {2} int const vreg 
+'-' "-" 5.54.24 {2} int const vreg 
+INTCON "5" 5.54.25 {2} int const 
+INTCON "3" 5.54.27 {2} int const 
+'*' "*" 5.54.35 {2} int vreg 
+INTCON "5" 5.54.33 {2} int const 
+INTCON "3" 5.54.37 {2} int const 
+INTCON "4" 5.54.41 {2} int const 

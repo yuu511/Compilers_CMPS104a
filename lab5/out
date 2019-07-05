@@ -1,197 +1,389 @@
+make[1]: Entering directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'
 g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3ac.cpp
-3ac.cpp: In member function ‘std::__cxx11::string reg::str()’:
-3ac.cpp:78:21: error: no matching function for call to ‘std::__cxx11::basic_string<char>::append(char)’
-       ret.append('(');
-                     ^
-In file included from /usr/include/c++/7/string:52:0,
-                 from /usr/include/c++/7/bitset:47,
+3ac.cpp: In member function ‘reg* reg::deep_copy()’:
+3ac.cpp:109:44: error: no matching function for call to ‘std::__cxx11::basic_string<char>::basic_string(std::string*&)’
+  109 |   if (stride) r->stride = new string(stride);
+      |                                            ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
                  from symbol_table.h:4,
                  from 3ac.h:4,
                  from 3ac.cpp:1:
-/usr/include/c++/7/bits/basic_string.h:1244:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>] <near match>
-       append(const _CharT* __s)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1244:7: note:   conversion of argument 1 would be ill-formed:
-3ac.cpp:78:21: error: invalid conversion from ‘char’ to ‘const char*’ [-fpermissive]
-       ret.append('(');
-                     ^
-In file included from /usr/include/c++/7/string:52:0,
-                 from /usr/include/c++/7/bitset:47,
+/usr/include/c++/9.1.0/bits/basic_string.h:650:2: note: candidate: ‘template<class _Tp, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Tp&, const _Alloc&)’
+  650 |  basic_string(const _Tp& __t, const _Alloc& __a = _Alloc())
+      |  ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:650:2: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/9.1.0/bits/move.h:55,
+                 from /usr/include/c++/9.1.0/bits/stl_pair.h:59,
+                 from /usr/include/c++/9.1.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/9.1.0/bits/char_traits.h:39,
+                 from /usr/include/c++/9.1.0/string:40,
+                 from /usr/include/c++/9.1.0/bitset:47,
                  from symbol_table.h:4,
                  from 3ac.h:4,
                  from 3ac.cpp:1:
-/usr/include/c++/7/bits/basic_string.h:1202:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-       append(const basic_string& __str)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1202:7: note:   no known conversion for argument 1 from ‘char’ to ‘const std::__cxx11::basic_string<char>&’
-/usr/include/c++/7/bits/basic_string.h:1219:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]
-       append(const basic_string& __str, size_type __pos, size_type __n = npos)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1219:7: note:   candidate expects 3 arguments, 1 provided
-/usr/include/c++/7/bits/basic_string.h:1231:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]
-       append(const _CharT* __s, size_type __n)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1231:7: note:   candidate expects 2 arguments, 1 provided
-/usr/include/c++/7/bits/basic_string.h:1261:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, _CharT) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]
-       append(size_type __n, _CharT __c)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1261:7: note:   candidate expects 2 arguments, 1 provided
-/usr/include/c++/7/bits/basic_string.h:1271:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::initializer_list<_Tp>) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-       append(initializer_list<_CharT> __l)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1271:7: note:   no known conversion for argument 1 from ‘char’ to ‘std::initializer_list<char>’
-/usr/include/c++/7/bits/basic_string.h:1290:9: note: candidate: template<class _InputIterator, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(_InputIterator, _InputIterator) [with _InputIterator = _InputIterator; <template-parameter-2-2> = <template-parameter-1-2>; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-         append(_InputIterator __first, _InputIterator __last)
-         ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1290:9: note:   template argument deduction/substitution failed:
-3ac.cpp:78:21: note:   candidate expects 2 arguments, 1 provided
-       ret.append('(');
-                     ^
-In file included from /usr/include/c++/7/string:52:0,
-                 from /usr/include/c++/7/bitset:47,
+/usr/include/c++/9.1.0/type_traits: In substitution of ‘template<bool _Cond, class _Tp> using enable_if_t = typename std::enable_if::type [with bool _Cond = std::integral_constant<bool, false>::value; _Tp = void]’:
+/usr/include/c++/9.1.0/bits/basic_string.h:117:8:   required by substitution of ‘template<class _CharT, class _Traits, class _Alloc> template<class _Tp, class _Res> using _If_sv = std::enable_if_t<std::__and_<std::is_convertible<const _Tp&, std::basic_string_view<_CharT, _Traits> >, std::__not_<std::is_convertible<const _Tp*, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>*> >, std::__not_<std::is_convertible<const _Tp&, const _CharT*> > >::value, _Res> [with _Tp = std::__cxx11::basic_string<char>*; _Res = void; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+/usr/include/c++/9.1.0/bits/basic_string.h:648:30:   required from here
+/usr/include/c++/9.1.0/type_traits:2426:11: error: no type named ‘type’ in ‘struct std::enable_if<false, void>’
+ 2426 |     using enable_if_t = typename enable_if<_Cond, _Tp>::type;
+      |           ^~~~~~~~~~~
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
                  from symbol_table.h:4,
                  from 3ac.h:4,
                  from 3ac.cpp:1:
-/usr/include/c++/7/bits/basic_string.h:1301:9: note: candidate: template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-         append(const _Tp& __svt)
-         ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1301:9: note:   template argument deduction/substitution failed:
-/usr/include/c++/7/bits/basic_string.h:1316:2: note: candidate: template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-  append(const _Tp& __svt, size_type __pos, size_type __n = npos)
-  ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1316:2: note:   template argument deduction/substitution failed:
-3ac.cpp:78:21: note:   candidate expects 3 arguments, 1 provided
-       ret.append('(');
-                     ^
-3ac.cpp:81:16: error: no matching function for call to ‘std::__cxx11::basic_string<char>::append(char)’
-  ret.append(',');
-                ^
-In file included from /usr/include/c++/7/string:52:0,
-                 from /usr/include/c++/7/bitset:47,
+/usr/include/c++/9.1.0/bits/basic_string.h:639:2: note: candidate: ‘template<class _Tp, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&)’
+  639 |  basic_string(const _Tp& __t, size_type __pos, size_type __n,
+      |  ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:639:2: note:   template argument deduction/substitution failed:
+3ac.cpp:109:44: note:   candidate expects 4 arguments, 1 provided
+  109 |   if (stride) r->stride = new string(stride);
+      |                                            ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
                  from symbol_table.h:4,
                  from 3ac.h:4,
                  from 3ac.cpp:1:
-/usr/include/c++/7/bits/basic_string.h:1244:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>] <near match>
-       append(const _CharT* __s)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1244:7: note:   conversion of argument 1 would be ill-formed:
-3ac.cpp:81:16: error: invalid conversion from ‘char’ to ‘const char*’ [-fpermissive]
-  ret.append(',');
-                ^
-In file included from /usr/include/c++/7/string:52:0,
-                 from /usr/include/c++/7/bitset:47,
+/usr/include/c++/9.1.0/bits/basic_string.h:625:9: note: candidate: ‘template<class _InputIterator, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(_InputIterator, _InputIterator, const _Alloc&)’
+  625 |         basic_string(_InputIterator __beg, _InputIterator __end,
+      |         ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:625:9: note:   template argument deduction/substitution failed:
+3ac.cpp:109:44: note:   candidate expects 3 arguments, 1 provided
+  109 |   if (stride) r->stride = new string(stride);
+      |                                            ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
                  from symbol_table.h:4,
                  from 3ac.h:4,
                  from 3ac.cpp:1:
-/usr/include/c++/7/bits/basic_string.h:1202:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-       append(const basic_string& __str)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1202:7: note:   no known conversion for argument 1 from ‘char’ to ‘const std::__cxx11::basic_string<char>&’
-/usr/include/c++/7/bits/basic_string.h:1219:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]
-       append(const basic_string& __str, size_type __pos, size_type __n = npos)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1219:7: note:   candidate expects 3 arguments, 1 provided
-/usr/include/c++/7/bits/basic_string.h:1231:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]
-       append(const _CharT* __s, size_type __n)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1231:7: note:   candidate expects 2 arguments, 1 provided
-/usr/include/c++/7/bits/basic_string.h:1261:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, _CharT) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]
-       append(size_type __n, _CharT __c)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1261:7: note:   candidate expects 2 arguments, 1 provided
-/usr/include/c++/7/bits/basic_string.h:1271:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::initializer_list<_Tp>) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-       append(initializer_list<_CharT> __l)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1271:7: note:   no known conversion for argument 1 from ‘char’ to ‘std::initializer_list<char>’
-/usr/include/c++/7/bits/basic_string.h:1290:9: note: candidate: template<class _InputIterator, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(_InputIterator, _InputIterator) [with _InputIterator = _InputIterator; <template-parameter-2-2> = <template-parameter-1-2>; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-         append(_InputIterator __first, _InputIterator __last)
-         ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1290:9: note:   template argument deduction/substitution failed:
-3ac.cpp:81:16: note:   candidate expects 2 arguments, 1 provided
-  ret.append(',');
-                ^
-In file included from /usr/include/c++/7/string:52:0,
-                 from /usr/include/c++/7/bitset:47,
+/usr/include/c++/9.1.0/bits/basic_string.h:587:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  587 |       basic_string(basic_string&& __str, const _Alloc& __a)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:587:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:583:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  583 |       basic_string(const basic_string& __str, const _Alloc& __a)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:583:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:579:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::initializer_list<_Tp>, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  579 |       basic_string(initializer_list<_CharT> __l, const _Alloc& __a = _Alloc())
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:579:45: note:   no known conversion for argument 1 from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to ‘std::initializer_list<char>’
+  579 |       basic_string(initializer_list<_CharT> __l, const _Alloc& __a = _Alloc())
+      |                    ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:552:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  552 |       basic_string(basic_string&& __str) noexcept
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:552:35: note:   no known conversion for argument 1 from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to ‘std::__cxx11::basic_string<char>&&’
+  552 |       basic_string(basic_string&& __str) noexcept
+      |                    ~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:540:7: note: candidate: ‘template<class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, _CharT, const _Alloc&)’
+  540 |       basic_string(size_type __n, _CharT __c, const _Alloc& __a = _Alloc())
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:540:7: note:   template argument deduction/substitution failed:
+3ac.cpp:109:44: note:   candidate expects 3 arguments, 1 provided
+  109 |   if (stride) r->stride = new string(stride);
+      |                                            ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
                  from symbol_table.h:4,
                  from 3ac.h:4,
                  from 3ac.cpp:1:
-/usr/include/c++/7/bits/basic_string.h:1301:9: note: candidate: template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-         append(const _Tp& __svt)
-         ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1301:9: note:   template argument deduction/substitution failed:
-/usr/include/c++/7/bits/basic_string.h:1316:2: note: candidate: template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-  append(const _Tp& __svt, size_type __pos, size_type __n = npos)
-  ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1316:2: note:   template argument deduction/substitution failed:
-3ac.cpp:81:16: note:   candidate expects 3 arguments, 1 provided
-  ret.append(',');
-                ^
-3ac.cpp:83:21: error: no matching function for call to ‘std::__cxx11::basic_string<char>::append(char)’
-       ret.append(')');
-                     ^
-In file included from /usr/include/c++/7/string:52:0,
-                 from /usr/include/c++/7/bitset:47,
+/usr/include/c++/9.1.0/bits/basic_string.h:525:7: note: candidate: ‘template<class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, const _Alloc&)’
+  525 |       basic_string(const _CharT* __s, const _Alloc& __a = _Alloc())
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:525:7: note:   template argument deduction/substitution failed:
+3ac.cpp:109:38: note:   cannot convert ‘((reg*)this)->reg::stride’ (type ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’}) to type ‘const char*’
+  109 |   if (stride) r->stride = new string(stride);
+      |                                      ^~~~~~
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
                  from symbol_table.h:4,
                  from 3ac.h:4,
                  from 3ac.cpp:1:
-/usr/include/c++/7/bits/basic_string.h:1244:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>] <near match>
-       append(const _CharT* __s)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1244:7: note:   conversion of argument 1 would be ill-formed:
-3ac.cpp:83:21: error: invalid conversion from ‘char’ to ‘const char*’ [-fpermissive]
-       ret.append(')');
-                     ^
-In file included from /usr/include/c++/7/string:52:0,
-                 from /usr/include/c++/7/bitset:47,
+/usr/include/c++/9.1.0/bits/basic_string.h:510:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  510 |       basic_string(const _CharT* __s, size_type __n,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:510:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:492:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  492 |       basic_string(const basic_string& __str, size_type __pos,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:492:7: note:   candidate expects 4 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:476:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  476 |       basic_string(const basic_string& __str, size_type __pos,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:476:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:461:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  461 |       basic_string(const basic_string& __str, size_type __pos,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:461:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:448:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  448 |       basic_string(const basic_string& __str)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:448:40: note:   no known conversion for argument 1 from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to ‘const std::__cxx11::basic_string<char>&’
+  448 |       basic_string(const basic_string& __str)
+      |                    ~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:440:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  440 |       basic_string(const _Alloc& __a) _GLIBCXX_NOEXCEPT
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:440:34: note:   no known conversion for argument 1 from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to ‘const std::allocator<char>&’
+  440 |       basic_string(const _Alloc& __a) _GLIBCXX_NOEXCEPT
+      |                    ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:431:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string() [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  431 |       basic_string()
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:431:7: note:   candidate expects 0 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:145:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::__sv_wrapper, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  145 |       basic_string(__sv_wrapper __svw, const _Alloc& __a)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:145:7: note:   candidate expects 2 arguments, 1 provided
+3ac.cpp:110:41: error: no matching function for call to ‘std::__cxx11::basic_string<char>::basic_string(std::string*&)’
+  110 |   if (fname) r->fname = new string(fname);
+      |                                         ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
                  from symbol_table.h:4,
                  from 3ac.h:4,
                  from 3ac.cpp:1:
-/usr/include/c++/7/bits/basic_string.h:1202:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-       append(const basic_string& __str)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1202:7: note:   no known conversion for argument 1 from ‘char’ to ‘const std::__cxx11::basic_string<char>&’
-/usr/include/c++/7/bits/basic_string.h:1219:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]
-       append(const basic_string& __str, size_type __pos, size_type __n = npos)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1219:7: note:   candidate expects 3 arguments, 1 provided
-/usr/include/c++/7/bits/basic_string.h:1231:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]
-       append(const _CharT* __s, size_type __n)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1231:7: note:   candidate expects 2 arguments, 1 provided
-/usr/include/c++/7/bits/basic_string.h:1261:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, _CharT) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]
-       append(size_type __n, _CharT __c)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1261:7: note:   candidate expects 2 arguments, 1 provided
-/usr/include/c++/7/bits/basic_string.h:1271:7: note: candidate: std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::initializer_list<_Tp>) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-       append(initializer_list<_CharT> __l)
-       ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1271:7: note:   no known conversion for argument 1 from ‘char’ to ‘std::initializer_list<char>’
-/usr/include/c++/7/bits/basic_string.h:1290:9: note: candidate: template<class _InputIterator, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(_InputIterator, _InputIterator) [with _InputIterator = _InputIterator; <template-parameter-2-2> = <template-parameter-1-2>; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-         append(_InputIterator __first, _InputIterator __last)
-         ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1290:9: note:   template argument deduction/substitution failed:
-3ac.cpp:83:21: note:   candidate expects 2 arguments, 1 provided
-       ret.append(')');
-                     ^
-In file included from /usr/include/c++/7/string:52:0,
-                 from /usr/include/c++/7/bitset:47,
+/usr/include/c++/9.1.0/bits/basic_string.h:650:2: note: candidate: ‘template<class _Tp, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Tp&, const _Alloc&)’
+  650 |  basic_string(const _Tp& __t, const _Alloc& __a = _Alloc())
+      |  ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:650:2: note:   template argument deduction/substitution failed:
+/usr/include/c++/9.1.0/bits/basic_string.h:639:2: note: candidate: ‘template<class _Tp, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&)’
+  639 |  basic_string(const _Tp& __t, size_type __pos, size_type __n,
+      |  ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:639:2: note:   template argument deduction/substitution failed:
+3ac.cpp:110:41: note:   candidate expects 4 arguments, 1 provided
+  110 |   if (fname) r->fname = new string(fname);
+      |                                         ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
                  from symbol_table.h:4,
                  from 3ac.h:4,
                  from 3ac.cpp:1:
-/usr/include/c++/7/bits/basic_string.h:1301:9: note: candidate: template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-         append(const _Tp& __svt)
-         ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1301:9: note:   template argument deduction/substitution failed:
-/usr/include/c++/7/bits/basic_string.h:1316:2: note: candidate: template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]
-  append(const _Tp& __svt, size_type __pos, size_type __n = npos)
-  ^~~~~~
-/usr/include/c++/7/bits/basic_string.h:1316:2: note:   template argument deduction/substitution failed:
-3ac.cpp:83:21: note:   candidate expects 3 arguments, 1 provided
-       ret.append(')');
-                     ^
-3ac.cpp: In function ‘void emit_functions(all_tables*, FILE*)’:
-3ac.cpp:912:19: warning: format ‘%s’ expects argument of type ‘char*’, but argument 4 has type ‘std::__cxx11::string {aka std::__cxx11::basic_string<char>}’ [-Wformat=]
-    stmt->t0->str());
-    ~~~~~~~~~~~~~~~^
-Makefile:55: recipe for target '3ac.o' failed
-make: *** [3ac.o] Error 1
+/usr/include/c++/9.1.0/bits/basic_string.h:625:9: note: candidate: ‘template<class _InputIterator, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(_InputIterator, _InputIterator, const _Alloc&)’
+  625 |         basic_string(_InputIterator __beg, _InputIterator __end,
+      |         ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:625:9: note:   template argument deduction/substitution failed:
+3ac.cpp:110:41: note:   candidate expects 3 arguments, 1 provided
+  110 |   if (fname) r->fname = new string(fname);
+      |                                         ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:587:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  587 |       basic_string(basic_string&& __str, const _Alloc& __a)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:587:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:583:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  583 |       basic_string(const basic_string& __str, const _Alloc& __a)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:583:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:579:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::initializer_list<_Tp>, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  579 |       basic_string(initializer_list<_CharT> __l, const _Alloc& __a = _Alloc())
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:579:45: note:   no known conversion for argument 1 from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to ‘std::initializer_list<char>’
+  579 |       basic_string(initializer_list<_CharT> __l, const _Alloc& __a = _Alloc())
+      |                    ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:552:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  552 |       basic_string(basic_string&& __str) noexcept
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:552:35: note:   no known conversion for argument 1 from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to ‘std::__cxx11::basic_string<char>&&’
+  552 |       basic_string(basic_string&& __str) noexcept
+      |                    ~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:540:7: note: candidate: ‘template<class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, _CharT, const _Alloc&)’
+  540 |       basic_string(size_type __n, _CharT __c, const _Alloc& __a = _Alloc())
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:540:7: note:   template argument deduction/substitution failed:
+3ac.cpp:110:41: note:   candidate expects 3 arguments, 1 provided
+  110 |   if (fname) r->fname = new string(fname);
+      |                                         ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:525:7: note: candidate: ‘template<class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, const _Alloc&)’
+  525 |       basic_string(const _CharT* __s, const _Alloc& __a = _Alloc())
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:525:7: note:   template argument deduction/substitution failed:
+3ac.cpp:110:36: note:   cannot convert ‘((reg*)this)->reg::fname’ (type ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’}) to type ‘const char*’
+  110 |   if (fname) r->fname = new string(fname);
+      |                                    ^~~~~
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:510:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  510 |       basic_string(const _CharT* __s, size_type __n,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:510:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:492:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  492 |       basic_string(const basic_string& __str, size_type __pos,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:492:7: note:   candidate expects 4 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:476:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  476 |       basic_string(const basic_string& __str, size_type __pos,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:476:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:461:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  461 |       basic_string(const basic_string& __str, size_type __pos,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:461:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:448:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  448 |       basic_string(const basic_string& __str)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:448:40: note:   no known conversion for argument 1 from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to ‘const std::__cxx11::basic_string<char>&’
+  448 |       basic_string(const basic_string& __str)
+      |                    ~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:440:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  440 |       basic_string(const _Alloc& __a) _GLIBCXX_NOEXCEPT
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:440:34: note:   no known conversion for argument 1 from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to ‘const std::allocator<char>&’
+  440 |       basic_string(const _Alloc& __a) _GLIBCXX_NOEXCEPT
+      |                    ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:431:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string() [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  431 |       basic_string()
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:431:7: note:   candidate expects 0 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:145:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::__sv_wrapper, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  145 |       basic_string(__sv_wrapper __svw, const _Alloc& __a)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:145:7: note:   candidate expects 2 arguments, 1 provided
+3ac.cpp:117:38: error: no matching function for call to ‘std::__cxx11::basic_string<char>::basic_string(std::string*&)’
+  117 |   if (unop) r->unop = new string(unop);
+      |                                      ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:650:2: note: candidate: ‘template<class _Tp, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Tp&, const _Alloc&)’
+  650 |  basic_string(const _Tp& __t, const _Alloc& __a = _Alloc())
+      |  ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:650:2: note:   template argument deduction/substitution failed:
+/usr/include/c++/9.1.0/bits/basic_string.h:639:2: note: candidate: ‘template<class _Tp, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&)’
+  639 |  basic_string(const _Tp& __t, size_type __pos, size_type __n,
+      |  ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:639:2: note:   template argument deduction/substitution failed:
+3ac.cpp:117:38: note:   candidate expects 4 arguments, 1 provided
+  117 |   if (unop) r->unop = new string(unop);
+      |                                      ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:625:9: note: candidate: ‘template<class _InputIterator, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(_InputIterator, _InputIterator, const _Alloc&)’
+  625 |         basic_string(_InputIterator __beg, _InputIterator __end,
+      |         ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:625:9: note:   template argument deduction/substitution failed:
+3ac.cpp:117:38: note:   candidate expects 3 arguments, 1 provided
+  117 |   if (unop) r->unop = new string(unop);
+      |                                      ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:587:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  587 |       basic_string(basic_string&& __str, const _Alloc& __a)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:587:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:583:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  583 |       basic_string(const basic_string& __str, const _Alloc& __a)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:583:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:579:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::initializer_list<_Tp>, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  579 |       basic_string(initializer_list<_CharT> __l, const _Alloc& __a = _Alloc())
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:579:45: note:   no known conversion for argument 1 from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to ‘std::initializer_list<char>’
+  579 |       basic_string(initializer_list<_CharT> __l, const _Alloc& __a = _Alloc())
+      |                    ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:552:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  552 |       basic_string(basic_string&& __str) noexcept
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:552:35: note:   no known conversion for argument 1 from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to ‘std::__cxx11::basic_string<char>&&’
+  552 |       basic_string(basic_string&& __str) noexcept
+      |                    ~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:540:7: note: candidate: ‘template<class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, _CharT, const _Alloc&)’
+  540 |       basic_string(size_type __n, _CharT __c, const _Alloc& __a = _Alloc())
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:540:7: note:   template argument deduction/substitution failed:
+3ac.cpp:117:38: note:   candidate expects 3 arguments, 1 provided
+  117 |   if (unop) r->unop = new string(unop);
+      |                                      ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:525:7: note: candidate: ‘template<class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, const _Alloc&)’
+  525 |       basic_string(const _CharT* __s, const _Alloc& __a = _Alloc())
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:525:7: note:   template argument deduction/substitution failed:
+3ac.cpp:117:34: note:   cannot convert ‘((reg*)this)->reg::unop’ (type ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’}) to type ‘const char*’
+  117 |   if (unop) r->unop = new string(unop);
+      |                                  ^~~~
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:510:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  510 |       basic_string(const _CharT* __s, size_type __n,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:510:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:492:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  492 |       basic_string(const basic_string& __str, size_type __pos,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:492:7: note:   candidate expects 4 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:476:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  476 |       basic_string(const basic_string& __str, size_type __pos,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:476:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:461:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  461 |       basic_string(const basic_string& __str, size_type __pos,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:461:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:448:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  448 |       basic_string(const basic_string& __str)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:448:40: note:   no known conversion for argument 1 from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to ‘const std::__cxx11::basic_string<char>&’
+  448 |       basic_string(const basic_string& __str)
+      |                    ~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:440:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  440 |       basic_string(const _Alloc& __a) _GLIBCXX_NOEXCEPT
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:440:34: note:   no known conversion for argument 1 from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to ‘const std::allocator<char>&’
+  440 |       basic_string(const _Alloc& __a) _GLIBCXX_NOEXCEPT
+      |                    ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:431:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string() [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  431 |       basic_string()
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:431:7: note:   candidate expects 0 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:145:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::__sv_wrapper, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  145 |       basic_string(__sv_wrapper __svw, const _Alloc& __a)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:145:7: note:   candidate expects 2 arguments, 1 provided
+3ac.cpp:118:1: warning: no return statement in function returning non-void [-Wreturn-type]
+  118 | }
+      | ^
+3ac.cpp: At global scope:
+3ac.cpp:158:6: error: no declaration matches ‘ac3* ac3::deep_copy()’
+  158 | ac3 *ac3::deep_copy (){
+      |      ^~~
+3ac.cpp:158:6: note: no functions named ‘ac3* ac3::deep_copy()’
+In file included from 3ac.cpp:1:
+3ac.h:71:8: note: ‘struct ac3’ defined here
+   71 | struct ac3{
+      |        ^~~
+3ac.cpp: In function ‘ac3* asg_array(astree*, symbol_table*, std::string*)’:
+3ac.cpp:348:15: warning: unused variable ‘alloc_sz’ [-Wunused-variable]
+  348 |       astree *alloc_sz = parse->children[0]->children[1];
+      |               ^~~~~~~~
+make[1]: *** [Makefile:55: 3ac.o] Error 1
+make[1]: Leaving directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'

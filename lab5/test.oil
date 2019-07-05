@@ -6,23 +6,58 @@
 .end 
 .struct sayaka
 .end 
+thing3:    .global ptr 
 call:      .function int 
            return
            .end
 trivial:   .function 
            .param int x
            .local int z
-           $t1:i = 3 * x
-           $t0:i = $t1:i + 1
+           .local int homu
+           .local int lol
+           $t1:i = 5 * 3
+           $t0:i = $t1:i * 4
+           homu = $t0:i  
            z = $t0:i  
-           $t5:i = 'c' + 'a'
-           $t8:i = -5  
-           $t7:i = -$t8:i  
-           $t6:i = $t7:i + 3
-           $t4:i = $t5:i + $t6:i
-           $t9:i = 5 * 3
-           $t3:i = $t4:i + $t9:i
-           $t2:i = $t3:i + 4
-           z = $t2:i  
+           x = z  
+.if0:      $t3:i = z + 1
+           $t5:i = 3 * x
+           $t4:i = $t5:i + 5
+           $t2:i = $t3:i >= $t4:i
+           goto .el0 if not $t2:i
+.th0:
+.wh0:      $t6:i = lol < 5
+           goto .od0 if not $t6:i
+.do0:      $t7:i = lol + 1
+           lol = $t7:i  
+           goto .wh0  
+.od0:
+           $t8:i = z + 1
+           z = $t8:i  
+           goto .fi0  
+.el0:
+.if1:      $t9:i = z == 0123123
+           goto .el1 if not $t9:i
+.th1:      $t10:i = x + 1
+           x = $t10:i  
+           goto .fi1  
+.el1:
+.if2:      $t11:i = x == 1
+           goto .el2 if not $t11:i
+.th2:
+           goto .fi2  
+.el2:
+.fi2:
+.fi1:
+.fi0:
+           $t15:i = 'c' + 'a'
+           $t18:i = -5  
+           $t17:i = -$t18:i  
+           $t16:i = $t17:i + 3
+           $t14:i = $t15:i + $t16:i
+           $t19:i = 5 * 3
+           $t13:i = $t14:i + $t19:i
+           $t12:i = $t13:i + 4
+           z = $t12:i  
            return
            .end

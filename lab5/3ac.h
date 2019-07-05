@@ -38,6 +38,9 @@ struct reg {
   reg(const string *ident);
   reg(string *stride , int reg_number);
   reg(string *fname, vector<reg*> *parameters = nullptr);
+
+  // functions.
+  reg *deep_copy();
   string str();
   ~reg();
 };

@@ -6,7 +6,11 @@ mami (4.3.1) {0} struct mami
 
 trivial (5.25.1) {1} void function 
    x (5.25.15) {2} int variable param lval 0
-   z (5.28.3) {2} int variable local lval 1
+   z (5.30.3) {2} int variable local lval 1
+   homu (5.31.3) {2} int variable local lval 2
+   lol (5.33.3) {2} int variable local lval 3
+
+thing3 (5.18.1) {0} int array variable lval 
 
 call (5.20.1) {0} int function 
 
