@@ -1,44 +1,28 @@
-ROOT "<<ROOT>>" 0.0.0
-| STRUCT "struct" 4.3.1
-| | IDENT "mami" 4.3.8
-| | TYPE_ID "" 4.3.15
-| | | INT "int" 4.3.15
-| | | IDENT "one" 4.3.19
-| | TYPE_ID "" 4.4.18
-| | | STRING "string" 4.4.18
-| | | IDENT "two" 4.4.25
-| | TYPE_ID "" 4.5.18
-| | | PTR "ptr" 4.5.18
-| | | | IDENT "sayaka" 4.5.30
-| | | IDENT "sayaka" 4.5.38
-| | TYPE_ID "" 4.6.18
-| | | ARRAY "array" 4.6.18
-| | | | INT "int" 4.6.25
-| | | IDENT "madoka" 4.6.30
-| TYPE_ID "" 5.18.1
-| | ARRAY "array" 5.18.1
-| | | INT "int" 5.18.7
-| | IDENT "thing3" 5.18.12
-| FUNCTION "" 5.20.1
-| | TYPE_ID "" 5.20.1
-| | | INT "int" 5.20.1
-| | | IDENT "call" 5.20.5
-| | PARAM "(" 5.20.10
-| | BLOCK "{" 5.20.12
-| FUNCTION "" 5.25.1
-| | TYPE_ID "" 5.25.1
-| | | VOID "void" 5.25.1
-| | | IDENT "trivial" 5.25.6
-| | PARAM "(" 5.25.14
-| | | TYPE_ID "" 5.25.15
-| | | | INT "int" 5.25.15
-| | | | IDENT "x" 5.25.19
-| | BLOCK "{" 5.25.21
-| | | TYPE_ID "" 5.26.3
-| | | | ARRAY "array" 5.26.3
-| | | | | INT "int" 5.26.9
-| | | | IDENT "yes" 5.26.14
-| | | | ALLOC "alloc" 5.26.20
-| | | | | ARRAY "array" 5.26.26
-| | | | | | INT "int" 5.26.32
-| | | | | INTCON "5" 5.26.38
+make[1]: Entering directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'
+g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3ac.cpp
+3ac.cpp: In constructor ‘reg::reg(std::string*)’:
+3ac.cpp:66:23: error: expected ‘;’ before ‘ident’
+   66 |   typesize = typesize_
+      |                       ^
+      |                       ;
+   67 |   ident = nullptr;
+      |   ~~~~~                
+3ac.cpp: In function ‘ac3* p_call(astree*, symbol_table*, std::string*)’:
+3ac.cpp:522:68: error: call of overloaded ‘reg(std::string*)’ is ambiguous
+  522 |     reg *fname = new reg(new string (*(expr->children[0]->lexinfo)));
+      |                                                                    ^
+3ac.cpp:65:1: note: candidate: ‘reg::reg(std::string*)’
+   65 | reg::reg(string *typesize_){
+      | ^~~
+3ac.cpp:55:1: note: candidate: ‘reg::reg(std::string*, std::vector<reg*>*)’
+   55 | reg::reg(string *fname_, vector<reg*> *parameters_){
+      | ^~~
+3ac.cpp:35:1: note: candidate: ‘reg::reg(const string*)’
+   35 | reg::reg(const string *ident_){
+      | ^~~
+In file included from 3ac.cpp:1:
+3ac.h:28:8: note: candidate: ‘constexpr reg::reg(const reg&)’
+   28 | struct reg {
+      |        ^~~
+make[1]: *** [Makefile:55: 3ac.o] Error 1
+make[1]: Leaving directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'

@@ -1,0 +1,24 @@
+.struct mami
+.field ptr madoka
+.field struct sayaka sayaka
+.field int one
+.field ptr two
+.end 
+.struct sayaka
+.end 
+thing3:    .global ptr 
+sayaka:    .function int 
+           .param int x
+           .param int y
+           return
+           .end
+trivial:   .function 
+           .param int x
+           .local int madoka
+           $t2:i = 5 + 5
+           $t1:i = $t2:i + 3
+           $t3:i = 2 * 3
+           $t0:i = $t1:i - $t3:i
+           madoka = $t0:i  
+           return
+           .end

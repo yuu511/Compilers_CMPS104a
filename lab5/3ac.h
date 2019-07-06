@@ -15,29 +15,36 @@ enum class instruction{
 using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)>;
 
 /* 
-   a register may be:
+   reg may be:
    1. an identifier e.g. x
-   2. a temporary reigster e.g. $t0
+   2. a temporary register e.g. $t0
    3. a function call e.g. call foo(arg1,arg2) 
+   4. a typesize (which is always preceded by a sizeof unary operator)
 
    and be preceded by a unary operator (-,+,not)
+   the unary operator may be size of iff the register is a typesize
 */
 
 struct reg {
-  // exists if a register is a variable
+  // 1. exists if a register is an identifier
   const string *ident;
-  // exists if a register is an actual register
+  // 2. exists if a register is a temp register
   int reg_number;
   string *stride;
-  // exists if a register is a function
+  // 3. exists if a register is a function
   string *fname;
   vector<reg*> *parameters;
-  // optional uanry operator
+  // 4. exists if a register is a typesize
+  string *typesize;
+
+  // optional unary operator
   string *unop;
+
   // constructors
   reg(const string *ident);
   reg(string *stride , int reg_number);
   reg(string *fname, vector<reg*> *parameters = nullptr);
+  reg(string *typesize, string *szof);
 
   // functions.
   reg *deep_copy();
@@ -49,7 +56,7 @@ struct reg {
     the format of a 3-address code statement depends on 
     the type of instruction,represented by bitset attribute:
 
-    let tn = register n (defined above)
+    let tn = reg n (defined above)
 
     ASSIGNMENT (primary expression):
     [LABEL] [t0]  = [t1] [OPERATOR] [t2] 
@@ -64,7 +71,7 @@ struct reg {
     [LABEL] return [t0]
 
     CALL:
-    [LABEL] [t0] = call [t1] ( [ paramters[0],parameters[1] ... paramters[n] ] ) 
+    [LABEL] [t0] = call [t1] ( [ parameters[0],parameters[1] ... parameters[n] ] ) 
 
 */
 
@@ -72,7 +79,7 @@ struct ac3{
   astree *expr;
   string *label;
   reg *t0;
-  const string *op;
+  string *op;
   reg *t1;
   reg *t2;
   instruction_bitset itype = 0;
@@ -82,7 +89,7 @@ struct ac3{
 
 /*
    all functions have an equivalent ac3 table 
-   (which is just a collection of statements, defined above)
+   (which is just a collection of 3 address code statements, defined above)
    all global declarations are also encapsulated within an ac3 table
 */
 

@@ -1,0 +1,54 @@
+ROOT "<<ROOT>>" 0.0.0 {0} 
+STRUCT "struct" 4.3.1 {0} struct mami 
+IDENT "mami" 4.3.8 {0} 
+TYPE_ID "" 4.3.15 {0} int field 
+INT "int" 4.3.15 {0} 
+IDENT "one" 4.3.19 {0} 
+TYPE_ID "" 4.4.18 {0} string field 
+STRING "string" 4.4.18 {0} 
+IDENT "two" 4.4.25 {0} 
+TYPE_ID "" 4.5.18 {0} field struct sayaka 
+PTR "ptr" 4.5.18 {0} 
+IDENT "sayaka" 4.5.30 {0} 
+IDENT "sayaka" 4.5.38 {0} 
+TYPE_ID "" 4.6.18 {0} int array field 
+ARRAY "array" 4.6.18 {0} 
+INT "int" 4.6.25 {0} 
+IDENT "madoka" 4.6.30 {0} 
+TYPE_ID "" 5.18.1 {0} int array variable lval (5.18.1)
+ARRAY "array" 5.18.1 {0} 
+INT "int" 5.18.7 {0} 
+IDENT "thing3" 5.18.12 {0} 
+FUNCTION "" 5.20.1 {0} int function 
+TYPE_ID "" 5.20.1 {0} 
+INT "int" 5.20.1 {0} 
+IDENT "sayaka" 5.20.5 {0} 
+PARAM "(" 5.20.12 {0} 
+TYPE_ID "" 5.20.13 {1} int variable param lval 
+INT "int" 5.20.13 {0} 
+IDENT "x" 5.20.17 {0} 
+TYPE_ID "" 5.20.20 {1} int variable param lval 
+INT "int" 5.20.20 {0} 
+IDENT "y" 5.20.24 {0} 
+BLOCK "{" 5.20.26 {1} 
+FUNCTION "" 5.25.1 {1} void function 
+TYPE_ID "" 5.25.1 {0} 
+VOID "void" 5.25.1 {0} 
+IDENT "trivial" 5.25.6 {0} 
+PARAM "(" 5.25.14 {0} 
+TYPE_ID "" 5.25.15 {2} int variable param lval 
+INT "int" 5.25.15 {0} 
+IDENT "x" 5.25.19 {0} 
+BLOCK "{" 5.25.21 {2} 
+TYPE_ID "" 5.26.3 {2} int variable local lval vreg (5.26.3)
+INT "int" 5.26.3 {0} 
+IDENT "madoka" 5.26.7 {0} 
+'-' "-" 5.26.26 {2} int variable local lval vreg 
+'+' "+" 5.26.22 {2} int vreg 
+'+' "+" 5.26.18 {2} int vreg 
+INTCON "5" 5.26.17 {2} int const 
+INTCON "5" 5.26.19 {2} int const 
+INTCON "3" 5.26.24 {2} int const 
+'*' "*" 5.26.30 {2} int vreg 
+INTCON "2" 5.26.28 {2} int const 
+INTCON "3" 5.26.32 {2} int const 

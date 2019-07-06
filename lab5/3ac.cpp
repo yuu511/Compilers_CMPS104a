@@ -38,6 +38,7 @@ reg::reg(const string *ident_){
   stride = nullptr;
   fname = nullptr;
   parameters = nullptr;
+  typesize = nullptr;
   unop = nullptr;
 }
 
@@ -47,6 +48,7 @@ reg::reg(string *stride_, int reg_number_){
   ident = nullptr;
   fname = nullptr;
   parameters = nullptr;
+  typesize = nullptr;
   unop = nullptr;
 }
 
@@ -56,13 +58,29 @@ reg::reg(string *fname_, vector<reg*> *parameters_){
   ident = nullptr;
   reg_number = -1;
   stride = nullptr;
+  typesize = nullptr;
   unop = nullptr;
+}
+
+reg::reg(string *typesize_, string *szof){
+  typesize = typesize_;
+  unop = szof;
+  ident = nullptr;
+  reg_number = -1;
+  stride = nullptr;
+  fname = nullptr;
+  parameters = nullptr;
 }
 
 string reg::str(){
   string ret="";
   if (unop != nullptr){
     ret.append(*unop);
+    //add space (for readability)
+    if (*unop == "sizeof" ||
+        *unop == "not"){
+      ret.append(" ");
+    }
   }
   if (ident != nullptr){
     ret.append(*ident);
@@ -78,15 +96,21 @@ string reg::str(){
     if (parameters){
       ret.append(*fname);
       ret.append("(");
-      for (auto itor: *parameters){
-        ret.append(itor->str());
- 	  ret.append(",");
+      if (parameters->size() > 0){
+        ret.append(parameters->at(0)->str());
+        for (size_t i = 1; i < parameters->size(); i++){
+          ret.append(",");
+          ret.append(parameters->at(i)->str());
+        }
       }
       ret.append(")");
     } 
     else {
       ret.append(*fname + "(" + ")");
     }
+  } 
+  else if (typesize != nullptr){
+    ret.append(*typesize);
   }
   return ret;
 }
@@ -100,6 +124,7 @@ reg::~reg(){
     }
   }
   delete parameters;
+  delete typesize;
   delete unop;
 }
 
@@ -143,6 +168,7 @@ void free_3ac(){
 ac3::~ac3(){
   delete label;
   delete t0;
+  delete op;
   delete t1;
   delete t2;
 }
@@ -323,14 +349,32 @@ ac3 *asg_array(astree *expr, symbol_table *current, string *label){
   astree *parse = expr->children[1+offset];
 
   if (parse->children.size() > 0 ){
+    // p_expr();
     if (parse->symbol == TOK_ALLOC){
       bot = new ac3(expr);
-      astree *alloc_sz = parse->children[0]->children[1];
-      // if (alloc_sz->children.size() > 0){
+      ac3 *parsed_sz = new ac3(expr);
+      astree *alloc_sz = parse->children[1];
+      if (alloc_sz->children.size() > 0){
 
-      // } 
-      // else {
-      // }
+      } 
+      else {
+        // the size to malloc (stored in a reg)
+        // the malloc call
+        reg *ret= new reg (new string(":p"),reg_count);
+        parsed_sz->t0 = ret;  
+        parsed_sz->t1 = new reg(alloc_sz->lexinfo);
+        parsed_sz->op = new string("*");
+        parsed_sz->t2 = new reg(new string(parse_typesize(expr)),new string("sizeof"));
+        parsed_sz->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+        found->push_back(parsed_sz);
+
+        vector<reg*> *malloc_params = new vector <reg*>();
+        malloc_params->push_back(ret->deep_copy());
+        bot->t1 = new reg(new string ("malloc"),malloc_params);
+        bot->itype.set(static_cast<int>(instruction::CALL));
+        found->push_back(bot);
+        found->at(top)->label = label;
+      }
     }
   }
   else {
@@ -403,7 +447,7 @@ ac3 *p_assignment(astree *expr, symbol_table *current, string *label){
 ac3 *p_binop(astree *expr, symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac = new ac3(expr); 
-  ac->op = expr->lexinfo;
+  ac->op = new string(*(expr->lexinfo));
   ac->t0 = new reg(new string (":i"),reg_count);
   ++reg_count;
   // parse the expressions

@@ -1,0 +1,16 @@
+mami (4.3.1) {0} struct mami 
+   one (4.3.15) int field 0
+   two (4.4.18) string field 1
+   sayaka (4.5.18) field struct sayaka 2
+   madoka (4.6.18) int array field 3
+
+thing3 (5.18.1) {0} int array variable lval 
+
+trivial (5.25.1) {1} void function 
+   x (5.25.15) {2} int variable param lval 0
+   madoka (5.26.3) {2} int variable local lval 1
+
+sayaka (5.20.1) {0} int function 
+   x (5.20.13) {1} int variable param lval 0
+   y (5.20.20) {1} int variable param lval 1
+
