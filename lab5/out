@@ -1,32 +1,35 @@
 make[1]: Entering directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'
 g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3ac.cpp
-3ac.cpp: In function ‘ac3* alloc_struct(astree*, symbol_table*, reg*)’:
-3ac.cpp:317:24: error: conversion from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to non-scalar type ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} requested
-  317 |   string struct_name = new string(*(expr->children[0]->lexinfo));
-      |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-3ac.cpp:318:60: error: no matching function for call to ‘std::vector<reg*>::push_back(std::string&, std::string*)’
-  318 |   malloc_params->push_back(struct_name,new string("sizeof"));
-      |                                                            ^
-In file included from /usr/include/c++/9.1.0/vector:67,
-                 from symbol_table.h:7,
-                 from 3ac.h:4,
-                 from 3ac.cpp:1:
-/usr/include/c++/9.1.0/bits/stl_vector.h:1184:7: note: candidate: ‘void std::vector<_Tp, _Alloc>::push_back(const value_type&) [with _Tp = reg*; _Alloc = std::allocator<reg*>; std::vector<_Tp, _Alloc>::value_type = reg*]’
- 1184 |       push_back(const value_type& __x)
-      |       ^~~~~~~~~
-/usr/include/c++/9.1.0/bits/stl_vector.h:1184:7: note:   candidate expects 1 argument, 2 provided
-/usr/include/c++/9.1.0/bits/stl_vector.h:1200:7: note: candidate: ‘void std::vector<_Tp, _Alloc>::push_back(std::vector<_Tp, _Alloc>::value_type&&) [with _Tp = reg*; _Alloc = std::allocator<reg*>; std::vector<_Tp, _Alloc>::value_type = reg*]’
- 1200 |       push_back(value_type&& __x)
-      |       ^~~~~~~~~
-/usr/include/c++/9.1.0/bits/stl_vector.h:1200:7: note:   candidate expects 1 argument, 2 provided
-3ac.cpp:322:24: error: expected ‘;’ before ‘return’
-  322 |   found->push_back(bot)
-      |                        ^
-      |                        ;
-  323 |   return bot;
-      |   ~~~~~~                
-3ac.cpp:324:1: warning: no return statement in function returning non-void [-Wreturn-type]
-  324 | }
-      | ^
+3ac.cpp: In function ‘std::string* astree_stride(symbol_table*, astree*)’:
+3ac.cpp:287:28: error: cannot convert ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>::iterator’ {aka ‘std::__detail::_Node_iterator<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false, false>’} to ‘symbol*’ in assignment
+  287 |       found = current->find(expr->lexinfo);
+      |               ~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+      |                            |
+      |                            std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>::iterator {aka std::__detail::_Node_iterator<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false, false>}
+3ac.cpp:290:15: error: redeclaration of ‘symbol* found’
+  290 |       symbol *found;
+      |               ^~~~~
+3ac.cpp:285:15: note: ‘symbol* found’ previously declared here
+  285 |       symbol *found;
+      |               ^~~~~
+3ac.cpp:294:15: error: redeclaration of ‘symbol* found’
+  294 |       symbol *found;
+      |               ^~~~~
+3ac.cpp:285:15: note: ‘symbol* found’ previously declared here
+  285 |       symbol *found;
+      |               ^~~~~
+3ac.cpp:296:28: error: cannot convert ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>::iterator’ {aka ‘std::__detail::_Node_iterator<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false, false>’} to ‘symbol*’ in assignment
+  296 |       found = current->find(expr->lexinfo);
+      |               ~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+      |                            |
+      |                            std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>::iterator {aka std::__detail::_Node_iterator<std::pair<const std::__cxx11::basic_string<char>* const, symbol*>, false, false>}
+3ac.cpp:302:28: error: cannot convert ‘astree*’ to ‘symbol_table*’ {aka ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*’}
+  302 |       return astree_stride(noneq);
+      |                            ^~~~~
+      |                            |
+      |                            astree*
+3ac.cpp:262:37: note:   initializing argument 1 of ‘std::string* astree_stride(symbol_table*, astree*)’
+  262 | string *astree_stride(symbol_table *current,astree *expr){
+      |                       ~~~~~~~~~~~~~~^~~~~~~
 make[1]: *** [Makefile:55: 3ac.o] Error 1
 make[1]: Leaving directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'

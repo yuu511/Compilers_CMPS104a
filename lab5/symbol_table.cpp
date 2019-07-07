@@ -1051,8 +1051,7 @@ symbol *p_field (astree *s){
       if (found_struct->fields !=nullptr){
         if ( found_struct->fields->find(field_name) !=
              found_struct->fields->end()){
-          symbol *found_field = 
-          found_struct->fields->find(field_name)->second;
+          symbol *found_field = found_struct->fields->find(field_name)->second;
           sym->attributes[static_cast<int>(attr::VOID)] = 
             found_field->attributes[static_cast<int>(attr::VOID)];   
           sym->attributes[static_cast<int>(attr::INT)] = 

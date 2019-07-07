@@ -219,6 +219,94 @@ reg *expr_reg (astree *expr, symbol_table *current){
   return nullptr;
 }
 
+// recurse down until you find a non-equals symbol,return it
+astree *recurse_non_equal(astree *expr){
+  if (expr->symbol == '='){
+    return recurse_non_equal(expr->children[1]);
+  }
+  return expr;
+}
+
+// helper function for astree_stride
+// may be called in conjunction with astree_stride_symbol_array
+// or called by itself (see astree_stride for exact cases)
+string *astree_stride_symbol(symbol *found){
+  if ( found->attributes[static_cast<int>(attr::STRING)]
+      || found->attributes[static_cast<int>(attr::TYPEID)]){
+      return new string(":p");
+  } 
+  else if (found->attributes[static_cast<int>(attr::CHAR)]){
+    return new string (":c");
+  } 
+  else if (found->attributes[static_cast<int>(attr::INT)]){
+    return new string(":i");
+  }
+  ++err_count; 
+  errprintf ("3ac: Invalid symbol parsed for astree_stride_symbol");
+  return nullptr;
+}
+
+//helper function for astree_stride
+string *astree_stride_symbol_array(symbol *found){
+  if (found->attributes[static_cast<int>(attr::ARRAY)])
+    return new string (":p");
+  else 
+    return astree_stride_symbol(found); 
+  ++err_count; 
+  errprintf ("3ac: Invalid symbol parsed for astree_stride_symbol_array");
+  return nullptr;
+}
+
+
+// parse an astree expression for a expr stride
+string *astree_stride(symbol_table *current,astree *expr){
+  symbol *found;
+  switch (expr->symbol){
+    case TOK_CHARCON:
+      return new string(":c");
+    case TOK_STRINGCON:
+    case TOK_NULLPTR:
+    case TOK_ALLOC:
+      return new string(":p");
+    case TOK_INTCON:
+    case TOK_LT:
+    case TOK_LE:
+    case TOK_GT:
+    case TOK_GE:
+    case '*':
+    case '/':
+    case '%':
+    case '+':
+    case '-':
+    case TOK_NOT:
+    case TOK_EQ:
+    case TOK_NE:
+      return new string(":i");
+    case TOK_IDENT:
+      found = master->global->find(expr->lexinfo)->second;
+      found = current->find(expr->lexinfo)->second;
+      return astree_stride_symbol_array(found);
+    case TOK_CALL:
+      // find function definition in global table
+      found = master->global->find(expr->children[0]->lexinfo)->second;
+      return astree_stride_symbol_array(found);
+    case TOK_INDEX:
+      found = master->global->find(expr->children[0]->lexinfo)->second;
+      found = current->find(expr->children[0]->lexinfo)->second;
+      return astree_stride_symbol(found);
+    case TOK_ARROW:
+      // arrow can only be in local symbol table
+      found = current->find(expr->children[0]->lexinfo)->second;
+      return astree_stride_symbol(master->struct_t->find(found->sname)->second);
+    case '=':
+      astree *noneq = recurse_non_equal(expr);
+      return astree_stride(current,noneq);
+  }
+  errprintf ("3AC: INVALID EXPR parsed in astree_stride");
+  ++err_count;
+  return nullptr;
+}
+
 // assign int to ident
 ac3 *asg_int(astree *expr, symbol_table *current, string *label){
   ac3_table *found = table_lookup->find(current)->second;
@@ -286,7 +374,7 @@ ac3 *alloc_array(astree *expr,symbol_table *current, reg *init){
   reg *malloc_number;
   astree *alloc_sz = expr->children[1];
   // the size to malloc (stored in a reg)
-  reg *ret = new reg(new string(":p"),reg_count);
+  reg *ret = new reg(astree_stride(current,expr),reg_count);
   ++reg_count;
   parsed_sz->t0 = ret;  
   if (alloc_sz->children.size() > 0){
@@ -515,13 +603,13 @@ ac3 *p_binop(astree *expr, symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac = new ac3(expr); 
   ac->op = new string(*(expr->lexinfo));
-  ac->t0 = new reg(new string (":i"),reg_count);
+  ac->t0 = new reg(astree_stride(current,expr),reg_count);
   ++reg_count;
   // parse the expressions
   // check the two children
   astree *left = expr->children[0];
   if (left->children.size() > 0) {
-    ac->t1 = new reg(new string(":i"),reg_count);
+    ac->t1 = new reg(astree_stride(current,left),reg_count);
     p_expr(left,current);
   } 
   else {
@@ -530,7 +618,7 @@ ac3 *p_binop(astree *expr, symbol_table *current){
   
   astree *right = expr->children[1];
   if (right->children.size() > 0){
-    ac->t2 = new reg(new string(":i"),reg_count);
+    ac->t2 = new reg(astree_stride(current,right),reg_count);
     p_expr(right,current);
   } 
   else {
@@ -545,12 +633,12 @@ ac3 *p_binop(astree *expr, symbol_table *current){
 ac3 *p_unop(astree *expr, symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac =new ac3(expr);
-  ac->t0 = new reg(new string(":i"),reg_count);
+  ac->t0 = new reg(astree_stride(current,expr),reg_count);
   ++reg_count;
 
   astree *assignment = expr->children[0];
   if (assignment->children.size() > 0){
-    reg *unary = new reg(new string(":i"),reg_count);
+    reg *unary = new reg(astree_stride(current,assignment),reg_count);
     unary->unop = new string(*(expr->lexinfo));
     ac->t1 = unary;
     p_expr(assignment,current);
@@ -581,7 +669,7 @@ ac3 *p_polymorphic(astree *expr, symbol_table *current){
 ac3 *p_static_int(astree *expr, symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac = new ac3(expr); 
-  ac->t0 = new reg(new string(":i"),reg_count);
+  ac->t0 = new reg(astree_stride(current,expr),reg_count);
   ++reg_count;
   ac->t1 = new reg(expr->lexinfo);  
   found->push_back(ac);
@@ -629,7 +717,7 @@ ac3 *p_call(astree *expr, symbol_table *current, string *label){
 // extra arguments for function call as an expression
 ac3 *p_call_expr (astree *expr, symbol_table *current){
   // store function call in register
-  reg *ret = new reg(new string(":i"),reg_count);
+  reg *ret = new reg(astree_stride(current,expr),reg_count);
   ++reg_count;
   ac3 *call = p_call(expr,current,nullptr);  
   if (call)
@@ -798,19 +886,21 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
 ac3 *p_equals(astree *expr, symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac = new ac3(expr);
+  // should never have children by design
   astree *left = expr->children[0];
-  if (left->children.size() > 0) {
-    ac->t0 = new reg(new string(":i"),reg_count);
-    p_expr(left,current);
-  } 
-  else {
-    ac->t0 =new reg(left->lexinfo);
-  }
-  
+  ac->t0 =new reg(left->lexinfo);
   astree *right = expr->children[1];
+  // find first non-equal symbol
+  astree *final_val = recurse_non_equal(right);
   if (right->children.size() > 0){
-    ac->t1 = new reg(new string(":i"),reg_count);
-    p_expr(right,current);
+    if (final_val->symbol == TOK_IDENT){
+      ac->t1 = new reg(final_val->lexinfo);
+      p_expr(right,current);
+    } 
+    else {
+      ac->t1 = new reg(astree_stride(current,final_val),reg_count);
+      p_expr(right,current);
+    }
   } 
   else {
     ac->t1 =new reg(right->lexinfo);
@@ -822,7 +912,7 @@ ac3 *p_equals(astree *expr, symbol_table *current){
 
 // helper function for p_alloc (for cases where alloc is part of an expression)
 ac3 *p_alloc(astree *expr, symbol_table *current){
-  reg *ret = new reg (new string(":p"),reg_count);
+  reg *ret = new reg (astree_stride(current,expr),reg_count);
   ++reg_count;
   switch (expr->children[0]->symbol){
     case TOK_ARRAY:
