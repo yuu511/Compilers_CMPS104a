@@ -191,9 +191,6 @@ int main (int argc, char** argv) {
      }
    }
 
-
-
-
    // Close all files.
    e_close(yyin);
    e_close(tokfp);

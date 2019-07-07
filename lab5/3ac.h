@@ -4,7 +4,7 @@
 #include "symbol_table.h"
 #include "astree.h"
 
-void emit_3ac(astree *root, all_tables *table, FILE *out);
+int emit_3ac(astree *root, all_tables *table, FILE *out);
 
 void free_3ac();
 

@@ -29,6 +29,8 @@ int while_count = 0;
 // first available if label
 int if_count = 0;
 
+int err_count = 0;
+
 void p_stmt(astree *expr, symbol_table *current, string *label);
 ac3 *p_expr(astree *expr, symbol_table *current);
 
@@ -144,12 +146,6 @@ reg *reg::deep_copy(){
 }
 
 void free_3ac(){
-  // for (auto itor : *table_lookup){
-  //   for( auto itor2: *itor.second){
-  //     delete itor2;
-  //   }
-  //   delete itor.second;
-  // }
   delete table_lookup;
   for (auto itor : *all_functions){
     for (auto itor2: *itor.second) {
@@ -207,84 +203,7 @@ template <class Type> string parse_typesize(const Type &o){
   return st;
 }
 
-string get_stride(astree *expr,symbol_table *current){
-  string ret = "";
-  switch(expr->symbol){
-    case TOK_INTCON:
-    case '*':
-    case '/':
-    case '%':
-    case '+':
-    case '-':
-    case '=':
-    case TOK_LT:
-    case TOK_LE:
-    case TOK_GT:
-    case TOK_GE:
-    case TOK_NOT:
-    case TOK_EQ:
-    case TOK_NE:{
-      ret = ":i";
-    }
-      break;
-    case TOK_CHARCON:{
-      ret = ":c";
-    }
-      break;
-    case TOK_STRINGCON:
-    case TOK_NULLPTR:
-    case TOK_ALLOC:
-    case TOK_INDEX:
-    case TOK_ARROW:{
-      ret = ":p";
-    }
-      break;
-    case TOK_CALL:{
-      symbol *type = master->global->find(expr->lexinfo)->second;
-      if (type->attributes[static_cast<int>(attr::INT)])
-        ret = ":i";
-      if (type->attributes[static_cast<int>(attr::CHAR)])
-        ret = ":c";
-      if (type->attributes[static_cast<int>(attr::TYPEID)] ||
-          type->attributes[static_cast<int>(attr::STRING)] ||
-	      type->attributes[static_cast<int>(attr::ARRAY)])
-        ret = ":p";
-    }
-      break;
-    case TOK_IDENT: {
-      symbol *ident;
-      if(master->global->count(expr->lexinfo)){
-        ident = master->global->find(expr->lexinfo)->second;
-      }
-      if(current->count(expr->lexinfo)){
-        ident = current->find(expr->lexinfo)->second;
-      }
-      if (ident->attributes[static_cast<int>(attr::INT)])
-        ret = ":i";
-      if (ident->attributes[static_cast<int>(attr::CHAR)])
-        ret = ":c";
-      if (ident->attributes[static_cast<int>(attr::TYPEID)] ||
-          ident->attributes[static_cast<int>(attr::STRING)] ||
-	  ident->attributes[static_cast<int>(attr::ARRAY)])
-        ret = ":p";
-    }
-      break;
-  }
-  return ret;
-}
 
-// given a binary operation, return a stride
-string stride_binop(astree *expr,symbol_table *current){
-  string left = get_stride(expr->children[0],current);
-  string right = get_stride(expr->children[1],current);
-  if (left == ":c" && right == ":c"){
-    return ":c";  
-  }
-  if (left == ":p" && right == ":p"){
-    return ":p";
-  }
-  return ":i";
-}
 
 // parse expression, and return a register that it is stored in
 reg *expr_reg (astree *expr, symbol_table *current){
@@ -294,6 +213,7 @@ reg *expr_reg (astree *expr, symbol_table *current){
   }
   else {
     errprintf("3ac: invalid expression passed in loop\n");
+    ++err_count;
     return nullptr;
   }
   return nullptr;
@@ -324,6 +244,7 @@ ac3 *asg_int(astree *expr, symbol_table *current, string *label){
     }
     else {
       errprintf ("3ac: parsing expr failed: %s \n",expr->lexinfo->c_str());
+      ++err_count;
       return nullptr;
     }
   }
@@ -338,6 +259,56 @@ ac3 *asg_int(astree *expr, symbol_table *current, string *label){
   return bot;
 }
 
+// gets the typesize for an ALLOC array call
+// and allocs a string representation
+string *alloc_array_typesize(astree *expr){
+  string *ret = new string();
+  astree *type = expr->children[0]->children[0];
+  switch (type->symbol){
+    case TOK_INT:
+      ret->append("int");
+      break;
+    case TOK_STRING:
+      ret->append("ptr");
+      break;
+    case TOK_PTR:
+      ret->append("struct ");
+      ret->append(*(type->children[0]->lexinfo));
+      break;
+  }
+  return ret;
+}
+
+ac3 *alloc_array(astree *expr,symbol_table *current, reg *init){
+  ac3 *bot = new ac3(expr);
+  ac3_table *found = table_lookup->find(current)->second;
+  ac3 *parsed_sz = new ac3(expr);
+  astree *alloc_sz = expr->children[1];
+  // the size to malloc (stored in a reg)
+  reg *ret = new reg(new string(":p"),reg_count);
+  ++reg_count;
+  parsed_sz->t0 = ret;  
+  if (alloc_sz->children.size() > 0){
+    reg *p_number = expr_reg(alloc_sz,current);
+    parsed_sz->t1 = p_number;
+  } 
+  else {
+    parsed_sz->t1 = new reg(alloc_sz->lexinfo);
+  }
+  parsed_sz->op = new string("*");
+  parsed_sz->t2 = new reg(alloc_array_typesize(expr),new string("sizeof"));
+  parsed_sz->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+  found->push_back(parsed_sz);
+  vector<reg*> *malloc_params = new vector <reg*>();
+  malloc_params->push_back(ret->deep_copy());
+  bot->t0 = init;
+  bot->t1 = new reg(new string ("malloc"),malloc_params);
+  bot->itype.set(static_cast<int>(instruction::CALL));
+  found->push_back(bot);
+  return bot;
+}
+
+
 ac3 *asg_array(astree *expr, symbol_table *current, string *label){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *bot;
@@ -349,32 +320,19 @@ ac3 *asg_array(astree *expr, symbol_table *current, string *label){
   astree *parse = expr->children[1+offset];
 
   if (parse->children.size() > 0 ){
-    // p_expr();
     if (parse->symbol == TOK_ALLOC){
+      reg *ret = new reg(ident->lexinfo);
+      bot = alloc_array(parse,current,ret);
+      found->at(top)->label = label;
+    }
+    else {
+      reg *ret_reg = expr_reg(parse,current);
       bot = new ac3(expr);
-      ac3 *parsed_sz = new ac3(expr);
-      astree *alloc_sz = parse->children[1];
-      if (alloc_sz->children.size() > 0){
-
-      } 
-      else {
-        // the size to malloc (stored in a reg)
-        // the malloc call
-        reg *ret= new reg (new string(":p"),reg_count);
-        parsed_sz->t0 = ret;  
-        parsed_sz->t1 = new reg(alloc_sz->lexinfo);
-        parsed_sz->op = new string("*");
-        parsed_sz->t2 = new reg(new string(parse_typesize(expr)),new string("sizeof"));
-        parsed_sz->itype.set(static_cast<int>(instruction::ASSIGNMENT));
-        found->push_back(parsed_sz);
-
-        vector<reg*> *malloc_params = new vector <reg*>();
-        malloc_params->push_back(ret->deep_copy());
-        bot->t1 = new reg(new string ("malloc"),malloc_params);
-        bot->itype.set(static_cast<int>(instruction::CALL));
-        found->push_back(bot);
-        found->at(top)->label = label;
-      }
+      bot->t0 = new reg(ident->lexinfo);
+      bot->t1 = ret_reg;
+      bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+      found->push_back(bot);
+      found->at(top)->label = label;
     }
   }
   else {
@@ -405,6 +363,7 @@ ac3 *asg_check_type(astree *expr, symbol_table *current, string *label){
     return asg_int(expr,current,label);
   }
   errprintf ("3ac: Type not found for assignment \n");
+  ++err_count;
   return nullptr;
 }
 
@@ -507,6 +466,7 @@ ac3 *p_polymorphic(astree *expr, symbol_table *current){
   }
   // should never happen
   errprintf("3ac :p_polymorphic called on expr with size 0\n");
+  ++err_count;
   return nullptr;
 }
 
@@ -536,6 +496,7 @@ ac3 *p_call(astree *expr, symbol_table *current, string *label){
 	    }
         else {
           errprintf ("3ac: return expression incorrectly parsed!\n");
+          ++err_count;
           return nullptr;
         }
       } 
@@ -565,8 +526,10 @@ ac3 *p_call_expr (astree *expr, symbol_table *current){
   ac3 *call = p_call(expr,current,nullptr);  
   if (call)
     call->t0 = ret;
-  else
+  else{
     errprintf("3ac: call not pared correctly\n");
+    ++err_count;
+  }
   return call;
 }
 
@@ -597,6 +560,7 @@ ac3 *p_if(astree *expr, symbol_table *current, string *label){
   astree *if_statement = expr->children[1];
   if (!check_loop_validity(condition)){
     errprintf("3ac: invalid expr in loop!\n");
+    ++err_count;
     return nullptr;
   }
   int orig_if = if_count;
@@ -667,6 +631,7 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
   // check validity of expression in loop condition
   if (!check_loop_validity(condition)){
     errprintf("3ac: invalid expr in loop!\n");
+    ++err_count;
     return nullptr;
   }
 
@@ -747,40 +712,16 @@ ac3 *p_equals(astree *expr, symbol_table *current){
   return ac;
 }
 
-// add a label to the expr if it exists.
-ac3 *p_expr(astree *expr, symbol_table *current){
-  switch (expr->symbol){
-    case '=':
-      return p_equals(expr,current);
-      break;
-    case '*':
-    case '/':
-    case '%':
-    case TOK_EQ:
-    case TOK_NE:
-    case TOK_LT:
-    case TOK_LE:
-    case TOK_GT:
-    case TOK_GE:
-      return p_binop(expr,current);
-      break;
-    case '+':
-    case '-':
-      return p_polymorphic(expr,current);
-      break;
-    case TOK_NOT:
-      return p_unop(expr,current);
-      break;
-    case TOK_CHARCON:
-    case TOK_INTCON:
-      return p_static_int(expr,current);
-      break;
-    case TOK_CALL:
-      return p_call_expr(expr,current);
-      break;
+// helper function for p_alloc (for cases where alloc is part of an expression)
+ac3 *p_alloc(astree *expr, symbol_table *current){
+  reg *ret = new reg (new string(":p"),reg_count);
+  ++reg_count;
+  switch (expr->children[0]->symbol){
+    case TOK_ARRAY:
+      return alloc_array(expr,current,ret);
   }
-  errprintf ("3ac: non-recognized expression parsed:%s \n "
-             , parser::get_tname(expr->symbol));
+  errprintf("3AC: p_alloc failed\n");
+  ++err_count;
   return nullptr;
 }
 
@@ -816,6 +757,7 @@ ac3 *p_return(astree *expr, symbol_table *current, string *label){
         bot->t0 = stored;
       else {
         errprintf ("3ac: return expression incorrectly parsed!");
+        ++err_count;
 	    return nullptr;
       }
     }
@@ -842,7 +784,50 @@ ac3 *p_expression(astree *expr, symbol_table *current, string *label){
   ac3 *ac = p_expr(expr,current);
   if(ac)
     found->at(index)->label = label;
+  fprintf (stderr, "3ac: warning: expr parsed without assignment: %s:\n",expr->lexinfo->c_str()); 
   return ac;
+}
+
+
+// large switch statement for expressions
+ac3 *p_expr(astree *expr, symbol_table *current){
+  switch (expr->symbol){
+    case '=':
+      return p_equals(expr,current);
+      break;
+    case '*':
+    case '/':
+    case '%':
+    case TOK_EQ:
+    case TOK_NE:
+    case TOK_LT:
+    case TOK_LE:
+    case TOK_GT:
+    case TOK_GE:
+      return p_binop(expr,current);
+      break;
+    case '+':
+    case '-':
+      return p_polymorphic(expr,current);
+      break;
+    case TOK_NOT:
+      return p_unop(expr,current);
+      break;
+    case TOK_CHARCON:
+    case TOK_INTCON:
+      return p_static_int(expr,current);
+      break;
+    case TOK_CALL:
+      return p_call_expr(expr,current);
+      break;
+    case TOK_ALLOC:
+      return p_alloc(expr,current);
+      break;
+  }
+  errprintf ("3ac: non-recognized expression parsed:%s \n "
+             , parser::get_tname(expr->symbol));
+  ++err_count;
+  return nullptr;
 }
 
 // return the first statement generated by the functions.
@@ -880,6 +865,7 @@ void p_stmt(astree *expr, symbol_table *current, string *label){
   }
   if (!ac){
     errprintf ("3ac: invalid statement passed :%s\n",expr->lexinfo->c_str());
+    ++err_count;
     return;
   }
 }
@@ -890,11 +876,13 @@ void ac_globalvar(astree *child, all_tables *table){
     if (assignment->symbol == TOK_ALLOC){
       if (child->children[0]->symbol != TOK_PTR){
         errprintf ("3ac: global variable may not have non-static value assigned to it\n");
+        ++err_count;
         return;
       }
     }
     else if (assignment->children.size()>0){
       errprintf ("3ac: global variable may not have non-static value assigned to it\n");
+      ++err_count;
       return;
     }
   }
@@ -905,6 +893,7 @@ void ac_globalvar(astree *child, all_tables *table){
 void translate_struct (const string *name, symbol *sym, FILE *out){
   if (sym == nullptr ){
     errprintf ("3ac: invalid symbol for parsing structs\n");
+    ++err_count;
     return;
   }
   fprintf(out, ".struct %s\n",name->c_str());
@@ -922,6 +911,7 @@ void translate_struct (const string *name, symbol *sym, FILE *out){
 void emit_struct(all_tables *table,FILE *out){
   if (table->struct_t == nullptr){
     errprintf("3ac: ac_struct called on null struct_table\n");
+    ++err_count;
     return;
   }
   for (auto itor: *(table->struct_t)){
@@ -997,6 +987,7 @@ void emit_functions(all_tables *table, FILE *out){
       found = table_lookup->find(block)->second;
     else{
       errprintf ("3ac: ac3 table not found for function %s\n",fname.c_str());
+      ++err_count;
       continue;
     }
     // print them
@@ -1051,6 +1042,7 @@ void emit_functions(all_tables *table, FILE *out){
 void ac_traverse(astree *s, all_tables *table, FILE *out){
   if ( s == nullptr || table == nullptr || out == nullptr ){
     errprintf("3ac: ac_traverse called on uninitialized structure!\n");
+    ++err_count;
     return;
   }
   for (astree *child: s->children){
@@ -1071,6 +1063,7 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
       } 
       else {
         errprintf ("3ac: invalid function definition. Stopping address code generation \n");
+        ++err_count;
 	    return;
       }
       // no duplicate functions
@@ -1084,6 +1077,7 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
       }
       else {
         errprintf("3ac: function already defined\n");
+        ++err_count;
       }
     }
   }
@@ -1097,14 +1091,20 @@ void ac_traverse(astree *s, all_tables *table, FILE *out){
   emit_functions(table,out);
 }
 
-void emit_3ac(astree *root, all_tables *table, FILE *out){
+int emit_3ac(astree *root, all_tables *table, FILE *out){
   if (root == nullptr || table == nullptr || out == nullptr){
     errprintf ("3ac: parse failed, or invalid table or file ptr called,"
     "stopping generation of assembly\n");
-    return;
+    ++err_count;
+    return 1;
   }
   master = table;
   table_lookup->emplace(table->global,all_globals);
   ac_traverse(root,table,out);
+  if (err_count){
+    errprintf ("NUMBER OF ERRORS REPORTED: %d\n",err_count);
+    return 1;
+  }
+  return 0;
 }
 

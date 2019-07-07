@@ -6,19 +6,23 @@
 .end 
 .struct sayaka
 .end 
-thing3:    .global ptr 
-sayaka:    .function int 
-           .param int x
-           .param int y
-           return
-           .end
 trivial:   .function 
            .param int x
            .local int madoka
+           .local ptr sayaka
+           .local ptr homura
+           .local ptr yes
+           .local int kyubey
            $t2:i = 5 + 5
-           $t1:i = $t2:i + 3
-           $t3:i = 2 * 3
-           $t0:i = $t1:i - $t3:i
+           $t1:i = 3 * $t2:i
+           $t0:i = 2 - $t1:i
            madoka = $t0:i  
+           $t4:p = 5 * sizeof int
+           $t3:p = call malloc($t4:p)
+           homura = $t3:i  
+           sayaka = $t3:i  
+           yes = sayaka  
+           $t5:i = 5 + 1000
+           kyubey = $t5:i  
            return
            .end

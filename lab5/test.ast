@@ -15,40 +15,48 @@ TYPE_ID "" 4.6.18 {0} int array field
 ARRAY "array" 4.6.18 {0} 
 INT "int" 4.6.25 {0} 
 IDENT "madoka" 4.6.30 {0} 
-TYPE_ID "" 5.18.1 {0} int array variable lval (5.18.1)
-ARRAY "array" 5.18.1 {0} 
-INT "int" 5.18.7 {0} 
-IDENT "thing3" 5.18.12 {0} 
-FUNCTION "" 5.20.1 {0} int function 
-TYPE_ID "" 5.20.1 {0} 
-INT "int" 5.20.1 {0} 
-IDENT "sayaka" 5.20.5 {0} 
-PARAM "(" 5.20.12 {0} 
-TYPE_ID "" 5.20.13 {1} int variable param lval 
-INT "int" 5.20.13 {0} 
-IDENT "x" 5.20.17 {0} 
-TYPE_ID "" 5.20.20 {1} int variable param lval 
-INT "int" 5.20.20 {0} 
-IDENT "y" 5.20.24 {0} 
-BLOCK "{" 5.20.26 {1} 
-FUNCTION "" 5.25.1 {1} void function 
+FUNCTION "" 5.25.1 {0} void function 
 TYPE_ID "" 5.25.1 {0} 
 VOID "void" 5.25.1 {0} 
 IDENT "trivial" 5.25.6 {0} 
 PARAM "(" 5.25.14 {0} 
-TYPE_ID "" 5.25.15 {2} int variable param lval 
+TYPE_ID "" 5.25.15 {1} int variable param lval 
 INT "int" 5.25.15 {0} 
 IDENT "x" 5.25.19 {0} 
-BLOCK "{" 5.25.21 {2} 
-TYPE_ID "" 5.26.3 {2} int variable local lval vreg (5.26.3)
+BLOCK "{" 5.25.21 {1} 
+TYPE_ID "" 5.26.3 {1} int variable local lval vreg (5.26.3)
 INT "int" 5.26.3 {0} 
 IDENT "madoka" 5.26.7 {0} 
-'-' "-" 5.26.26 {2} int variable local lval vreg 
-'+' "+" 5.26.22 {2} int vreg 
-'+' "+" 5.26.18 {2} int vreg 
-INTCON "5" 5.26.17 {2} int const 
-INTCON "5" 5.26.19 {2} int const 
-INTCON "3" 5.26.24 {2} int const 
-'*' "*" 5.26.30 {2} int vreg 
-INTCON "2" 5.26.28 {2} int const 
-INTCON "3" 5.26.32 {2} int const 
+'-' "-" 5.26.18 {1} int variable local lval vreg 
+INTCON "2" 5.26.16 {1} int const 
+'*' "*" 5.26.22 {1} int vreg 
+INTCON "3" 5.26.20 {1} int const 
+'+' "+" 5.26.26 {1} int vreg 
+INTCON "5" 5.26.25 {1} int const 
+INTCON "5" 5.26.27 {1} int const 
+TYPE_ID "" 5.28.3 {1} int array variable local lval (5.28.3)
+ARRAY "array" 5.28.3 {0} 
+INT "int" 5.28.9 {0} 
+IDENT "sayaka" 5.28.14 {0} 
+TYPE_ID "" 5.29.3 {1} int array variable local lval (5.29.3)
+ARRAY "array" 5.29.3 {0} 
+INT "int" 5.29.9 {0} 
+IDENT "homura" 5.29.14 {0} 
+TYPE_ID "" 5.30.3 {1} int array variable local lval vreg (5.30.3)
+ARRAY "array" 5.30.3 {0} 
+INT "int" 5.30.9 {0} 
+IDENT "yes" 5.30.14 {0} 
+'=' "=" 5.30.27 {1} int array variable local lval vreg 
+IDENT "sayaka" 5.30.20 {1} int array variable local lval (5.28.3)
+'=' "=" 5.30.36 {1} int array variable local lval vreg 
+IDENT "homura" 5.30.29 {1} int array variable local lval (5.29.3)
+ALLOC "alloc" 5.30.38 {1} int array 
+ARRAY "array" 5.30.44 {0} 
+INT "int" 5.30.50 {0} 
+INTCON "5" 5.30.56 {1} int const 
+TYPE_ID "" 5.31.3 {1} int variable local lval vreg (5.31.3)
+INT "int" 5.31.3 {0} 
+IDENT "kyubey" 5.31.7 {0} 
+'+' "+" 5.31.18 {1} int variable local lval vreg 
+INTCON "5" 5.31.16 {1} int const 
+INTCON "1000" 5.31.20 {1} int const 
