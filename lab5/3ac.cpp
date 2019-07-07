@@ -280,25 +280,28 @@ string *alloc_array_typesize(astree *expr){
 }
 
 ac3 *alloc_array(astree *expr,symbol_table *current, reg *init){
-  ac3 *bot = new ac3(expr);
   ac3_table *found = table_lookup->find(current)->second;
+  ac3 *bot = new ac3(expr);
   ac3 *parsed_sz = new ac3(expr);
+  reg *malloc_number;
   astree *alloc_sz = expr->children[1];
   // the size to malloc (stored in a reg)
   reg *ret = new reg(new string(":p"),reg_count);
   ++reg_count;
   parsed_sz->t0 = ret;  
   if (alloc_sz->children.size() > 0){
-    reg *p_number = expr_reg(alloc_sz,current);
-    parsed_sz->t1 = p_number;
+    malloc_number = expr_reg(alloc_sz,current);
   } 
   else {
-    parsed_sz->t1 = new reg(alloc_sz->lexinfo);
+    malloc_number = new reg(alloc_sz->lexinfo);
   }
+  parsed_sz->t1 = malloc_number;
   parsed_sz->op = new string("*");
   parsed_sz->t2 = new reg(alloc_array_typesize(expr),new string("sizeof"));
   parsed_sz->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   found->push_back(parsed_sz);
+
+  // malloc function call
   vector<reg*> *malloc_params = new vector <reg*>();
   malloc_params->push_back(ret->deep_copy());
   bot->t0 = init;
@@ -308,6 +311,38 @@ ac3 *alloc_array(astree *expr,symbol_table *current, reg *init){
   return bot;
 }
 
+ac3 *alloc_struct(astree *expr,symbol_table *current, reg *init){
+  ac3_table *found = table_lookup->find(current)->second;
+  ac3 *bot = new ac3(expr);
+  vector <reg*> *malloc_params = new vector<reg*>();
+  string *struct_name = new string("struct " + *(expr->children[0]->lexinfo));
+  malloc_params->push_back(new reg(struct_name,new string("sizeof")));
+  bot->t0 = init;
+  bot->t1 = new reg(new string("malloc"),malloc_params);
+  bot->itype.set(static_cast<int>(instruction::CALL));
+  found->push_back(bot);
+  return bot;
+}
+
+ac3 *alloc_string(astree *expr,symbol_table *current, reg *init){
+  ac3_table *found = table_lookup->find(current)->second;
+  ac3 *bot = new ac3(expr);
+  reg *malloc_number;
+  astree *alloc_sz = expr->children[1];
+  vector <reg*> *malloc_params = new vector<reg*>();
+  if (alloc_sz->children.size() >0){
+    malloc_number = expr_reg(alloc_sz,current);
+  }
+  else {
+    malloc_number = new reg(alloc_sz->lexinfo);
+  }
+  malloc_params->push_back(malloc_number);
+  bot->t0 = init;
+  bot->t1 = new reg(new string("malloc"),malloc_params);
+  bot->itype.set(static_cast<int>(instruction::CALL));
+  found->push_back(bot);
+  return bot;
+}
 
 ac3 *asg_array(astree *expr, symbol_table *current, string *label){
   ac3_table *found = table_lookup->find(current)->second;
@@ -346,6 +381,79 @@ ac3 *asg_array(astree *expr, symbol_table *current, string *label){
   return bot;
 }
 
+ac3 *asg_struct(astree *expr, symbol_table *current, string *label){
+  ac3_table *found = table_lookup->find(current)->second;
+  ac3 *bot;
+  size_t top = found->size();
+
+  int offset;
+  expr->symbol == TOK_TYPE_ID ? offset = 1 : offset = 0;
+  astree *ident = expr->children[0+offset];
+  astree *parse = expr->children[1+offset];
+
+  if (parse->children.size() > 0 ){
+    if (parse->symbol == TOK_ALLOC){
+      reg *ret = new reg(ident->lexinfo);
+      bot = alloc_struct(parse,current,ret);
+      found->at(top)->label = label;
+    }
+    else {
+      reg *ret_reg = expr_reg(parse,current);
+      bot = new ac3(expr);
+      bot->t0 = new reg(ident->lexinfo);
+      bot->t1 = ret_reg;
+      bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+      found->push_back(bot);
+      found->at(top)->label = label;
+    }
+  }
+  else {
+    bot = new ac3(expr);
+    bot->t0 = new reg(ident->lexinfo);
+    bot->t1 = new reg(parse->lexinfo);
+    bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+    found->push_back(bot);
+    found->at(top)->label = label;
+  }
+  return bot;
+}
+
+ac3 *asg_string(astree *expr, symbol_table *current, string *label){
+  ac3_table *found = table_lookup->find(current)->second;
+  ac3 *bot;
+  size_t top = found->size();
+
+  int offset;
+  expr->symbol == TOK_TYPE_ID ? offset = 1 : offset = 0;
+  astree *ident = expr->children[0+offset];
+  astree *parse = expr->children[1+offset];
+
+  if (parse->children.size() > 0 ){
+    if (parse->symbol == TOK_ALLOC){
+      reg *ret = new reg(ident->lexinfo);
+      bot = alloc_string(parse,current,ret);
+      found->at(top)->label = label;
+    }
+    else {
+      reg *ret_reg = expr_reg(parse,current);
+      bot = new ac3(expr);
+      bot->t0 = new reg(ident->lexinfo);
+      bot->t1 = ret_reg;
+      bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+      found->push_back(bot);
+      found->at(top)->label = label;
+    }
+  }
+  else {
+    bot = new ac3(expr);
+    bot->t0 = new reg(ident->lexinfo);
+    bot->t1 = new reg(parse->lexinfo);
+    bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+    found->push_back(bot);
+    found->at(top)->label = label;
+  }
+  return bot;
+}
 
 // check type, and call approriate parsing function
 ac3 *asg_check_type(astree *expr, symbol_table *current, string *label){
@@ -354,10 +462,10 @@ ac3 *asg_check_type(astree *expr, symbol_table *current, string *label){
     return asg_array(expr,current,label);
   }
   if (a[static_cast<int>(attr::TYPEID)]){
-    // return asg_typeid(expr, current,label);
+    return asg_struct(expr, current,label);
   }
   if (a[static_cast<int>(attr::STRING)]){
-   // return asg_string(expr,current,label);
+    return asg_string(expr,current,label);
   }
   if (a[static_cast<int>(attr::INT)]){
     return asg_int(expr,current,label);
@@ -719,8 +827,12 @@ ac3 *p_alloc(astree *expr, symbol_table *current){
   switch (expr->children[0]->symbol){
     case TOK_ARRAY:
       return alloc_array(expr,current,ret);
+    case TOK_IDENT:
+      return alloc_struct(expr,current,ret);
+    case TOK_STRING:
+      return alloc_string(expr,current,ret);
   }
-  errprintf("3AC: p_alloc failed\n");
+  errprintf("3AC: p_alloc failed: SYMBOL:%s\n");
   ++err_count;
   return nullptr;
 }

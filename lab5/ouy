@@ -1,0 +1,47 @@
+make[1]: Entering directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'
+g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3ac.cpp
+3ac.cpp: In function ‘ac3* alloc_struct(astree*, symbol_table*, reg*)’:
+3ac.cpp:317:24: error: conversion from ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’} to non-scalar type ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} requested
+  317 |   string struct_name = new string(*(expr->children[0]->lexinfo));
+      |                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3ac.cpp:318:68: error: no matching function for call to ‘reg::reg(std::string&, std::string*)’
+  318 |   malloc_params->push_back(new reg(struct_name,new string("sizeof")));
+      |                                                                    ^
+3ac.cpp:67:1: note: candidate: ‘reg::reg(std::string*, std::string*)’
+   67 | reg::reg(string *typesize_, string *szof){
+      | ^~~
+3ac.cpp:67:18: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’}
+   67 | reg::reg(string *typesize_, string *szof){
+      |          ~~~~~~~~^~~~~~~~~
+3ac.cpp:57:1: note: candidate: ‘reg::reg(std::string*, std::vector<reg*>*)’
+   57 | reg::reg(string *fname_, vector<reg*> *parameters_){
+      | ^~~
+3ac.cpp:57:18: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’}
+   57 | reg::reg(string *fname_, vector<reg*> *parameters_){
+      |          ~~~~~~~~^~~~~~
+3ac.cpp:47:1: note: candidate: ‘reg::reg(std::string*, int)’
+   47 | reg::reg(string *stride_, int reg_number_){
+      | ^~~
+3ac.cpp:47:18: note:   no known conversion for argument 1 from ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} to ‘std::string*’ {aka ‘std::__cxx11::basic_string<char>*’}
+   47 | reg::reg(string *stride_, int reg_number_){
+      |          ~~~~~~~~^~~~~~~
+3ac.cpp:37:1: note: candidate: ‘reg::reg(const string*)’
+   37 | reg::reg(const string *ident_){
+      | ^~~
+3ac.cpp:37:1: note:   candidate expects 1 argument, 2 provided
+In file included from 3ac.cpp:1:
+3ac.h:28:8: note: candidate: ‘constexpr reg::reg(const reg&)’
+   28 | struct reg {
+      |        ^~~
+3ac.h:28:8: note:   candidate expects 1 argument, 2 provided
+3ac.cpp:322:24: error: expected ‘;’ before ‘return’
+  322 |   found->push_back(bot)
+      |                        ^
+      |                        ;
+  323 |   return bot;
+      |   ~~~~~~                
+3ac.cpp:324:1: warning: no return statement in function returning non-void [-Wreturn-type]
+  324 | }
+      | ^
+make[1]: *** [Makefile:55: 3ac.o] Error 1
+make[1]: Leaving directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'
