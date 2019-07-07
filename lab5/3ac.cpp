@@ -8,7 +8,7 @@
 unordered_map <symbol_table*, ac3_table*> *table_lookup =  new unordered_map<symbol_table*, ac3_table*>;
 
 // all symbol tables (generated in previous module symbol_table.cpp)
-all_tables *master;
+all_tables *all_sym;
 
 // all 3ac tables
 all_3ac *all_ac;
@@ -133,7 +133,7 @@ reg *reg::deep_copy(){
 
 all_3ac::all_3ac(ac3_table *all_globals_, 
                vector<pair<const string*,ac3_table*>> *all_functions_,
-               vector<const string*> *all_strings_){
+               vector<string> *all_strings_){
   all_globals = all_globals_;
   all_functions = all_functions_;
   all_strings = all_strings_;
@@ -275,21 +275,21 @@ string *astree_stride(symbol_table *current,astree *expr){
     case TOK_NE:
       return new string(":i");
     case TOK_IDENT:
-      found = master->global->find(expr->lexinfo)->second;
+      found = all_sym->global->find(expr->lexinfo)->second;
       found = current->find(expr->lexinfo)->second;
       return astree_stride_symbol_array(found);
     case TOK_CALL:
       // find function definition in global table
-      found = master->global->find(expr->children[0]->lexinfo)->second;
+      found = all_sym->global->find(expr->children[0]->lexinfo)->second;
       return astree_stride_symbol_array(found);
     case TOK_INDEX:
-      found = master->global->find(expr->children[0]->lexinfo)->second;
+      found = all_sym->global->find(expr->children[0]->lexinfo)->second;
       found = current->find(expr->children[0]->lexinfo)->second;
       return astree_stride_symbol(found);
     case TOK_ARROW:
       // arrow can only be in local symbol table
       found = current->find(expr->children[0]->lexinfo)->second;
-      return astree_stride_symbol(master->struct_t->find(found->sname)->second);
+      return astree_stride_symbol(all_sym->struct_t->find(found->sname)->second);
     case '=':
       astree *noneq = recurse_non_equal(expr);
       return astree_stride(current,noneq);
@@ -1106,29 +1106,29 @@ void translate_struct (const string *name, symbol *sym, FILE *out){
 }
 
 // // emit structs
-void emit_struct(all_tables *table,FILE *out){
-  if (table->struct_t == nullptr){
+void emit_struct(FILE *out){
+  if (all_sym->struct_t == nullptr){
     errprintf("3ac: ac_struct called on null struct_table\n");
     ++err_count;
     return;
   }
-  for (auto itor: *(table->struct_t)){
+  for (auto itor: *(all_sym->struct_t)){
     translate_struct(itor.first,itor.second,out);  
   }
 }
  
 // emit string constants here
-void emit_string(all_3ac *all_ac_,FILE *out){
+void emit_string(FILE *out){
   int i = 0;
-  for (auto itor: *(all_ac_->all_strings)){
-    fprintf (out,".s%d%-7s %s\n",i,":",itor->c_str());
+  for (auto itor: *(all_ac->all_strings)){
+    fprintf (out,".s%d%-7s %s\n",i,":",itor.c_str());
     ++i;
   }
 }
  
 // emit global definitions here
-void emit_globaldef(all_3ac *all_ac_,FILE *out){
-  for (auto itor: *(all_ac_->all_globals)){
+void emit_globaldef(FILE *out){
+  for (auto itor: *(all_ac->all_globals)){
     string name = *(itor->t0->ident);
     name += ":";
     fprintf (out,"%-10s %s %s",
@@ -1142,13 +1142,13 @@ void emit_globaldef(all_3ac *all_ac_,FILE *out){
   }
 }
 
-void emit_functions(all_tables *table,all_3ac *all_ac_, FILE *out){
+void emit_functions(FILE *out){
   // print out all functions
-  for (auto itor: *(all_ac_->all_functions)){
+  for (auto itor: *(all_ac->all_functions)){
     // get symbol associated with function and
     // symbol table associated with functions block
-    symbol *type = table->global->find(itor.first)->second;
-    symbol_table *block = table->master->find(itor.first)->second;
+    symbol *type = all_sym->global->find(itor.first)->second;
+    symbol_table *block = all_sym->master->find(itor.first)->second;
     
     // function name
     string fname;
@@ -1237,22 +1237,22 @@ void emit_functions(all_tables *table,all_3ac *all_ac_, FILE *out){
 }
 
 
-void ac_traverse(astree *s, all_tables *table){
+void ac_traverse(astree *s){
   for (astree *child: s->children){
     if (child->symbol == TOK_TYPE_ID){
       // process the global variable
-      ac_globalvar(child,table);
+      ac_globalvar(child,all_sym);
     }
     // else process the function
     // ensure the function is valid, and not a prototype
     else if (child->symbol == TOK_FUNCTION 
              && !(child->attributes[static_cast<int>(attr::PROTOTYPE)])
-             && table->global->count(child->children[0]->children[1]->lexinfo)){
+             && all_sym->global->count(child->children[0]->children[1]->lexinfo)){
       astree *name = child->children[0]->children[1];
       symbol_table *found;
       // find symbol table associated with function
-      if (table->master->find(name->lexinfo) != table->master->end()){
-        found = table->master->find(name->lexinfo)->second;
+      if (all_sym->master->find(name->lexinfo) != all_sym->master->end()){
+        found = all_sym->master->find(name->lexinfo)->second;
       } 
       else {
         errprintf ("3ac: invalid function definition. Stopping address code generation \n");
@@ -1280,11 +1280,11 @@ all_3ac *return_3ac(){
   return all_ac;
 }
 
-void emit_all3ac(all_tables *table, all_3ac *statements, FILE *out){
-  emit_struct(table,out);
-  emit_string(statements,out);
-  emit_globaldef(statements,out);
-  emit_functions(table,statements,out);
+void emit_all3ac(FILE *out){
+  emit_struct(out);
+  emit_string(out);
+  emit_globaldef(out);
+  emit_functions(out);
 }
 
 int generate_3ac(astree *root, all_tables *table){
@@ -1294,9 +1294,9 @@ int generate_3ac(astree *root, all_tables *table){
     ++err_count;
     return 1;
   }
-  master = table;
+  all_sym = table;
   // all string constants used
-  vector<const string*> *all_strings  = new vector <const string*>();
+  vector<string> *all_strings  = new vector <string>();
   // all globals
   ac3_table *all_globals = new ac3_table; 
   // all function
@@ -1306,7 +1306,7 @@ int generate_3ac(astree *root, all_tables *table){
   // link global symbol table with blobal statement table
   table_lookup->emplace(table->global,all_globals);
   all_ac = new all_3ac(all_globals,all_functions,all_strings);
-  ac_traverse(root,table);
+  ac_traverse(root);
   if (err_count){
     errprintf ("NUMBER OF ERRORS REPORTED: %d\n",err_count);
     return 1;

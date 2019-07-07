@@ -187,7 +187,7 @@ int main (int argc, char** argv) {
        // generate the 3ac tables
        generate_3ac(parser::root,get_tables());
        // dump the 3ac tables
-       emit_all3ac(get_tables(),return_3ac(),oilfp);
+       emit_all3ac(oilfp);
        // dump the astree
        astree::draw_attrib(astfp,parser::root);
      }

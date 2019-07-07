@@ -1,0 +1,32 @@
+.struct mami
+.field ptr madoka
+.field struct sayaka sayaka
+.field int one
+.field ptr two
+.end 
+.struct sayaka
+.end 
+a:         .global int 
+b:         .global int 5
+c:         .global int 'a'
+w:         .global ptr 
+x:         .global ptr "hehe"
+y:         .global ptr nullptr
+thing:     .global struct mami nullptr
+thing2:    .global struct mami malloc(sizeof struct mami)
+thing3:    .global ptr nullptr
+sayaka:    .function int 
+           return
+           .end
+homuhomu:  .function ptr 
+           return
+           .end
+mamimami:  .function ptr 
+           return
+           .end
+trivial:   .function 
+           .param int x
+           .local struct mami thing2
+           thing2 = call malloc(sizeof struct mami)
+           return
+           .end

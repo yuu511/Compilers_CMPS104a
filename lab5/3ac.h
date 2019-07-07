@@ -100,10 +100,10 @@ using ac3_table = vector<ac3*>;
 struct all_3ac{
   ac3_table *all_globals;  
   vector<pair<const string*,ac3_table*>> *all_functions;
-  vector<const string*> *all_strings;
+  vector<string> *all_strings;
   all_3ac(ac3_table *all_globals, 
           vector<pair<const string*,ac3_table*>> *all_functions,
-          vector<const string*> *all_strings);
+          vector<string> *all_strings);
 };
 
 // creates 3ac tables
@@ -116,6 +116,6 @@ void free_3ac();
 all_3ac *return_3ac();
 
 // emit all of the statements returned by all_3ac
-void emit_all3ac(all_tables *table, all_3ac *statements, FILE *out);
+void emit_all3ac(FILE *out);
 
 #endif
