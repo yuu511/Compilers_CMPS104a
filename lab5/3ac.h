@@ -107,10 +107,10 @@ using ac3_table = vector<ac3*>;
 struct all_3ac{
   ac3_table *all_globals;  
   vector<pair<const string*,ac3_table*>> *all_functions;
-  vector<string> *all_strings;
+  vector<const string*> *all_strings;
   all_3ac(ac3_table *all_globals, 
           vector<pair<const string*,ac3_table*>> *all_functions,
-          vector<string> *all_strings);
+          vector<const string*> *all_strings);
 };
 
 // creates 3ac tables

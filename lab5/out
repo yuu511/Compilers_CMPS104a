@@ -1,57 +1,8 @@
+make[1]: Entering directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'
 g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3ac.cpp
-In file included from /usr/include/c++/9.1.0/vector:67,
-                 from symbol_table.h:7,
-                 from 3ac.h:4,
-                 from 3ac.cpp:1:
-/usr/include/c++/9.1.0/bits/stl_vector.h: In instantiation of ‘class std::vector<const std::__cxx11::basic_string<char> >’:
-3ac.cpp:155:18:   required from here
-/usr/include/c++/9.1.0/bits/stl_vector.h:398:66: error: static assertion failed: std::vector must have a non-const, non-volatile value_type
-  398 |       static_assert(is_same<typename remove_cv<_Tp>::type, _Tp>::value,
-      |                                                                  ^~~~~
-/usr/include/c++/9.1.0/bits/stl_vector.h: In instantiation of ‘std::_Vector_base<_Tp, _Alloc>::_Vector_impl::_Vector_impl() [with _Tp = const std::__cxx11::basic_string<char>; _Alloc = std::allocator<const std::__cxx11::basic_string<char> >]’:
-/usr/include/c++/9.1.0/bits/stl_vector.h:285:7:   required from here
-/usr/include/c++/9.1.0/bits/stl_vector.h:130:19: error: no matching function for call to ‘std::allocator<const std::__cxx11::basic_string<char> >::allocator()’
-  130 |  : _Tp_alloc_type()
-      |                   ^
-In file included from /usr/include/c++/9.1.0/string:41,
-                 from /usr/include/c++/9.1.0/bitset:47,
-                 from symbol_table.h:4,
-                 from 3ac.h:4,
-                 from 3ac.cpp:1:
-/usr/include/c++/9.1.0/bits/allocator.h:185:30: note: candidate: ‘template<class _Up> std::allocator<const _Tp>::allocator(const std::allocator<_Tp1>&)’
-  185 |       template<typename _Up> allocator(const allocator<_Up>&) { }
-      |                              ^~~~~~~~~
-/usr/include/c++/9.1.0/bits/allocator.h:185:30: note:   template argument deduction/substitution failed:
-In file included from /usr/include/c++/9.1.0/vector:67,
-                 from symbol_table.h:7,
-                 from 3ac.h:4,
-                 from 3ac.cpp:1:
-/usr/include/c++/9.1.0/bits/stl_vector.h:130:19: note:   candidate expects 1 argument, 0 provided
-  130 |  : _Tp_alloc_type()
-      |                   ^
-In file included from /usr/include/c++/9.1.0/string:41,
-                 from /usr/include/c++/9.1.0/bitset:47,
-                 from symbol_table.h:4,
-                 from 3ac.h:4,
-                 from 3ac.cpp:1:
-/usr/include/c++/9.1.0/bits/allocator.h:181:11: note: candidate: ‘constexpr std::allocator<const std::__cxx11::basic_string<char> >::allocator(const std::allocator<const std::__cxx11::basic_string<char> >&)’
-  181 |     class allocator<const _Tp>
-      |           ^~~~~~~~~~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/allocator.h:181:11: note:   candidate expects 1 argument, 0 provided
-/usr/include/c++/9.1.0/bits/allocator.h:181:11: note: candidate: ‘constexpr std::allocator<const std::__cxx11::basic_string<char> >::allocator(std::allocator<const std::__cxx11::basic_string<char> >&&)’
-/usr/include/c++/9.1.0/bits/allocator.h:181:11: note:   candidate expects 1 argument, 0 provided
-In file included from /usr/include/c++/9.1.0/ext/alloc_traits.h:36,
-                 from /usr/include/c++/9.1.0/bits/basic_string.h:40,
-                 from /usr/include/c++/9.1.0/string:55,
-                 from /usr/include/c++/9.1.0/bitset:47,
-                 from symbol_table.h:4,
-                 from 3ac.h:4,
-                 from 3ac.cpp:1:
-/usr/include/c++/9.1.0/bits/alloc_traits.h: In instantiation of ‘static void std::allocator_traits<std::allocator<_CharT> >::deallocate(std::allocator_traits<std::allocator<_CharT> >::allocator_type&, std::allocator_traits<std::allocator<_CharT> >::pointer, std::allocator_traits<std::allocator<_CharT> >::size_type) [with _Tp = const std::__cxx11::basic_string<char>; std::allocator_traits<std::allocator<_CharT> >::allocator_type = std::allocator<const std::__cxx11::basic_string<char> >; std::allocator_traits<std::allocator<_CharT> >::pointer = const std::__cxx11::basic_string<char>*; std::allocator_traits<std::allocator<_CharT> >::size_type = long unsigned int]’:
-/usr/include/c++/9.1.0/bits/stl_vector.h:351:19:   required from ‘void std::_Vector_base<_Tp, _Alloc>::_M_deallocate(std::_Vector_base<_Tp, _Alloc>::pointer, std::size_t) [with _Tp = const std::__cxx11::basic_string<char>; _Alloc = std::allocator<const std::__cxx11::basic_string<char> >; std::_Vector_base<_Tp, _Alloc>::pointer = const std::__cxx11::basic_string<char>*; std::size_t = long unsigned int]’
-/usr/include/c++/9.1.0/bits/stl_vector.h:332:2:   required from ‘std::_Vector_base<_Tp, _Alloc>::~_Vector_base() [with _Tp = const std::__cxx11::basic_string<char>; _Alloc = std::allocator<const std::__cxx11::basic_string<char> >]’
-/usr/include/c++/9.1.0/bits/stl_vector.h:484:7:   required from here
-/usr/include/c++/9.1.0/bits/alloc_traits.h:470:13: error: ‘using allocator_type = class std::allocator<const std::__cxx11::basic_string<char> >’ {aka ‘class std::allocator<const std::__cxx11::basic_string<char> >’} has no member named ‘deallocate’
-  470 |       { __a.deallocate(__p, __n); }
-      |         ~~~~^~~~~~~~~~
-make: *** [Makefile:55: 3ac.o] Error 1
+3ac.cpp: In function ‘ac3* push_string(astree*, symbol_table*, reg*)’:
+3ac.cpp:536:15: error: expected unqualified-id before ‘->’ token
+  536 |     all_tables->all_strings->push_back(expr->lexinfo);
+      |               ^~
+make[1]: *** [Makefile:55: 3ac.o] Error 1
+make[1]: Leaving directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'

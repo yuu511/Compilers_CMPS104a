@@ -3,6 +3,7 @@
 #include "astree.h"
 #include "lyutils.h"
 #include "auxlib.h"
+#include <algorithm>
 
 // quick lookup between a function's symbol table and 3ac statements
 unordered_map <symbol_table*, ac3_table*> *table_lookup =  new unordered_map<symbol_table*, ac3_table*>;
@@ -153,7 +154,7 @@ reg *reg::deep_copy(){
 
 all_3ac::all_3ac(ac3_table *all_globals_, 
                vector<pair<const string*,ac3_table*>> *all_functions_,
-               vector<string> *all_strings_){
+               vector<const string*> *all_strings_){
   all_globals = all_globals_;
   all_functions = all_functions_;
   all_strings = all_strings_;
@@ -161,19 +162,21 @@ all_3ac::all_3ac(ac3_table *all_globals_,
 
 void free_3ac(){
   delete table_lookup;
-  for (auto itor : *(all_ac->all_functions)){
-    for (auto itor2: *itor.second) {
-      delete itor2; 
+  if (all_ac){
+    for (auto itor : *(all_ac->all_functions)){
+      for (auto itor2: *itor.second) {
+        delete itor2; 
+      }
+      delete itor.second;
     }
-    delete itor.second;
+    for (auto itor: *(all_ac->all_globals)){
+      delete itor;
+    }
+    delete all_ac->all_globals;
+    delete all_ac->all_functions;
+    delete all_ac->all_strings;
+    delete all_ac;
   }
-  for (auto itor: *(all_ac->all_globals)){
-    delete itor;
-  }
-  delete all_ac->all_globals;
-  delete all_ac->all_functions;
-  delete all_ac->all_strings;
-  delete all_ac;
 }
 
 ac3::~ac3(){
@@ -522,9 +525,28 @@ ac3 *asg_struct(astree *expr, symbol_table *current, string *label){
   return bot;
 }
 
-ac3 *push_string (astree *expr, symbol_table *current, reg *init){
+reg *p_string_reg(astree *expr){
+  reg *t1;
+  vector<const string*>::iterator it;
+  it = find(all_ac->all_strings->begin(),all_ac->all_strings->end(),expr->lexinfo);
+  if (it != all_ac->all_strings->end()){
+    t1 = new reg(it - all_ac->all_strings->begin()); 
+  }
+  else {
+    t1 = new reg(all_ac->all_strings->size());
+    all_ac->all_strings->push_back(expr->lexinfo);
+  }
+  return t1;
+}
+
+ac3 *p_string (astree *expr, symbol_table *current, reg *init){
   ac3_table *found = table_lookup->find(current)->second;
-  
+  ac3 *bot = new ac3(expr);
+  bot->t0 = init;
+  bot->t1 = p_string_reg(expr);
+  bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+  found->push_back(bot);
+  return bot;
 }
 
 ac3 *asg_string(astree *expr, symbol_table *current, string *label){
@@ -554,12 +576,17 @@ ac3 *asg_string(astree *expr, symbol_table *current, string *label){
     }
   }
   else {
-    bot = new ac3(expr);
-    bot->t0 = new reg(ident->lexinfo);
-    bot->t1 = new reg(parse->lexinfo);
-    bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
-    found->push_back(bot);
-    found->at(top)->label = label;
+    if (parse->symbol == TOK_STRINGCON){
+      bot = p_string(parse,current,new reg(ident->lexinfo));
+    }
+    else {
+      bot = new ac3(expr);
+      bot->t0 = new reg(ident->lexinfo);
+      bot->t1 = new reg(parse->lexinfo);
+      bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+      found->push_back(bot);
+      found->at(top)->label = label;
+    }
   }
   return bot;
 }
@@ -920,7 +947,8 @@ ac3 *p_equals(astree *expr, symbol_table *current){
     } 
     else {
       if (final_val->symbol == TOK_STRINGCON){
-      
+        ac->t1 = p_string_reg(final_val);
+        p_expr(right,current);
       } 
       else {
         ac->t1 = new reg(final_val->lexinfo);
@@ -929,7 +957,12 @@ ac3 *p_equals(astree *expr, symbol_table *current){
     }
   } 
   else {
-    ac->t1 =new reg(right->lexinfo);
+    if (right->symbol == TOK_STRINGCON){
+      ac->t1 = p_string_reg(right);
+    }
+    else {
+      ac->t1 =new reg(right->lexinfo);
+    }
   }
   ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   found->push_back(ac);
@@ -1150,7 +1183,7 @@ void emit_struct(FILE *out){
 void emit_string(FILE *out){
   int i = 0;
   for (auto itor: *(all_ac->all_strings)){
-    fprintf (out,".s%d%-7s %s\n",i,":",itor.c_str());
+    fprintf (out,".s%d%-7s %s\n",i,":",itor->c_str());
     ++i;
   }
 }
@@ -1325,7 +1358,7 @@ int generate_3ac(astree *root, all_tables *table){
   }
   all_sym = table;
   // all string constants used
-  vector<string> *all_strings  = new vector <string>();
+  vector<const string*> *all_strings  = new vector <const string*>();
   // all globals
   ac3_table *all_globals = new ac3_table; 
   // all function
