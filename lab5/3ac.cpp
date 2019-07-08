@@ -27,37 +27,52 @@ reg::reg(const string *ident_){
   fname = nullptr;
   parameters = nullptr;
   typesize = nullptr;
+  string_index = -1;
   unop = nullptr;
 }
 
 reg::reg(string *stride_, int reg_number_){
+  ident = nullptr;
   reg_number = reg_number_;
   stride = stride_;
-  ident = nullptr;
   fname = nullptr;
   parameters = nullptr;
   typesize = nullptr;
+  string_index = -1;
   unop = nullptr;
 }
 
 reg::reg(string *fname_, vector<reg*> *parameters_){
-  fname = fname_;
-  parameters= parameters_;
   ident = nullptr;
   reg_number = -1;
   stride = nullptr;
+  fname = fname_;
+  parameters= parameters_;
   typesize = nullptr;
+  string_index = -1;
   unop = nullptr;
 }
 
 reg::reg(string *typesize_, string *szof){
-  typesize = typesize_;
-  unop = szof;
   ident = nullptr;
   reg_number = -1;
   stride = nullptr;
   fname = nullptr;
   parameters = nullptr;
+  typesize = typesize_;
+  string_index = -1;
+  unop = szof;
+}
+
+reg::reg(int string_index_){
+  ident = nullptr;
+  reg_number = -1;
+  stride = nullptr;
+  fname = nullptr;
+  parameters = nullptr;
+  typesize = nullptr;
+  string_index = string_index_;
+  unop = nullptr;
 }
 
 string reg::str(){
@@ -99,6 +114,11 @@ string reg::str(){
   } 
   else if (typesize != nullptr){
     ret.append(*typesize);
+  }
+  else if (string_index != -1){
+    ret.append("(.s");
+    ret.append(to_string(string_index));
+    ret.append(")");
   }
   return ret;
 }
@@ -220,11 +240,26 @@ astree *recurse_non_equal(astree *expr){
   return expr;
 }
 
-// helper function for astree_stride
-// may be called in conjunction with astree_stride_symbol_array
-// or called by itself (see astree_stride for exact cases)
-string *astree_stride_symbol(symbol *found){
-  if ( found->attributes[static_cast<int>(attr::STRING)]
+// special helper function for astree_stride for index only
+string *astree_stride_symbol_index(symbol *found){
+  if (found->attributes[static_cast<int>(attr::STRING)]){
+    return new string (":c");
+  }
+  else if (found->attributes[static_cast<int>(attr::TYPEID)]){
+    return new string (":p");
+  }
+  else if (found->attributes[static_cast<int>(attr::INT)]){
+    return new string (":i");
+  }
+  ++err_count;
+  errprintf ("3ac: Invalid symbol parsed for astree_stride_symbol_index");
+  return nullptr;
+}
+
+//helper function for astree_stride
+string *astree_stride_symbol_array(symbol *found){
+  if ( found->attributes[static_cast<int>(attr::ARRAY)]
+      || found->attributes[static_cast<int>(attr::STRING)]
       || found->attributes[static_cast<int>(attr::TYPEID)]){
       return new string(":p");
   } 
@@ -234,17 +269,6 @@ string *astree_stride_symbol(symbol *found){
   else if (found->attributes[static_cast<int>(attr::INT)]){
     return new string(":i");
   }
-  ++err_count; 
-  errprintf ("3ac: Invalid symbol parsed for astree_stride_symbol");
-  return nullptr;
-}
-
-//helper function for astree_stride
-string *astree_stride_symbol_array(symbol *found){
-  if (found->attributes[static_cast<int>(attr::ARRAY)])
-    return new string (":p");
-  else 
-    return astree_stride_symbol(found); 
   ++err_count; 
   errprintf ("3ac: Invalid symbol parsed for astree_stride_symbol_array");
   return nullptr;
@@ -285,11 +309,11 @@ string *astree_stride(symbol_table *current,astree *expr){
     case TOK_INDEX:
       found = all_sym->global->find(expr->children[0]->lexinfo)->second;
       found = current->find(expr->children[0]->lexinfo)->second;
-      return astree_stride_symbol(found);
+      return astree_stride_symbol_index(found);
     case TOK_ARROW:
       // arrow can only be in local symbol table
       found = current->find(expr->children[0]->lexinfo)->second;
-      return astree_stride_symbol(all_sym->struct_t->find(found->sname)->second);
+      return astree_stride_symbol_array(all_sym->struct_t->find(found->sname)->second);
     case '=':
       astree *noneq = recurse_non_equal(expr);
       return astree_stride(current,noneq);
@@ -496,6 +520,11 @@ ac3 *asg_struct(astree *expr, symbol_table *current, string *label){
     found->at(top)->label = label;
   }
   return bot;
+}
+
+ac3 *push_string (astree *expr, symbol_table *current, reg *init){
+  ac3_table *found = table_lookup->find(current)->second;
+  
 }
 
 ac3 *asg_string(astree *expr, symbol_table *current, string *label){
