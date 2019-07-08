@@ -714,7 +714,7 @@ ac3 *p_polymorphic(astree *expr, symbol_table *current){
   return nullptr;
 }
 
-ac3 *p_static_int(astree *expr, symbol_table *current){
+ac3 *p_static_val(astree *expr, symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac = new ac3(expr); 
   ac->t0 = new reg(astree_stride(current,expr),reg_count);
@@ -1064,7 +1064,10 @@ ac3 *p_expr(astree *expr, symbol_table *current){
       break;
     case TOK_CHARCON:
     case TOK_INTCON:
-      return p_static_int(expr,current);
+    case TOK_STRINGCON:
+    case TOK_NULLPTR:
+    case TOK_IDENT:
+      return p_static_val(expr,current);
       break;
     case TOK_CALL:
       return p_call_expr(expr,current);
