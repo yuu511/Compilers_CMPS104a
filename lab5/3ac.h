@@ -6,7 +6,7 @@
 
 // instruction bitset for kind of instruction
 enum class instruction{
-  GOTO,ASSIGNMENT,LABEL_ONLY,CALL,RETURN,BITSET_SIZE
+  GOTO,ASSIGNMENT,LABEL_ONLY,RETURN,BITSET_SIZE
 };
 using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)>;
 
@@ -73,8 +73,6 @@ struct reg {
     RETURN:
     [LABEL] return [t0]
 
-    CALL:
-    [LABEL] [t0] = call [t1] ( [ parameters[0],parameters[1] ... parameters[n] ] ) 
 
 */
 

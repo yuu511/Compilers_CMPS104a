@@ -98,6 +98,7 @@ string reg::str(){
   }
   else if (fname != nullptr){
     if (parameters){
+      ret.append("call ");
       ret.append(*fname);
       ret.append("(");
       if (parameters->size() > 0){
@@ -110,7 +111,7 @@ string reg::str(){
       ret.append(")");
     } 
     else {
-      ret.append(*fname + "(" + ")");
+      ret.append("call " + *fname + "(" + ")");
     }
   } 
   else if (typesize != nullptr){
@@ -334,10 +335,8 @@ ac3 *asg_int(astree *expr, symbol_table *current, string *label){
   // get index of top of statements
   size_t top = found->size();
 
-  int offset;
-  expr->symbol == TOK_TYPE_ID ? offset = 1 : offset = 0;
-  astree *ident = expr->children[0+offset];
-  astree *parse = expr->children[1+offset];
+  astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
+  astree *parse = expr->symbol == TOK_TYPE_ID ? expr->children[2] : expr->children[1];
 
   if (parse->children.size() > 0){  
     bot = new ac3(expr);
@@ -413,7 +412,7 @@ ac3 *alloc_array(astree *expr,symbol_table *current, reg *init){
   malloc_params->push_back(ret->deep_copy());
   bot->t0 = init;
   bot->t1 = new reg(new string ("malloc"),malloc_params);
-  bot->itype.set(static_cast<int>(instruction::CALL));
+  bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   found->push_back(bot);
   return bot;
 }
@@ -426,7 +425,7 @@ ac3 *alloc_struct(astree *expr,symbol_table *current, reg *init){
   malloc_params->push_back(new reg(struct_name,new string("sizeof")));
   bot->t0 = init;
   bot->t1 = new reg(new string("malloc"),malloc_params);
-  bot->itype.set(static_cast<int>(instruction::CALL));
+  bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   found->push_back(bot);
   return bot;
 }
@@ -446,7 +445,7 @@ ac3 *alloc_string(astree *expr,symbol_table *current, reg *init){
   malloc_params->push_back(malloc_number);
   bot->t0 = init;
   bot->t1 = new reg(new string("malloc"),malloc_params);
-  bot->itype.set(static_cast<int>(instruction::CALL));
+  bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   found->push_back(bot);
   return bot;
 }
@@ -456,10 +455,8 @@ ac3 *asg_array(astree *expr, symbol_table *current, string *label){
   ac3 *bot;
   size_t top = found->size();
 
-  int offset;
-  expr->symbol == TOK_TYPE_ID ? offset = 1 : offset = 0;
-  astree *ident = expr->children[0+offset];
-  astree *parse = expr->children[1+offset];
+  astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
+  astree *parse = expr->symbol == TOK_TYPE_ID ? expr->children[2] : expr->children[1];
 
   if (parse->children.size() > 0 ){
     if (parse->symbol == TOK_ALLOC){
@@ -493,10 +490,8 @@ ac3 *asg_struct(astree *expr, symbol_table *current, string *label){
   ac3 *bot;
   size_t top = found->size();
 
-  int offset;
-  expr->symbol == TOK_TYPE_ID ? offset = 1 : offset = 0;
-  astree *ident = expr->children[0+offset];
-  astree *parse = expr->children[1+offset];
+  astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
+  astree *parse = expr->symbol == TOK_TYPE_ID ? expr->children[2] : expr->children[1];
 
   if (parse->children.size() > 0 ){
     if (parse->symbol == TOK_ALLOC){
@@ -554,10 +549,8 @@ ac3 *asg_string(astree *expr, symbol_table *current, string *label){
   ac3 *bot;
   size_t top = found->size();
 
-  int offset;
-  expr->symbol == TOK_TYPE_ID ? offset = 1 : offset = 0;
-  astree *ident = expr->children[0+offset];
-  astree *parse = expr->children[1+offset];
+  astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
+  astree *parse = expr->symbol == TOK_TYPE_ID ? expr->children[2] : expr->children[1];
 
   if (parse->children.size() > 0 ){
     if (parse->symbol == TOK_ALLOC){
@@ -578,6 +571,7 @@ ac3 *asg_string(astree *expr, symbol_table *current, string *label){
   else {
     if (parse->symbol == TOK_STRINGCON){
       bot = p_string(parse,current,new reg(ident->lexinfo));
+      found->at(top)->label = label;
     }
     else {
       bot = new ac3(expr);
@@ -615,22 +609,9 @@ ac3 *asg_check_type(astree *expr, symbol_table *current, string *label){
 // else if '=' it's an assignment
 ac3 *p_assignment(astree *expr, symbol_table *current, string *label){
   ac3_table *found = table_lookup->find(current)->second;
-  size_t min;
   ac3 *ret = nullptr;
-  expr->symbol == TOK_TYPE_ID ? min = 2 : min = 1;
-  if (expr->children.size() > min){
-    // check for selection vs ident 
-    if (expr->symbol == '='){
-      astree *ident = expr->children[0];
-      if (ident->symbol == TOK_INDEX ||
-          ident->symbol == TOK_ARROW){
-        //selection or index
-      }
-      ret = asg_check_type(expr,current,label);
-    } 
-    else{
-      ret = asg_check_type(expr,current,label);
-    }
+  if (expr->children.size() > (expr->symbol == TOK_TYPE_ID ? 2 : 1)){
+    ret = asg_check_type(expr,current,label);
     return ret;
   }  
   // lone declaration e.g. int x;
@@ -756,10 +737,19 @@ ac3 *p_call(astree *expr, symbol_table *current, string *label){
     reg *fname = new reg(new string (*(expr->children[0]->lexinfo)));
     bot->t1 = fname;
   }
-  bot->itype.set(static_cast<int>(instruction::CALL));
+  bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   found->push_back(bot);
   found->at(index)->label = label;
   return bot;
+}
+
+// extra arguments for function call as an expression
+ac3 *p_string_expr (astree *expr, symbol_table *current){
+  // store function call in register
+  reg *ret = new reg(astree_stride(current,expr),reg_count);
+  ++reg_count;
+  ac3 *str = p_string(expr,current,ret);  
+  return str;
 }
 
 // extra arguments for function call as an expression
@@ -1064,10 +1054,12 @@ ac3 *p_expr(astree *expr, symbol_table *current){
       break;
     case TOK_CHARCON:
     case TOK_INTCON:
-    case TOK_STRINGCON:
     case TOK_NULLPTR:
     case TOK_IDENT:
       return p_static_val(expr,current);
+      break;
+    case TOK_STRINGCON:
+      return p_string_expr(expr,current); 
       break;
     case TOK_CALL:
       return p_call_expr(expr,current);
@@ -1258,10 +1250,10 @@ void emit_functions(FILE *out){
       if (stmt->itype[static_cast<int>(instruction::ASSIGNMENT)]){
           // [LABEL] T0 = T1 OPERATOR T2
           // = only appears if t1 exists
-          fprintf(out,"%-10s %s %s %s %s %s\n",
+          fprintf(out,"%-10s %s%s%s %s %s\n",
                   stmt->label ? stmt->label->c_str() : "",
                   stmt->t0 ? stmt->t0->str().c_str() : "" ,
-                  stmt->t1 ? "=" : "",
+                  stmt->t1 && stmt->t0 ? " = " : "",
                   stmt->t1 ? stmt->t1->str().c_str() : "",
                   stmt->op ? stmt->op->c_str() : "",
                   stmt->t2 ? stmt->t2->str().c_str() : "");
@@ -1269,10 +1261,10 @@ void emit_functions(FILE *out){
       if (stmt->itype[static_cast<int>(instruction::GOTO)]){
         // goto [LABEL] if not [t0]
         // if not appears only if t0 exists
-        fprintf (out,"%-10s goto %s %s %s\n",
+        fprintf (out,"%-10s goto %s%s%s\n",
                  "",
                  stmt->label ? stmt->label->c_str() : "",
-                 stmt->t0 ? "if not" : "" ,
+                 stmt->t0 ? " if not " : "" ,
                  stmt->t0 ? stmt->t0->str().c_str() : "" );
       }
       if (stmt->itype[static_cast<int>(instruction::LABEL_ONLY)]){
@@ -1284,15 +1276,6 @@ void emit_functions(FILE *out){
 	    fprintf (out, "%-10s return %s\n",
 	         stmt->label ? stmt->label->c_str() : "",
 	         stmt->t0 ? stmt->t0->str().c_str(): "" );
-      }
-      if (stmt->itype[static_cast<int>(instruction::CALL)]){
-        // call [FNAME] ( [ [ARG1] , [ARG2] , ... , [ARGN] ] )
-	    fprintf (out, "%-10s %s%scall %s\n",
-	             stmt->label ? stmt->label->c_str() : "",
-                 stmt->t0 ? stmt->t0->str().c_str() : "",  
-                 stmt->t0 ? " = " : "",  
-		         stmt->t1 ? stmt->t1->str().c_str() : "");
-
       }
     }
     //print out the ending statements
