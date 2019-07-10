@@ -15,8 +15,9 @@ using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)
    1. an identifier e.g. x
    2. a temporary register e.g. $t0
    3. a function call e.g. call foo(arg1,arg2) 
-   4. a typesize (which is always preceded by a sizeof unary operator)
+   4. a typesize e.g. sizeof ptr (sizeof is stored in unop as it is an operator)
    5. a pointer to a string literal (.s[n]) where [n] is the index in string table
+   6. an index to an array
 
    and be preceded by a unary operator (-,+,not)
    the unary operator may also be "sizeof" iff the register is a typesize
@@ -35,6 +36,10 @@ struct reg {
   string *typesize;
   // 5. exists if register is pointer to string literal
   int string_index;
+  // 6. exists if an index to an array
+  const string *array_ident;
+  int array_index;
+  string *array_stride;
 
   // optional unary operator
   string *unop;
@@ -45,6 +50,7 @@ struct reg {
   reg(string *fname, vector<reg*> *parameters = nullptr);
   reg(string *typesize, string *szof);
   reg(int string_index);
+  reg(const string *array_ident,int array_index, string *array_stride);
 
   // functions
   // deep copy register, return ptr to newly allocated object

@@ -782,7 +782,7 @@ symbol *p_binop(astree *s){
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
   symbol *left = p_expression(s->children[0]);
   symbol *right = p_expression(s->children[1]);
-  if (!(left->attributes[static_cast<int>(attr::INT)] && right->attributes[static_cast<int>(attr::INT)]))
+  if (!(compare_types(left->attributes,right->attributes)))
     errprintf ("type mismatch: math expr %zd.%zd.%zd\n",
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
   delete left;
@@ -1031,6 +1031,7 @@ symbol *p_index(astree *s){
       sym->sname = ident->sname;
     }
   } else if (ident->attributes[static_cast<int>(attr::STRING)]){
+    sym->attributes.set(static_cast<int>(attr::CHAR)); 
     sym->attributes.set(static_cast<int>(attr::INT)); 
   }
   sym->attributes.set(static_cast<int>(attr::VADDR));
