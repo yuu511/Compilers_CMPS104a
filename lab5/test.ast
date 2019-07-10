@@ -1,0 +1,64 @@
+ROOT "<<ROOT>>" 0.0.0 {0} 
+STRUCT "struct" 4.3.1 {0} struct mami 
+IDENT "mami" 4.3.8 {0} 
+TYPE_ID "" 4.3.15 {0} int field 
+INT "int" 4.3.15 {0} 
+IDENT "one" 4.3.19 {0} 
+TYPE_ID "" 4.4.18 {0} string field 
+STRING "string" 4.4.18 {0} 
+IDENT "two" 4.4.25 {0} 
+TYPE_ID "" 4.5.18 {0} field struct sayaka 
+PTR "ptr" 4.5.18 {0} 
+IDENT "sayaka" 4.5.30 {0} 
+IDENT "sayaka" 4.5.38 {0} 
+TYPE_ID "" 4.6.18 {0} int array field 
+ARRAY "array" 4.6.18 {0} 
+INT "int" 4.6.25 {0} 
+IDENT "madoka" 4.6.30 {0} 
+TYPE_ID "" 4.14.1 {0} string variable lval vreg (4.14.1)
+STRING "string" 4.14.1 {0} 
+IDENT "x" 4.14.8 {0} 
+STRINGCON ""hehe"" 4.14.12 {0} string variable lval vreg 
+FUNCTION "" 4.20.1 {0} int function 
+TYPE_ID "" 4.20.1 {0} 
+INT "int" 4.20.1 {0} 
+IDENT "sayaka" 4.20.5 {0} 
+PARAM "(" 4.20.12 {0} 
+TYPE_ID "" 4.20.13 {1} int variable param lval 
+INT "int" 4.20.13 {0} 
+IDENT "x" 4.20.17 {0} 
+TYPE_ID "" 4.20.20 {1} int variable param lval 
+INT "int" 4.20.20 {0} 
+IDENT "y" 4.20.24 {0} 
+BLOCK "{" 4.20.26 {1} 
+FUNCTION "" 4.24.1 {1} int function 
+TYPE_ID "" 4.24.1 {0} 
+INT "int" 4.24.1 {0} 
+IDENT "filler" 4.24.5 {0} 
+PARAM "(" 4.24.11 {0} 
+BLOCK "{" 4.24.13 {2} 
+FUNCTION "" 5.37.1 {2} void function 
+TYPE_ID "" 5.37.1 {0} 
+VOID "void" 5.37.1 {0} 
+IDENT "trivial" 5.37.6 {0} 
+PARAM "(" 5.37.14 {0} 
+TYPE_ID "" 5.37.15 {3} int variable param lval 
+INT "int" 5.37.15 {0} 
+IDENT "x" 5.37.19 {0} 
+BLOCK "{" 5.37.21 {3} 
+TYPE_ID "" 5.39.3 {3} variable struct mami local lval vreg (5.39.3)
+PTR "ptr" 5.39.3 {0} 
+IDENT "mami" 5.39.15 {0} 
+IDENT "thing2" 5.39.21 {0} 
+ALLOC "alloc" 5.39.30 {3} variable struct mami local lval vreg 
+IDENT "mami" 5.39.44 {0} 
+TYPE_ID "" 5.40.3 {3} int variable local lval vreg (5.40.3)
+INT "int" 5.40.3 {0} 
+IDENT "z" 5.40.7 {0} 
+'+' "+" 5.40.27 {3} int variable local lval vreg 
+'+' "+" 5.40.23 {3} int vreg 
+ARROW "->" 5.40.17 {3} int lval vaddr 
+IDENT "thing2" 5.40.11 {3} variable struct mami local lval (5.39.3)
+IDENT "one" 5.40.19 {0} 
+INTCON "5" 5.40.25 {3} int const 
+INTCON "3" 5.40.29 {3} int const 

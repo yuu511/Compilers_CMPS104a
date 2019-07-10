@@ -1,459 +1,207 @@
 g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3ac.cpp
-3ac.cpp:94:71: error: ISO C++ forbids declaration of ‘reg’ with no type [-fpermissive]
-   94 | reg(const string *array_ident_,int array_index_, string *array_stride_){
-      |                                                                       ^
-3ac.cpp:94:71: warning: ‘int reg(const string*, int, std::string*)’ hides constructor for ‘struct reg’ [-Wshadow]
-3ac.cpp: In function ‘int reg(const string*, int, std::string*)’:
-3ac.cpp:95:3: error: ‘ident’ was not declared in this scope
-   95 |   ident = nullptr;
-      |   ^~~~~
-3ac.cpp:96:3: error: ‘reg_number’ was not declared in this scope
-   96 |   reg_number = -1;
-      |   ^~~~~~~~~~
-3ac.cpp:97:3: error: ‘stride’ was not declared in this scope; did you mean ‘stime’?
-   97 |   stride = nullptr;
-      |   ^~~~~~
-      |   stime
-3ac.cpp:98:3: error: ‘fname’ was not declared in this scope; did you mean ‘rename’?
-   98 |   fname = nullptr;
-      |   ^~~~~
-      |   rename
-3ac.cpp:99:3: error: ‘parameters’ was not declared in this scope
-   99 |   parameters = nullptr;
-      |   ^~~~~~~~~~
-3ac.cpp:100:3: error: ‘typesize’ was not declared in this scope; did you mean ‘dysize’?
-  100 |   typesize = nullptr;
-      |   ^~~~~~~~
-      |   dysize
-3ac.cpp:101:3: error: ‘string_index’ was not declared in this scope; did you mean ‘string_set’?
-  101 |   string_index = -1;
-      |   ^~~~~~~~~~~~
-      |   string_set
-3ac.cpp:102:3: error: ‘array_ident’ was not declared in this scope; did you mean ‘array_ident_’?
-  102 |   array_ident = array_ident_;
-      |   ^~~~~~~~~~~
-      |   array_ident_
-3ac.cpp:103:3: error: ‘array_index’ was not declared in this scope; did you mean ‘array_index_’?
-  103 |   array_index = array_index_;
-      |   ^~~~~~~~~~~
-      |   array_index_
-3ac.cpp:104:3: error: ‘array_stride’ was not declared in this scope; did you mean ‘array_stride_’?
-  104 |   array_stride = array_stride_;
-      |   ^~~~~~~~~~~~
-      |   array_stride_
-3ac.cpp:105:3: error: ‘unop’ was not declared in this scope
-  105 |   unop = nullptr;
-      |   ^~~~
-3ac.cpp:106:1: warning: no return statement in function returning non-void [-Wreturn-type]
-  106 | }
-      | ^
-3ac.cpp: At global scope:
-3ac.cpp:170:1: error: ‘reg’ does not name a type
-  170 | reg *reg::deep_copy(){
-      | ^~~
-3ac.cpp:220:25: error: ‘reg’ is not a type
-  220 | ac3::ac3 (astree *expr_,reg *t0_ ){
-      |                         ^~~
-3ac.cpp:220:1: error: no declaration matches ‘ac3::ac3(astree*, int*)’
-  220 | ac3::ac3 (astree *expr_,reg *t0_ ){
-      | ^~~
-In file included from 3ac.cpp:1:
-3ac.h:85:8: note: candidates are: ‘constexpr ac3::ac3(const ac3&)’
-   85 | struct ac3{
-      |        ^~~
-3ac.h:93:3: note:                 ‘ac3::ac3(astree*, reg*)’
-   93 |   ac3(astree *expr,reg *t0 = nullptr);
-      |   ^~~
-3ac.h:85:8: note: ‘struct ac3’ defined here
-   85 | struct ac3{
-      |        ^~~
-3ac.cpp:255:1: error: ‘reg’ does not name a type
-  255 | reg *expr_reg (astree *expr, symbol_table *current){
-      | ^~~
-3ac.cpp: In function ‘ac3* asg_int(astree*, symbol_table*, std::string*)’:
-3ac.cpp:372:10: error: ‘bot_reg’ was not declared in this scope
-  372 |     reg *bot_reg = expr_reg(parse,current);
-      |          ^~~~~~~
-3ac.cpp:372:20: error: ‘expr_reg’ was not declared in this scope
-  372 |     reg *bot_reg = expr_reg(parse,current);
-      |                    ^~~~~~~~
-3ac.cpp:374:21: error: expected type-specifier before ‘reg’
-  374 |       bot->t0 = new reg((ident->lexinfo));
-      |                     ^~~
-3ac.cpp:388:19: error: expected type-specifier before ‘reg’
-  388 |     bot->t0 = new reg(ident->lexinfo);
-      |                   ^~~
-3ac.cpp:389:19: error: expected type-specifier before ‘reg’
-  389 |     bot->t1 = new reg(parse->lexinfo);
-      |                   ^~~
-3ac.cpp:367:11: warning: unused variable ‘ident’ [-Wunused-variable]
-  367 |   astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
-      |           ^~~~~
-3ac.cpp: At global scope:
-3ac.cpp:417:54: error: ‘reg’ is not a type
-  417 | ac3 *alloc_array(astree *expr,symbol_table *current, reg *init){
-      |                                                      ^~~
-3ac.cpp: In function ‘ac3* alloc_array(astree*, symbol_table*, int*)’:
-3ac.cpp:421:8: error: ‘malloc_number’ was not declared in this scope
-  421 |   reg *malloc_number;
-      |        ^~~~~~~~~~~~~
-3ac.cpp:424:8: error: ‘ret’ was not declared in this scope; did you mean ‘reg’?
-  424 |   reg *ret = new reg(astree_stride(current,expr),reg_count);
-      |        ^~~
-      |        reg
-3ac.cpp:424:18: error: expected type-specifier before ‘reg’
-  424 |   reg *ret = new reg(astree_stride(current,expr),reg_count);
-      |                  ^~~
-3ac.cpp:428:21: error: ‘expr_reg’ was not declared in this scope
-  428 |     malloc_number = expr_reg(alloc_sz,current);
-      |                     ^~~~~~~~
-3ac.cpp:431:25: error: expected type-specifier before ‘reg’
-  431 |     malloc_number = new reg(alloc_sz->lexinfo);
-      |                         ^~~
-3ac.cpp:435:23: error: expected type-specifier before ‘reg’
-  435 |   parsed_sz->t2 = new reg(alloc_array_typesize(expr),new string("sizeof"));
-      |                       ^~~
-3ac.cpp:440:14: error: template argument 1 is invalid
-  440 |   vector<reg*> *malloc_params = new vector <reg*>();
-      |              ^
-3ac.cpp:440:14: error: template argument 2 is invalid
-3ac.cpp:440:49: error: template argument 1 is invalid
-  440 |   vector<reg*> *malloc_params = new vector <reg*>();
-      |                                                 ^
-3ac.cpp:440:49: error: template argument 2 is invalid
-3ac.cpp:441:18: error: request for member ‘push_back’ in ‘* malloc_params’, which is of non-class type ‘int’
-  441 |   malloc_params->push_back(ret->deep_copy());
-      |                  ^~~~~~~~~
-3ac.cpp:442:13: error: cannot convert ‘int*’ to ‘reg*’ in assignment
-  442 |   bot->t0 = init;
-      |             ^~~~
-      |             |
-      |             int*
-3ac.cpp:443:17: error: expected type-specifier before ‘reg’
-  443 |   bot->t1 = new reg(new string ("malloc"),malloc_params);
-      |                 ^~~
-3ac.cpp: At global scope:
-3ac.cpp:449:55: error: ‘reg’ is not a type
-  449 | ac3 *alloc_struct(astree *expr,symbol_table *current, reg *init){
-      |                                                       ^~~
-3ac.cpp: In function ‘ac3* alloc_struct(astree*, symbol_table*, int*)’:
-3ac.cpp:452:15: error: template argument 1 is invalid
-  452 |   vector <reg*> *malloc_params = new vector<reg*>();
-      |               ^
-3ac.cpp:452:15: error: template argument 2 is invalid
-3ac.cpp:452:49: error: template argument 1 is invalid
-  452 |   vector <reg*> *malloc_params = new vector<reg*>();
-      |                                                 ^
-3ac.cpp:452:49: error: template argument 2 is invalid
-3ac.cpp:454:18: error: request for member ‘push_back’ in ‘* malloc_params’, which is of non-class type ‘int’
-  454 |   malloc_params->push_back(new reg(struct_name,new string("sizeof")));
-      |                  ^~~~~~~~~
-3ac.cpp:454:32: error: expected type-specifier before ‘reg’
-  454 |   malloc_params->push_back(new reg(struct_name,new string("sizeof")));
-      |                                ^~~
-3ac.cpp:455:13: error: cannot convert ‘int*’ to ‘reg*’ in assignment
-  455 |   bot->t0 = init;
-      |             ^~~~
-      |             |
-      |             int*
-3ac.cpp:456:17: error: expected type-specifier before ‘reg’
-  456 |   bot->t1 = new reg(new string("malloc"),malloc_params);
-      |                 ^~~
-3ac.cpp:453:11: warning: unused variable ‘struct_name’ [-Wunused-variable]
-  453 |   string *struct_name = new string("struct " + *(expr->children[0]->lexinfo));
+3ac.cpp: In member function ‘std::string reg::str()’:
+3ac.cpp:150:21: error: no matching function for call to ‘std::__cxx11::basic_string<char>::append(const string*&)’
+  150 |     ret.append(ident);
+      |                     ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:1221:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1221 |       append(const basic_string& __str)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1221:34: note:   no known conversion for argument 1 from ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} to ‘const std::__cxx11::basic_string<char>&’
+ 1221 |       append(const basic_string& __str)
+      |              ~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1238:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+ 1238 |       append(const basic_string& __str, size_type __pos, size_type __n = npos)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1238:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:1250:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+ 1250 |       append(const _CharT* __s, size_type __n)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1250:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:1263:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1263 |       append(const _CharT* __s)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1263:28: note:   no known conversion for argument 1 from ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} to ‘const char*’
+ 1263 |       append(const _CharT* __s)
+      |              ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1280:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, _CharT) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+ 1280 |       append(size_type __n, _CharT __c)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1280:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:1290:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::initializer_list<_Tp>) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1290 |       append(initializer_list<_CharT> __l)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1290:39: note:   no known conversion for argument 1 from ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} to ‘std::initializer_list<char>’
+ 1290 |       append(initializer_list<_CharT> __l)
+      |              ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1309:9: note: candidate: ‘template<class _InputIterator, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(_InputIterator, _InputIterator) [with _InputIterator = _InputIterator; <template-parameter-2-2> = <template-parameter-1-2>; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1309 |         append(_InputIterator __first, _InputIterator __last)
+      |         ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1309:9: note:   template argument deduction/substitution failed:
+3ac.cpp:150:21: note:   candidate expects 2 arguments, 1 provided
+  150 |     ret.append(ident);
+      |                     ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:1320:9: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1320 |         append(const _Tp& __svt)
+      |         ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1320:9: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/9.1.0/bits/move.h:55,
+                 from /usr/include/c++/9.1.0/bits/stl_pair.h:59,
+                 from /usr/include/c++/9.1.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/9.1.0/bits/char_traits.h:39,
+                 from /usr/include/c++/9.1.0/string:40,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/type_traits: In substitution of ‘template<bool _Cond, class _Tp> using enable_if_t = typename std::enable_if::type [with bool _Cond = std::integral_constant<bool, false>::value; _Tp = std::__cxx11::basic_string<char>&]’:
+/usr/include/c++/9.1.0/bits/basic_string.h:117:8:   required by substitution of ‘template<class _CharT, class _Traits, class _Alloc> template<class _Tp, class _Res> using _If_sv = std::enable_if_t<std::__and_<std::is_convertible<const _Tp&, std::basic_string_view<_CharT, _Traits> >, std::__not_<std::is_convertible<const _Tp*, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>*> >, std::__not_<std::is_convertible<const _Tp&, const _CharT*> > >::value, _Res> [with _Tp = const std::__cxx11::basic_string<char>*; _Res = std::__cxx11::basic_string<char>&; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+/usr/include/c++/9.1.0/bits/basic_string.h:1320:9:   required by substitution of ‘template<class _Tp> std::__cxx11::basic_string<char>::_If_sv<_Tp, std::__cxx11::basic_string<char>&> std::__cxx11::basic_string<char>::append<_Tp>(const _Tp&) [with _Tp = const std::__cxx11::basic_string<char>*]’
+3ac.cpp:150:21:   required from here
+/usr/include/c++/9.1.0/type_traits:2426:11: error: no type named ‘type’ in ‘struct std::enable_if<false, std::__cxx11::basic_string<char>&>’
+ 2426 |     using enable_if_t = typename enable_if<_Cond, _Tp>::type;
       |           ^~~~~~~~~~~
-3ac.cpp: At global scope:
-3ac.cpp:462:55: error: ‘reg’ is not a type
-  462 | ac3 *alloc_string(astree *expr,symbol_table *current, reg *init){
-      |                                                       ^~~
-3ac.cpp: In function ‘ac3* alloc_string(astree*, symbol_table*, int*)’:
-3ac.cpp:465:8: error: ‘malloc_number’ was not declared in this scope
-  465 |   reg *malloc_number;
-      |        ^~~~~~~~~~~~~
-3ac.cpp:467:15: error: template argument 1 is invalid
-  467 |   vector <reg*> *malloc_params = new vector<reg*>();
-      |               ^
-3ac.cpp:467:15: error: template argument 2 is invalid
-3ac.cpp:467:49: error: template argument 1 is invalid
-  467 |   vector <reg*> *malloc_params = new vector<reg*>();
-      |                                                 ^
-3ac.cpp:467:49: error: template argument 2 is invalid
-3ac.cpp:469:21: error: ‘expr_reg’ was not declared in this scope
-  469 |     malloc_number = expr_reg(alloc_sz,current);
-      |                     ^~~~~~~~
-3ac.cpp:472:25: error: expected type-specifier before ‘reg’
-  472 |     malloc_number = new reg(alloc_sz->lexinfo);
-      |                         ^~~
-3ac.cpp:474:18: error: request for member ‘push_back’ in ‘* malloc_params’, which is of non-class type ‘int’
-  474 |   malloc_params->push_back(malloc_number);
-      |                  ^~~~~~~~~
-3ac.cpp:475:13: error: cannot convert ‘int*’ to ‘reg*’ in assignment
-  475 |   bot->t0 = init;
-      |             ^~~~
-      |             |
-      |             int*
-3ac.cpp:476:17: error: expected type-specifier before ‘reg’
-  476 |   bot->t1 = new reg(new string("malloc"),malloc_params);
-      |                 ^~~
-3ac.cpp: In function ‘ac3* asg_array(astree*, symbol_table*, std::string*)’:
-3ac.cpp:492:12: error: ‘ret’ was not declared in this scope; did you mean ‘reg’?
-  492 |       reg *ret = new reg(ident->lexinfo);
-      |            ^~~
-      |            reg
-3ac.cpp:492:22: error: expected type-specifier before ‘reg’
-  492 |       reg *ret = new reg(ident->lexinfo);
-      |                      ^~~
-3ac.cpp:497:12: error: ‘ret_reg’ was not declared in this scope
-  497 |       reg *ret_reg = expr_reg(parse,current);
-      |            ^~~~~~~
-3ac.cpp:497:22: error: ‘expr_reg’ was not declared in this scope
-  497 |       reg *ret_reg = expr_reg(parse,current);
-      |                      ^~~~~~~~
-3ac.cpp:499:21: error: expected type-specifier before ‘reg’
-  499 |       bot->t0 = new reg(ident->lexinfo);
-      |                     ^~~
-3ac.cpp:508:19: error: expected type-specifier before ‘reg’
-  508 |     bot->t0 = new reg(ident->lexinfo);
-      |                   ^~~
-3ac.cpp:509:19: error: expected type-specifier before ‘reg’
-  509 |     bot->t1 = new reg(parse->lexinfo);
-      |                   ^~~
-3ac.cpp:487:11: warning: unused variable ‘ident’ [-Wunused-variable]
-  487 |   astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
-      |           ^~~~~
-3ac.cpp: In function ‘ac3* asg_struct(astree*, symbol_table*, std::string*)’:
-3ac.cpp:527:12: error: ‘ret’ was not declared in this scope; did you mean ‘reg’?
-  527 |       reg *ret = new reg(ident->lexinfo);
-      |            ^~~
-      |            reg
-3ac.cpp:527:22: error: expected type-specifier before ‘reg’
-  527 |       reg *ret = new reg(ident->lexinfo);
-      |                      ^~~
-3ac.cpp:532:12: error: ‘ret_reg’ was not declared in this scope
-  532 |       reg *ret_reg = expr_reg(parse,current);
-      |            ^~~~~~~
-3ac.cpp:532:22: error: ‘expr_reg’ was not declared in this scope
-  532 |       reg *ret_reg = expr_reg(parse,current);
-      |                      ^~~~~~~~
-3ac.cpp:534:21: error: expected type-specifier before ‘reg’
-  534 |       bot->t0 = new reg(ident->lexinfo);
-      |                     ^~~
-3ac.cpp:543:19: error: expected type-specifier before ‘reg’
-  543 |     bot->t0 = new reg(ident->lexinfo);
-      |                   ^~~
-3ac.cpp:544:19: error: expected type-specifier before ‘reg’
-  544 |     bot->t1 = new reg(parse->lexinfo);
-      |                   ^~~
-3ac.cpp:522:11: warning: unused variable ‘ident’ [-Wunused-variable]
-  522 |   astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
-      |           ^~~~~
-3ac.cpp: At global scope:
-3ac.cpp:552:1: error: ‘reg’ does not name a type
-  552 | reg *p_string_reg(astree *expr){
-      | ^~~
-3ac.cpp:566:53: error: ‘reg’ is not a type
-  566 | ac3 *p_string (astree *expr, symbol_table *current, reg *init){
-      |                                                     ^~~
-3ac.cpp: In function ‘ac3* p_string(astree*, symbol_table*, int*)’:
-3ac.cpp:569:13: error: cannot convert ‘int*’ to ‘reg*’ in assignment
-  569 |   bot->t0 = init;
-      |             ^~~~
-      |             |
-      |             int*
-3ac.cpp:570:13: error: ‘p_string_reg’ was not declared in this scope; did you mean ‘p_string’?
-  570 |   bot->t1 = p_string_reg(expr);
-      |             ^~~~~~~~~~~~
-      |             p_string
-3ac.cpp: In function ‘ac3* asg_string(astree*, symbol_table*, std::string*)’:
-3ac.cpp:586:12: error: ‘ret’ was not declared in this scope; did you mean ‘reg’?
-  586 |       reg *ret = new reg(ident->lexinfo);
-      |            ^~~
-      |            reg
-3ac.cpp:586:22: error: expected type-specifier before ‘reg’
-  586 |       reg *ret = new reg(ident->lexinfo);
-      |                      ^~~
-3ac.cpp:591:12: error: ‘ret_reg’ was not declared in this scope
-  591 |       reg *ret_reg = expr_reg(parse,current);
-      |            ^~~~~~~
-3ac.cpp:591:22: error: ‘expr_reg’ was not declared in this scope
-  591 |       reg *ret_reg = expr_reg(parse,current);
-      |                      ^~~~~~~~
-3ac.cpp:593:21: error: expected type-specifier before ‘reg’
-  593 |       bot->t0 = new reg(ident->lexinfo);
-      |                     ^~~
-3ac.cpp:602:40: error: expected type-specifier before ‘reg’
-  602 |       bot = p_string(parse,current,new reg(ident->lexinfo));
-      |                                        ^~~
-3ac.cpp:607:21: error: expected type-specifier before ‘reg’
-  607 |       bot->t0 = new reg(ident->lexinfo);
-      |                     ^~~
-3ac.cpp:608:21: error: expected type-specifier before ‘reg’
-  608 |       bot->t1 = new reg(parse->lexinfo);
-      |                     ^~~
-3ac.cpp:581:11: warning: unused variable ‘ident’ [-Wunused-variable]
-  581 |   astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
-      |           ^~~~~
-3ac.cpp: In function ‘ac3* p_assignment(astree*, symbol_table*, std::string*)’:
-3ac.cpp:653:18: error: expected type-specifier before ‘reg’
-  653 |     ac->t0 = new reg(ident->lexinfo);
-      |                  ^~~
-3ac.cpp: In function ‘ac3* p_binop(astree*, symbol_table*)’:
-3ac.cpp:664:16: error: expected type-specifier before ‘reg’
-  664 |   ac->t0 = new reg(astree_stride(current,expr),reg_count);
-      |                ^~~
-3ac.cpp:670:18: error: expected type-specifier before ‘reg’
-  670 |     ac->t1 = new reg(astree_stride(current,left),reg_count);
-      |                  ^~~
-3ac.cpp:674:17: error: expected type-specifier before ‘reg’
-  674 |     ac->t1 =new reg(left->lexinfo);
-      |                 ^~~
-3ac.cpp:679:18: error: expected type-specifier before ‘reg’
-  679 |     ac->t2 = new reg(astree_stride(current,right),reg_count);
-      |                  ^~~
-3ac.cpp:683:17: error: expected type-specifier before ‘reg’
-  683 |     ac->t2 =new reg(right->lexinfo);
-      |                 ^~~
-3ac.cpp: In function ‘ac3* p_unop(astree*, symbol_table*)’:
-3ac.cpp:694:16: error: expected type-specifier before ‘reg’
-  694 |   ac->t0 = new reg(astree_stride(current,expr),reg_count);
-      |                ^~~
-3ac.cpp:699:10: error: ‘unary’ was not declared in this scope; did you mean ‘unshare’?
-  699 |     reg *unary = new reg(astree_stride(current,assignment),reg_count);
-      |          ^~~~~
-      |          unshare
-3ac.cpp:699:22: error: expected type-specifier before ‘reg’
-  699 |     reg *unary = new reg(astree_stride(current,assignment),reg_count);
-      |                      ^~~
-3ac.cpp:705:10: error: ‘unary’ was not declared in this scope; did you mean ‘unshare’?
-  705 |     reg *unary = new reg(assignment->lexinfo);
-      |          ^~~~~
-      |          unshare
-3ac.cpp:705:22: error: expected type-specifier before ‘reg’
-  705 |     reg *unary = new reg(assignment->lexinfo);
-      |                      ^~~
-3ac.cpp: In function ‘ac3* p_static_val(astree*, symbol_table*)’:
-3ac.cpp:730:16: error: expected type-specifier before ‘reg’
-  730 |   ac->t0 = new reg(astree_stride(current,expr),reg_count);
-      |                ^~~
-3ac.cpp:732:16: error: expected type-specifier before ‘reg’
-  732 |   ac->t1 = new reg(expr->lexinfo);
-      |                ^~~
-3ac.cpp: In function ‘ac3* p_call(astree*, symbol_table*, std::string*)’:
-3ac.cpp:743:17: error: template argument 1 is invalid
-  743 |     vector <reg*> *args = new vector <reg*>();
-      |                 ^
-3ac.cpp:743:17: error: template argument 2 is invalid
-3ac.cpp:743:43: error: template argument 1 is invalid
-  743 |     vector <reg*> *args = new vector <reg*>();
-      |                                           ^
-3ac.cpp:743:43: error: template argument 2 is invalid
-3ac.cpp:745:12: error: ‘push’ was not declared in this scope
-  745 |       reg *push;
-      |            ^~~~
-3ac.cpp:747:14: error: ‘stored’ was not declared in this scope
-  747 |         reg *stored = expr_reg(expr->children[i],current);
-      |              ^~~~~~
-3ac.cpp:747:23: error: ‘expr_reg’ was not declared in this scope
-  747 |         reg *stored = expr_reg(expr->children[i],current);
-      |                       ^~~~~~~~
-3ac.cpp:758:20: error: expected type-specifier before ‘reg’
-  758 |         push = new reg(expr->children[i]->lexinfo);
-      |                    ^~~
-3ac.cpp:760:13: error: request for member ‘push_back’ in ‘* args’, which is of non-class type ‘int’
-  760 |       args->push_back(push);
-      |             ^~~~~~~~~
-3ac.cpp:762:10: error: ‘fname’ was not declared in this scope; did you mean ‘rename’?
-  762 |     reg *fname = new reg(new string (*(expr->children[0]->lexinfo)),args);
-      |          ^~~~~
-      |          rename
-3ac.cpp:762:22: error: expected type-specifier before ‘reg’
-  762 |     reg *fname = new reg(new string (*(expr->children[0]->lexinfo)),args);
-      |                      ^~~
-3ac.cpp:766:10: error: ‘fname’ was not declared in this scope; did you mean ‘rename’?
-  766 |     reg *fname = new reg(new string (*(expr->children[0]->lexinfo)));
-      |          ^~~~~
-      |          rename
-3ac.cpp:766:22: error: expected type-specifier before ‘reg’
-  766 |     reg *fname = new reg(new string (*(expr->children[0]->lexinfo)));
-      |                      ^~~
-3ac.cpp: In function ‘ac3* p_string_expr(astree*, symbol_table*)’:
-3ac.cpp:778:8: error: ‘ret’ was not declared in this scope; did you mean ‘reg’?
-  778 |   reg *ret = new reg(astree_stride(current,expr),reg_count);
-      |        ^~~
-      |        reg
-3ac.cpp:778:18: error: expected type-specifier before ‘reg’
-  778 |   reg *ret = new reg(astree_stride(current,expr),reg_count);
-      |                  ^~~
-3ac.cpp: In function ‘ac3* p_call_expr(astree*, symbol_table*)’:
-3ac.cpp:787:8: error: ‘ret’ was not declared in this scope; did you mean ‘reg’?
-  787 |   reg *ret = new reg(astree_stride(current,expr),reg_count);
-      |        ^~~
-      |        reg
-3ac.cpp:787:18: error: expected type-specifier before ‘reg’
-  787 |   reg *ret = new reg(astree_stride(current,expr),reg_count);
-      |                  ^~~
-3ac.cpp: In function ‘ac3* p_if(astree*, symbol_table*, std::string*)’:
-3ac.cpp:850:8: error: ‘stored’ was not declared in this scope
-  850 |   reg *stored = expr_reg(condition,current);
-      |        ^~~~~~
-3ac.cpp:850:17: error: ‘expr_reg’ was not declared in this scope
-  850 |   reg *stored = expr_reg(condition,current);
-      |                 ^~~~~~~~
-3ac.cpp:856:8: error: ‘ret’ was not declared in this scope; did you mean ‘reg’?
-  856 |   reg *ret = stored;
-      |        ^~~
-      |        reg
-3ac.cpp: In function ‘ac3* p_while(astree*, symbol_table*, std::string*)’:
-3ac.cpp:921:8: error: ‘stored’ was not declared in this scope
-  921 |   reg *stored = expr_reg(condition,current);
-      |        ^~~~~~
-3ac.cpp:921:17: error: ‘expr_reg’ was not declared in this scope
-  921 |   reg *stored = expr_reg(condition,current);
-      |                 ^~~~~~~~
-3ac.cpp:927:8: error: ‘ret’ was not declared in this scope; did you mean ‘reg’?
-  927 |   reg *ret = stored;
-      |        ^~~
-      |        reg
-3ac.cpp: In function ‘ac3* p_equals(astree*, symbol_table*)’:
-3ac.cpp:958:15: error: expected type-specifier before ‘reg’
-  958 |   ac->t0 =new reg(left->lexinfo);
-      |               ^~~
-3ac.cpp:964:20: error: expected type-specifier before ‘reg’
-  964 |       ac->t1 = new reg(astree_stride(current,final_val),reg_count);
-      |                    ^~~
-3ac.cpp:969:18: error: ‘p_string_reg’ was not declared in this scope; did you mean ‘p_string_expr’?
-  969 |         ac->t1 = p_string_reg(final_val);
-      |                  ^~~~~~~~~~~~
-      |                  p_string_expr
-3ac.cpp:973:22: error: expected type-specifier before ‘reg’
-  973 |         ac->t1 = new reg(final_val->lexinfo);
-      |                      ^~~
-3ac.cpp:980:16: error: ‘p_string_reg’ was not declared in this scope; did you mean ‘p_string_expr’?
-  980 |       ac->t1 = p_string_reg(right);
-      |                ^~~~~~~~~~~~
-      |                p_string_expr
-3ac.cpp:983:19: error: expected type-specifier before ‘reg’
-  983 |       ac->t1 =new reg(right->lexinfo);
-      |                   ^~~
-3ac.cpp:957:11: warning: unused variable ‘left’ [-Wunused-variable]
-  957 |   astree *left = expr->children[0];
-      |           ^~~~
-3ac.cpp: In function ‘ac3* p_alloc(astree*, symbol_table*)’:
-3ac.cpp:993:8: error: ‘ret’ was not declared in this scope; did you mean ‘reg’?
-  993 |   reg *ret = new reg (astree_stride(current,expr),reg_count);
-      |        ^~~
-      |        reg
-3ac.cpp:993:18: error: expected type-specifier before ‘reg’
-  993 |   reg *ret = new reg (astree_stride(current,expr),reg_count);
-      |                  ^~~
-3ac.cpp: In function ‘ac3* p_return(astree*, symbol_table*, std::string*)’:
-3ac.cpp:1035:12: error: ‘stored’ was not declared in this scope
- 1035 |       reg *stored = expr_reg(assignment,current);
-      |            ^~~~~~
-3ac.cpp:1035:21: error: ‘expr_reg’ was not declared in this scope
- 1035 |       reg *stored = expr_reg(assignment,current);
-      |                     ^~~~~~~~
-3ac.cpp:1045:21: error: expected type-specifier before ‘reg’
- 1045 |       bot->t0 = new reg(assignment->lexinfo);
-      |                     ^~~
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:1335:2: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1335 |  append(const _Tp& __svt, size_type __pos, size_type __n = npos)
+      |  ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1335:2: note:   template argument deduction/substitution failed:
+3ac.cpp:150:21: note:   candidate expects 3 arguments, 1 provided
+  150 |     ret.append(ident);
+      |                     ^
+3ac.cpp:152:21: error: no matching function for call to ‘std::__cxx11::basic_string<char>::append(const string*&)’
+  152 |     ret.append(sname);
+      |                     ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:1221:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1221 |       append(const basic_string& __str)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1221:34: note:   no known conversion for argument 1 from ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} to ‘const std::__cxx11::basic_string<char>&’
+ 1221 |       append(const basic_string& __str)
+      |              ~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1238:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+ 1238 |       append(const basic_string& __str, size_type __pos, size_type __n = npos)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1238:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:1250:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+ 1250 |       append(const _CharT* __s, size_type __n)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1250:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:1263:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1263 |       append(const _CharT* __s)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1263:28: note:   no known conversion for argument 1 from ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} to ‘const char*’
+ 1263 |       append(const _CharT* __s)
+      |              ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1280:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, _CharT) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+ 1280 |       append(size_type __n, _CharT __c)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1280:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:1290:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::initializer_list<_Tp>) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1290 |       append(initializer_list<_CharT> __l)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1290:39: note:   no known conversion for argument 1 from ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} to ‘std::initializer_list<char>’
+ 1290 |       append(initializer_list<_CharT> __l)
+      |              ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1309:9: note: candidate: ‘template<class _InputIterator, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(_InputIterator, _InputIterator) [with _InputIterator = _InputIterator; <template-parameter-2-2> = <template-parameter-1-2>; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1309 |         append(_InputIterator __first, _InputIterator __last)
+      |         ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1309:9: note:   template argument deduction/substitution failed:
+3ac.cpp:152:21: note:   candidate expects 2 arguments, 1 provided
+  152 |     ret.append(sname);
+      |                     ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:1320:9: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1320 |         append(const _Tp& __svt)
+      |         ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1320:9: note:   template argument deduction/substitution failed:
+/usr/include/c++/9.1.0/bits/basic_string.h:1335:2: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1335 |  append(const _Tp& __svt, size_type __pos, size_type __n = npos)
+      |  ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1335:2: note:   template argument deduction/substitution failed:
+3ac.cpp:152:21: note:   candidate expects 3 arguments, 1 provided
+  152 |     ret.append(sname);
+      |                     ^
+3ac.cpp:154:21: error: no matching function for call to ‘std::__cxx11::basic_string<char>::append(const string*&)’
+  154 |     ret.append(field);
+      |                     ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:1221:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1221 |       append(const basic_string& __str)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1221:34: note:   no known conversion for argument 1 from ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} to ‘const std::__cxx11::basic_string<char>&’
+ 1221 |       append(const basic_string& __str)
+      |              ~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1238:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+ 1238 |       append(const basic_string& __str, size_type __pos, size_type __n = npos)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1238:7: note:   candidate expects 3 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:1250:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+ 1250 |       append(const _CharT* __s, size_type __n)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1250:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:1263:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _CharT*) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1263 |       append(const _CharT* __s)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1263:28: note:   no known conversion for argument 1 from ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} to ‘const char*’
+ 1263 |       append(const _CharT* __s)
+      |              ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1280:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, _CharT) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+ 1280 |       append(size_type __n, _CharT __c)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1280:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:1290:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(std::initializer_list<_Tp>) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1290 |       append(initializer_list<_CharT> __l)
+      |       ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1290:39: note:   no known conversion for argument 1 from ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} to ‘std::initializer_list<char>’
+ 1290 |       append(initializer_list<_CharT> __l)
+      |              ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1309:9: note: candidate: ‘template<class _InputIterator, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(_InputIterator, _InputIterator) [with _InputIterator = _InputIterator; <template-parameter-2-2> = <template-parameter-1-2>; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1309 |         append(_InputIterator __first, _InputIterator __last)
+      |         ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1309:9: note:   template argument deduction/substitution failed:
+3ac.cpp:154:21: note:   candidate expects 2 arguments, 1 provided
+  154 |     ret.append(field);
+      |                     ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:1320:9: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1320 |         append(const _Tp& __svt)
+      |         ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1320:9: note:   template argument deduction/substitution failed:
+/usr/include/c++/9.1.0/bits/basic_string.h:1335:2: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::append(const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+ 1335 |  append(const _Tp& __svt, size_type __pos, size_type __n = npos)
+      |  ^~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:1335:2: note:   template argument deduction/substitution failed:
+3ac.cpp:154:21: note:   candidate expects 3 arguments, 1 provided
+  154 |     ret.append(field);
+      |                     ^
 make: *** [Makefile:55: 3ac.o] Error 1

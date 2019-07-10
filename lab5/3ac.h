@@ -17,7 +17,8 @@ using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)
    3. a function call e.g. call foo(arg1,arg2) 
    4. a typesize e.g. sizeof ptr (sizeof is stored in unop as it is an operator)
    5. a pointer to a string literal (.s[n]) where [n] is the index in string table
-   6. an index to an array
+   6. an index to an array e.g. x[5]
+   7. a struct field selection e.g. x->field
 
    and be preceded by a unary operator (-,+,not)
    the unary operator may also be "sizeof" iff the register is a typesize
@@ -28,29 +29,31 @@ struct reg {
   const string *ident;
   // 2. exists if a register is a temp register
   int reg_number;
-  string *stride;
   // 3. exists if a register is a function
-  string *fname;
   vector<reg*> *parameters;
   // 4. exists if a register is a typesize
   string *typesize;
   // 5. exists if register is pointer to string literal
   int string_index;
-  // 6. exists if an index to an array
-  const string *array_ident;
-  int array_index;
-  string *array_stride;
+  // 6. array selection 
+  reg *array_index;
+  // 7. struct field selection
+  const string *sname;
+  const string *field;
 
+  // if 2. stride of type, 3. function name 6. stride of type 
+  string *name;
   // optional unary operator
   string *unop;
 
   // constructors
   reg(const string *ident);
-  reg(string *stride , int reg_number);
+  reg(string *stride, int reg_number);
   reg(string *fname, vector<reg*> *parameters = nullptr);
   reg(string *typesize, string *szof);
   reg(int string_index);
-  reg(const string *array_ident,int array_index, string *array_stride);
+  // reg(const string *array_ident, int array_index, string *array_stride);
+  reg(const string *ident,const string *sname, const string *field);
 
   // functions
   // deep copy register, return ptr to newly allocated object
