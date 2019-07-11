@@ -1063,7 +1063,13 @@ symbol *p_field (astree *s){
             found_field->attributes[static_cast<int>(attr::ARRAY)];   
           sym->attributes[static_cast<int>(attr::STRING)] = 
             found_field->attributes[static_cast<int>(attr::STRING)];   
+          sym->attributes.set(static_cast<int>(attr::VADDR));
+          sym->attributes.set(static_cast<int>(attr::LVAL));
           sym->sname= ident->sname;
+          astree_attribs(sym,s);
+          if (found_field->sname){
+            sym->sname = found_field->sname;
+          }
         }
         else {
           errprintf (
@@ -1078,10 +1084,7 @@ symbol *p_field (astree *s){
              sym->lloc.filenr, sym->lloc.linenr, sym->lloc.offset);
 
   }
-  sym->attributes.set(static_cast<int>(attr::VADDR));
-  sym->attributes.set(static_cast<int>(attr::LVAL));
   delete ident;
-  astree_attribs(sym,s);
   return sym;
 }
 

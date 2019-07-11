@@ -1,20 +1,23 @@
+homura (4.11.1) {0} struct homura 
+   madoka (4.12.17) int field 0
+
 mami (4.3.1) {0} struct mami 
-   one (4.3.15) int field 0
-   two (4.4.18) string field 1
-   sayaka (4.5.18) field struct sayaka 2
-   mamimami (4.6.18) field struct mami 3
-   madoka (4.7.18) int array field 4
+   one (4.4.18) int field 0
+   two (4.5.18) string field 1
+   homu (4.6.18) field struct homura 2
+   mamimami (4.7.18) field struct mami 3
+   madoka (4.8.18) int array field 4
 
-trivial (4.30.1) {2} void function 
-   x (4.30.15) {3} int variable param lval 0
-   thing2 (4.32.3) {3} variable struct mami local lval 1
-   asf (4.33.3) {3} int variable local lval 2
+filler (4.30.1) {1} int function 
 
-filler (4.25.1) {1} int function 
+x (4.20.1) {0} string variable lval 
 
-x (4.15.1) {0} string variable lval 
+trivial (4.35.1) {2} void function 
+   x (4.35.15) {3} int variable param lval 0
+   madoka (4.37.3) {3} variable struct homura local lval 1
+   thing2 (4.38.3) {3} variable struct mami local lval 2
 
-sayaka (4.21.1) {0} int function 
-   x (4.21.13) {1} int variable param lval 0
-   y (4.21.20) {1} int variable param lval 1
+sayaka (4.26.1) {0} int function 
+   x (4.26.13) {1} int variable param lval 0
+   y (4.26.20) {1} int variable param lval 1
 

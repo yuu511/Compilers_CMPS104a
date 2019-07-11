@@ -347,11 +347,12 @@ string *astree_stride(symbol_table *current,astree *expr){
         found = all_sym->global->find(expr->children[0]->lexinfo)->second;
       return astree_stride_symbol_index(found);
     case TOK_ARROW:
-      // get symbol of struct
-      found = all_sym->struct_t->find(expr->sname)->second;
-      // get symbol of struct parameter
-      found = found->fields->find(expr->children[1]->lexinfo)->second;
-      return astree_stride_symbol_array(found);
+      // // get symbol of struct
+      // found = all_sym->struct_t->find(expr->sname)->second;
+      // // get symbol of struct parameter
+      // found = found->fields->find(expr->children[1]->lexinfo)->second;
+      // return astree_stride_symbol_array(found);
+      return new string(":p");
     case '=':
       astree *noneq = recurse_non_equal(expr);
       return astree_stride(current,noneq);
@@ -359,6 +360,29 @@ string *astree_stride(symbol_table *current,astree *expr){
   errprintf ("3AC: INVALID EXPR parsed in astree_stride\n");
   ++err_count;
   return nullptr;
+}
+
+reg *parse_variable(astree *expr, symbol_table *current){
+  reg *selection = nullptr;
+  if (expr->children.size()){
+    if (expr->symbol == TOK_ARROW){
+      reg *ret; 
+      if (expr->children[0]->children.size()){
+        ret = new reg(astree_stride(current,expr->children[0]),reg_count);
+        p_expr(expr->children[0],current);
+      }
+      else {
+        ret = new reg(expr->children[0]->lexinfo);
+      }
+      selection = new reg(ret,expr->sname,expr->children[1]->lexinfo);
+    }
+    else if (expr->symbol == TOK_INDEX){
+
+    }
+  }
+  else
+    selection = new reg(expr->lexinfo);
+  return selection;
 }
 
 // assign int to ident
@@ -372,11 +396,11 @@ ac3 *asg_int(astree *expr, symbol_table *current, string *label){
   astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
   astree *parse = expr->symbol == TOK_TYPE_ID ? expr->children[2] : expr->children[1];
 
-  if (parse->children.size() > 0){  
+  if (parse->children.size()){  
     bot = new ac3(expr);
     reg *bot_reg = expr_reg(parse,current);
     if (bot_reg){
-      bot->t0 = new reg((ident->lexinfo));
+      bot->t0 = parse_variable(ident,current);
       bot->t1 = bot_reg;
       bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(bot);
@@ -390,7 +414,7 @@ ac3 *asg_int(astree *expr, symbol_table *current, string *label){
   }
   else {
     bot = new ac3(expr);
-    bot->t0 = new reg(ident->lexinfo);
+    bot->t0 = parse_variable(ident,current);
     bot->t1 = new reg(parse->lexinfo);
     bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
     found->push_back(bot);
@@ -429,7 +453,7 @@ ac3 *alloc_array(astree *expr,symbol_table *current, reg *init){
   reg *ret = new reg(astree_stride(current,expr),reg_count);
   ++reg_count;
   parsed_sz->t0 = ret;  
-  if (alloc_sz->children.size() > 0){
+  if (alloc_sz->children.size()){
     malloc_number = expr_reg(alloc_sz,current);
   } 
   else {
@@ -470,7 +494,7 @@ ac3 *alloc_string(astree *expr,symbol_table *current, reg *init){
   reg *malloc_number;
   astree *alloc_sz = expr->children[1];
   vector <reg*> *malloc_params = new vector<reg*>();
-  if (alloc_sz->children.size() >0){
+  if (alloc_sz->children.size()){
     malloc_number = expr_reg(alloc_sz,current);
   }
   else {
@@ -492,7 +516,7 @@ ac3 *asg_array(astree *expr, symbol_table *current, string *label){
   astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
   astree *parse = expr->symbol == TOK_TYPE_ID ? expr->children[2] : expr->children[1];
 
-  if (parse->children.size() > 0 ){
+  if (parse->children.size()){
     if (parse->symbol == TOK_ALLOC){
       reg *ret = new reg(ident->lexinfo);
       bot = alloc_array(parse,current,ret);
@@ -527,7 +551,7 @@ ac3 *asg_struct(astree *expr, symbol_table *current, string *label){
   astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
   astree *parse = expr->symbol == TOK_TYPE_ID ? expr->children[2] : expr->children[1];
 
-  if (parse->children.size() > 0 ){
+  if (parse->children.size()){
     if (parse->symbol == TOK_ALLOC){
       reg *ret = new reg(ident->lexinfo);
       bot = alloc_struct(parse,current,ret);
@@ -586,7 +610,7 @@ ac3 *asg_string(astree *expr, symbol_table *current, string *label){
   astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
   astree *parse = expr->symbol == TOK_TYPE_ID ? expr->children[2] : expr->children[1];
 
-  if (parse->children.size() > 0 ){
+  if (parse->children.size()){
     if (parse->symbol == TOK_ALLOC){
       reg *ret = new reg(ident->lexinfo);
       bot = alloc_string(parse,current,ret);
@@ -671,7 +695,7 @@ ac3 *p_binop(astree *expr, symbol_table *current){
   // parse the expressions
   // check the two children
   astree *left = expr->children[0];
-  if (left->children.size() > 0) {
+  if (left->children.size()) {
     ac->t1 = new reg(astree_stride(current,left),reg_count);
     p_expr(left,current);
   } 
@@ -680,7 +704,7 @@ ac3 *p_binop(astree *expr, symbol_table *current){
   }
   
   astree *right = expr->children[1];
-  if (right->children.size() > 0){
+  if (right->children.size()){
     ac->t2 = new reg(astree_stride(current,right),reg_count);
     p_expr(right,current);
   } 
@@ -699,7 +723,7 @@ ac3 *p_unop(astree *expr, symbol_table *current){
   ++reg_count;
 
   astree *assignment = expr->children[0];
-  if (assignment->children.size() > 0){
+  if (assignment->children.size()){
     reg *unary = new reg(astree_stride(current,assignment),reg_count);
     unary->unop = new string(*(expr->lexinfo));
     ac->t1 = unary;
@@ -747,7 +771,7 @@ ac3 *p_call(astree *expr, symbol_table *current, string *label){
   if (expr->children.size() > 1){
     for (size_t i = 1; i < expr->children.size(); i++){
       reg *push;
-      if (expr->children[i]->children.size() > 0){
+      if (expr->children[i]->children.size()){
         reg *stored = expr_reg(expr->children[i],current);
         if (stored){
           push = stored;
@@ -780,8 +804,8 @@ ac3 *p_arrow(astree *expr, symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *bot = new ac3(expr);
   bot->t0 = new reg(astree_stride(current,expr),reg_count);
-  reg *ret; 
   ++reg_count;
+  reg *ret; 
   if (expr->children[0]->children.size()){
     ret = new reg(astree_stride(current,expr->children[0]),reg_count);
     p_expr(expr->children[0],current);
@@ -982,8 +1006,8 @@ ac3 *p_equals(astree *expr, symbol_table *current){
   astree *right = expr->children[1];
   // find first non-equal symbol
   astree *final_val = recurse_non_equal(right);
-  if (right->children.size() > 0){
-    if (final_val->children.size() > 0){
+  if (right->children.size()){
+    if (final_val->children.size()){
       ac->t1 = new reg(astree_stride(current,final_val),reg_count);
       p_expr(right,current);
     } 
@@ -1030,7 +1054,7 @@ ac3 *p_alloc(astree *expr, symbol_table *current){
 
 void p_block(astree *expr, symbol_table *current, string *label){
   ac3_table *found = table_lookup->find(current)->second;
-  if (expr->children.size() > 0){
+  if (expr->children.size()){
     p_stmt(expr->children[0],current,label); 
     // parse the rest of the statements
     for (size_t i = 1; i < expr->children.size(); ++i){
@@ -1051,10 +1075,10 @@ ac3 *p_return(astree *expr, symbol_table *current, string *label){
   ac3_table *found = table_lookup->find(current)->second;
   size_t top = found->size();
   ac3 *bot;
-  if (expr->children.size() > 0){
+  if (expr->children.size()){
     astree *assignment = expr->children[0];
     bot = new ac3(expr);
-    if (assignment->children.size() > 0){
+    if (assignment->children.size()){
       reg *stored = expr_reg(assignment,current);
       if (stored)
         bot->t0 = stored;
@@ -1190,7 +1214,7 @@ void ac_globalvar(astree *child, all_tables *table){
         return;
       }
     }
-    else if (assignment->children.size()>0){
+    else if (assignment->children.size()){
       errprintf ("3ac: global variable may not have non-static value assigned to it\n");
       ++err_count;
       return;

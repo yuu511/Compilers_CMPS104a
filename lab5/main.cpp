@@ -183,14 +183,14 @@ int main (int argc, char** argv) {
       /* if the symbol table generation was sucessful */
      if (!sym_rc){
        // dump all symbol tables
-       dump_all_tables(symfp);
+        dump_all_tables(symfp);
        // generate the 3ac tables
-       generate_3ac(parser::root,get_tables());
-      // // dump the 3ac tables
-       emit_all3ac(oilfp);
-       // dump the astree
-       astree::draw_attrib(astfp,parser::root);
+        generate_3ac(parser::root,get_tables());
+       // dump the 3ac tables
+        emit_all3ac(oilfp);
      }
+     // dump the astree
+     astree::draw_attrib(astfp,parser::root);
    }
 
    // Close all files.

@@ -1,68 +1,76 @@
 ROOT "<<ROOT>>" 0.0.0 {0} 
 STRUCT "struct" 4.3.1 {0} struct mami 
 IDENT "mami" 4.3.8 {0} 
-TYPE_ID "" 4.3.15 {0} int field 
-INT "int" 4.3.15 {0} 
-IDENT "one" 4.3.19 {0} 
-TYPE_ID "" 4.4.18 {0} string field 
-STRING "string" 4.4.18 {0} 
-IDENT "two" 4.4.25 {0} 
-TYPE_ID "" 4.5.18 {0} field struct sayaka 
-PTR "ptr" 4.5.18 {0} 
-IDENT "sayaka" 4.5.30 {0} 
-IDENT "sayaka" 4.5.38 {0} 
-TYPE_ID "" 4.6.18 {0} field struct mami 
+TYPE_ID "" 4.4.18 {0} int field 
+INT "int" 4.4.18 {0} 
+IDENT "one" 4.4.22 {0} 
+TYPE_ID "" 4.5.18 {0} string field 
+STRING "string" 4.5.18 {0} 
+IDENT "two" 4.5.25 {0} 
+TYPE_ID "" 4.6.18 {0} field struct homura 
 PTR "ptr" 4.6.18 {0} 
-IDENT "mami" 4.6.30 {0} 
-IDENT "mamimami" 4.6.36 {0} 
-TYPE_ID "" 4.7.18 {0} int array field 
-ARRAY "array" 4.7.18 {0} 
-INT "int" 4.7.25 {0} 
-IDENT "madoka" 4.7.30 {0} 
-TYPE_ID "" 4.15.1 {0} string variable lval vreg (4.15.1)
-STRING "string" 4.15.1 {0} 
-IDENT "x" 4.15.8 {0} 
-STRINGCON ""hehe"" 4.15.12 {0} string const 
-FUNCTION "" 4.21.1 {0} int function 
-TYPE_ID "" 4.21.1 {0} 
-INT "int" 4.21.1 {0} 
-IDENT "sayaka" 4.21.5 {0} 
-PARAM "(" 4.21.12 {0} 
-TYPE_ID "" 4.21.13 {1} int variable param lval 
-INT "int" 4.21.13 {0} 
-IDENT "x" 4.21.17 {0} 
-TYPE_ID "" 4.21.20 {1} int variable param lval 
-INT "int" 4.21.20 {0} 
-IDENT "y" 4.21.24 {0} 
-BLOCK "{" 4.21.26 {1} 
-FUNCTION "" 4.25.1 {1} int function 
-TYPE_ID "" 4.25.1 {0} 
-INT "int" 4.25.1 {0} 
-IDENT "filler" 4.25.5 {0} 
-PARAM "(" 4.25.11 {0} 
-BLOCK "{" 4.25.13 {2} 
-FUNCTION "" 4.30.1 {2} void function 
+IDENT "homura" 4.6.30 {0} 
+IDENT "homu" 4.6.38 {0} 
+TYPE_ID "" 4.7.18 {0} field struct mami 
+PTR "ptr" 4.7.18 {0} 
+IDENT "mami" 4.7.30 {0} 
+IDENT "mamimami" 4.7.36 {0} 
+TYPE_ID "" 4.8.18 {0} int array field 
+ARRAY "array" 4.8.18 {0} 
+INT "int" 4.8.25 {0} 
+IDENT "madoka" 4.8.30 {0} 
+STRUCT "struct" 4.11.1 {0} struct homura 
+IDENT "homura" 4.11.8 {0} 
+TYPE_ID "" 4.12.17 {0} int field 
+INT "int" 4.12.17 {0} 
+IDENT "madoka" 4.12.21 {0} 
+TYPE_ID "" 4.20.1 {0} string variable lval vreg (4.20.1)
+STRING "string" 4.20.1 {0} 
+IDENT "x" 4.20.8 {0} 
+STRINGCON ""hehe"" 4.20.12 {0} string const 
+FUNCTION "" 4.26.1 {0} int function 
+TYPE_ID "" 4.26.1 {0} 
+INT "int" 4.26.1 {0} 
+IDENT "sayaka" 4.26.5 {0} 
+PARAM "(" 4.26.12 {0} 
+TYPE_ID "" 4.26.13 {1} int variable param lval 
+INT "int" 4.26.13 {0} 
+IDENT "x" 4.26.17 {0} 
+TYPE_ID "" 4.26.20 {1} int variable param lval 
+INT "int" 4.26.20 {0} 
+IDENT "y" 4.26.24 {0} 
+BLOCK "{" 4.26.26 {1} 
+FUNCTION "" 4.30.1 {1} int function 
 TYPE_ID "" 4.30.1 {0} 
-VOID "void" 4.30.1 {0} 
-IDENT "trivial" 4.30.6 {0} 
-PARAM "(" 4.30.14 {0} 
-TYPE_ID "" 4.30.15 {3} int variable param lval 
-INT "int" 4.30.15 {0} 
-IDENT "x" 4.30.19 {0} 
-BLOCK "{" 4.30.21 {3} 
-TYPE_ID "" 4.32.3 {3} variable struct mami local lval vreg (4.32.3)
-PTR "ptr" 4.32.3 {0} 
-IDENT "mami" 4.32.15 {0} 
-IDENT "thing2" 4.32.21 {0} 
-ALLOC "alloc" 4.32.30 {3} struct mami vreg 
-IDENT "mami" 4.32.44 {0} 
-TYPE_ID "" 4.33.3 {3} int variable local lval vaddr (4.33.3)
-INT "int" 4.33.3 {0} 
-IDENT "asf" 4.33.7 {0} 
-ARROW "->" 4.33.39 {3} int lval vaddr 
-ARROW "->" 4.33.29 {3} struct mami lval vaddr 
-ARROW "->" 4.33.19 {3} struct mami lval vaddr 
-IDENT "thing2" 4.33.13 {3} variable struct mami local lval (4.32.3)
-IDENT "mamimami" 4.33.21 {0} 
-IDENT "mamimami" 4.33.31 {0} 
-IDENT "one" 4.33.41 {0} 
+INT "int" 4.30.1 {0} 
+IDENT "filler" 4.30.5 {0} 
+PARAM "(" 4.30.11 {0} 
+BLOCK "{" 4.30.13 {2} 
+FUNCTION "" 4.35.1 {2} void function 
+TYPE_ID "" 4.35.1 {0} 
+VOID "void" 4.35.1 {0} 
+IDENT "trivial" 4.35.6 {0} 
+PARAM "(" 4.35.14 {0} 
+TYPE_ID "" 4.35.15 {3} int variable param lval 
+INT "int" 4.35.15 {0} 
+IDENT "x" 4.35.19 {0} 
+BLOCK "{" 4.35.21 {3} 
+TYPE_ID "" 4.37.3 {3} variable struct homura local lval vreg (4.37.3)
+PTR "ptr" 4.37.3 {0} 
+IDENT "homura" 4.37.15 {0} 
+IDENT "madoka" 4.37.23 {0} 
+ALLOC "alloc" 4.37.32 {3} struct homura vreg 
+IDENT "homura" 4.37.46 {0} 
+TYPE_ID "" 4.38.3 {3} variable struct mami local lval vreg (4.38.3)
+PTR "ptr" 4.38.3 {0} 
+IDENT "mami" 4.38.15 {0} 
+IDENT "thing2" 4.38.21 {0} 
+ALLOC "alloc" 4.38.30 {3} struct mami vreg 
+IDENT "mami" 4.38.44 {0} 
+'=' "=" 4.39.24 {3} int lval vreg vaddr 
+ARROW "->" 4.39.15 {3} int lval vaddr 
+ARROW "->" 4.39.9 {3} struct mami lval vaddr 
+IDENT "thing2" 4.39.3 {3} variable struct mami local lval (4.38.3)
+IDENT "homu" 4.39.11 {0} 
+IDENT "madoka" 4.39.17 {0} 
+INTCON "5" 4.39.26 {3} int const 

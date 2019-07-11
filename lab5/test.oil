@@ -1,11 +1,12 @@
+.struct homura
+.field int madoka
+.end 
 .struct mami
 .field ptr madoka
+.field struct homura homu
 .field struct mami mamimami
-.field struct sayaka sayaka
 .field int one
 .field ptr two
-.end 
-.struct sayaka
 .end 
 .s0:       "hehe"
 x:         .global ptr (.s0)
@@ -19,12 +20,11 @@ filler:    .function int
            .end
 trivial:   .function 
            .param int x
+           .local struct homura madoka
            .local struct mami thing2
-           .local int asf
+           madoka = call malloc(sizeof struct homura)  
            thing2 = call malloc(sizeof struct mami)  
-           $t2:p = thing2->mami.mamimami  
-           $t1:p = $t2:p->mami.mamimami  
-           $t0:i = $t1:p->mami.one  
-           asf = $t0:i  
+           $t0:p = thing2->mami.homu  
+           $t0:p->homura.madoka = 5  
            return
            .end
