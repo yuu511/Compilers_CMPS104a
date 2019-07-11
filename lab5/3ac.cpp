@@ -776,8 +776,6 @@ ac3 *p_call(astree *expr, symbol_table *current, string *label){
   return bot;
 }
 
-// if init, selection part of an expression e.g. int a = x->field;
-// else the selection is an assignment e.g. x->field = 5;
 ac3 *p_arrow(astree *expr, symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *bot = new ac3(expr);
