@@ -186,7 +186,7 @@ int main (int argc, char** argv) {
        dump_all_tables(symfp);
        // generate the 3ac tables
        generate_3ac(parser::root,get_tables());
-       // dump the 3ac tables
+      // // dump the 3ac tables
        emit_all3ac(oilfp);
        // dump the astree
        astree::draw_attrib(astfp,parser::root);

@@ -28,10 +28,10 @@ reg::reg(const string *ident_){
   parameters = nullptr;
   typesize = nullptr;
   string_index = -1;
-  array_index = nullptr;
   sname = nullptr;
   field = nullptr;
   name = nullptr;
+  selection_index = nullptr;
   unop = nullptr;
 }
 
@@ -42,10 +42,10 @@ reg::reg(string *stride, int reg_number_){
   parameters = nullptr;
   typesize = nullptr;
   string_index = -1;
-  array_index = nullptr;
   sname = nullptr;
   field = nullptr;
   name = stride;
+  selection_index = nullptr;
   unop = nullptr;
 }
 
@@ -56,10 +56,10 @@ reg::reg(string *fname, vector<reg*> *parameters_){
   parameters= parameters_;
   typesize = nullptr;
   string_index = -1;
-  array_index = nullptr;
   sname = nullptr;
   field = nullptr;
   name = fname;
+  selection_index = nullptr;
   unop = nullptr;
 }
 
@@ -70,10 +70,10 @@ reg::reg(string *typesize_, string *szof){
   parameters = nullptr;
   typesize = typesize_;
   string_index = -1;
-  array_index = nullptr;
   sname = nullptr;
   field = nullptr;
   name = nullptr;
+  selection_index = nullptr;
   unop = szof;
 }
 
@@ -83,25 +83,25 @@ reg::reg(int string_index_){
   reg_number = -1;
   parameters = nullptr;
   typesize = nullptr;
-  array_index = nullptr;
   sname = nullptr;
   field = nullptr;
   string_index = string_index_;
   name = nullptr;
+  selection_index = nullptr;
   unop = nullptr;
 }
 
 // 7. selection
-reg::reg(const string *ident_,const string *sname_, const string *field_){
-  ident = ident_;
+reg::reg(reg *selection_index_,const string *sname_, const string *field_){
+  ident = nullptr;
   reg_number = -1;
   parameters = nullptr;
   typesize = nullptr;
-  array_index = nullptr;
   sname = sname_;
   field = field_;
   string_index = -1;
   name = nullptr;
+  selection_index = selection_index_;
   unop = nullptr;
 }
 
@@ -115,17 +115,10 @@ string reg::str(){
       ret.append(" ");
     }
   }
-  if (ident && sname && field){
-    ret.append(*ident);
-    ret.append("->");
-    ret.append(*sname);
-    ret.append(".");
-    ret.append(*field);
-  }
-  else if (ident){
+  if (ident){
     ret.append(*ident);
   }
-  if (reg_number != -1 && name){
+  else if (reg_number != -1 && name){
     ret.append("$t");
     ret.append(to_string(reg_number));
     ret.append(*name);
@@ -151,6 +144,13 @@ string reg::str(){
     ret.append(to_string(string_index));
     ret.append(")");
   }
+  else if (selection_index && sname && field){
+    ret.append(selection_index->str());
+    ret.append("->");
+    ret.append(*sname);
+    ret.append(".");
+    ret.append(*field);
+  }
   return ret;
 }
 
@@ -162,8 +162,8 @@ reg::~reg(){
   }
   delete parameters;
   delete typesize;
-  delete array_index;
   delete name;
+  delete selection_index;
   delete unop;
 }
 
@@ -308,7 +308,7 @@ string *astree_stride_symbol_array(symbol *found){
 
 // parse an astree expression for a expr stride
 string *astree_stride(symbol_table *current,astree *expr){
-  symbol *found;
+  symbol *found = nullptr;
   switch (expr->symbol){
     case TOK_CHARCON:
       return new string(":c");
@@ -341,17 +341,14 @@ string *astree_stride(symbol_table *current,astree *expr){
       found = all_sym->global->find(expr->children[0]->lexinfo)->second;
       return astree_stride_symbol_array(found);
     case TOK_INDEX:
-      found = all_sym->global->find(expr->children[0]->lexinfo)->second;
-      found = current->find(expr->children[0]->lexinfo)->second;
-      return astree_stride_symbol_index(found);
-    case TOK_ARROW:
-      // get symbol of ident
-      if (current->count(expr->children[0]->lexinfo))
+      if(current->count(expr->children[0]->lexinfo))
         found = current->find(expr->children[0]->lexinfo)->second;
       else if (all_sym->global->count(expr->children[0]->lexinfo))
         found = all_sym->global->find(expr->children[0]->lexinfo)->second;
+      return astree_stride_symbol_index(found);
+    case TOK_ARROW:
       // get symbol of struct
-      found = all_sym->struct_t->find(found->sname)->second;
+      found = all_sym->struct_t->find(expr->sname)->second;
       // get symbol of struct parameter
       found = found->fields->find(expr->children[1]->lexinfo)->second;
       return astree_stride_symbol_array(found);
@@ -779,28 +776,23 @@ ac3 *p_call(astree *expr, symbol_table *current, string *label){
   return bot;
 }
 
-// if init, then the selection is an assignment e.g. x->field = 5;
-// else part of an expression e.g. int a = x->field;
-ac3 *p_arrow(astree *expr, symbol_table *current,reg *init){
+// if init, selection part of an expression e.g. int a = x->field;
+// else the selection is an assignment e.g. x->field = 5;
+ac3 *p_arrow(astree *expr, symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *bot = new ac3(expr);
-  /* get symbol of ident */
-  symbol *ident;
-  // the variable might be a global or local variable
-  if (current->count(expr->children[0]->lexinfo))
-    ident = current->find(expr->children[0]->lexinfo)->second;
-  else if (all_sym->global->count(expr->children[0]->lexinfo))
-    ident = all_sym->global->find(expr->children[0]->lexinfo)->second;
-  reg *selection = new reg(expr->children[0]->lexinfo,ident->sname,expr->children[1]->lexinfo);
-  if (init){
-
+  bot->t0 = new reg(astree_stride(current,expr),reg_count);
+  reg *ret; 
+  ++reg_count;
+  if (expr->children[0]->children.size()){
+    ret = new reg(astree_stride(current,expr->children[0]),reg_count);
+    p_expr(expr->children[0],current);
   }
   else {
-    reg *ret = new reg(astree_stride(current,expr),reg_count);
-    ++reg_count;
-    bot->t0 = ret;
-    bot->t1 = selection;
+    ret = new reg(expr->children[0]->lexinfo);
   }
+  reg *selection = new reg(ret,expr->sname,expr->children[1]->lexinfo);
+  bot->t1 = selection;
   bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   found->push_back(bot);
   return bot;
@@ -1130,7 +1122,7 @@ ac3 *p_expr(astree *expr, symbol_table *current){
       return p_alloc(expr,current);
       break;
     case TOK_ARROW:
-      return p_arrow(expr,current,nullptr);
+      return p_arrow(expr,current);
       break;
   }
   errprintf ("3ac: non-recognized expression parsed:%s \n "

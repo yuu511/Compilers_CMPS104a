@@ -36,13 +36,14 @@ struct reg {
   // 5. exists if register is pointer to string literal
   int string_index;
   // 6. array selection 
-  reg *array_index;
   // 7. struct field selection
   const string *sname;
   const string *field;
-
+  
   // if 2. stride of type, 3. function name 6. stride of type 
   string *name;
+  // if 7. the index selection ident
+  reg *selection_index;
   // optional unary operator
   string *unop;
 
@@ -53,7 +54,7 @@ struct reg {
   reg(string *typesize, string *szof);
   reg(int string_index);
   // reg(const string *array_ident, int array_index, string *array_stride);
-  reg(const string *ident,const string *sname, const string *field);
+  reg(reg *selection_index,const string *sname, const string *field);
 
   // functions
   // deep copy register, return ptr to newly allocated object

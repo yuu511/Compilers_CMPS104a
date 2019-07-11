@@ -1063,9 +1063,7 @@ symbol *p_field (astree *s){
             found_field->attributes[static_cast<int>(attr::ARRAY)];   
           sym->attributes[static_cast<int>(attr::STRING)] = 
             found_field->attributes[static_cast<int>(attr::STRING)];   
-          if (found_field->sname != nullptr){
-            sym->sname = found_field->sname;
-          }
+          sym->sname= ident->sname;
         }
         else {
           errprintf (
@@ -1239,7 +1237,6 @@ void p_typeid(astree *s){
     symbol *right = p_expression(parse); 
     symbol *parsed;
     parsed = p_assignment(s,left,right);
-    astree_attribs(parsed,parse);
     delete parsed;
   }
 }
