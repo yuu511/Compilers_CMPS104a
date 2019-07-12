@@ -99,3 +99,18 @@ IDENT "madoka" 4.47.19 {3} variable struct homura local lval (4.43.3)
 IDENT "madomado" 4.47.27 {0} 
 IDENT "place" 4.47.37 {0} 
 STRINGCON ""hehexd"" 4.47.45 {3} string const 
+TYPE_ID "" 4.49.3 {3} array variable struct mami local lval vreg (4.49.3)
+ARRAY "array" 4.49.3 {0} 
+PTR "ptr" 4.49.9 {0} 
+IDENT "mami" 4.49.20 {0} 
+IDENT "he" 4.49.27 {0} 
+ALLOC "alloc" 4.49.32 {3} array struct mami 
+ARRAY "array" 4.49.39 {0} 
+PTR "ptr" 4.49.45 {0} 
+IDENT "mami" 4.49.56 {0} 
+INTCON "5" 4.49.64 {3} int const 
+'=' "=" 4.50.9 {3} struct mami lval vreg vaddr 
+INDEX "[" 4.50.5 {3} struct mami lval vaddr 
+IDENT "he" 4.50.3 {3} array variable struct mami local lval (4.49.3)
+INTCON "1" 4.50.6 {3} int const 
+NULLPTR "nullptr" 4.50.11 {3} nullptr_t const 

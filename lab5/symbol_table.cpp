@@ -118,7 +118,7 @@ string dump_attributes(symbol *sym){
         case static_cast<int>(attr::STRUCT):
           st.append ("struct ");
           if (sym -> sname !=nullptr){
-            st.append (sym->sname->c_str());
+            st.append (*sym->sname);
             st.append (" ");
           }
           break;
@@ -137,7 +137,7 @@ string dump_attributes(symbol *sym){
         case static_cast<int>(attr::TYPEID):
           st.append ("struct ");
           if (sym -> sname !=nullptr){
-            st.append (sym->sname->c_str());
+            st.append (*(sym->sname));
             st.append (" ");
           }
           break;
@@ -640,8 +640,7 @@ void p_function (astree *s){
           current = 0;
         }
         else {
-              errprintf(
-              "nonmatching function definition for prototype %s: %zd.%zd.%zd\n",
+              errprintf( "nonmatching function definition for prototype %s: %zd.%zd.%zd\n",
                          fname->c_str(),
                          sym->lloc.filenr, sym->lloc.linenr,
                          sym->lloc.offset);

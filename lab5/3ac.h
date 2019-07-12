@@ -25,44 +25,30 @@ using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)
 */
 
 struct reg {
-  // 1. exists if a register is an identifier
   const string *ident;
-  // 2. exists if a register is a temp register
   int reg_number;
-  // 3. exists if a register is a function
   vector<reg*> *parameters;
-  // 4. exists if a register is a typesize
   string *typesize;
-  // 5. exists if register is pointer to string literal
   int string_index;
-  // 6. array selection 
-  // 7. struct field selection
   const string *sname;
   const string *field;
-  
-  // if 2. stride of type, 3. function name 6. stride of type 
   string *name;
-  // if 7. the index selection ident
   reg *selection_index;
-  // optional unary operator
   string *unop;
 
   // constructors
-  reg(const string *ident);
-  reg(string *stride, int reg_number);
-  reg(string *fname, vector<reg*> *parameters = nullptr);
-  reg(string *typesize, string *szof);
-  reg(int string_index);
-  // reg(const string *array_ident, int array_index, string *array_stride);
-  reg(reg *selection_index,const string *sname, const string *field);
+  reg(const string *ident); //1
+  reg(string *stride, int reg_number); //2
+  reg(string *fname, vector<reg*> *parameters); //3
+  reg(string *typesize, string *szof); //4
+  reg(int string_index); //5 
+  reg(const string *ident, string *stride, reg *selection_index); //6
+  reg(reg *selection_index,const string *sname, const string *field); //7
 
   // functions
-  // deep copy register, return ptr to newly allocated object
-  reg *deep_copy();
-  // stringify a register
-  string str();
-  // refrence count
-  ~reg();
+  reg *deep_copy(); //deep copy register
+  string str(); // stringify register
+  ~reg(); //reference count
 };
 
 /*

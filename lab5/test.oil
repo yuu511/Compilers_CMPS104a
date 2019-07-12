@@ -30,11 +30,15 @@ trivial:   .function
            .local struct mami xa
            .local struct madokami kyubey
            .local int sayaka
+           .local struct mami he
            madoka = call malloc(sizeof struct homura)  
            xa = call malloc(sizeof struct mami)  
            kyubey = call malloc(sizeof struct madokami)  
            $t0:p = madoka->homura.madomado  
            $t0:p->madokami.place = (.s1)  
            kyubey->madokami.place = $t0:p->madokami.place  
+           $t1:p = 5 * sizeof struct mami
+           he = call malloc($t1:p)  
+           nullptr  
            return
            .end
