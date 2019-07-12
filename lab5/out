@@ -1,121 +1,21 @@
-make[1]: Entering directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'
 g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3ac.cpp
-3ac.cpp:97:1: error: no declaration matches ‘reg::reg(reg*, const string*, const string*)’
-   97 | reg::reg(reg *selection_index_,const string *sname_, const string *field_){
-      | ^~~
-In file included from 3ac.cpp:1:
-3ac.h:27:8: note: candidates are: ‘constexpr reg::reg(const reg&)’
-   27 | struct reg {
-      |        ^~~
-3ac.cpp:85:1: note:                 ‘reg::reg(reg*, reg*, std::string*)’
-   85 | reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ //6
-      | ^~~
-In file included from 3ac.cpp:1:
-3ac.h:44:3: note:                 ‘reg::reg(const string*, std::string*, reg*)’
-   44 |   reg(const string *ident, string *stride, reg *selection_index); //6
-      |   ^~~
-3ac.cpp:73:1: note:                 ‘reg::reg(int)’
-   73 | reg::reg(int string_index_){
-      | ^~~
-3ac.cpp:61:1: note:                 ‘reg::reg(std::string*, std::string*)’
-   61 | reg::reg(string *typesize_, string *szof){
-      | ^~~
-3ac.cpp:49:1: note:                 ‘reg::reg(std::string*, std::vector<reg*>*)’
-   49 | reg::reg(string *fname, vector<reg*> *parameters_){
-      | ^~~
-3ac.cpp:37:1: note:                 ‘reg::reg(std::string*, int)’
-   37 | reg::reg(string *stride, int reg_number_){
-      | ^~~
-3ac.cpp:25:1: note:                 ‘reg::reg(const string*)’
-   25 | reg::reg(const string *ident_){
-      | ^~~
-In file included from 3ac.cpp:1:
-3ac.h:27:8: note: ‘struct reg’ defined here
-   27 | struct reg {
-      |        ^~~
-3ac.cpp: In function ‘reg* parse_variable(astree*, symbol_table*)’:
-3ac.cpp:388:69: error: no matching function for call to ‘reg::reg(reg*&, const string*&, const string*&)’
-  388 |       selection = new reg(ret,expr->sname,expr->children[1]->lexinfo);
-      |                                                                     ^
-3ac.cpp:85:1: note: candidate: ‘reg::reg(reg*, reg*, std::string*)’
-   85 | reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ //6
-      | ^~~
-3ac.cpp:85:34: note:   no known conversion for argument 2 from ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} to ‘reg*’
-   85 | reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ //6
-      |                             ~~~~~^~~~~~~~~~~~~~~~
-In file included from 3ac.cpp:1:
-3ac.h:44:3: note: candidate: ‘reg::reg(const string*, std::string*, reg*)’
-   44 |   reg(const string *ident, string *stride, reg *selection_index); //6
-      |   ^~~
-3ac.h:44:21: note:   no known conversion for argument 1 from ‘reg*’ to ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’}
-   44 |   reg(const string *ident, string *stride, reg *selection_index); //6
-      |       ~~~~~~~~~~~~~~^~~~~
-3ac.cpp:73:1: note: candidate: ‘reg::reg(int)’
-   73 | reg::reg(int string_index_){
-      | ^~~
-3ac.cpp:73:1: note:   candidate expects 1 argument, 3 provided
-3ac.cpp:61:1: note: candidate: ‘reg::reg(std::string*, std::string*)’
-   61 | reg::reg(string *typesize_, string *szof){
-      | ^~~
-3ac.cpp:61:1: note:   candidate expects 2 arguments, 3 provided
-3ac.cpp:49:1: note: candidate: ‘reg::reg(std::string*, std::vector<reg*>*)’
-   49 | reg::reg(string *fname, vector<reg*> *parameters_){
-      | ^~~
-3ac.cpp:49:1: note:   candidate expects 2 arguments, 3 provided
-3ac.cpp:37:1: note: candidate: ‘reg::reg(std::string*, int)’
-   37 | reg::reg(string *stride, int reg_number_){
-      | ^~~
-3ac.cpp:37:1: note:   candidate expects 2 arguments, 3 provided
-3ac.cpp:25:1: note: candidate: ‘reg::reg(const string*)’
-   25 | reg::reg(const string *ident_){
-      | ^~~
-3ac.cpp:25:1: note:   candidate expects 1 argument, 3 provided
-In file included from 3ac.cpp:1:
-3ac.h:27:8: note: candidate: ‘constexpr reg::reg(const reg&)’
-   27 | struct reg {
-      |        ^~~
-3ac.h:27:8: note:   candidate expects 1 argument, 3 provided
-3ac.cpp: In function ‘ac3* p_arrow(astree*, symbol_table*)’:
-3ac.cpp:827:70: error: no matching function for call to ‘reg::reg(reg*&, const string*&, const string*&)’
-  827 |   reg *selection = new reg(ret,expr->sname,expr->children[1]->lexinfo);
-      |                                                                      ^
-3ac.cpp:85:1: note: candidate: ‘reg::reg(reg*, reg*, std::string*)’
-   85 | reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ //6
-      | ^~~
-3ac.cpp:85:34: note:   no known conversion for argument 2 from ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} to ‘reg*’
-   85 | reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ //6
-      |                             ~~~~~^~~~~~~~~~~~~~~~
-In file included from 3ac.cpp:1:
-3ac.h:44:3: note: candidate: ‘reg::reg(const string*, std::string*, reg*)’
-   44 |   reg(const string *ident, string *stride, reg *selection_index); //6
-      |   ^~~
-3ac.h:44:21: note:   no known conversion for argument 1 from ‘reg*’ to ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’}
-   44 |   reg(const string *ident, string *stride, reg *selection_index); //6
-      |       ~~~~~~~~~~~~~~^~~~~
-3ac.cpp:73:1: note: candidate: ‘reg::reg(int)’
-   73 | reg::reg(int string_index_){
-      | ^~~
-3ac.cpp:73:1: note:   candidate expects 1 argument, 3 provided
-3ac.cpp:61:1: note: candidate: ‘reg::reg(std::string*, std::string*)’
-   61 | reg::reg(string *typesize_, string *szof){
-      | ^~~
-3ac.cpp:61:1: note:   candidate expects 2 arguments, 3 provided
-3ac.cpp:49:1: note: candidate: ‘reg::reg(std::string*, std::vector<reg*>*)’
-   49 | reg::reg(string *fname, vector<reg*> *parameters_){
-      | ^~~
-3ac.cpp:49:1: note:   candidate expects 2 arguments, 3 provided
-3ac.cpp:37:1: note: candidate: ‘reg::reg(std::string*, int)’
-   37 | reg::reg(string *stride, int reg_number_){
-      | ^~~
-3ac.cpp:37:1: note:   candidate expects 2 arguments, 3 provided
-3ac.cpp:25:1: note: candidate: ‘reg::reg(const string*)’
-   25 | reg::reg(const string *ident_){
-      | ^~~
-3ac.cpp:25:1: note:   candidate expects 1 argument, 3 provided
-In file included from 3ac.cpp:1:
-3ac.h:27:8: note: candidate: ‘constexpr reg::reg(const reg&)’
-   27 | struct reg {
-      |        ^~~
-3ac.h:27:8: note:   candidate expects 1 argument, 3 provided
-make[1]: *** [Makefile:55: 3ac.o] Error 1
-make[1]: Leaving directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'
+3ac.cpp: In function ‘ac3* p_index(astree*, ac3_table*)’:
+3ac.cpp:1096:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ 1096 | }
+      | ^
+3ac.cpp:1094:22: warning: unused parameter ‘expr’ [-Wunused-parameter]
+ 1094 | ac3 *p_index(astree *expr, ac3_table *found){
+      |              ~~~~~~~~^~~~
+3ac.cpp:1094:39: warning: unused parameter ‘found’ [-Wunused-parameter]
+ 1094 | ac3 *p_index(astree *expr, ac3_table *found){
+      |                            ~~~~~~~~~~~^~~~~
+3ac.cpp: In function ‘void ac_globalvar(astree*, all_tables*)’:
+3ac.cpp:1216:29: error: cannot convert ‘symbol_table*’ {aka ‘std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*’} to ‘ac3_table*’ {aka ‘std::vector<ac3*>*’}
+ 1216 |   p_assignment(child,table->global,nullptr);
+      |                      ~~~~~~~^~~~~~
+      |                             |
+      |                             symbol_table* {aka std::unordered_map<const std::__cxx11::basic_string<char>*, symbol*>*}
+3ac.cpp:667:44: note:   initializing argument 2 of ‘ac3* p_assignment(astree*, ac3_table*, std::string*)’
+  667 | ac3 *p_assignment(astree *expr, ac3_table *found, string *label){
+      |                                 ~~~~~~~~~~~^~~~~
+make: *** [Makefile:55: 3ac.o] Error 1

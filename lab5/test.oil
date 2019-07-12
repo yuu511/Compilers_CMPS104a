@@ -1,3 +1,10 @@
+.struct mami
+.field ptr madoka
+.field struct homura homu
+.field struct mami mamimami
+.field int one
+.field ptr two
+.end 
 .struct madokami
 .field ptr place
 .field int wish
@@ -5,13 +12,6 @@
 .struct homura
 .field struct madokami madomado
 .field int madoka
-.end 
-.struct mami
-.field ptr madoka
-.field int one
-.field struct mami mamimami
-.field struct homura homu
-.field ptr two
 .end 
 .s0:       "hehe"
 .s1:       "hehexd"
