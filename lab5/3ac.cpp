@@ -170,13 +170,18 @@ reg::~reg(){
 reg *reg::deep_copy(){
   reg *r= new reg(ident);  
   r->reg_number = reg_number;
-  if (name) r-> name = new string (*name);
   if (parameters){
     r->parameters = new vector<reg*>();
     for (auto itor: *parameters){
       r->parameters->push_back(itor->deep_copy());
     }
   }
+  if (typesize) r->typesize = new string(*typesize);
+  r->string_index = string_index;
+  r->sname = sname; 
+  r->field = field;
+  if (name) r-> name = new string (*name);
+  if (selection_index) r-> selection_index = selection_index->deep_copy();
   if (unop) r->unop = new string(*unop);
   return r;
 }
@@ -341,18 +346,18 @@ string *astree_stride(symbol_table *current,astree *expr){
       found = all_sym->global->find(expr->children[0]->lexinfo)->second;
       return astree_stride_symbol_array(found);
     case TOK_INDEX:
-      if(current->count(expr->children[0]->lexinfo))
-        found = current->find(expr->children[0]->lexinfo)->second;
-      else if (all_sym->global->count(expr->children[0]->lexinfo))
-        found = all_sym->global->find(expr->children[0]->lexinfo)->second;
-      return astree_stride_symbol_index(found);
+      // if(current->count(expr->children[0]->lexinfo))
+      //   found = current->find(expr->children[0]->lexinfo)->second;
+      // else if (all_sym->global->count(expr->children[0]->lexinfo))
+      //   found = all_sym->global->find(expr->children[0]->lexinfo)->second;
+      // return astree_stride_symbol_index(found);
+      return new string(":c");
     case TOK_ARROW:
-      // // get symbol of struct
-      // found = all_sym->struct_t->find(expr->sname)->second;
-      // // get symbol of struct parameter
-      // found = found->fields->find(expr->children[1]->lexinfo)->second;
-      // return astree_stride_symbol_array(found);
-      return new string(":p");
+      // get symbol of struct
+      found = all_sym->struct_t->find(expr->sname)->second;
+      // get symbol of struct parameter
+      found = found->fields->find(expr->children[1]->lexinfo)->second;
+      return astree_stride_symbol_array(found);
     case '=':
       astree *noneq = recurse_non_equal(expr);
       return astree_stride(current,noneq);
@@ -525,7 +530,7 @@ ac3 *asg_array(astree *expr, symbol_table *current, string *label){
     else {
       reg *ret_reg = expr_reg(parse,current);
       bot = new ac3(expr);
-      bot->t0 = new reg(ident->lexinfo);
+      bot->t0 = parse_variable(ident,current);
       bot->t1 = ret_reg;
       bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(bot);
@@ -534,7 +539,7 @@ ac3 *asg_array(astree *expr, symbol_table *current, string *label){
   }
   else {
     bot = new ac3(expr);
-    bot->t0 = new reg(ident->lexinfo);
+    bot->t0 = parse_variable(ident,current);
     bot->t1 = new reg(parse->lexinfo);
     bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
     found->push_back(bot);
@@ -560,7 +565,7 @@ ac3 *asg_struct(astree *expr, symbol_table *current, string *label){
     else {
       reg *ret_reg = expr_reg(parse,current);
       bot = new ac3(expr);
-      bot->t0 = new reg(ident->lexinfo);
+      bot->t0 = parse_variable(ident,current);
       bot->t1 = ret_reg;
       bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(bot);
@@ -569,7 +574,7 @@ ac3 *asg_struct(astree *expr, symbol_table *current, string *label){
   }
   else {
     bot = new ac3(expr);
-    bot->t0 = new reg(ident->lexinfo);
+    bot->t0 = parse_variable(ident,current);
     bot->t1 = new reg(parse->lexinfo);
     bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
     found->push_back(bot);
@@ -619,7 +624,7 @@ ac3 *asg_string(astree *expr, symbol_table *current, string *label){
     else {
       reg *ret_reg = expr_reg(parse,current);
       bot = new ac3(expr);
-      bot->t0 = new reg(ident->lexinfo);
+      bot->t0 = parse_variable(ident,current);
       bot->t1 = ret_reg;
       bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(bot);
@@ -628,12 +633,12 @@ ac3 *asg_string(astree *expr, symbol_table *current, string *label){
   }
   else {
     if (parse->symbol == TOK_STRINGCON){
-      bot = p_string(parse,current,new reg(ident->lexinfo));
+      bot = p_string(parse,current,parse_variable(ident,current));
       found->at(top)->label = label;
     }
     else {
       bot = new ac3(expr);
-      bot->t0 = new reg(ident->lexinfo);
+      bot->t0 = parse_variable(ident,current);
       bot->t1 = new reg(parse->lexinfo);
       bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       found->push_back(bot);
@@ -1000,9 +1005,8 @@ ac3 *p_while(astree *expr, symbol_table *current, string *label){
 ac3 *p_equals(astree *expr, symbol_table *current){
   ac3_table *found = table_lookup->find(current)->second;
   ac3 *ac = new ac3(expr);
-  // should never have children by design
   astree *left = expr->children[0];
-  ac->t0 =new reg(left->lexinfo);
+  ac->t0 = parse_variable(left,current);
   astree *right = expr->children[1];
   // find first non-equal symbol
   astree *final_val = recurse_non_equal(right);

@@ -1,6 +1,3 @@
-.struct homura
-.field int madoka
-.end 
 .struct mami
 .field ptr madoka
 .field struct homura homu
@@ -8,7 +5,16 @@
 .field int one
 .field ptr two
 .end 
+.struct madokami
+.field ptr place
+.field int wish
+.end 
+.struct homura
+.field struct madokami madomado
+.field int madoka
+.end 
 .s0:       "hehe"
+.s1:       "hehexd"
 x:         .global ptr (.s0)
 sayaka:    .function int 
            .param int x
@@ -21,10 +27,14 @@ filler:    .function int
 trivial:   .function 
            .param int x
            .local struct homura madoka
-           .local struct mami thing2
+           .local struct mami xa
+           .local struct madokami kyubey
+           .local int sayaka
            madoka = call malloc(sizeof struct homura)  
-           thing2 = call malloc(sizeof struct mami)  
-           $t0:p = thing2->mami.homu  
-           $t0:p->homura.madoka = 5  
+           xa = call malloc(sizeof struct mami)  
+           kyubey = call malloc(sizeof struct madokami)  
+           $t0:p = madoka->homura.madomado  
+           $t0:p->madokami.place = (.s1)  
+           kyubey->madokami.place = $t0:p->madokami.place  
            return
            .end

@@ -1080,8 +1080,8 @@ symbol *p_field (astree *s){
       }
     }
   } else {
-  errprintf ("field called on non-struct : %zd.%zd.%zd",
-             sym->lloc.filenr, sym->lloc.linenr, sym->lloc.offset);
+    errprintf ("field called on non-struct : %zd.%zd.%zd",
+                sym->lloc.filenr, sym->lloc.linenr, sym->lloc.offset);
 
   }
   delete ident;
