@@ -36,10 +36,44 @@ IDENT "wish" 4.17.23 {0}
 TYPE_ID "" 4.18.19 {0} string field 
 STRING "string" 4.18.19 {0} 
 IDENT "place" 4.18.26 {0} 
+TYPE_ID "" 4.22.1 {0} int variable lval (4.22.1)
+INT "int" 4.22.1 {0} 
+IDENT "a" 4.22.5 {0} 
+TYPE_ID "" 4.23.1 {0} int variable lval vreg (4.23.1)
+INT "int" 4.23.1 {0} 
+IDENT "b" 4.23.5 {0} 
+INTCON "5" 4.23.9 {0} int const 
+TYPE_ID "" 4.24.1 {0} int variable lval vreg (4.24.1)
+INT "int" 4.24.1 {0} 
+IDENT "c" 4.24.5 {0} 
+CHARCON "'a'" 4.24.9 {0} int const 
+TYPE_ID "" 4.25.1 {0} string variable lval (4.25.1)
+STRING "string" 4.25.1 {0} 
+IDENT "w" 4.25.8 {0} 
 TYPE_ID "" 4.26.1 {0} string variable lval vreg (4.26.1)
 STRING "string" 4.26.1 {0} 
 IDENT "x" 4.26.8 {0} 
 STRINGCON ""hehe"" 4.26.12 {0} string const 
+TYPE_ID "" 4.27.1 {0} string variable lval vreg (4.27.1)
+STRING "string" 4.27.1 {0} 
+IDENT "y" 4.27.8 {0} 
+NULLPTR "nullptr" 4.27.12 {0} nullptr_t const 
+TYPE_ID "" 4.28.1 {0} variable struct mami lval vreg (4.28.1)
+PTR "ptr" 4.28.1 {0} 
+IDENT "mami" 4.28.13 {0} 
+IDENT "thing" 4.28.19 {0} 
+NULLPTR "nullptr" 4.28.27 {0} nullptr_t const 
+TYPE_ID "" 4.29.1 {0} variable struct mami lval vreg (4.29.1)
+PTR "ptr" 4.29.1 {0} 
+IDENT "mami" 4.29.13 {0} 
+IDENT "thing2" 4.29.19 {0} 
+ALLOC "alloc" 4.29.28 {0} struct mami vreg 
+IDENT "mami" 4.29.42 {0} 
+TYPE_ID "" 4.30.1 {0} int array variable lval vreg (4.30.1)
+ARRAY "array" 4.30.1 {0} 
+INT "int" 4.30.7 {0} 
+IDENT "thing3" 4.30.12 {0} 
+NULLPTR "nullptr" 4.30.21 {0} nullptr_t const 
 FUNCTION "" 4.32.1 {0} int function 
 TYPE_ID "" 4.32.1 {0} 
 INT "int" 4.32.1 {0} 
@@ -85,9 +119,18 @@ IDENT "madokami" 4.45.15 {0}
 IDENT "kyubey" 4.45.25 {0} 
 ALLOC "alloc" 4.45.34 {3} struct madokami vreg 
 IDENT "madokami" 4.45.48 {0} 
-TYPE_ID "" 4.46.3 {3} int variable local lval (4.46.3)
+TYPE_ID "" 4.46.3 {3} int variable local lval vreg (4.46.3)
 INT "int" 4.46.3 {0} 
 IDENT "sayaka" 4.46.7 {0} 
+'+' "+" 4.46.18 {3} int vreg 
+INTCON "5" 4.46.16 {3} int const 
+'*' "*" 4.46.29 {3} int vreg 
+CALL "(" 4.46.26 {1} int function (4.36.1)
+IDENT "filler" 4.46.20 {0} 
+CALL "(" 4.46.37 {0} int function (4.32.1)
+IDENT "sayaka" 4.46.31 {0} 
+INTCON "5" 4.46.38 {3} int const 
+INTCON "3" 4.46.40 {3} int const 
 '=' "=" 4.47.17 {3} string lval vaddr 
 ARROW "->" 4.47.9 {3} string lval vaddr 
 IDENT "kyubey" 4.47.3 {3} variable struct madokami local lval (4.45.3)

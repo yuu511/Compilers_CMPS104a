@@ -15,7 +15,15 @@
 .end 
 .s0:       "hehe"
 .s1:       "hehexd"
+a:         .global int 
+b:         .global int 5
+c:         .global int 'a'
+w:         .global ptr 
 x:         .global ptr (.s0)
+y:         .global ptr nullptr
+thing:     .global struct mami nullptr
+thing2:    .global struct mami call malloc(sizeof struct mami)
+thing3:    .global ptr nullptr
 sayaka:    .function int 
            .param int x
            .param int y
@@ -34,11 +42,16 @@ trivial:   .function
            madoka = call malloc(sizeof struct homura)  
            xa = call malloc(sizeof struct mami)  
            kyubey = call malloc(sizeof struct madokami)  
-           $t0:p = homura  
+           $t2:i = call filler()  
+           $t3:i = call sayaka(5,3)  
+           $t1:i = $t2:i * $t3:i
+           $t0:i = 5 + $t1:i
+           sayaka = $t0:i  
+           $t4:p = homura  
            madokami = (.s1)  
            madokami = madokami  
-           $t1:p = 5 * sizeof struct mami
-           he = call malloc($t1:p)  
+           $t5:p = 5 * sizeof struct mami
+           he = call malloc($t5:p)  
            nullptr  
            return
            .end

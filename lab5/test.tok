@@ -56,11 +56,64 @@
     4  18.031  59 ';'           ;
     4  19.017 125 '}'           }
     4  19.018  59 ';'           ;
+    4  22.001 259 TOK_INT       int
+    4  22.005 278 TOK_IDENT     a
+    4  22.006  59 ';'           ;
+    4  23.001 259 TOK_INT       int
+    4  23.005 278 TOK_IDENT     b
+    4  23.007  61 '='           =
+    4  23.009 279 TOK_INTCON    5
+    4  23.010  59 ';'           ;
+    4  24.001 259 TOK_INT       int
+    4  24.005 278 TOK_IDENT     c
+    4  24.007  61 '='           =
+    4  24.009 280 TOK_CHARCON   'a'
+    4  24.012  59 ';'           ;
+    4  25.001 260 TOK_STRING    string
+    4  25.008 278 TOK_IDENT     w
+    4  25.009  59 ';'           ;
     4  26.001 260 TOK_STRING    string
     4  26.008 278 TOK_IDENT     x
     4  26.010  61 '='           =
     4  26.012 281 TOK_STRINGCON "hehe"
     4  26.018  59 ';'           ;
+    4  27.001 260 TOK_STRING    string
+    4  27.008 278 TOK_IDENT     y
+    4  27.010  61 '='           =
+    4  27.012 266 TOK_NULLPTR   nullptr
+    4  27.019  59 ';'           ;
+    4  28.001 270 TOK_PTR       ptr
+    4  28.005  60 '<'           <
+    4  28.006 265 TOK_STRUCT    struct
+    4  28.013 278 TOK_IDENT     mami
+    4  28.017  62 '>'           >
+    4  28.019 278 TOK_IDENT     thing
+    4  28.025  61 '='           =
+    4  28.027 266 TOK_NULLPTR   nullptr
+    4  28.034  59 ';'           ;
+    4  29.001 270 TOK_PTR       ptr
+    4  29.005  60 '<'           <
+    4  29.006 265 TOK_STRUCT    struct
+    4  29.013 278 TOK_IDENT     mami
+    4  29.017  62 '>'           >
+    4  29.019 278 TOK_IDENT     thing2
+    4  29.026  61 '='           =
+    4  29.028 269 TOK_ALLOC     alloc
+    4  29.034  60 '<'           <
+    4  29.035 265 TOK_STRUCT    struct
+    4  29.042 278 TOK_IDENT     mami
+    4  29.046  62 '>'           >
+    4  29.048  40 '('           (
+    4  29.049  41 ')'           )
+    4  29.050  59 ';'           ;
+    4  30.001 267 TOK_ARRAY     array
+    4  30.006  60 '<'           <
+    4  30.007 259 TOK_INT       int
+    4  30.010  62 '>'           >
+    4  30.012 278 TOK_IDENT     thing3
+    4  30.019  61 '='           =
+    4  30.021 266 TOK_NULLPTR   nullptr
+    4  30.028  59 ';'           ;
     4  32.001 259 TOK_INT       int
     4  32.005 278 TOK_IDENT     sayaka
     4  32.012  40 '('           (
@@ -132,7 +185,20 @@
     4  45.059  59 ';'           ;
     4  46.003 259 TOK_INT       int
     4  46.007 278 TOK_IDENT     sayaka
-    4  46.013  59 ';'           ;
+    4  46.014  61 '='           =
+    4  46.016 279 TOK_INTCON    5
+    4  46.018  43 '+'           +
+    4  46.020 278 TOK_IDENT     filler
+    4  46.026  40 '('           (
+    4  46.027  41 ')'           )
+    4  46.029  42 '*'           *
+    4  46.031 278 TOK_IDENT     sayaka
+    4  46.037  40 '('           (
+    4  46.038 279 TOK_INTCON    5
+    4  46.039  44 ','           ,
+    4  46.040 279 TOK_INTCON    3
+    4  46.041  41 ')'           )
+    4  46.042  59 ';'           ;
     4  47.003 278 TOK_IDENT     kyubey
     4  47.009 268 TOK_ARROW     ->
     4  47.011 278 TOK_IDENT     place
