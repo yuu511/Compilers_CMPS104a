@@ -82,7 +82,7 @@ reg::reg(int string_index_){
 }
 
 // 6. index to array
-reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ //6
+reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ 
   ident = nullptr;
   index = -1;
   parameters = nullptr;
@@ -378,10 +378,8 @@ reg *parse_variable(astree *expr, ac3_table *current){
     else if (expr->symbol == TOK_INDEX){
       astree *ident = expr->children[0];
       astree *index = expr->children[1];
-      reg *select;
-      reg *number;
-      ident->children.size() ? select = expr_reg(ident,current) : select = new reg(ident->lexinfo);
-      index->children.size() ? number = expr_reg(index,current) : number = new reg(index->lexinfo);
+      reg *select = ident->children.size() ? expr_reg(ident,current) : new reg(ident->lexinfo);
+      reg *number = index->children.size() ? expr_reg(index,current) : new reg(index->lexinfo);
       selection = new reg(select,number,astree_stride(current,expr));
     }
   }
@@ -798,8 +796,7 @@ ac3 *p_field(astree *expr, ac3_table *current){
   astree *field = expr->children[1];
   bot->t0 = new reg(astree_stride(current,expr),reg_count);
   ++reg_count;
-  reg *ret; 
-  ident->children.size() ? ret = expr_reg(ident,current) : ret = new reg(ident->lexinfo);
+  reg *ret = ident->children.size() ? expr_reg(ident,current) : new reg(ident->lexinfo);
   reg *selection = new reg(ret,expr->sname,field->lexinfo);
   bot->t1 = selection;
   bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
@@ -877,8 +874,7 @@ ac3 *p_if(astree *expr, ac3_table *current, string *label){
   string *if_header = new string(".if" + to_string(orig_if) + ":");
   // if an else statement exists, then we must go to it.
   // otherwise, just go to the end of the if statment.
-  string selection;
-  expr->children.size() > 2 ? selection = ".el" : selection = ".fi"; 
+  string selection = expr->children.size() > 2 ? ".el" : ".fi"; 
   string goto_label = selection + to_string(orig_if);
   reg *stored = expr_reg(condition,current);
 
@@ -1091,11 +1087,9 @@ ac3 *p_index(astree *expr, ac3_table *current){
   astree *index = expr->children[1];
   bot->t0 = new reg(astree_stride(current,expr),reg_count);
   ++reg_count;
-  reg *select;
-  reg *number;
   reg *ret;
-  ident->children.size() ? select = expr_reg(ident,current) : select = new reg(ident->lexinfo);
-  index->children.size() ? number = expr_reg(index,current) : number = new reg(index->lexinfo);
+  reg *select = ident->children.size() ? expr_reg(ident,current) : new reg(ident->lexinfo);
+  reg *number = index->children.size() ? expr_reg(index,current) : new reg(index->lexinfo);
   ret = new reg(select,number,astree_stride(current,expr));
   bot->t1 = ret;
   bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
@@ -1344,7 +1338,7 @@ void emit_functions(FILE *out){
         fprintf (out,"%-10s goto %s%s%s\n",
                  "",
                  stmt->label ? stmt->label->c_str() : "",
-                 stmt->t0 ? " if not " : "" ,
+                 stmt->t0 ? " if " : "" ,
                  stmt->t0 ? stmt->t0->str().c_str() : "" );
       }
       if (stmt->itype[static_cast<int>(instruction::LABEL_ONLY)]){
