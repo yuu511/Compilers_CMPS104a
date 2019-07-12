@@ -767,7 +767,7 @@ ac3 *p_call(astree *expr, ac3_table *current, string *label){
         reg *stored = expr_reg(expr->children[i],current);
         if (stored){
           push = stored;
-	    }
+        }
         else {
           errprintf ("3ac: return expression incorrectly parsed!\n");
           ++err_count;
@@ -1066,7 +1066,7 @@ ac3 *p_return(astree *expr, ac3_table *current, string *label){
       else {
         errprintf ("3ac: return expression incorrectly parsed!");
         ++err_count;
-	    return nullptr;
+        return nullptr;
       }
     }
     else {
@@ -1295,7 +1295,7 @@ void emit_functions(FILE *out){
     //print out the function header    
     fprintf(out,"%-10s .function %s\n",
             fname.c_str(), 
-	        parse_typesize(type).c_str()); 
+            parse_typesize(type).c_str()); 
      
     //print out the function params and variables
     string f_vlabel = ".param";
@@ -1353,9 +1353,9 @@ void emit_functions(FILE *out){
       }
       if (stmt->itype[static_cast<int>(instruction::RETURN)]){
         // return [EXPR]
-	    fprintf (out, "%-10s return %s\n",
-	         stmt->label ? stmt->label->c_str() : "",
-	         stmt->t0 ? stmt->t0->str().c_str(): "" );
+        fprintf (out, "%-10s return %s\n",
+             stmt->label ? stmt->label->c_str() : "",
+             stmt->t0 ? stmt->t0->str().c_str(): "" );
       }
     }
     //print out the ending statements
@@ -1385,20 +1385,13 @@ void ac_traverse(astree *s){
       else {
         errprintf ("3ac: invalid function definition. Stopping address code generation \n");
         ++err_count;
-	    return;
+        return;
       }
-      // no duplicate functions
-      if (found!=nullptr && !(table_lookup->count(found))){
-        ac3_table *new_function = new ac3_table;
-	    table_lookup->emplace(found,new_function);
-	    all_ac->all_functions->push_back(make_pair(name->lexinfo,new_function));
-        reg_count = 0;
-        p_stmt(child->children[2],new_function,nullptr);
-      }
-      else {
-        errprintf("3ac: function already defined\n");
-        ++err_count;
-      }
+      ac3_table *new_function = new ac3_table;
+      table_lookup->emplace(found,new_function);
+      all_ac->all_functions->push_back(make_pair(name->lexinfo,new_function));
+      reg_count = 0;
+      p_stmt(child->children[2],new_function,nullptr);
     }
   }
 }
