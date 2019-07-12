@@ -32,6 +32,7 @@ struct reg {
   const string *field;
   string *name;
   reg *selection_index;
+  reg *array_ident;
   string *unop;
 
   // constructors
@@ -40,7 +41,7 @@ struct reg {
   reg(string *fname, vector<reg*> *parameters); //3
   reg(string *typesize, string *szof); //4
   reg(int index); //5 
-  reg(const string *ident, string *stride, reg *selection_index); //6
+  reg(reg *array_ident, reg *selection_index, string *stride); //6
   reg(reg *selection_index,const string *sname, const string *field); //7
 
   // functions

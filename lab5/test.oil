@@ -1,10 +1,3 @@
-.struct mami
-.field ptr madoka
-.field struct homura homu
-.field struct mami mamimami
-.field int one
-.field ptr two
-.end 
 .struct madokami
 .field ptr place
 .field int wish
@@ -12,6 +5,13 @@
 .struct homura
 .field struct madokami madomado
 .field int madoka
+.end 
+.struct mami
+.field ptr madoka
+.field int one
+.field struct mami mamimami
+.field struct homura homu
+.field ptr two
 .end 
 .s0:       "hehe"
 .s1:       "hehexd"
@@ -34,9 +34,9 @@ trivial:   .function
            madoka = call malloc(sizeof struct homura)  
            xa = call malloc(sizeof struct mami)  
            kyubey = call malloc(sizeof struct madokami)  
-           $t0:p = madoka->homura.madomado  
-           $t0:p->madokami.place = (.s1)  
-           kyubey->madokami.place = $t0:p->madokami.place  
+           $t0:p = homura  
+           madokami = (.s1)  
+           madokami = madokami  
            $t1:p = 5 * sizeof struct mami
            he = call malloc($t1:p)  
            nullptr  

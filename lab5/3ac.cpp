@@ -26,10 +26,10 @@ reg::reg(const string *ident_){
   ident = ident_; 
   index = -1;
   parameters = nullptr;
-  typesize = nullptr;
   field = nullptr;
   name = nullptr;
   selection_index = nullptr;
+  array_ident = nullptr;
   unop = nullptr;
 }
 
@@ -38,10 +38,10 @@ reg::reg(string *stride, int reg_number_){
   ident = nullptr;
   index = reg_number_;
   parameters = nullptr;
-  typesize = nullptr;
   field = nullptr;
   name = stride;
   selection_index = nullptr;
+  array_ident = nullptr;
   unop = nullptr;
 }
 
@@ -50,10 +50,10 @@ reg::reg(string *fname, vector<reg*> *parameters_){
   ident = nullptr;
   index = -1;
   parameters= parameters_;
-  typesize = nullptr;
   field = nullptr;
   name = fname;
   selection_index = nullptr;
+  array_ident = nullptr;
   unop = nullptr;
 }
 
@@ -62,22 +62,34 @@ reg::reg(string *typesize_, string *szof){
   ident = nullptr;
   index = -1;
   parameters = nullptr;
-  typesize = typesize_;
   field = nullptr;
-  name = nullptr;
+  name = typesize_;
   selection_index = nullptr;
+  array_ident = nullptr;
   unop = szof;
 }
 
-// 5. string ptr
+// 5. string literal
 reg::reg(int string_index_){
   ident = nullptr;
   index = string_index_;
   parameters = nullptr;
-  typesize = nullptr;
   field = nullptr;
   name = nullptr;
   selection_index = nullptr;
+  array_ident = nullptr;
+  unop = nullptr;
+}
+
+// 6. index to array
+reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ //6
+  ident = nullptr;
+  index = -1;
+  parameters = nullptr;
+  field = nullptr;
+  name = stride;
+  selection_index = selection_index_;
+  array_ident = array_ident_;
   unop = nullptr;
 }
 
@@ -86,10 +98,10 @@ reg::reg(reg *selection_index_,const string *sname_, const string *field_){
   ident = sname_;
   index = -1;
   parameters = nullptr;
-  typesize = nullptr;
   field = field_;
   name = nullptr;
   selection_index = selection_index_;
+  array_ident = nullptr;
   unop = nullptr;
 }
 
@@ -103,15 +115,15 @@ string reg::str(){
       ret.append(" ");
     }
   }
-  if (ident){
+  if (ident){ //1
     ret.append(*ident);
   }
-  else if (index != -1 && name){
+  else if (index != -1 && name){ //2
     ret.append("$t");
     ret.append(to_string(index));
     ret.append(*name);
   }
-  else if (parameters && name){
+  else if (parameters && name){ //3
     ret.append("call ");
     ret.append(*name);
     ret.append("(");
@@ -124,15 +136,23 @@ string reg::str(){
     }
     ret.append(")");
   } 
-  else if (typesize){
-    ret.append(*typesize);
+  else if (name){ //4
+    ret.append(*name);
   }
-  else if (index != -1){
+  else if (index != -1){ //5
     ret.append("(.s");
     ret.append(to_string(index));
     ret.append(")");
   }
-  else if (selection_index && ident && field){
+  else if (selection_index && array_ident && name){ //6
+    ret.append(array_ident->str());
+    ret.append("[");
+    ret.append(selection_index->str());
+    ret.append(" * ");
+    ret.append(*name);
+    ret.append("]");
+  }
+  else if (selection_index && ident && field){ //7
     ret.append(selection_index->str());
     ret.append("->");
     ret.append(*ident);
@@ -149,9 +169,9 @@ reg::~reg(){
     }
   }
   delete parameters;
-  delete typesize;
   delete name;
   delete selection_index;
+  delete array_ident;
   delete unop;
 }
 
@@ -164,10 +184,10 @@ reg *reg::deep_copy(){
       r->parameters->push_back(itor->deep_copy());
     }
   }
-  if (typesize) r->typesize = new string(*typesize);
   r->field = field;
   if (name) r-> name = new string (*name);
   if (selection_index) r-> selection_index = selection_index->deep_copy();
+  if (array_ident) r->array_ident = array_ident->deep_copy();
   if (unop) r->unop = new string(*unop);
   return r;
 }
@@ -1094,6 +1114,11 @@ ac3 *p_return(astree *expr, symbol_table *current, string *label){
   return bot;
 }
 
+ac3 *p_index(astree *expr, symbol_table *current){
+  ac3_table *found = table_lookup->find(current)->second;
+
+}
+
 // large switch statement for expressions
 ac3 *p_expr(astree *expr, symbol_table *current){
   switch (expr->symbol){
@@ -1135,6 +1160,9 @@ ac3 *p_expr(astree *expr, symbol_table *current){
       break;
     case TOK_ARROW:
       return p_arrow(expr,current);
+      break;
+    case TOK_INDEX:
+      return p_index(expr,current);
       break;
   }
   errprintf ("3ac: non-recognized expression parsed:%s \n "
@@ -1231,7 +1259,7 @@ void translate_struct (const string *name, symbol *sym, FILE *out){
   fprintf (out, ".end \n");
 }
 
-// // emit structs
+// emit structs
 void emit_struct(FILE *out){
   if (all_sym->struct_t == nullptr){
     errprintf("3ac: ac_struct called on null struct_table\n");
@@ -1383,7 +1411,6 @@ void ac_traverse(astree *s){
 	    all_ac->all_functions->push_back(make_pair(name->lexinfo,new_function));
         reg_count = 0;
         p_stmt(child->children[2],found,nullptr);
-        // for (astree *stmt: child->children[2]->children) p_stmt(stmt,found,nullptr);
       }
       else {
         errprintf("3ac: function already defined\n");

@@ -1,141 +1,121 @@
 make[1]: Entering directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'
 g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3ac.cpp
-3ac.cpp: In member function ‘reg* reg::deep_copy()’:
-3ac.cpp:184:74: error: no matching function for call to ‘std::__cxx11::basic_string<char>::basic_string(reg&)’
-  184 |   if (selection_index) r-> selection_index = new string (*selection_index);
-      |                                                                          ^
-In file included from /usr/include/c++/9.1.0/string:55,
-                 from /usr/include/c++/9.1.0/bitset:47,
-                 from symbol_table.h:4,
-                 from 3ac.h:4,
-                 from 3ac.cpp:1:
-/usr/include/c++/9.1.0/bits/basic_string.h:650:2: note: candidate: ‘template<class _Tp, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Tp&, const _Alloc&)’
-  650 |  basic_string(const _Tp& __t, const _Alloc& __a = _Alloc())
-      |  ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:650:2: note:   template argument deduction/substitution failed:
-In file included from /usr/include/c++/9.1.0/bits/move.h:55,
-                 from /usr/include/c++/9.1.0/bits/stl_pair.h:59,
-                 from /usr/include/c++/9.1.0/bits/stl_algobase.h:64,
-                 from /usr/include/c++/9.1.0/bits/char_traits.h:39,
-                 from /usr/include/c++/9.1.0/string:40,
-                 from /usr/include/c++/9.1.0/bitset:47,
-                 from symbol_table.h:4,
-                 from 3ac.h:4,
-                 from 3ac.cpp:1:
-/usr/include/c++/9.1.0/type_traits: In substitution of ‘template<bool _Cond, class _Tp> using enable_if_t = typename std::enable_if::type [with bool _Cond = std::integral_constant<bool, false>::value; _Tp = void]’:
-/usr/include/c++/9.1.0/bits/basic_string.h:117:8:   required by substitution of ‘template<class _CharT, class _Traits, class _Alloc> template<class _Tp, class _Res> using _If_sv = std::enable_if_t<std::__and_<std::is_convertible<const _Tp&, std::basic_string_view<_CharT, _Traits> >, std::__not_<std::is_convertible<const _Tp*, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>*> >, std::__not_<std::is_convertible<const _Tp&, const _CharT*> > >::value, _Res> [with _Tp = reg; _Res = void; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-/usr/include/c++/9.1.0/bits/basic_string.h:648:30:   required from here
-/usr/include/c++/9.1.0/type_traits:2426:11: error: no type named ‘type’ in ‘struct std::enable_if<false, void>’
- 2426 |     using enable_if_t = typename enable_if<_Cond, _Tp>::type;
-      |           ^~~~~~~~~~~
-In file included from /usr/include/c++/9.1.0/string:55,
-                 from /usr/include/c++/9.1.0/bitset:47,
-                 from symbol_table.h:4,
-                 from 3ac.h:4,
-                 from 3ac.cpp:1:
-/usr/include/c++/9.1.0/bits/basic_string.h:639:2: note: candidate: ‘template<class _Tp, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&)’
-  639 |  basic_string(const _Tp& __t, size_type __pos, size_type __n,
-      |  ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:639:2: note:   template argument deduction/substitution failed:
-3ac.cpp:184:74: note:   candidate expects 4 arguments, 1 provided
-  184 |   if (selection_index) r-> selection_index = new string (*selection_index);
-      |                                                                          ^
-In file included from /usr/include/c++/9.1.0/string:55,
-                 from /usr/include/c++/9.1.0/bitset:47,
-                 from symbol_table.h:4,
-                 from 3ac.h:4,
-                 from 3ac.cpp:1:
-/usr/include/c++/9.1.0/bits/basic_string.h:625:9: note: candidate: ‘template<class _InputIterator, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(_InputIterator, _InputIterator, const _Alloc&)’
-  625 |         basic_string(_InputIterator __beg, _InputIterator __end,
-      |         ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:625:9: note:   template argument deduction/substitution failed:
-3ac.cpp:184:74: note:   candidate expects 3 arguments, 1 provided
-  184 |   if (selection_index) r-> selection_index = new string (*selection_index);
-      |                                                                          ^
-In file included from /usr/include/c++/9.1.0/string:55,
-                 from /usr/include/c++/9.1.0/bitset:47,
-                 from symbol_table.h:4,
-                 from 3ac.h:4,
-                 from 3ac.cpp:1:
-/usr/include/c++/9.1.0/bits/basic_string.h:587:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-  587 |       basic_string(basic_string&& __str, const _Alloc& __a)
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:587:7: note:   candidate expects 2 arguments, 1 provided
-/usr/include/c++/9.1.0/bits/basic_string.h:583:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-  583 |       basic_string(const basic_string& __str, const _Alloc& __a)
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:583:7: note:   candidate expects 2 arguments, 1 provided
-/usr/include/c++/9.1.0/bits/basic_string.h:579:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::initializer_list<_Tp>, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-  579 |       basic_string(initializer_list<_CharT> __l, const _Alloc& __a = _Alloc())
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:579:45: note:   no known conversion for argument 1 from ‘reg’ to ‘std::initializer_list<char>’
-  579 |       basic_string(initializer_list<_CharT> __l, const _Alloc& __a = _Alloc())
-      |                    ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
-/usr/include/c++/9.1.0/bits/basic_string.h:552:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-  552 |       basic_string(basic_string&& __str) noexcept
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:552:35: note:   no known conversion for argument 1 from ‘reg’ to ‘std::__cxx11::basic_string<char>&&’
-  552 |       basic_string(basic_string&& __str) noexcept
-      |                    ~~~~~~~~~~~~~~~^~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:540:7: note: candidate: ‘template<class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, _CharT, const _Alloc&)’
-  540 |       basic_string(size_type __n, _CharT __c, const _Alloc& __a = _Alloc())
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:540:7: note:   template argument deduction/substitution failed:
-3ac.cpp:184:74: note:   candidate expects 3 arguments, 1 provided
-  184 |   if (selection_index) r-> selection_index = new string (*selection_index);
-      |                                                                          ^
-In file included from /usr/include/c++/9.1.0/string:55,
-                 from /usr/include/c++/9.1.0/bitset:47,
-                 from symbol_table.h:4,
-                 from 3ac.h:4,
-                 from 3ac.cpp:1:
-/usr/include/c++/9.1.0/bits/basic_string.h:525:7: note: candidate: ‘template<class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, const _Alloc&)’
-  525 |       basic_string(const _CharT* __s, const _Alloc& __a = _Alloc())
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:525:7: note:   template argument deduction/substitution failed:
-3ac.cpp:184:58: note:   cannot convert ‘*((reg*)this)->reg::selection_index’ (type ‘reg’) to type ‘const char*’
-  184 |   if (selection_index) r-> selection_index = new string (*selection_index);
-      |                                                          ^~~~~~~~~~~~~~~~
-In file included from /usr/include/c++/9.1.0/string:55,
-                 from /usr/include/c++/9.1.0/bitset:47,
-                 from symbol_table.h:4,
-                 from 3ac.h:4,
-                 from 3ac.cpp:1:
-/usr/include/c++/9.1.0/bits/basic_string.h:510:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
-  510 |       basic_string(const _CharT* __s, size_type __n,
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:510:7: note:   candidate expects 3 arguments, 1 provided
-/usr/include/c++/9.1.0/bits/basic_string.h:492:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
-  492 |       basic_string(const basic_string& __str, size_type __pos,
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:492:7: note:   candidate expects 4 arguments, 1 provided
-/usr/include/c++/9.1.0/bits/basic_string.h:476:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
-  476 |       basic_string(const basic_string& __str, size_type __pos,
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:476:7: note:   candidate expects 3 arguments, 1 provided
-/usr/include/c++/9.1.0/bits/basic_string.h:461:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
-  461 |       basic_string(const basic_string& __str, size_type __pos,
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:461:7: note:   candidate expects 3 arguments, 1 provided
-/usr/include/c++/9.1.0/bits/basic_string.h:448:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-  448 |       basic_string(const basic_string& __str)
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:448:40: note:   no known conversion for argument 1 from ‘reg’ to ‘const std::__cxx11::basic_string<char>&’
-  448 |       basic_string(const basic_string& __str)
-      |                    ~~~~~~~~~~~~~~~~~~~~^~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:440:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-  440 |       basic_string(const _Alloc& __a) _GLIBCXX_NOEXCEPT
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:440:34: note:   no known conversion for argument 1 from ‘reg’ to ‘const std::allocator<char>&’
-  440 |       basic_string(const _Alloc& __a) _GLIBCXX_NOEXCEPT
-      |                    ~~~~~~~~~~~~~~^~~
-/usr/include/c++/9.1.0/bits/basic_string.h:431:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string() [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-  431 |       basic_string()
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:431:7: note:   candidate expects 0 arguments, 1 provided
-/usr/include/c++/9.1.0/bits/basic_string.h:145:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::__sv_wrapper, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-  145 |       basic_string(__sv_wrapper __svw, const _Alloc& __a)
-      |       ^~~~~~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:145:7: note:   candidate expects 2 arguments, 1 provided
+3ac.cpp:97:1: error: no declaration matches ‘reg::reg(reg*, const string*, const string*)’
+   97 | reg::reg(reg *selection_index_,const string *sname_, const string *field_){
+      | ^~~
+In file included from 3ac.cpp:1:
+3ac.h:27:8: note: candidates are: ‘constexpr reg::reg(const reg&)’
+   27 | struct reg {
+      |        ^~~
+3ac.cpp:85:1: note:                 ‘reg::reg(reg*, reg*, std::string*)’
+   85 | reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ //6
+      | ^~~
+In file included from 3ac.cpp:1:
+3ac.h:44:3: note:                 ‘reg::reg(const string*, std::string*, reg*)’
+   44 |   reg(const string *ident, string *stride, reg *selection_index); //6
+      |   ^~~
+3ac.cpp:73:1: note:                 ‘reg::reg(int)’
+   73 | reg::reg(int string_index_){
+      | ^~~
+3ac.cpp:61:1: note:                 ‘reg::reg(std::string*, std::string*)’
+   61 | reg::reg(string *typesize_, string *szof){
+      | ^~~
+3ac.cpp:49:1: note:                 ‘reg::reg(std::string*, std::vector<reg*>*)’
+   49 | reg::reg(string *fname, vector<reg*> *parameters_){
+      | ^~~
+3ac.cpp:37:1: note:                 ‘reg::reg(std::string*, int)’
+   37 | reg::reg(string *stride, int reg_number_){
+      | ^~~
+3ac.cpp:25:1: note:                 ‘reg::reg(const string*)’
+   25 | reg::reg(const string *ident_){
+      | ^~~
+In file included from 3ac.cpp:1:
+3ac.h:27:8: note: ‘struct reg’ defined here
+   27 | struct reg {
+      |        ^~~
+3ac.cpp: In function ‘reg* parse_variable(astree*, symbol_table*)’:
+3ac.cpp:388:69: error: no matching function for call to ‘reg::reg(reg*&, const string*&, const string*&)’
+  388 |       selection = new reg(ret,expr->sname,expr->children[1]->lexinfo);
+      |                                                                     ^
+3ac.cpp:85:1: note: candidate: ‘reg::reg(reg*, reg*, std::string*)’
+   85 | reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ //6
+      | ^~~
+3ac.cpp:85:34: note:   no known conversion for argument 2 from ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} to ‘reg*’
+   85 | reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ //6
+      |                             ~~~~~^~~~~~~~~~~~~~~~
+In file included from 3ac.cpp:1:
+3ac.h:44:3: note: candidate: ‘reg::reg(const string*, std::string*, reg*)’
+   44 |   reg(const string *ident, string *stride, reg *selection_index); //6
+      |   ^~~
+3ac.h:44:21: note:   no known conversion for argument 1 from ‘reg*’ to ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’}
+   44 |   reg(const string *ident, string *stride, reg *selection_index); //6
+      |       ~~~~~~~~~~~~~~^~~~~
+3ac.cpp:73:1: note: candidate: ‘reg::reg(int)’
+   73 | reg::reg(int string_index_){
+      | ^~~
+3ac.cpp:73:1: note:   candidate expects 1 argument, 3 provided
+3ac.cpp:61:1: note: candidate: ‘reg::reg(std::string*, std::string*)’
+   61 | reg::reg(string *typesize_, string *szof){
+      | ^~~
+3ac.cpp:61:1: note:   candidate expects 2 arguments, 3 provided
+3ac.cpp:49:1: note: candidate: ‘reg::reg(std::string*, std::vector<reg*>*)’
+   49 | reg::reg(string *fname, vector<reg*> *parameters_){
+      | ^~~
+3ac.cpp:49:1: note:   candidate expects 2 arguments, 3 provided
+3ac.cpp:37:1: note: candidate: ‘reg::reg(std::string*, int)’
+   37 | reg::reg(string *stride, int reg_number_){
+      | ^~~
+3ac.cpp:37:1: note:   candidate expects 2 arguments, 3 provided
+3ac.cpp:25:1: note: candidate: ‘reg::reg(const string*)’
+   25 | reg::reg(const string *ident_){
+      | ^~~
+3ac.cpp:25:1: note:   candidate expects 1 argument, 3 provided
+In file included from 3ac.cpp:1:
+3ac.h:27:8: note: candidate: ‘constexpr reg::reg(const reg&)’
+   27 | struct reg {
+      |        ^~~
+3ac.h:27:8: note:   candidate expects 1 argument, 3 provided
+3ac.cpp: In function ‘ac3* p_arrow(astree*, symbol_table*)’:
+3ac.cpp:827:70: error: no matching function for call to ‘reg::reg(reg*&, const string*&, const string*&)’
+  827 |   reg *selection = new reg(ret,expr->sname,expr->children[1]->lexinfo);
+      |                                                                      ^
+3ac.cpp:85:1: note: candidate: ‘reg::reg(reg*, reg*, std::string*)’
+   85 | reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ //6
+      | ^~~
+3ac.cpp:85:34: note:   no known conversion for argument 2 from ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} to ‘reg*’
+   85 | reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ //6
+      |                             ~~~~~^~~~~~~~~~~~~~~~
+In file included from 3ac.cpp:1:
+3ac.h:44:3: note: candidate: ‘reg::reg(const string*, std::string*, reg*)’
+   44 |   reg(const string *ident, string *stride, reg *selection_index); //6
+      |   ^~~
+3ac.h:44:21: note:   no known conversion for argument 1 from ‘reg*’ to ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’}
+   44 |   reg(const string *ident, string *stride, reg *selection_index); //6
+      |       ~~~~~~~~~~~~~~^~~~~
+3ac.cpp:73:1: note: candidate: ‘reg::reg(int)’
+   73 | reg::reg(int string_index_){
+      | ^~~
+3ac.cpp:73:1: note:   candidate expects 1 argument, 3 provided
+3ac.cpp:61:1: note: candidate: ‘reg::reg(std::string*, std::string*)’
+   61 | reg::reg(string *typesize_, string *szof){
+      | ^~~
+3ac.cpp:61:1: note:   candidate expects 2 arguments, 3 provided
+3ac.cpp:49:1: note: candidate: ‘reg::reg(std::string*, std::vector<reg*>*)’
+   49 | reg::reg(string *fname, vector<reg*> *parameters_){
+      | ^~~
+3ac.cpp:49:1: note:   candidate expects 2 arguments, 3 provided
+3ac.cpp:37:1: note: candidate: ‘reg::reg(std::string*, int)’
+   37 | reg::reg(string *stride, int reg_number_){
+      | ^~~
+3ac.cpp:37:1: note:   candidate expects 2 arguments, 3 provided
+3ac.cpp:25:1: note: candidate: ‘reg::reg(const string*)’
+   25 | reg::reg(const string *ident_){
+      | ^~~
+3ac.cpp:25:1: note:   candidate expects 1 argument, 3 provided
+In file included from 3ac.cpp:1:
+3ac.h:27:8: note: candidate: ‘constexpr reg::reg(const reg&)’
+   27 | struct reg {
+      |        ^~~
+3ac.h:27:8: note:   candidate expects 1 argument, 3 provided
 make[1]: *** [Makefile:55: 3ac.o] Error 1
 make[1]: Leaving directory '/home/elijah/etc/programs/CMPS104a/cmps104a/lab5'
