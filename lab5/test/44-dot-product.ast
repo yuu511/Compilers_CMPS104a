@@ -72,11 +72,11 @@ BLOCK "{" 7.5.62 {8}
 TYPE_ID "" 7.6.4 {8} int variable local lval vreg (7.6.4)
 INT "int" 7.6.4 {0} 
 IDENT "index" 7.6.8 {0} 
-INTCON "0" 7.6.16 {8} int variable local lval vreg 
+INTCON "0" 7.6.16 {8} int const 
 TYPE_ID "" 7.7.4 {8} int variable local lval vreg (7.7.4)
 INT "int" 7.7.4 {0} 
 IDENT "dot" 7.7.8 {0} 
-INTCON "0" 7.7.14 {8} int variable local lval vreg 
+INTCON "0" 7.7.14 {8} int const 
 WHILE "while" 7.8.4 {8} 
 LT "<" 7.8.17 {8} int vreg 
 IDENT "index" 7.8.11 {8} int variable local lval (7.6.4)
@@ -110,7 +110,7 @@ TYPE_ID "" 7.18.4 {9} int array variable local lval vreg (7.18.4)
 ARRAY "array" 7.18.4 {0} 
 INT "int" 7.18.10 {0} 
 IDENT "vec1" 7.18.15 {0} 
-ALLOC "alloc" 7.18.22 {9} int array variable local lval vreg 
+ALLOC "alloc" 7.18.22 {9} int array 
 ARRAY "array" 7.18.28 {0} 
 INT "int" 7.18.34 {0} 
 INTCON "10" 7.18.41 {9} int const 
@@ -118,14 +118,14 @@ TYPE_ID "" 7.19.4 {9} int array variable local lval vreg (7.19.4)
 ARRAY "array" 7.19.4 {0} 
 INT "int" 7.19.10 {0} 
 IDENT "vec2" 7.19.15 {0} 
-ALLOC "alloc" 7.19.22 {9} int array variable local lval vreg 
+ALLOC "alloc" 7.19.22 {9} int array 
 ARRAY "array" 7.19.28 {0} 
 INT "int" 7.19.34 {0} 
 INTCON "10" 7.19.41 {9} int const 
 TYPE_ID "" 7.20.4 {9} int variable local lval vreg (7.20.4)
 INT "int" 7.20.4 {0} 
 IDENT "index" 7.20.8 {0} 
-INTCON "0" 7.20.16 {9} int variable local lval vreg 
+INTCON "0" 7.20.16 {9} int const 
 WHILE "while" 7.21.4 {9} 
 LT "<" 7.21.17 {9} int vreg 
 IDENT "index" 7.21.11 {9} int variable local lval (7.20.4)

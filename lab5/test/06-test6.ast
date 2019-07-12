@@ -116,12 +116,12 @@ BLOCK "{" 7.14.12 {13}
 TYPE_ID "" 7.15.4 {13} string variable local lval vreg (7.15.4)
 STRING "string" 7.15.4 {0} 
 IDENT "s" 7.15.11 {0} 
-STRINGCON ""a"" 7.15.15 {13} string variable local lval vreg 
+STRINGCON ""a"" 7.15.15 {13} string const 
 TYPE_ID "" 7.16.4 {13} string array variable local lval vreg (7.16.4)
 ARRAY "array" 7.16.4 {0} 
 STRING "string" 7.16.10 {0} 
 IDENT "sa" 7.16.18 {0} 
-ALLOC "alloc" 7.16.23 {13} string array variable local lval vreg 
+ALLOC "alloc" 7.16.23 {13} string array 
 ARRAY "array" 7.16.29 {0} 
 STRING "string" 7.16.35 {0} 
 INTCON "10" 7.16.44 {13} int const 

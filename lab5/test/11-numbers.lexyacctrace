@@ -2,7 +2,7 @@
 Starting parse
 Entering state 0
 Reducing stack by rule 7 (line 58):
--> $$ = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>":)
+-> $$ = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>":)
 Stack now 0
 Entering state 2
 Reading a token: --(end of buffer or a NUL)
@@ -35,149 +35,149 @@ Reading a token: --(end of buffer or a NUL)
 --accepting rule at line 37 ("
 ")
 --accepting rule at line 51 ("void")
-Next token is token TOK_VOID (0x55e856096fc0->{TOK_VOID 6.22.1 "void":)
-Shifting token TOK_VOID (0x55e856096fc0->{TOK_VOID 6.22.1 "void":)
+Next token is token TOK_VOID (0x560f82980f60->{TOK_VOID 6.22.1 "void":)
+Shifting token TOK_VOID (0x560f82980f60->{TOK_VOID 6.22.1 "void":)
 Entering state 5
 Reducing stack by rule 24 (line 114):
-   $1 = token TOK_VOID (0x55e856096fc0->{TOK_VOID 6.22.1 "void":)
--> $$ = nterm plaintype (0x55e856096fc0->{TOK_VOID 6.22.1 "void":)
+   $1 = token TOK_VOID (0x560f82980f60->{TOK_VOID 6.22.1 "void":)
+-> $$ = nterm plaintype (0x560f82980f60->{TOK_VOID 6.22.1 "void":)
 Stack now 0 2
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e856096fc0->{TOK_VOID 6.22.1 "void":)
--> $$ = nterm type (0x55e856096fc0->{TOK_VOID 6.22.1 "void":)
+   $1 = nterm plaintype (0x560f82980f60->{TOK_VOID 6.22.1 "void":)
+-> $$ = nterm type (0x560f82980f60->{TOK_VOID 6.22.1 "void":)
 Stack now 0 2
 Entering state 14
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("fail")
-Next token is token TOK_IDENT (0x55e856098090->{TOK_IDENT 6.22.6 "fail":)
-Shifting token TOK_IDENT (0x55e856098090->{TOK_IDENT 6.22.6 "fail":)
+Next token is token TOK_IDENT (0x560f82982030->{TOK_IDENT 6.22.6 "fail":)
+Shifting token TOK_IDENT (0x560f82982030->{TOK_IDENT 6.22.6 "fail":)
 Entering state 24
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 73 ("(")
-Next token is token '(' (0x55e856098190->{'(' 6.22.11 "(":)
-Shifting token '(' (0x55e856098190->{'(' 6.22.11 "(":)
+Next token is token '(' (0x560f829820f0->{'(' 6.22.11 "(":)
+Shifting token '(' (0x560f829820f0->{'(' 6.22.11 "(":)
 Entering state 31
 Reading a token: --accepting rule at line 47 ("string")
-Next token is token TOK_STRING (0x55e856098250->{TOK_STRING 6.22.12 "string":)
-Shifting token TOK_STRING (0x55e856098250->{TOK_STRING 6.22.12 "string":)
+Next token is token TOK_STRING (0x560f829821b0->{TOK_STRING 6.22.12 "string":)
+Shifting token TOK_STRING (0x560f829821b0->{TOK_STRING 6.22.12 "string":)
 Entering state 7
 Reducing stack by rule 25 (line 115):
-   $1 = token TOK_STRING (0x55e856098250->{TOK_STRING 6.22.12 "string":)
--> $$ = nterm plaintype (0x55e856098250->{TOK_STRING 6.22.12 "string":)
+   $1 = token TOK_STRING (0x560f829821b0->{TOK_STRING 6.22.12 "string":)
+-> $$ = nterm plaintype (0x560f829821b0->{TOK_STRING 6.22.12 "string":)
 Stack now 0 2 14 24 31
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e856098250->{TOK_STRING 6.22.12 "string":)
--> $$ = nterm type (0x55e856098250->{TOK_STRING 6.22.12 "string":)
+   $1 = nterm plaintype (0x560f829821b0->{TOK_STRING 6.22.12 "string":)
+-> $$ = nterm type (0x560f829821b0->{TOK_STRING 6.22.12 "string":)
 Stack now 0 2 14 24 31
 Entering state 56
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("expr")
-Next token is token TOK_IDENT (0x55e856098310->{TOK_IDENT 6.22.19 "expr":)
-Shifting token TOK_IDENT (0x55e856098310->{TOK_IDENT 6.22.19 "expr":)
+Next token is token TOK_IDENT (0x560f82982270->{TOK_IDENT 6.22.19 "expr":)
+Shifting token TOK_IDENT (0x560f82982270->{TOK_IDENT 6.22.19 "expr":)
 Entering state 90
 Reducing stack by rule 72 (line 260):
-   $1 = token '(' (0x55e856098190->{'(' 6.22.11 "(":)
-   $2 = nterm type (0x55e856098250->{TOK_STRING 6.22.12 "string":)
-   $3 = token TOK_IDENT (0x55e856098310->{TOK_IDENT 6.22.19 "expr":)
--> $$ = nterm fargs2 (0x55e856098190->{TOK_PARAM 6.22.11 "(": 0x55e8560983d0)
+   $1 = token '(' (0x560f829820f0->{'(' 6.22.11 "(":)
+   $2 = nterm type (0x560f829821b0->{TOK_STRING 6.22.12 "string":)
+   $3 = token TOK_IDENT (0x560f82982270->{TOK_IDENT 6.22.19 "expr":)
+-> $$ = nterm fargs2 (0x560f829820f0->{TOK_PARAM 6.22.11 "(": 0x560f82982390)
 Stack now 0 2 14 24
 Entering state 33
 Reading a token: --accepting rule at line 71 (",")
-Next token is token ',' (0x55e8560984b0->{',' 6.22.23 ",":)
-Shifting token ',' (0x55e8560984b0->{',' 6.22.23 ",":)
+Next token is token ',' (0x560f82982470->{',' 6.22.23 ",":)
+Shifting token ',' (0x560f82982470->{',' 6.22.23 ",":)
 Entering state 58
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 47 ("string")
-Next token is token TOK_STRING (0x55e856098530->{TOK_STRING 6.22.25 "string":)
-Shifting token TOK_STRING (0x55e856098530->{TOK_STRING 6.22.25 "string":)
+Next token is token TOK_STRING (0x560f82982530->{TOK_STRING 6.22.25 "string":)
+Shifting token TOK_STRING (0x560f82982530->{TOK_STRING 6.22.25 "string":)
 Entering state 7
 Reducing stack by rule 25 (line 115):
-   $1 = token TOK_STRING (0x55e856098530->{TOK_STRING 6.22.25 "string":)
--> $$ = nterm plaintype (0x55e856098530->{TOK_STRING 6.22.25 "string":)
+   $1 = token TOK_STRING (0x560f82982530->{TOK_STRING 6.22.25 "string":)
+-> $$ = nterm plaintype (0x560f82982530->{TOK_STRING 6.22.25 "string":)
 Stack now 0 2 14 24 33 58
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e856098530->{TOK_STRING 6.22.25 "string":)
--> $$ = nterm type (0x55e856098530->{TOK_STRING 6.22.25 "string":)
+   $1 = nterm plaintype (0x560f82982530->{TOK_STRING 6.22.25 "string":)
+-> $$ = nterm type (0x560f82982530->{TOK_STRING 6.22.25 "string":)
 Stack now 0 2 14 24 33 58
 Entering state 92
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("file")
-Next token is token TOK_IDENT (0x55e8560985b0->{TOK_IDENT 6.22.32 "file":)
-Shifting token TOK_IDENT (0x55e8560985b0->{TOK_IDENT 6.22.32 "file":)
+Next token is token TOK_IDENT (0x560f829825b0->{TOK_IDENT 6.22.32 "file":)
+Shifting token TOK_IDENT (0x560f829825b0->{TOK_IDENT 6.22.32 "file":)
 Entering state 130
 Reducing stack by rule 73 (line 264):
-   $1 = nterm fargs2 (0x55e856098190->{TOK_PARAM 6.22.11 "(": 0x55e8560983d0)
-   $2 = token ',' (0x55e8560984b0->{',' 6.22.23 ",":)
-   $3 = nterm type (0x55e856098530->{TOK_STRING 6.22.25 "string":)
-   $4 = token TOK_IDENT (0x55e8560985b0->{TOK_IDENT 6.22.32 "file":)
-Deleting astree (0x55e8560984b0->{',' 6.22.23 ",":)
--> $$ = nterm fargs2 (0x55e856098190->{TOK_PARAM 6.22.11 "(": 0x55e8560983d0 0x55e856098670)
+   $1 = nterm fargs2 (0x560f829820f0->{TOK_PARAM 6.22.11 "(": 0x560f82982390)
+   $2 = token ',' (0x560f82982470->{',' 6.22.23 ",":)
+   $3 = nterm type (0x560f82982530->{TOK_STRING 6.22.25 "string":)
+   $4 = token TOK_IDENT (0x560f829825b0->{TOK_IDENT 6.22.32 "file":)
+Deleting astree (0x560f82982470->{',' 6.22.23 ",":)
+-> $$ = nterm fargs2 (0x560f829820f0->{TOK_PARAM 6.22.11 "(": 0x560f82982390 0x560f82982670)
 Stack now 0 2 14 24
 Entering state 33
 Reading a token: --accepting rule at line 71 (",")
-Next token is token ',' (0x55e8560984b0->{',' 6.22.36 ",":)
-Shifting token ',' (0x55e8560984b0->{',' 6.22.36 ",":)
+Next token is token ',' (0x560f82982470->{',' 6.22.36 ",":)
+Shifting token ',' (0x560f82982470->{',' 6.22.36 ",":)
 Entering state 58
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 46 ("int")
-Next token is token TOK_INT (0x55e856098730->{TOK_INT 6.22.38 "int":)
-Shifting token TOK_INT (0x55e856098730->{TOK_INT 6.22.38 "int":)
+Next token is token TOK_INT (0x560f82982730->{TOK_INT 6.22.38 "int":)
+Shifting token TOK_INT (0x560f82982730->{TOK_INT 6.22.38 "int":)
 Entering state 6
 Reducing stack by rule 23 (line 113):
-   $1 = token TOK_INT (0x55e856098730->{TOK_INT 6.22.38 "int":)
--> $$ = nterm plaintype (0x55e856098730->{TOK_INT 6.22.38 "int":)
+   $1 = token TOK_INT (0x560f82982730->{TOK_INT 6.22.38 "int":)
+-> $$ = nterm plaintype (0x560f82982730->{TOK_INT 6.22.38 "int":)
 Stack now 0 2 14 24 33 58
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e856098730->{TOK_INT 6.22.38 "int":)
--> $$ = nterm type (0x55e856098730->{TOK_INT 6.22.38 "int":)
+   $1 = nterm plaintype (0x560f82982730->{TOK_INT 6.22.38 "int":)
+-> $$ = nterm type (0x560f82982730->{TOK_INT 6.22.38 "int":)
 Stack now 0 2 14 24 33 58
 Entering state 92
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("line")
-Next token is token TOK_IDENT (0x55e8560987f0->{TOK_IDENT 6.22.42 "line":)
-Shifting token TOK_IDENT (0x55e8560987f0->{TOK_IDENT 6.22.42 "line":)
+Next token is token TOK_IDENT (0x560f829827f0->{TOK_IDENT 6.22.42 "line":)
+Shifting token TOK_IDENT (0x560f829827f0->{TOK_IDENT 6.22.42 "line":)
 Entering state 130
 Reducing stack by rule 73 (line 264):
-   $1 = nterm fargs2 (0x55e856098190->{TOK_PARAM 6.22.11 "(": 0x55e8560983d0 0x55e856098670)
-   $2 = token ',' (0x55e8560984b0->{',' 6.22.36 ",":)
-   $3 = nterm type (0x55e856098730->{TOK_INT 6.22.38 "int":)
-   $4 = token TOK_IDENT (0x55e8560987f0->{TOK_IDENT 6.22.42 "line":)
-Deleting astree (0x55e8560984b0->{',' 6.22.36 ",":)
--> $$ = nterm fargs2 (0x55e856098190->{TOK_PARAM 6.22.11 "(": 0x55e8560983d0 0x55e856098670 0x55e8560988b0)
+   $1 = nterm fargs2 (0x560f829820f0->{TOK_PARAM 6.22.11 "(": 0x560f82982390 0x560f82982670)
+   $2 = token ',' (0x560f82982470->{',' 6.22.36 ",":)
+   $3 = nterm type (0x560f82982730->{TOK_INT 6.22.38 "int":)
+   $4 = token TOK_IDENT (0x560f829827f0->{TOK_IDENT 6.22.42 "line":)
+Deleting astree (0x560f82982470->{',' 6.22.36 ",":)
+-> $$ = nterm fargs2 (0x560f829820f0->{TOK_PARAM 6.22.11 "(": 0x560f82982390 0x560f82982670 0x560f829828b0)
 Stack now 0 2 14 24
 Entering state 33
 Reading a token: --accepting rule at line 74 (")")
-Next token is token ')' (0x55e8560984b0->{')' 6.22.46 ")":)
-Shifting token ')' (0x55e8560984b0->{')' 6.22.46 ")":)
+Next token is token ')' (0x560f82982470->{')' 6.22.46 ")":)
+Shifting token ')' (0x560f82982470->{')' 6.22.46 ")":)
 Entering state 57
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e856098990->{';' 6.22.47 ";":)
-Shifting token ';' (0x55e856098990->{';' 6.22.47 ";":)
+Next token is token ';' (0x560f82982a50->{';' 6.22.47 ";":)
+Shifting token ';' (0x560f82982a50->{';' 6.22.47 ";":)
 Entering state 85
 Reducing stack by rule 74 (line 271):
-   $1 = token ';' (0x55e856098990->{';' 6.22.47 ";":)
-Deleting astree (0x55e856098990->{';' 6.22.47 ";":)
+   $1 = token ';' (0x560f82982a50->{';' 6.22.47 ";":)
+Deleting astree (0x560f82982a50->{';' 6.22.47 ";":)
 -> $$ = nterm fend (nullptr)
 Stack now 0 2 14 24 33 57
 Entering state 91
 Reducing stack by rule 70 (line 243):
-   $1 = nterm type (0x55e856096fc0->{TOK_VOID 6.22.1 "void":)
-   $2 = token TOK_IDENT (0x55e856098090->{TOK_IDENT 6.22.6 "fail":)
-   $3 = nterm fargs2 (0x55e856098190->{TOK_PARAM 6.22.11 "(": 0x55e8560983d0 0x55e856098670 0x55e8560988b0)
-   $4 = token ')' (0x55e8560984b0->{')' 6.22.46 ")":)
+   $1 = nterm type (0x560f82980f60->{TOK_VOID 6.22.1 "void":)
+   $2 = token TOK_IDENT (0x560f82982030->{TOK_IDENT 6.22.6 "fail":)
+   $3 = nterm fargs2 (0x560f829820f0->{TOK_PARAM 6.22.11 "(": 0x560f82982390 0x560f82982670 0x560f829828b0)
+   $4 = token ')' (0x560f82982470->{')' 6.22.46 ")":)
    $5 = nterm fend (nullptr)
-Deleting astree (0x55e8560984b0->{')' 6.22.46 ")":)
--> $$ = nterm function (0x55e856098990->{TOK_FUNCTION 6.22.1 "": 0x55e856098a50 0x55e856098190)
+Deleting astree (0x560f82982470->{')' 6.22.46 ")":)
+-> $$ = nterm function (0x560f82982a50->{TOK_FUNCTION 6.22.1 "": 0x560f82982b10 0x560f829820f0)
 Stack now 0 2
 Entering state 16
 Reducing stack by rule 3 (line 54):
-   $1 = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>":)
-   $2 = nterm function (0x55e856098990->{TOK_FUNCTION 6.22.1 "": 0x55e856098a50 0x55e856098190)
--> $$ = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990)
+   $1 = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>":)
+   $2 = nterm function (0x560f82982a50->{TOK_FUNCTION 6.22.1 "": 0x560f82982b10 0x560f829820f0)
+-> $$ = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50)
 Stack now 0
 Entering state 2
 Reading a token: --accepting rule at line 37 ("
@@ -185,247 +185,247 @@ Reading a token: --accepting rule at line 37 ("
 --accepting rule at line 37 ("
 ")
 --accepting rule at line 51 ("void")
-Next token is token TOK_VOID (0x55e8560984b0->{TOK_VOID 6.24.1 "void":)
-Shifting token TOK_VOID (0x55e8560984b0->{TOK_VOID 6.24.1 "void":)
+Next token is token TOK_VOID (0x560f82982470->{TOK_VOID 6.24.1 "void":)
+Shifting token TOK_VOID (0x560f82982470->{TOK_VOID 6.24.1 "void":)
 Entering state 5
 Reducing stack by rule 24 (line 114):
-   $1 = token TOK_VOID (0x55e8560984b0->{TOK_VOID 6.24.1 "void":)
--> $$ = nterm plaintype (0x55e8560984b0->{TOK_VOID 6.24.1 "void":)
+   $1 = token TOK_VOID (0x560f82982470->{TOK_VOID 6.24.1 "void":)
+-> $$ = nterm plaintype (0x560f82982470->{TOK_VOID 6.24.1 "void":)
 Stack now 0 2
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e8560984b0->{TOK_VOID 6.24.1 "void":)
--> $$ = nterm type (0x55e8560984b0->{TOK_VOID 6.24.1 "void":)
+   $1 = nterm plaintype (0x560f82982470->{TOK_VOID 6.24.1 "void":)
+-> $$ = nterm type (0x560f82982470->{TOK_VOID 6.24.1 "void":)
 Stack now 0 2
 Entering state 14
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("putchr")
-Next token is token TOK_IDENT (0x55e856098af0->{TOK_IDENT 6.24.6 "putchr":)
-Shifting token TOK_IDENT (0x55e856098af0->{TOK_IDENT 6.24.6 "putchr":)
+Next token is token TOK_IDENT (0x560f82982bb0->{TOK_IDENT 6.24.6 "putchr":)
+Shifting token TOK_IDENT (0x560f82982bb0->{TOK_IDENT 6.24.6 "putchr":)
 Entering state 24
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 73 ("(")
-Next token is token '(' (0x55e856098bb0->{'(' 6.24.13 "(":)
-Shifting token '(' (0x55e856098bb0->{'(' 6.24.13 "(":)
+Next token is token '(' (0x560f82982c70->{'(' 6.24.13 "(":)
+Shifting token '(' (0x560f82982c70->{'(' 6.24.13 "(":)
 Entering state 31
 Reading a token: --accepting rule at line 46 ("int")
-Next token is token TOK_INT (0x55e856098c30->{TOK_INT 6.24.14 "int":)
-Shifting token TOK_INT (0x55e856098c30->{TOK_INT 6.24.14 "int":)
+Next token is token TOK_INT (0x560f82982cf0->{TOK_INT 6.24.14 "int":)
+Shifting token TOK_INT (0x560f82982cf0->{TOK_INT 6.24.14 "int":)
 Entering state 6
 Reducing stack by rule 23 (line 113):
-   $1 = token TOK_INT (0x55e856098c30->{TOK_INT 6.24.14 "int":)
--> $$ = nterm plaintype (0x55e856098c30->{TOK_INT 6.24.14 "int":)
+   $1 = token TOK_INT (0x560f82982cf0->{TOK_INT 6.24.14 "int":)
+-> $$ = nterm plaintype (0x560f82982cf0->{TOK_INT 6.24.14 "int":)
 Stack now 0 2 14 24 31
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e856098c30->{TOK_INT 6.24.14 "int":)
--> $$ = nterm type (0x55e856098c30->{TOK_INT 6.24.14 "int":)
+   $1 = nterm plaintype (0x560f82982cf0->{TOK_INT 6.24.14 "int":)
+-> $$ = nterm type (0x560f82982cf0->{TOK_INT 6.24.14 "int":)
 Stack now 0 2 14 24 31
 Entering state 56
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("chr")
-Next token is token TOK_IDENT (0x55e856098cb0->{TOK_IDENT 6.24.18 "chr":)
-Shifting token TOK_IDENT (0x55e856098cb0->{TOK_IDENT 6.24.18 "chr":)
+Next token is token TOK_IDENT (0x560f82982d70->{TOK_IDENT 6.24.18 "chr":)
+Shifting token TOK_IDENT (0x560f82982d70->{TOK_IDENT 6.24.18 "chr":)
 Entering state 90
 Reducing stack by rule 72 (line 260):
-   $1 = token '(' (0x55e856098bb0->{'(' 6.24.13 "(":)
-   $2 = nterm type (0x55e856098c30->{TOK_INT 6.24.14 "int":)
-   $3 = token TOK_IDENT (0x55e856098cb0->{TOK_IDENT 6.24.18 "chr":)
--> $$ = nterm fargs2 (0x55e856098bb0->{TOK_PARAM 6.24.13 "(": 0x55e856098d70)
+   $1 = token '(' (0x560f82982c70->{'(' 6.24.13 "(":)
+   $2 = nterm type (0x560f82982cf0->{TOK_INT 6.24.14 "int":)
+   $3 = token TOK_IDENT (0x560f82982d70->{TOK_IDENT 6.24.18 "chr":)
+-> $$ = nterm fargs2 (0x560f82982c70->{TOK_PARAM 6.24.13 "(": 0x560f82982e30)
 Stack now 0 2 14 24
 Entering state 33
 Reading a token: --accepting rule at line 74 (")")
-Next token is token ')' (0x55e856098e30->{')' 6.24.21 ")":)
-Shifting token ')' (0x55e856098e30->{')' 6.24.21 ")":)
+Next token is token ')' (0x560f82982ef0->{')' 6.24.21 ")":)
+Shifting token ')' (0x560f82982ef0->{')' 6.24.21 ")":)
 Entering state 57
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e856098eb0->{';' 6.24.22 ";":)
-Shifting token ';' (0x55e856098eb0->{';' 6.24.22 ";":)
+Next token is token ';' (0x560f82982f70->{';' 6.24.22 ";":)
+Shifting token ';' (0x560f82982f70->{';' 6.24.22 ";":)
 Entering state 85
 Reducing stack by rule 74 (line 271):
-   $1 = token ';' (0x55e856098eb0->{';' 6.24.22 ";":)
-Deleting astree (0x55e856098eb0->{';' 6.24.22 ";":)
+   $1 = token ';' (0x560f82982f70->{';' 6.24.22 ";":)
+Deleting astree (0x560f82982f70->{';' 6.24.22 ";":)
 -> $$ = nterm fend (nullptr)
 Stack now 0 2 14 24 33 57
 Entering state 91
 Reducing stack by rule 70 (line 243):
-   $1 = nterm type (0x55e8560984b0->{TOK_VOID 6.24.1 "void":)
-   $2 = token TOK_IDENT (0x55e856098af0->{TOK_IDENT 6.24.6 "putchr":)
-   $3 = nterm fargs2 (0x55e856098bb0->{TOK_PARAM 6.24.13 "(": 0x55e856098d70)
-   $4 = token ')' (0x55e856098e30->{')' 6.24.21 ")":)
+   $1 = nterm type (0x560f82982470->{TOK_VOID 6.24.1 "void":)
+   $2 = token TOK_IDENT (0x560f82982bb0->{TOK_IDENT 6.24.6 "putchr":)
+   $3 = nterm fargs2 (0x560f82982c70->{TOK_PARAM 6.24.13 "(": 0x560f82982e30)
+   $4 = token ')' (0x560f82982ef0->{')' 6.24.21 ")":)
    $5 = nterm fend (nullptr)
-Deleting astree (0x55e856098e30->{')' 6.24.21 ")":)
--> $$ = nterm function (0x55e856098eb0->{TOK_FUNCTION 6.24.1 "": 0x55e856098f30 0x55e856098bb0)
+Deleting astree (0x560f82982ef0->{')' 6.24.21 ")":)
+-> $$ = nterm function (0x560f82982f70->{TOK_FUNCTION 6.24.1 "": 0x560f82982ff0 0x560f82982c70)
 Stack now 0 2
 Entering state 16
 Reducing stack by rule 3 (line 54):
-   $1 = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990)
-   $2 = nterm function (0x55e856098eb0->{TOK_FUNCTION 6.24.1 "": 0x55e856098f30 0x55e856098bb0)
--> $$ = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0)
+   $1 = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50)
+   $2 = nterm function (0x560f82982f70->{TOK_FUNCTION 6.24.1 "": 0x560f82982ff0 0x560f82982c70)
+-> $$ = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70)
 Stack now 0
 Entering state 2
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 51 ("void")
-Next token is token TOK_VOID (0x55e856098e30->{TOK_VOID 6.25.1 "void":)
-Shifting token TOK_VOID (0x55e856098e30->{TOK_VOID 6.25.1 "void":)
+Next token is token TOK_VOID (0x560f82982ef0->{TOK_VOID 6.25.1 "void":)
+Shifting token TOK_VOID (0x560f82982ef0->{TOK_VOID 6.25.1 "void":)
 Entering state 5
 Reducing stack by rule 24 (line 114):
-   $1 = token TOK_VOID (0x55e856098e30->{TOK_VOID 6.25.1 "void":)
--> $$ = nterm plaintype (0x55e856098e30->{TOK_VOID 6.25.1 "void":)
+   $1 = token TOK_VOID (0x560f82982ef0->{TOK_VOID 6.25.1 "void":)
+-> $$ = nterm plaintype (0x560f82982ef0->{TOK_VOID 6.25.1 "void":)
 Stack now 0 2
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e856098e30->{TOK_VOID 6.25.1 "void":)
--> $$ = nterm type (0x55e856098e30->{TOK_VOID 6.25.1 "void":)
+   $1 = nterm plaintype (0x560f82982ef0->{TOK_VOID 6.25.1 "void":)
+-> $$ = nterm type (0x560f82982ef0->{TOK_VOID 6.25.1 "void":)
 Stack now 0 2
 Entering state 14
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("putint")
-Next token is token TOK_IDENT (0x55e856099010->{TOK_IDENT 6.25.6 "putint":)
-Shifting token TOK_IDENT (0x55e856099010->{TOK_IDENT 6.25.6 "putint":)
+Next token is token TOK_IDENT (0x560f829830d0->{TOK_IDENT 6.25.6 "putint":)
+Shifting token TOK_IDENT (0x560f829830d0->{TOK_IDENT 6.25.6 "putint":)
 Entering state 24
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 73 ("(")
-Next token is token '(' (0x55e8560990d0->{'(' 6.25.13 "(":)
-Shifting token '(' (0x55e8560990d0->{'(' 6.25.13 "(":)
+Next token is token '(' (0x560f82983190->{'(' 6.25.13 "(":)
+Shifting token '(' (0x560f82983190->{'(' 6.25.13 "(":)
 Entering state 31
 Reading a token: --accepting rule at line 46 ("int")
-Next token is token TOK_INT (0x55e856099150->{TOK_INT 6.25.14 "int":)
-Shifting token TOK_INT (0x55e856099150->{TOK_INT 6.25.14 "int":)
+Next token is token TOK_INT (0x560f82983210->{TOK_INT 6.25.14 "int":)
+Shifting token TOK_INT (0x560f82983210->{TOK_INT 6.25.14 "int":)
 Entering state 6
 Reducing stack by rule 23 (line 113):
-   $1 = token TOK_INT (0x55e856099150->{TOK_INT 6.25.14 "int":)
--> $$ = nterm plaintype (0x55e856099150->{TOK_INT 6.25.14 "int":)
+   $1 = token TOK_INT (0x560f82983210->{TOK_INT 6.25.14 "int":)
+-> $$ = nterm plaintype (0x560f82983210->{TOK_INT 6.25.14 "int":)
 Stack now 0 2 14 24 31
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e856099150->{TOK_INT 6.25.14 "int":)
--> $$ = nterm type (0x55e856099150->{TOK_INT 6.25.14 "int":)
+   $1 = nterm plaintype (0x560f82983210->{TOK_INT 6.25.14 "int":)
+-> $$ = nterm type (0x560f82983210->{TOK_INT 6.25.14 "int":)
 Stack now 0 2 14 24 31
 Entering state 56
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("num")
-Next token is token TOK_IDENT (0x55e8560991d0->{TOK_IDENT 6.25.18 "num":)
-Shifting token TOK_IDENT (0x55e8560991d0->{TOK_IDENT 6.25.18 "num":)
+Next token is token TOK_IDENT (0x560f82983290->{TOK_IDENT 6.25.18 "num":)
+Shifting token TOK_IDENT (0x560f82983290->{TOK_IDENT 6.25.18 "num":)
 Entering state 90
 Reducing stack by rule 72 (line 260):
-   $1 = token '(' (0x55e8560990d0->{'(' 6.25.13 "(":)
-   $2 = nterm type (0x55e856099150->{TOK_INT 6.25.14 "int":)
-   $3 = token TOK_IDENT (0x55e8560991d0->{TOK_IDENT 6.25.18 "num":)
--> $$ = nterm fargs2 (0x55e8560990d0->{TOK_PARAM 6.25.13 "(": 0x55e8560993c0)
+   $1 = token '(' (0x560f82983190->{'(' 6.25.13 "(":)
+   $2 = nterm type (0x560f82983210->{TOK_INT 6.25.14 "int":)
+   $3 = token TOK_IDENT (0x560f82983290->{TOK_IDENT 6.25.18 "num":)
+-> $$ = nterm fargs2 (0x560f82983190->{TOK_PARAM 6.25.13 "(": 0x560f82983350)
 Stack now 0 2 14 24
 Entering state 33
 Reading a token: --accepting rule at line 74 (")")
-Next token is token ')' (0x55e856099460->{')' 6.25.21 ")":)
-Shifting token ')' (0x55e856099460->{')' 6.25.21 ")":)
+Next token is token ')' (0x560f829833f0->{')' 6.25.21 ")":)
+Shifting token ')' (0x560f829833f0->{')' 6.25.21 ")":)
 Entering state 57
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e8560994e0->{';' 6.25.22 ";":)
-Shifting token ';' (0x55e8560994e0->{';' 6.25.22 ";":)
+Next token is token ';' (0x560f82983470->{';' 6.25.22 ";":)
+Shifting token ';' (0x560f82983470->{';' 6.25.22 ";":)
 Entering state 85
 Reducing stack by rule 74 (line 271):
-   $1 = token ';' (0x55e8560994e0->{';' 6.25.22 ";":)
-Deleting astree (0x55e8560994e0->{';' 6.25.22 ";":)
+   $1 = token ';' (0x560f82983470->{';' 6.25.22 ";":)
+Deleting astree (0x560f82983470->{';' 6.25.22 ";":)
 -> $$ = nterm fend (nullptr)
 Stack now 0 2 14 24 33 57
 Entering state 91
 Reducing stack by rule 70 (line 243):
-   $1 = nterm type (0x55e856098e30->{TOK_VOID 6.25.1 "void":)
-   $2 = token TOK_IDENT (0x55e856099010->{TOK_IDENT 6.25.6 "putint":)
-   $3 = nterm fargs2 (0x55e8560990d0->{TOK_PARAM 6.25.13 "(": 0x55e8560993c0)
-   $4 = token ')' (0x55e856099460->{')' 6.25.21 ")":)
+   $1 = nterm type (0x560f82982ef0->{TOK_VOID 6.25.1 "void":)
+   $2 = token TOK_IDENT (0x560f829830d0->{TOK_IDENT 6.25.6 "putint":)
+   $3 = nterm fargs2 (0x560f82983190->{TOK_PARAM 6.25.13 "(": 0x560f82983350)
+   $4 = token ')' (0x560f829833f0->{')' 6.25.21 ")":)
    $5 = nterm fend (nullptr)
-Deleting astree (0x55e856099460->{')' 6.25.21 ")":)
--> $$ = nterm function (0x55e8560994e0->{TOK_FUNCTION 6.25.1 "": 0x55e856099560 0x55e8560990d0)
+Deleting astree (0x560f829833f0->{')' 6.25.21 ")":)
+-> $$ = nterm function (0x560f82983470->{TOK_FUNCTION 6.25.1 "": 0x560f829834f0 0x560f82983190)
 Stack now 0 2
 Entering state 16
 Reducing stack by rule 3 (line 54):
-   $1 = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0)
-   $2 = nterm function (0x55e8560994e0->{TOK_FUNCTION 6.25.1 "": 0x55e856099560 0x55e8560990d0)
--> $$ = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0 0x55e8560994e0)
+   $1 = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70)
+   $2 = nterm function (0x560f82983470->{TOK_FUNCTION 6.25.1 "": 0x560f829834f0 0x560f82983190)
+-> $$ = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70 0x560f82983470)
 Stack now 0
 Entering state 2
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 51 ("void")
-Next token is token TOK_VOID (0x55e856099460->{TOK_VOID 6.26.1 "void":)
-Shifting token TOK_VOID (0x55e856099460->{TOK_VOID 6.26.1 "void":)
+Next token is token TOK_VOID (0x560f829833f0->{TOK_VOID 6.26.1 "void":)
+Shifting token TOK_VOID (0x560f829833f0->{TOK_VOID 6.26.1 "void":)
 Entering state 5
 Reducing stack by rule 24 (line 114):
-   $1 = token TOK_VOID (0x55e856099460->{TOK_VOID 6.26.1 "void":)
--> $$ = nterm plaintype (0x55e856099460->{TOK_VOID 6.26.1 "void":)
+   $1 = token TOK_VOID (0x560f829833f0->{TOK_VOID 6.26.1 "void":)
+-> $$ = nterm plaintype (0x560f829833f0->{TOK_VOID 6.26.1 "void":)
 Stack now 0 2
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e856099460->{TOK_VOID 6.26.1 "void":)
--> $$ = nterm type (0x55e856099460->{TOK_VOID 6.26.1 "void":)
+   $1 = nterm plaintype (0x560f829833f0->{TOK_VOID 6.26.1 "void":)
+-> $$ = nterm type (0x560f829833f0->{TOK_VOID 6.26.1 "void":)
 Stack now 0 2
 Entering state 14
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("putstr")
-Next token is token TOK_IDENT (0x55e856099670->{TOK_IDENT 6.26.6 "putstr":)
-Shifting token TOK_IDENT (0x55e856099670->{TOK_IDENT 6.26.6 "putstr":)
+Next token is token TOK_IDENT (0x560f82983600->{TOK_IDENT 6.26.6 "putstr":)
+Shifting token TOK_IDENT (0x560f82983600->{TOK_IDENT 6.26.6 "putstr":)
 Entering state 24
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 73 ("(")
-Next token is token '(' (0x55e856099730->{'(' 6.26.13 "(":)
-Shifting token '(' (0x55e856099730->{'(' 6.26.13 "(":)
+Next token is token '(' (0x560f829836c0->{'(' 6.26.13 "(":)
+Shifting token '(' (0x560f829836c0->{'(' 6.26.13 "(":)
 Entering state 31
 Reading a token: --accepting rule at line 47 ("string")
-Next token is token TOK_STRING (0x55e8560997b0->{TOK_STRING 6.26.14 "string":)
-Shifting token TOK_STRING (0x55e8560997b0->{TOK_STRING 6.26.14 "string":)
+Next token is token TOK_STRING (0x560f82983740->{TOK_STRING 6.26.14 "string":)
+Shifting token TOK_STRING (0x560f82983740->{TOK_STRING 6.26.14 "string":)
 Entering state 7
 Reducing stack by rule 25 (line 115):
-   $1 = token TOK_STRING (0x55e8560997b0->{TOK_STRING 6.26.14 "string":)
--> $$ = nterm plaintype (0x55e8560997b0->{TOK_STRING 6.26.14 "string":)
+   $1 = token TOK_STRING (0x560f82983740->{TOK_STRING 6.26.14 "string":)
+-> $$ = nterm plaintype (0x560f82983740->{TOK_STRING 6.26.14 "string":)
 Stack now 0 2 14 24 31
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e8560997b0->{TOK_STRING 6.26.14 "string":)
--> $$ = nterm type (0x55e8560997b0->{TOK_STRING 6.26.14 "string":)
+   $1 = nterm plaintype (0x560f82983740->{TOK_STRING 6.26.14 "string":)
+-> $$ = nterm type (0x560f82983740->{TOK_STRING 6.26.14 "string":)
 Stack now 0 2 14 24 31
 Entering state 56
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("str")
-Next token is token TOK_IDENT (0x55e856099830->{TOK_IDENT 6.26.21 "str":)
-Shifting token TOK_IDENT (0x55e856099830->{TOK_IDENT 6.26.21 "str":)
+Next token is token TOK_IDENT (0x560f829837c0->{TOK_IDENT 6.26.21 "str":)
+Shifting token TOK_IDENT (0x560f829837c0->{TOK_IDENT 6.26.21 "str":)
 Entering state 90
 Reducing stack by rule 72 (line 260):
-   $1 = token '(' (0x55e856099730->{'(' 6.26.13 "(":)
-   $2 = nterm type (0x55e8560997b0->{TOK_STRING 6.26.14 "string":)
-   $3 = token TOK_IDENT (0x55e856099830->{TOK_IDENT 6.26.21 "str":)
--> $$ = nterm fargs2 (0x55e856099730->{TOK_PARAM 6.26.13 "(": 0x55e8560998f0)
+   $1 = token '(' (0x560f829836c0->{'(' 6.26.13 "(":)
+   $2 = nterm type (0x560f82983740->{TOK_STRING 6.26.14 "string":)
+   $3 = token TOK_IDENT (0x560f829837c0->{TOK_IDENT 6.26.21 "str":)
+-> $$ = nterm fargs2 (0x560f829836c0->{TOK_PARAM 6.26.13 "(": 0x560f82983880)
 Stack now 0 2 14 24
 Entering state 33
 Reading a token: --accepting rule at line 74 (")")
-Next token is token ')' (0x55e856099970->{')' 6.26.24 ")":)
-Shifting token ')' (0x55e856099970->{')' 6.26.24 ")":)
+Next token is token ')' (0x560f82983900->{')' 6.26.24 ")":)
+Shifting token ')' (0x560f82983900->{')' 6.26.24 ")":)
 Entering state 57
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e8560999f0->{';' 6.26.25 ";":)
-Shifting token ';' (0x55e8560999f0->{';' 6.26.25 ";":)
+Next token is token ';' (0x560f82983980->{';' 6.26.25 ";":)
+Shifting token ';' (0x560f82983980->{';' 6.26.25 ";":)
 Entering state 85
 Reducing stack by rule 74 (line 271):
-   $1 = token ';' (0x55e8560999f0->{';' 6.26.25 ";":)
-Deleting astree (0x55e8560999f0->{';' 6.26.25 ";":)
+   $1 = token ';' (0x560f82983980->{';' 6.26.25 ";":)
+Deleting astree (0x560f82983980->{';' 6.26.25 ";":)
 -> $$ = nterm fend (nullptr)
 Stack now 0 2 14 24 33 57
 Entering state 91
 Reducing stack by rule 70 (line 243):
-   $1 = nterm type (0x55e856099460->{TOK_VOID 6.26.1 "void":)
-   $2 = token TOK_IDENT (0x55e856099670->{TOK_IDENT 6.26.6 "putstr":)
-   $3 = nterm fargs2 (0x55e856099730->{TOK_PARAM 6.26.13 "(": 0x55e8560998f0)
-   $4 = token ')' (0x55e856099970->{')' 6.26.24 ")":)
+   $1 = nterm type (0x560f829833f0->{TOK_VOID 6.26.1 "void":)
+   $2 = token TOK_IDENT (0x560f82983600->{TOK_IDENT 6.26.6 "putstr":)
+   $3 = nterm fargs2 (0x560f829836c0->{TOK_PARAM 6.26.13 "(": 0x560f82983880)
+   $4 = token ')' (0x560f82983900->{')' 6.26.24 ")":)
    $5 = nterm fend (nullptr)
-Deleting astree (0x55e856099970->{')' 6.26.24 ")":)
--> $$ = nterm function (0x55e8560999f0->{TOK_FUNCTION 6.26.1 "": 0x55e856099a70 0x55e856099730)
+Deleting astree (0x560f82983900->{')' 6.26.24 ")":)
+-> $$ = nterm function (0x560f82983980->{TOK_FUNCTION 6.26.1 "": 0x560f82983a00 0x560f829836c0)
 Stack now 0 2
 Entering state 16
 Reducing stack by rule 3 (line 54):
-   $1 = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0 0x55e8560994e0)
-   $2 = nterm function (0x55e8560999f0->{TOK_FUNCTION 6.26.1 "": 0x55e856099a70 0x55e856099730)
--> $$ = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0 0x55e8560994e0 0x55e8560999f0)
+   $1 = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70 0x560f82983470)
+   $2 = nterm function (0x560f82983980->{TOK_FUNCTION 6.26.1 "": 0x560f82983a00 0x560f829836c0)
+-> $$ = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70 0x560f82983470 0x560f82983980)
 Stack now 0
 Entering state 2
 Reading a token: --accepting rule at line 37 ("
@@ -433,166 +433,166 @@ Reading a token: --accepting rule at line 37 ("
 --accepting rule at line 37 ("
 ")
 --accepting rule at line 46 ("int")
-Next token is token TOK_INT (0x55e856099970->{TOK_INT 6.28.1 "int":)
-Shifting token TOK_INT (0x55e856099970->{TOK_INT 6.28.1 "int":)
+Next token is token TOK_INT (0x560f82983900->{TOK_INT 6.28.1 "int":)
+Shifting token TOK_INT (0x560f82983900->{TOK_INT 6.28.1 "int":)
 Entering state 6
 Reducing stack by rule 23 (line 113):
-   $1 = token TOK_INT (0x55e856099970->{TOK_INT 6.28.1 "int":)
--> $$ = nterm plaintype (0x55e856099970->{TOK_INT 6.28.1 "int":)
+   $1 = token TOK_INT (0x560f82983900->{TOK_INT 6.28.1 "int":)
+-> $$ = nterm plaintype (0x560f82983900->{TOK_INT 6.28.1 "int":)
 Stack now 0 2
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e856099970->{TOK_INT 6.28.1 "int":)
--> $$ = nterm type (0x55e856099970->{TOK_INT 6.28.1 "int":)
+   $1 = nterm plaintype (0x560f82983900->{TOK_INT 6.28.1 "int":)
+-> $$ = nterm type (0x560f82983900->{TOK_INT 6.28.1 "int":)
 Stack now 0 2
 Entering state 14
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("getchr")
-Next token is token TOK_IDENT (0x55e856099b50->{TOK_IDENT 6.28.5 "getchr":)
-Shifting token TOK_IDENT (0x55e856099b50->{TOK_IDENT 6.28.5 "getchr":)
+Next token is token TOK_IDENT (0x560f82983ae0->{TOK_IDENT 6.28.5 "getchr":)
+Shifting token TOK_IDENT (0x560f82983ae0->{TOK_IDENT 6.28.5 "getchr":)
 Entering state 24
 Reading a token: --accepting rule at line 73 ("(")
-Next token is token '(' (0x55e856099c10->{'(' 6.28.11 "(":)
-Shifting token '(' (0x55e856099c10->{'(' 6.28.11 "(":)
+Next token is token '(' (0x560f82983ba0->{'(' 6.28.11 "(":)
+Shifting token '(' (0x560f82983ba0->{'(' 6.28.11 "(":)
 Entering state 31
 Reading a token: --accepting rule at line 74 (")")
-Next token is token ')' (0x55e856099c90->{')' 6.28.12 ")":)
-Shifting token ')' (0x55e856099c90->{')' 6.28.12 ")":)
+Next token is token ')' (0x560f82983c20->{')' 6.28.12 ")":)
+Shifting token ')' (0x560f82983c20->{')' 6.28.12 ")":)
 Entering state 55
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e856099d10->{';' 6.28.13 ";":)
-Shifting token ';' (0x55e856099d10->{';' 6.28.13 ";":)
+Next token is token ';' (0x560f82983ca0->{';' 6.28.13 ";":)
+Shifting token ';' (0x560f82983ca0->{';' 6.28.13 ";":)
 Entering state 85
 Reducing stack by rule 74 (line 271):
-   $1 = token ';' (0x55e856099d10->{';' 6.28.13 ";":)
-Deleting astree (0x55e856099d10->{';' 6.28.13 ";":)
+   $1 = token ';' (0x560f82983ca0->{';' 6.28.13 ";":)
+Deleting astree (0x560f82983ca0->{';' 6.28.13 ";":)
 -> $$ = nterm fend (nullptr)
 Stack now 0 2 14 24 31 55
 Entering state 89
 Reducing stack by rule 71 (line 250):
-   $1 = nterm type (0x55e856099970->{TOK_INT 6.28.1 "int":)
-   $2 = token TOK_IDENT (0x55e856099b50->{TOK_IDENT 6.28.5 "getchr":)
-   $3 = token '(' (0x55e856099c10->{'(' 6.28.11 "(":)
-   $4 = token ')' (0x55e856099c90->{')' 6.28.12 ")":)
+   $1 = nterm type (0x560f82983900->{TOK_INT 6.28.1 "int":)
+   $2 = token TOK_IDENT (0x560f82983ae0->{TOK_IDENT 6.28.5 "getchr":)
+   $3 = token '(' (0x560f82983ba0->{'(' 6.28.11 "(":)
+   $4 = token ')' (0x560f82983c20->{')' 6.28.12 ")":)
    $5 = nterm fend (nullptr)
-Deleting astree (0x55e856099c90->{')' 6.28.12 ")":)
--> $$ = nterm function (0x55e856099d10->{TOK_FUNCTION 6.28.1 "": 0x55e856099d90 0x55e856099c10)
+Deleting astree (0x560f82983c20->{')' 6.28.12 ")":)
+-> $$ = nterm function (0x560f82983ca0->{TOK_FUNCTION 6.28.1 "": 0x560f82983d20 0x560f82983ba0)
 Stack now 0 2
 Entering state 16
 Reducing stack by rule 3 (line 54):
-   $1 = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0 0x55e8560994e0 0x55e8560999f0)
-   $2 = nterm function (0x55e856099d10->{TOK_FUNCTION 6.28.1 "": 0x55e856099d90 0x55e856099c10)
--> $$ = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0 0x55e8560994e0 0x55e8560999f0 0x55e856099d10)
+   $1 = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70 0x560f82983470 0x560f82983980)
+   $2 = nterm function (0x560f82983ca0->{TOK_FUNCTION 6.28.1 "": 0x560f82983d20 0x560f82983ba0)
+-> $$ = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70 0x560f82983470 0x560f82983980 0x560f82983ca0)
 Stack now 0
 Entering state 2
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 47 ("string")
-Next token is token TOK_STRING (0x55e856099c90->{TOK_STRING 6.29.1 "string":)
-Shifting token TOK_STRING (0x55e856099c90->{TOK_STRING 6.29.1 "string":)
+Next token is token TOK_STRING (0x560f82983c20->{TOK_STRING 6.29.1 "string":)
+Shifting token TOK_STRING (0x560f82983c20->{TOK_STRING 6.29.1 "string":)
 Entering state 7
 Reducing stack by rule 25 (line 115):
-   $1 = token TOK_STRING (0x55e856099c90->{TOK_STRING 6.29.1 "string":)
--> $$ = nterm plaintype (0x55e856099c90->{TOK_STRING 6.29.1 "string":)
+   $1 = token TOK_STRING (0x560f82983c20->{TOK_STRING 6.29.1 "string":)
+-> $$ = nterm plaintype (0x560f82983c20->{TOK_STRING 6.29.1 "string":)
 Stack now 0 2
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e856099c90->{TOK_STRING 6.29.1 "string":)
--> $$ = nterm type (0x55e856099c90->{TOK_STRING 6.29.1 "string":)
+   $1 = nterm plaintype (0x560f82983c20->{TOK_STRING 6.29.1 "string":)
+-> $$ = nterm type (0x560f82983c20->{TOK_STRING 6.29.1 "string":)
 Stack now 0 2
 Entering state 14
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("getstr")
-Next token is token TOK_IDENT (0x55e856099e50->{TOK_IDENT 6.29.8 "getstr":)
-Shifting token TOK_IDENT (0x55e856099e50->{TOK_IDENT 6.29.8 "getstr":)
+Next token is token TOK_IDENT (0x560f82983de0->{TOK_IDENT 6.29.8 "getstr":)
+Shifting token TOK_IDENT (0x560f82983de0->{TOK_IDENT 6.29.8 "getstr":)
 Entering state 24
 Reading a token: --accepting rule at line 73 ("(")
-Next token is token '(' (0x55e856099f10->{'(' 6.29.14 "(":)
-Shifting token '(' (0x55e856099f10->{'(' 6.29.14 "(":)
+Next token is token '(' (0x560f82983ea0->{'(' 6.29.14 "(":)
+Shifting token '(' (0x560f82983ea0->{'(' 6.29.14 "(":)
 Entering state 31
 Reading a token: --accepting rule at line 74 (")")
-Next token is token ')' (0x55e856099f90->{')' 6.29.15 ")":)
-Shifting token ')' (0x55e856099f90->{')' 6.29.15 ")":)
+Next token is token ')' (0x560f82983f20->{')' 6.29.15 ")":)
+Shifting token ')' (0x560f82983f20->{')' 6.29.15 ")":)
 Entering state 55
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e85609a010->{';' 6.29.16 ";":)
-Shifting token ';' (0x55e85609a010->{';' 6.29.16 ";":)
+Next token is token ';' (0x560f82983fa0->{';' 6.29.16 ";":)
+Shifting token ';' (0x560f82983fa0->{';' 6.29.16 ";":)
 Entering state 85
 Reducing stack by rule 74 (line 271):
-   $1 = token ';' (0x55e85609a010->{';' 6.29.16 ";":)
-Deleting astree (0x55e85609a010->{';' 6.29.16 ";":)
+   $1 = token ';' (0x560f82983fa0->{';' 6.29.16 ";":)
+Deleting astree (0x560f82983fa0->{';' 6.29.16 ";":)
 -> $$ = nterm fend (nullptr)
 Stack now 0 2 14 24 31 55
 Entering state 89
 Reducing stack by rule 71 (line 250):
-   $1 = nterm type (0x55e856099c90->{TOK_STRING 6.29.1 "string":)
-   $2 = token TOK_IDENT (0x55e856099e50->{TOK_IDENT 6.29.8 "getstr":)
-   $3 = token '(' (0x55e856099f10->{'(' 6.29.14 "(":)
-   $4 = token ')' (0x55e856099f90->{')' 6.29.15 ")":)
+   $1 = nterm type (0x560f82983c20->{TOK_STRING 6.29.1 "string":)
+   $2 = token TOK_IDENT (0x560f82983de0->{TOK_IDENT 6.29.8 "getstr":)
+   $3 = token '(' (0x560f82983ea0->{'(' 6.29.14 "(":)
+   $4 = token ')' (0x560f82983f20->{')' 6.29.15 ")":)
    $5 = nterm fend (nullptr)
-Deleting astree (0x55e856099f90->{')' 6.29.15 ")":)
--> $$ = nterm function (0x55e85609a010->{TOK_FUNCTION 6.29.1 "": 0x55e85609a090 0x55e856099f10)
+Deleting astree (0x560f82983f20->{')' 6.29.15 ")":)
+-> $$ = nterm function (0x560f82983fa0->{TOK_FUNCTION 6.29.1 "": 0x560f82984020 0x560f82983ea0)
 Stack now 0 2
 Entering state 16
 Reducing stack by rule 3 (line 54):
-   $1 = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0 0x55e8560994e0 0x55e8560999f0 0x55e856099d10)
-   $2 = nterm function (0x55e85609a010->{TOK_FUNCTION 6.29.1 "": 0x55e85609a090 0x55e856099f10)
--> $$ = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0 0x55e8560994e0 0x55e8560999f0 0x55e856099d10 0x55e85609a010)
+   $1 = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70 0x560f82983470 0x560f82983980 0x560f82983ca0)
+   $2 = nterm function (0x560f82983fa0->{TOK_FUNCTION 6.29.1 "": 0x560f82984020 0x560f82983ea0)
+-> $$ = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70 0x560f82983470 0x560f82983980 0x560f82983ca0 0x560f82983fa0)
 Stack now 0
 Entering state 2
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 47 ("string")
-Next token is token TOK_STRING (0x55e856099f90->{TOK_STRING 6.30.1 "string":)
-Shifting token TOK_STRING (0x55e856099f90->{TOK_STRING 6.30.1 "string":)
+Next token is token TOK_STRING (0x560f82983f20->{TOK_STRING 6.30.1 "string":)
+Shifting token TOK_STRING (0x560f82983f20->{TOK_STRING 6.30.1 "string":)
 Entering state 7
 Reducing stack by rule 25 (line 115):
-   $1 = token TOK_STRING (0x55e856099f90->{TOK_STRING 6.30.1 "string":)
--> $$ = nterm plaintype (0x55e856099f90->{TOK_STRING 6.30.1 "string":)
+   $1 = token TOK_STRING (0x560f82983f20->{TOK_STRING 6.30.1 "string":)
+-> $$ = nterm plaintype (0x560f82983f20->{TOK_STRING 6.30.1 "string":)
 Stack now 0 2
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e856099f90->{TOK_STRING 6.30.1 "string":)
--> $$ = nterm type (0x55e856099f90->{TOK_STRING 6.30.1 "string":)
+   $1 = nterm plaintype (0x560f82983f20->{TOK_STRING 6.30.1 "string":)
+-> $$ = nterm type (0x560f82983f20->{TOK_STRING 6.30.1 "string":)
 Stack now 0 2
 Entering state 14
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("getln")
-Next token is token TOK_IDENT (0x55e85609a150->{TOK_IDENT 6.30.8 "getln":)
-Shifting token TOK_IDENT (0x55e85609a150->{TOK_IDENT 6.30.8 "getln":)
+Next token is token TOK_IDENT (0x560f829840e0->{TOK_IDENT 6.30.8 "getln":)
+Shifting token TOK_IDENT (0x560f829840e0->{TOK_IDENT 6.30.8 "getln":)
 Entering state 24
 Reading a token: --accepting rule at line 73 ("(")
-Next token is token '(' (0x55e85609a210->{'(' 6.30.13 "(":)
-Shifting token '(' (0x55e85609a210->{'(' 6.30.13 "(":)
+Next token is token '(' (0x560f829841a0->{'(' 6.30.13 "(":)
+Shifting token '(' (0x560f829841a0->{'(' 6.30.13 "(":)
 Entering state 31
 Reading a token: --accepting rule at line 74 (")")
-Next token is token ')' (0x55e85609a290->{')' 6.30.14 ")":)
-Shifting token ')' (0x55e85609a290->{')' 6.30.14 ")":)
+Next token is token ')' (0x560f82984220->{')' 6.30.14 ")":)
+Shifting token ')' (0x560f82984220->{')' 6.30.14 ")":)
 Entering state 55
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e85609a310->{';' 6.30.15 ";":)
-Shifting token ';' (0x55e85609a310->{';' 6.30.15 ";":)
+Next token is token ';' (0x560f829842a0->{';' 6.30.15 ";":)
+Shifting token ';' (0x560f829842a0->{';' 6.30.15 ";":)
 Entering state 85
 Reducing stack by rule 74 (line 271):
-   $1 = token ';' (0x55e85609a310->{';' 6.30.15 ";":)
-Deleting astree (0x55e85609a310->{';' 6.30.15 ";":)
+   $1 = token ';' (0x560f829842a0->{';' 6.30.15 ";":)
+Deleting astree (0x560f829842a0->{';' 6.30.15 ";":)
 -> $$ = nterm fend (nullptr)
 Stack now 0 2 14 24 31 55
 Entering state 89
 Reducing stack by rule 71 (line 250):
-   $1 = nterm type (0x55e856099f90->{TOK_STRING 6.30.1 "string":)
-   $2 = token TOK_IDENT (0x55e85609a150->{TOK_IDENT 6.30.8 "getln":)
-   $3 = token '(' (0x55e85609a210->{'(' 6.30.13 "(":)
-   $4 = token ')' (0x55e85609a290->{')' 6.30.14 ")":)
+   $1 = nterm type (0x560f82983f20->{TOK_STRING 6.30.1 "string":)
+   $2 = token TOK_IDENT (0x560f829840e0->{TOK_IDENT 6.30.8 "getln":)
+   $3 = token '(' (0x560f829841a0->{'(' 6.30.13 "(":)
+   $4 = token ')' (0x560f82984220->{')' 6.30.14 ")":)
    $5 = nterm fend (nullptr)
-Deleting astree (0x55e85609a290->{')' 6.30.14 ")":)
--> $$ = nterm function (0x55e85609a310->{TOK_FUNCTION 6.30.1 "": 0x55e85609a390 0x55e85609a210)
+Deleting astree (0x560f82984220->{')' 6.30.14 ")":)
+-> $$ = nterm function (0x560f829842a0->{TOK_FUNCTION 6.30.1 "": 0x560f82984320 0x560f829841a0)
 Stack now 0 2
 Entering state 16
 Reducing stack by rule 3 (line 54):
-   $1 = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0 0x55e8560994e0 0x55e8560999f0 0x55e856099d10 0x55e85609a010)
-   $2 = nterm function (0x55e85609a310->{TOK_FUNCTION 6.30.1 "": 0x55e85609a390 0x55e85609a210)
--> $$ = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0 0x55e8560994e0 0x55e8560999f0 0x55e856099d10 0x55e85609a010 0x55e85609a310)
+   $1 = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70 0x560f82983470 0x560f82983980 0x560f82983ca0 0x560f82983fa0)
+   $2 = nterm function (0x560f829842a0->{TOK_FUNCTION 6.30.1 "": 0x560f82984320 0x560f829841a0)
+-> $$ = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70 0x560f82983470 0x560f82983980 0x560f82983ca0 0x560f82983fa0 0x560f829842a0)
 Stack now 0
 Entering state 2
 Reading a token: --accepting rule at line 37 ("
@@ -604,704 +604,704 @@ Reading a token: --accepting rule at line 37 ("
 --accepting rule at line 37 ("
 ")
 --accepting rule at line 46 ("int")
-Next token is token TOK_INT (0x55e85609a290->{TOK_INT 7.5.1 "int":)
-Shifting token TOK_INT (0x55e85609a290->{TOK_INT 7.5.1 "int":)
+Next token is token TOK_INT (0x560f82984220->{TOK_INT 7.5.1 "int":)
+Shifting token TOK_INT (0x560f82984220->{TOK_INT 7.5.1 "int":)
 Entering state 6
 Reducing stack by rule 23 (line 113):
-   $1 = token TOK_INT (0x55e85609a290->{TOK_INT 7.5.1 "int":)
--> $$ = nterm plaintype (0x55e85609a290->{TOK_INT 7.5.1 "int":)
+   $1 = token TOK_INT (0x560f82984220->{TOK_INT 7.5.1 "int":)
+-> $$ = nterm plaintype (0x560f82984220->{TOK_INT 7.5.1 "int":)
 Stack now 0 2
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e85609a290->{TOK_INT 7.5.1 "int":)
--> $$ = nterm type (0x55e85609a290->{TOK_INT 7.5.1 "int":)
+   $1 = nterm plaintype (0x560f82984220->{TOK_INT 7.5.1 "int":)
+-> $$ = nterm type (0x560f82984220->{TOK_INT 7.5.1 "int":)
 Stack now 0 2
 Entering state 14
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("main")
-Next token is token TOK_IDENT (0x55e85609a450->{TOK_IDENT 7.5.5 "main":)
-Shifting token TOK_IDENT (0x55e85609a450->{TOK_IDENT 7.5.5 "main":)
+Next token is token TOK_IDENT (0x560f829843e0->{TOK_IDENT 7.5.5 "main":)
+Shifting token TOK_IDENT (0x560f829843e0->{TOK_IDENT 7.5.5 "main":)
 Entering state 24
 Reading a token: --accepting rule at line 73 ("(")
-Next token is token '(' (0x55e85609a510->{'(' 7.5.9 "(":)
-Shifting token '(' (0x55e85609a510->{'(' 7.5.9 "(":)
+Next token is token '(' (0x560f829844a0->{'(' 7.5.9 "(":)
+Shifting token '(' (0x560f829844a0->{'(' 7.5.9 "(":)
 Entering state 31
 Reading a token: --accepting rule at line 74 (")")
-Next token is token ')' (0x55e85609a590->{')' 7.5.10 ")":)
-Shifting token ')' (0x55e85609a590->{')' 7.5.10 ")":)
+Next token is token ')' (0x560f82984520->{')' 7.5.10 ")":)
+Shifting token ')' (0x560f82984520->{')' 7.5.10 ")":)
 Entering state 55
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 77 ("{")
-Next token is token '{' (0x55e85609a610->{'{' 7.5.12 "{":)
-Shifting token '{' (0x55e85609a610->{'{' 7.5.12 "{":)
+Next token is token '{' (0x560f829845a0->{'{' 7.5.12 "{":)
+Shifting token '{' (0x560f829845a0->{'{' 7.5.12 "{":)
 Entering state 86
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 36 ("   ")
 --accepting rule at line 46 ("int")
-Next token is token TOK_INT (0x55e85609a6d0->{TOK_INT 7.6.4 "int":)
-Shifting token TOK_INT (0x55e85609a6d0->{TOK_INT 7.6.4 "int":)
+Next token is token TOK_INT (0x560f829847e0->{TOK_INT 7.6.4 "int":)
+Shifting token TOK_INT (0x560f829847e0->{TOK_INT 7.6.4 "int":)
 Entering state 6
 Reducing stack by rule 23 (line 113):
-   $1 = token TOK_INT (0x55e85609a6d0->{TOK_INT 7.6.4 "int":)
--> $$ = nterm plaintype (0x55e85609a6d0->{TOK_INT 7.6.4 "int":)
+   $1 = token TOK_INT (0x560f829847e0->{TOK_INT 7.6.4 "int":)
+-> $$ = nterm plaintype (0x560f829847e0->{TOK_INT 7.6.4 "int":)
 Stack now 0 2 14 24 31 55 86
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e85609a6d0->{TOK_INT 7.6.4 "int":)
--> $$ = nterm type (0x55e85609a6d0->{TOK_INT 7.6.4 "int":)
+   $1 = nterm plaintype (0x560f829847e0->{TOK_INT 7.6.4 "int":)
+-> $$ = nterm type (0x560f829847e0->{TOK_INT 7.6.4 "int":)
 Stack now 0 2 14 24 31 55 86
 Entering state 122
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("number")
-Next token is token TOK_IDENT (0x55e85609a750->{TOK_IDENT 7.6.8 "number":)
-Shifting token TOK_IDENT (0x55e85609a750->{TOK_IDENT 7.6.8 "number":)
+Next token is token TOK_IDENT (0x560f82984860->{TOK_IDENT 7.6.8 "number":)
+Shifting token TOK_IDENT (0x560f82984860->{TOK_IDENT 7.6.8 "number":)
 Entering state 139
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 68 ("=")
-Next token is token '=' (0x55e85609a810->{'=' 7.6.15 "=":)
-Shifting token '=' (0x55e85609a810->{'=' 7.6.15 "=":)
+Next token is token '=' (0x560f82984920->{'=' 7.6.15 "=":)
+Shifting token '=' (0x560f82984920->{'=' 7.6.15 "=":)
 Entering state 30
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 53 ("1")
-Next token is token TOK_INTCON (0x55e85609a8d0->{TOK_INTCON 7.6.17 "1":)
-Shifting token TOK_INTCON (0x55e85609a8d0->{TOK_INTCON 7.6.17 "1":)
+Next token is token TOK_INTCON (0x560f829849e0->{TOK_INTCON 7.6.17 "1":)
+Shifting token TOK_INTCON (0x560f829849e0->{TOK_INTCON 7.6.17 "1":)
 Entering state 43
 Reducing stack by rule 57 (line 197):
-   $1 = token TOK_INTCON (0x55e85609a8d0->{TOK_INTCON 7.6.17 "1":)
--> $$ = nterm constant (0x55e85609a8d0->{TOK_INTCON 7.6.17 "1":)
+   $1 = token TOK_INTCON (0x560f829849e0->{TOK_INTCON 7.6.17 "1":)
+-> $$ = nterm constant (0x560f829849e0->{TOK_INTCON 7.6.17 "1":)
 Stack now 0 2 14 24 31 55 86 122 139 30
 Entering state 54
 Reducing stack by rule 46 (line 146):
-   $1 = nterm constant (0x55e85609a8d0->{TOK_INTCON 7.6.17 "1":)
--> $$ = nterm expr (0x55e85609a8d0->{TOK_INTCON 7.6.17 "1":)
+   $1 = nterm constant (0x560f829849e0->{TOK_INTCON 7.6.17 "1":)
+-> $$ = nterm expr (0x560f829849e0->{TOK_INTCON 7.6.17 "1":)
 Stack now 0 2 14 24 31 55 86 122 139 30
 Entering state 49
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e85609a990->{';' 7.6.18 ";":)
-Shifting token ';' (0x55e85609a990->{';' 7.6.18 ";":)
+Next token is token ';' (0x560f82984aa0->{';' 7.6.18 ";":)
+Shifting token ';' (0x560f82984aa0->{';' 7.6.18 ";":)
 Entering state 82
 Reducing stack by rule 19 (line 95):
-   $1 = nterm type (0x55e85609a6d0->{TOK_INT 7.6.4 "int":)
-   $2 = token TOK_IDENT (0x55e85609a750->{TOK_IDENT 7.6.8 "number":)
-   $3 = token '=' (0x55e85609a810->{'=' 7.6.15 "=":)
-   $4 = nterm expr (0x55e85609a8d0->{TOK_INTCON 7.6.17 "1":)
-   $5 = token ';' (0x55e85609a990->{';' 7.6.18 ";":)
-Deleting astree (0x55e85609a810->{'=' 7.6.15 "=":)
-Deleting astree (0x55e85609a990->{';' 7.6.18 ";":)
--> $$ = nterm vardecl (0x55e85609aa10->{TOK_TYPE_ID 7.6.4 "": 0x55e85609a6d0 0x55e85609a750 0x55e85609a8d0)
+   $1 = nterm type (0x560f829847e0->{TOK_INT 7.6.4 "int":)
+   $2 = token TOK_IDENT (0x560f82984860->{TOK_IDENT 7.6.8 "number":)
+   $3 = token '=' (0x560f82984920->{'=' 7.6.15 "=":)
+   $4 = nterm expr (0x560f829849e0->{TOK_INTCON 7.6.17 "1":)
+   $5 = token ';' (0x560f82984aa0->{';' 7.6.18 ";":)
+Deleting astree (0x560f82984920->{'=' 7.6.15 "=":)
+Deleting astree (0x560f82984aa0->{';' 7.6.18 ";":)
+-> $$ = nterm vardecl (0x560f82984b20->{TOK_TYPE_ID 7.6.4 "": 0x560f829847e0 0x560f82984860 0x560f829849e0)
 Stack now 0 2 14 24 31 55 86
 Entering state 121
 Reducing stack by rule 12 (line 85):
-   $1 = nterm vardecl (0x55e85609aa10->{TOK_TYPE_ID 7.6.4 "": 0x55e85609a6d0 0x55e85609a750 0x55e85609a8d0)
--> $$ = nterm statement (0x55e85609aa10->{TOK_TYPE_ID 7.6.4 "": 0x55e85609a6d0 0x55e85609a750 0x55e85609a8d0)
+   $1 = nterm vardecl (0x560f82984b20->{TOK_TYPE_ID 7.6.4 "": 0x560f829847e0 0x560f82984860 0x560f829849e0)
+-> $$ = nterm statement (0x560f82984b20->{TOK_TYPE_ID 7.6.4 "": 0x560f829847e0 0x560f82984860 0x560f829849e0)
 Stack now 0 2 14 24 31 55 86
 Entering state 120
 Reducing stack by rule 63 (line 212):
-   $1 = token '{' (0x55e85609a610->{'{' 7.5.12 "{":)
-   $2 = nterm statement (0x55e85609aa10->{TOK_TYPE_ID 7.6.4 "": 0x55e85609a6d0 0x55e85609a750 0x55e85609a8d0)
--> $$ = nterm bargs (0x55e85609a610->{TOK_BLOCK 7.5.12 "{": 0x55e85609aa10)
+   $1 = token '{' (0x560f829845a0->{'{' 7.5.12 "{":)
+   $2 = nterm statement (0x560f82984b20->{TOK_TYPE_ID 7.6.4 "": 0x560f829847e0 0x560f82984860 0x560f829849e0)
+-> $$ = nterm bargs (0x560f829845a0->{TOK_BLOCK 7.5.12 "{": 0x560f82984b20)
 Stack now 0 2 14 24 31 55
 Entering state 88
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 36 ("   ")
 --accepting rule at line 46 ("int")
-Next token is token TOK_INT (0x55e85609a990->{TOK_INT 7.7.4 "int":)
-Shifting token TOK_INT (0x55e85609a990->{TOK_INT 7.7.4 "int":)
+Next token is token TOK_INT (0x560f82984aa0->{TOK_INT 7.7.4 "int":)
+Shifting token TOK_INT (0x560f82984aa0->{TOK_INT 7.7.4 "int":)
 Entering state 6
 Reducing stack by rule 23 (line 113):
-   $1 = token TOK_INT (0x55e85609a990->{TOK_INT 7.7.4 "int":)
--> $$ = nterm plaintype (0x55e85609a990->{TOK_INT 7.7.4 "int":)
+   $1 = token TOK_INT (0x560f82984aa0->{TOK_INT 7.7.4 "int":)
+-> $$ = nterm plaintype (0x560f82984aa0->{TOK_INT 7.7.4 "int":)
 Stack now 0 2 14 24 31 55 88
 Entering state 15
 Reducing stack by rule 21 (line 107):
-   $1 = nterm plaintype (0x55e85609a990->{TOK_INT 7.7.4 "int":)
--> $$ = nterm type (0x55e85609a990->{TOK_INT 7.7.4 "int":)
+   $1 = nterm plaintype (0x560f82984aa0->{TOK_INT 7.7.4 "int":)
+-> $$ = nterm type (0x560f82984aa0->{TOK_INT 7.7.4 "int":)
 Stack now 0 2 14 24 31 55 88
 Entering state 122
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("done")
-Next token is token TOK_IDENT (0x55e85609a810->{TOK_IDENT 7.7.8 "done":)
-Shifting token TOK_IDENT (0x55e85609a810->{TOK_IDENT 7.7.8 "done":)
+Next token is token TOK_IDENT (0x560f82984920->{TOK_IDENT 7.7.8 "done":)
+Shifting token TOK_IDENT (0x560f82984920->{TOK_IDENT 7.7.8 "done":)
 Entering state 139
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 68 ("=")
-Next token is token '=' (0x55e85609aaf0->{'=' 7.7.13 "=":)
-Shifting token '=' (0x55e85609aaf0->{'=' 7.7.13 "=":)
+Next token is token '=' (0x560f82984c00->{'=' 7.7.13 "=":)
+Shifting token '=' (0x560f82984c00->{'=' 7.7.13 "=":)
 Entering state 30
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 53 ("0")
-Next token is token TOK_INTCON (0x55e85609ab70->{TOK_INTCON 7.7.15 "0":)
-Shifting token TOK_INTCON (0x55e85609ab70->{TOK_INTCON 7.7.15 "0":)
+Next token is token TOK_INTCON (0x560f82984c80->{TOK_INTCON 7.7.15 "0":)
+Shifting token TOK_INTCON (0x560f82984c80->{TOK_INTCON 7.7.15 "0":)
 Entering state 43
 Reducing stack by rule 57 (line 197):
-   $1 = token TOK_INTCON (0x55e85609ab70->{TOK_INTCON 7.7.15 "0":)
--> $$ = nterm constant (0x55e85609ab70->{TOK_INTCON 7.7.15 "0":)
+   $1 = token TOK_INTCON (0x560f82984c80->{TOK_INTCON 7.7.15 "0":)
+-> $$ = nterm constant (0x560f82984c80->{TOK_INTCON 7.7.15 "0":)
 Stack now 0 2 14 24 31 55 88 122 139 30
 Entering state 54
 Reducing stack by rule 46 (line 146):
-   $1 = nterm constant (0x55e85609ab70->{TOK_INTCON 7.7.15 "0":)
--> $$ = nterm expr (0x55e85609ab70->{TOK_INTCON 7.7.15 "0":)
+   $1 = nterm constant (0x560f82984c80->{TOK_INTCON 7.7.15 "0":)
+-> $$ = nterm expr (0x560f82984c80->{TOK_INTCON 7.7.15 "0":)
 Stack now 0 2 14 24 31 55 88 122 139 30
 Entering state 49
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e85609ac30->{';' 7.7.16 ";":)
-Shifting token ';' (0x55e85609ac30->{';' 7.7.16 ";":)
+Next token is token ';' (0x560f82984d40->{';' 7.7.16 ";":)
+Shifting token ';' (0x560f82984d40->{';' 7.7.16 ";":)
 Entering state 82
 Reducing stack by rule 19 (line 95):
-   $1 = nterm type (0x55e85609a990->{TOK_INT 7.7.4 "int":)
-   $2 = token TOK_IDENT (0x55e85609a810->{TOK_IDENT 7.7.8 "done":)
-   $3 = token '=' (0x55e85609aaf0->{'=' 7.7.13 "=":)
-   $4 = nterm expr (0x55e85609ab70->{TOK_INTCON 7.7.15 "0":)
-   $5 = token ';' (0x55e85609ac30->{';' 7.7.16 ";":)
-Deleting astree (0x55e85609aaf0->{'=' 7.7.13 "=":)
-Deleting astree (0x55e85609ac30->{';' 7.7.16 ";":)
--> $$ = nterm vardecl (0x55e85609acb0->{TOK_TYPE_ID 7.7.4 "": 0x55e85609a990 0x55e85609a810 0x55e85609ab70)
+   $1 = nterm type (0x560f82984aa0->{TOK_INT 7.7.4 "int":)
+   $2 = token TOK_IDENT (0x560f82984920->{TOK_IDENT 7.7.8 "done":)
+   $3 = token '=' (0x560f82984c00->{'=' 7.7.13 "=":)
+   $4 = nterm expr (0x560f82984c80->{TOK_INTCON 7.7.15 "0":)
+   $5 = token ';' (0x560f82984d40->{';' 7.7.16 ";":)
+Deleting astree (0x560f82984c00->{'=' 7.7.13 "=":)
+Deleting astree (0x560f82984d40->{';' 7.7.16 ";":)
+-> $$ = nterm vardecl (0x560f82984dc0->{TOK_TYPE_ID 7.7.4 "": 0x560f82984aa0 0x560f82984920 0x560f82984c80)
 Stack now 0 2 14 24 31 55 88
 Entering state 121
 Reducing stack by rule 12 (line 85):
-   $1 = nterm vardecl (0x55e85609acb0->{TOK_TYPE_ID 7.7.4 "": 0x55e85609a990 0x55e85609a810 0x55e85609ab70)
--> $$ = nterm statement (0x55e85609acb0->{TOK_TYPE_ID 7.7.4 "": 0x55e85609a990 0x55e85609a810 0x55e85609ab70)
+   $1 = nterm vardecl (0x560f82984dc0->{TOK_TYPE_ID 7.7.4 "": 0x560f82984aa0 0x560f82984920 0x560f82984c80)
+-> $$ = nterm statement (0x560f82984dc0->{TOK_TYPE_ID 7.7.4 "": 0x560f82984aa0 0x560f82984920 0x560f82984c80)
 Stack now 0 2 14 24 31 55 88
 Entering state 129
 Reducing stack by rule 64 (line 213):
-   $1 = nterm bargs (0x55e85609a610->{TOK_BLOCK 7.5.12 "{": 0x55e85609aa10)
-   $2 = nterm statement (0x55e85609acb0->{TOK_TYPE_ID 7.7.4 "": 0x55e85609a990 0x55e85609a810 0x55e85609ab70)
--> $$ = nterm bargs (0x55e85609a610->{TOK_BLOCK 7.5.12 "{": 0x55e85609aa10 0x55e85609acb0)
+   $1 = nterm bargs (0x560f829845a0->{TOK_BLOCK 7.5.12 "{": 0x560f82984b20)
+   $2 = nterm statement (0x560f82984dc0->{TOK_TYPE_ID 7.7.4 "": 0x560f82984aa0 0x560f82984920 0x560f82984c80)
+-> $$ = nterm bargs (0x560f829845a0->{TOK_BLOCK 7.5.12 "{": 0x560f82984b20 0x560f82984dc0)
 Stack now 0 2 14 24 31 55
 Entering state 88
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 36 ("   ")
 --accepting rule at line 41 ("while")
-Next token is token TOK_WHILE (0x55e85609ac30->{TOK_WHILE 7.8.4 "while":)
-Shifting token TOK_WHILE (0x55e85609ac30->{TOK_WHILE 7.8.4 "while":)
+Next token is token TOK_WHILE (0x560f82984d40->{TOK_WHILE 7.8.4 "while":)
+Shifting token TOK_WHILE (0x560f82984d40->{TOK_WHILE 7.8.4 "while":)
 Entering state 116
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 73 ("(")
-Next token is token '(' (0x55e85609aaf0->{'(' 7.8.10 "(":)
-Shifting token '(' (0x55e85609aaf0->{'(' 7.8.10 "(":)
+Next token is token '(' (0x560f82984c00->{'(' 7.8.10 "(":)
+Shifting token '(' (0x560f82984c00->{'(' 7.8.10 "(":)
 Entering state 136
 Reading a token: --accepting rule at line 45 ("not")
-Next token is token TOK_NOT (0x55e85609adc0->{TOK_NOT 7.8.11 "not":)
-Shifting token TOK_NOT (0x55e85609adc0->{TOK_NOT 7.8.11 "not":)
+Next token is token TOK_NOT (0x560f82984ed0->{TOK_NOT 7.8.11 "not":)
+Shifting token TOK_NOT (0x560f82984ed0->{TOK_NOT 7.8.11 "not":)
 Entering state 41
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("done")
-Next token is token TOK_IDENT (0x55e85609ae80->{TOK_IDENT 7.8.15 "done":)
-Shifting token TOK_IDENT (0x55e85609ae80->{TOK_IDENT 7.8.15 "done":)
+Next token is token TOK_IDENT (0x560f82984f90->{TOK_IDENT 7.8.15 "done":)
+Shifting token TOK_IDENT (0x560f82984f90->{TOK_IDENT 7.8.15 "done":)
 Entering state 42
 Reading a token: --accepting rule at line 74 (")")
-Next token is token ')' (0x55e85609af00->{')' 7.8.19 ")":)
+Next token is token ')' (0x560f82985010->{')' 7.8.19 ")":)
 Reducing stack by rule 54 (line 189):
-   $1 = token TOK_IDENT (0x55e85609ae80->{TOK_IDENT 7.8.15 "done":)
--> $$ = nterm variable (0x55e85609ae80->{TOK_IDENT 7.8.15 "done":)
+   $1 = token TOK_IDENT (0x560f82984f90->{TOK_IDENT 7.8.15 "done":)
+-> $$ = nterm variable (0x560f82984f90->{TOK_IDENT 7.8.15 "done":)
 Stack now 0 2 14 24 31 55 88 116 136 41
 Entering state 53
 Reducing stack by rule 45 (line 145):
-   $1 = nterm variable (0x55e85609ae80->{TOK_IDENT 7.8.15 "done":)
--> $$ = nterm expr (0x55e85609ae80->{TOK_IDENT 7.8.15 "done":)
+   $1 = nterm variable (0x560f82984f90->{TOK_IDENT 7.8.15 "done":)
+-> $$ = nterm expr (0x560f82984f90->{TOK_IDENT 7.8.15 "done":)
 Stack now 0 2 14 24 31 55 88 116 136 41
 Entering state 63
-Next token is token ')' (0x55e85609af00->{')' 7.8.19 ")":)
+Next token is token ')' (0x560f82985010->{')' 7.8.19 ")":)
 Reducing stack by rule 41 (line 139):
-   $1 = token TOK_NOT (0x55e85609adc0->{TOK_NOT 7.8.11 "not":)
-   $2 = nterm expr (0x55e85609ae80->{TOK_IDENT 7.8.15 "done":)
--> $$ = nterm expr (0x55e85609adc0->{TOK_NOT 7.8.11 "not": 0x55e85609ae80)
+   $1 = token TOK_NOT (0x560f82984ed0->{TOK_NOT 7.8.11 "not":)
+   $2 = nterm expr (0x560f82984f90->{TOK_IDENT 7.8.15 "done":)
+-> $$ = nterm expr (0x560f82984ed0->{TOK_NOT 7.8.11 "not": 0x560f82984f90)
 Stack now 0 2 14 24 31 55 88 116 136
 Entering state 145
-Next token is token ')' (0x55e85609af00->{')' 7.8.19 ")":)
-Shifting token ')' (0x55e85609af00->{')' 7.8.19 ")":)
+Next token is token ')' (0x560f82985010->{')' 7.8.19 ")":)
+Shifting token ')' (0x560f82985010->{')' 7.8.19 ")":)
 Entering state 151
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 77 ("{")
-Next token is token '{' (0x55e85609af80->{'{' 7.8.21 "{":)
-Shifting token '{' (0x55e85609af80->{'{' 7.8.21 "{":)
+Next token is token '{' (0x560f82985090->{'{' 7.8.21 "{":)
+Shifting token '{' (0x560f82985090->{'{' 7.8.21 "{":)
 Entering state 86
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 36 ("      ")
 --accepting rule at line 54 ("putint")
-Next token is token TOK_IDENT (0x55e85609b000->{TOK_IDENT 7.9.7 "putint":)
-Shifting token TOK_IDENT (0x55e85609b000->{TOK_IDENT 7.9.7 "putint":)
+Next token is token TOK_IDENT (0x560f82985110->{TOK_IDENT 7.9.7 "putint":)
+Shifting token TOK_IDENT (0x560f82985110->{TOK_IDENT 7.9.7 "putint":)
 Entering state 42
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 73 ("(")
-Next token is token '(' (0x55e85609b080->{'(' 7.9.14 "(":)
-Shifting token '(' (0x55e85609b080->{'(' 7.9.14 "(":)
+Next token is token '(' (0x560f82985190->{'(' 7.9.14 "(":)
+Shifting token '(' (0x560f82985190->{'(' 7.9.14 "(":)
 Entering state 64
 Reading a token: --accepting rule at line 54 ("number")
-Next token is token TOK_IDENT (0x55e85609b100->{TOK_IDENT 7.9.15 "number":)
-Shifting token TOK_IDENT (0x55e85609b100->{TOK_IDENT 7.9.15 "number":)
+Next token is token TOK_IDENT (0x560f82985210->{TOK_IDENT 7.9.15 "number":)
+Shifting token TOK_IDENT (0x560f82985210->{TOK_IDENT 7.9.15 "number":)
 Entering state 42
 Reading a token: --accepting rule at line 74 (")")
-Next token is token ')' (0x55e85609b180->{')' 7.9.21 ")":)
+Next token is token ')' (0x560f82985290->{')' 7.9.21 ")":)
 Reducing stack by rule 54 (line 189):
-   $1 = token TOK_IDENT (0x55e85609b100->{TOK_IDENT 7.9.15 "number":)
--> $$ = nterm variable (0x55e85609b100->{TOK_IDENT 7.9.15 "number":)
+   $1 = token TOK_IDENT (0x560f82985210->{TOK_IDENT 7.9.15 "number":)
+-> $$ = nterm variable (0x560f82985210->{TOK_IDENT 7.9.15 "number":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 86 42 64
 Entering state 53
 Reducing stack by rule 45 (line 145):
-   $1 = nterm variable (0x55e85609b100->{TOK_IDENT 7.9.15 "number":)
--> $$ = nterm expr (0x55e85609b100->{TOK_IDENT 7.9.15 "number":)
+   $1 = nterm variable (0x560f82985210->{TOK_IDENT 7.9.15 "number":)
+-> $$ = nterm expr (0x560f82985210->{TOK_IDENT 7.9.15 "number":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 86 42 64
 Entering state 98
-Next token is token ')' (0x55e85609b180->{')' 7.9.21 ")":)
+Next token is token ')' (0x560f82985290->{')' 7.9.21 ")":)
 Reducing stack by rule 52 (line 181):
-   $1 = token TOK_IDENT (0x55e85609b000->{TOK_IDENT 7.9.7 "putint":)
-   $2 = token '(' (0x55e85609b080->{'(' 7.9.14 "(":)
-   $3 = nterm expr (0x55e85609b100->{TOK_IDENT 7.9.15 "number":)
--> $$ = nterm cargs (0x55e85609b080->{TOK_CALL 7.9.14 "(": 0x55e85609b000 0x55e85609b100)
+   $1 = token TOK_IDENT (0x560f82985110->{TOK_IDENT 7.9.7 "putint":)
+   $2 = token '(' (0x560f82985190->{'(' 7.9.14 "(":)
+   $3 = nterm expr (0x560f82985210->{TOK_IDENT 7.9.15 "number":)
+-> $$ = nterm cargs (0x560f82985190->{TOK_CALL 7.9.14 "(": 0x560f82985110 0x560f82985210)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 86
 Entering state 52
-Next token is token ')' (0x55e85609b180->{')' 7.9.21 ")":)
-Shifting token ')' (0x55e85609b180->{')' 7.9.21 ")":)
+Next token is token ')' (0x560f82985290->{')' 7.9.21 ")":)
+Shifting token ')' (0x560f82985290->{')' 7.9.21 ")":)
 Entering state 83
 Reducing stack by rule 50 (line 173):
-   $1 = nterm cargs (0x55e85609b080->{TOK_CALL 7.9.14 "(": 0x55e85609b000 0x55e85609b100)
-   $2 = token ')' (0x55e85609b180->{')' 7.9.21 ")":)
-Deleting astree (0x55e85609b180->{')' 7.9.21 ")":)
--> $$ = nterm call (0x55e85609b080->{TOK_CALL 7.9.14 "(": 0x55e85609b000 0x55e85609b100)
+   $1 = nterm cargs (0x560f82985190->{TOK_CALL 7.9.14 "(": 0x560f82985110 0x560f82985210)
+   $2 = token ')' (0x560f82985290->{')' 7.9.21 ")":)
+Deleting astree (0x560f82985290->{')' 7.9.21 ")":)
+-> $$ = nterm call (0x560f82985190->{TOK_CALL 7.9.14 "(": 0x560f82985110 0x560f82985210)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 86
 Entering state 51
 Reducing stack by rule 44 (line 144):
-   $1 = nterm call (0x55e85609b080->{TOK_CALL 7.9.14 "(": 0x55e85609b000 0x55e85609b100)
--> $$ = nterm expr (0x55e85609b080->{TOK_CALL 7.9.14 "(": 0x55e85609b000 0x55e85609b100)
+   $1 = nterm call (0x560f82985190->{TOK_CALL 7.9.14 "(": 0x560f82985110 0x560f82985210)
+-> $$ = nterm expr (0x560f82985190->{TOK_CALL 7.9.14 "(": 0x560f82985110 0x560f82985210)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 86
 Entering state 123
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e85609b180->{';' 7.9.22 ";":)
-Shifting token ';' (0x55e85609b180->{';' 7.9.22 ";":)
+Next token is token ';' (0x560f82985290->{';' 7.9.22 ";":)
+Shifting token ';' (0x560f82985290->{';' 7.9.22 ";":)
 Entering state 140
 Reducing stack by rule 18 (line 91):
-   $1 = nterm expr (0x55e85609b080->{TOK_CALL 7.9.14 "(": 0x55e85609b000 0x55e85609b100)
-   $2 = token ';' (0x55e85609b180->{';' 7.9.22 ";":)
-Deleting astree (0x55e85609b180->{';' 7.9.22 ";":)
--> $$ = nterm statement (0x55e85609b080->{TOK_CALL 7.9.14 "(": 0x55e85609b000 0x55e85609b100)
+   $1 = nterm expr (0x560f82985190->{TOK_CALL 7.9.14 "(": 0x560f82985110 0x560f82985210)
+   $2 = token ';' (0x560f82985290->{';' 7.9.22 ";":)
+Deleting astree (0x560f82985290->{';' 7.9.22 ";":)
+-> $$ = nterm statement (0x560f82985190->{TOK_CALL 7.9.14 "(": 0x560f82985110 0x560f82985210)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 86
 Entering state 120
 Reducing stack by rule 63 (line 212):
-   $1 = token '{' (0x55e85609af80->{'{' 7.8.21 "{":)
-   $2 = nterm statement (0x55e85609b080->{TOK_CALL 7.9.14 "(": 0x55e85609b000 0x55e85609b100)
--> $$ = nterm bargs (0x55e85609af80->{TOK_BLOCK 7.8.21 "{": 0x55e85609b080)
+   $1 = token '{' (0x560f82985090->{'{' 7.8.21 "{":)
+   $2 = nterm statement (0x560f82985190->{TOK_CALL 7.9.14 "(": 0x560f82985110 0x560f82985210)
+-> $$ = nterm bargs (0x560f82985090->{TOK_BLOCK 7.8.21 "{": 0x560f82985190)
 Stack now 0 2 14 24 31 55 88 116 136 145 151
 Entering state 88
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 36 ("      ")
 --accepting rule at line 54 ("putchr")
-Next token is token TOK_IDENT (0x55e85609b180->{TOK_IDENT 7.10.7 "putchr":)
-Shifting token TOK_IDENT (0x55e85609b180->{TOK_IDENT 7.10.7 "putchr":)
+Next token is token TOK_IDENT (0x560f82985290->{TOK_IDENT 7.10.7 "putchr":)
+Shifting token TOK_IDENT (0x560f82985290->{TOK_IDENT 7.10.7 "putchr":)
 Entering state 42
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 73 ("(")
-Next token is token '(' (0x55e85609b220->{'(' 7.10.14 "(":)
-Shifting token '(' (0x55e85609b220->{'(' 7.10.14 "(":)
+Next token is token '(' (0x560f82985330->{'(' 7.10.14 "(":)
+Shifting token '(' (0x560f82985330->{'(' 7.10.14 "(":)
 Entering state 64
 Reading a token: --accepting rule at line 55 ("'\n'")
-Next token is token TOK_CHARCON (0x55e85609b2a0->{TOK_CHARCON 7.10.15 "'\n'":)
-Shifting token TOK_CHARCON (0x55e85609b2a0->{TOK_CHARCON 7.10.15 "'\n'":)
+Next token is token TOK_CHARCON (0x560f829853b0->{TOK_CHARCON 7.10.15 "'\n'":)
+Shifting token TOK_CHARCON (0x560f829853b0->{TOK_CHARCON 7.10.15 "'\n'":)
 Entering state 44
 Reducing stack by rule 58 (line 198):
-   $1 = token TOK_CHARCON (0x55e85609b2a0->{TOK_CHARCON 7.10.15 "'\n'":)
--> $$ = nterm constant (0x55e85609b2a0->{TOK_CHARCON 7.10.15 "'\n'":)
+   $1 = token TOK_CHARCON (0x560f829853b0->{TOK_CHARCON 7.10.15 "'\n'":)
+-> $$ = nterm constant (0x560f829853b0->{TOK_CHARCON 7.10.15 "'\n'":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 42 64
 Entering state 54
 Reducing stack by rule 46 (line 146):
-   $1 = nterm constant (0x55e85609b2a0->{TOK_CHARCON 7.10.15 "'\n'":)
--> $$ = nterm expr (0x55e85609b2a0->{TOK_CHARCON 7.10.15 "'\n'":)
+   $1 = nterm constant (0x560f829853b0->{TOK_CHARCON 7.10.15 "'\n'":)
+-> $$ = nterm expr (0x560f829853b0->{TOK_CHARCON 7.10.15 "'\n'":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 42 64
 Entering state 98
 Reading a token: --accepting rule at line 74 (")")
-Next token is token ')' (0x55e85609b360->{')' 7.10.19 ")":)
+Next token is token ')' (0x560f82985470->{')' 7.10.19 ")":)
 Reducing stack by rule 52 (line 181):
-   $1 = token TOK_IDENT (0x55e85609b180->{TOK_IDENT 7.10.7 "putchr":)
-   $2 = token '(' (0x55e85609b220->{'(' 7.10.14 "(":)
-   $3 = nterm expr (0x55e85609b2a0->{TOK_CHARCON 7.10.15 "'\n'":)
--> $$ = nterm cargs (0x55e85609b220->{TOK_CALL 7.10.14 "(": 0x55e85609b180 0x55e85609b2a0)
+   $1 = token TOK_IDENT (0x560f82985290->{TOK_IDENT 7.10.7 "putchr":)
+   $2 = token '(' (0x560f82985330->{'(' 7.10.14 "(":)
+   $3 = nterm expr (0x560f829853b0->{TOK_CHARCON 7.10.15 "'\n'":)
+-> $$ = nterm cargs (0x560f82985330->{TOK_CALL 7.10.14 "(": 0x560f82985290 0x560f829853b0)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88
 Entering state 52
-Next token is token ')' (0x55e85609b360->{')' 7.10.19 ")":)
-Shifting token ')' (0x55e85609b360->{')' 7.10.19 ")":)
+Next token is token ')' (0x560f82985470->{')' 7.10.19 ")":)
+Shifting token ')' (0x560f82985470->{')' 7.10.19 ")":)
 Entering state 83
 Reducing stack by rule 50 (line 173):
-   $1 = nterm cargs (0x55e85609b220->{TOK_CALL 7.10.14 "(": 0x55e85609b180 0x55e85609b2a0)
-   $2 = token ')' (0x55e85609b360->{')' 7.10.19 ")":)
-Deleting astree (0x55e85609b360->{')' 7.10.19 ")":)
--> $$ = nterm call (0x55e85609b220->{TOK_CALL 7.10.14 "(": 0x55e85609b180 0x55e85609b2a0)
+   $1 = nterm cargs (0x560f82985330->{TOK_CALL 7.10.14 "(": 0x560f82985290 0x560f829853b0)
+   $2 = token ')' (0x560f82985470->{')' 7.10.19 ")":)
+Deleting astree (0x560f82985470->{')' 7.10.19 ")":)
+-> $$ = nterm call (0x560f82985330->{TOK_CALL 7.10.14 "(": 0x560f82985290 0x560f829853b0)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88
 Entering state 51
 Reducing stack by rule 44 (line 144):
-   $1 = nterm call (0x55e85609b220->{TOK_CALL 7.10.14 "(": 0x55e85609b180 0x55e85609b2a0)
--> $$ = nterm expr (0x55e85609b220->{TOK_CALL 7.10.14 "(": 0x55e85609b180 0x55e85609b2a0)
+   $1 = nterm call (0x560f82985330->{TOK_CALL 7.10.14 "(": 0x560f82985290 0x560f829853b0)
+-> $$ = nterm expr (0x560f82985330->{TOK_CALL 7.10.14 "(": 0x560f82985290 0x560f829853b0)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88
 Entering state 123
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e85609b360->{';' 7.10.20 ";":)
-Shifting token ';' (0x55e85609b360->{';' 7.10.20 ";":)
+Next token is token ';' (0x560f82985470->{';' 7.10.20 ";":)
+Shifting token ';' (0x560f82985470->{';' 7.10.20 ";":)
 Entering state 140
 Reducing stack by rule 18 (line 91):
-   $1 = nterm expr (0x55e85609b220->{TOK_CALL 7.10.14 "(": 0x55e85609b180 0x55e85609b2a0)
-   $2 = token ';' (0x55e85609b360->{';' 7.10.20 ";":)
-Deleting astree (0x55e85609b360->{';' 7.10.20 ";":)
--> $$ = nterm statement (0x55e85609b220->{TOK_CALL 7.10.14 "(": 0x55e85609b180 0x55e85609b2a0)
+   $1 = nterm expr (0x560f82985330->{TOK_CALL 7.10.14 "(": 0x560f82985290 0x560f829853b0)
+   $2 = token ';' (0x560f82985470->{';' 7.10.20 ";":)
+Deleting astree (0x560f82985470->{';' 7.10.20 ";":)
+-> $$ = nterm statement (0x560f82985330->{TOK_CALL 7.10.14 "(": 0x560f82985290 0x560f829853b0)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88
 Entering state 129
 Reducing stack by rule 64 (line 213):
-   $1 = nterm bargs (0x55e85609af80->{TOK_BLOCK 7.8.21 "{": 0x55e85609b080)
-   $2 = nterm statement (0x55e85609b220->{TOK_CALL 7.10.14 "(": 0x55e85609b180 0x55e85609b2a0)
--> $$ = nterm bargs (0x55e85609af80->{TOK_BLOCK 7.8.21 "{": 0x55e85609b080 0x55e85609b220)
+   $1 = nterm bargs (0x560f82985090->{TOK_BLOCK 7.8.21 "{": 0x560f82985190)
+   $2 = nterm statement (0x560f82985330->{TOK_CALL 7.10.14 "(": 0x560f82985290 0x560f829853b0)
+-> $$ = nterm bargs (0x560f82985090->{TOK_BLOCK 7.8.21 "{": 0x560f82985190 0x560f82985330)
 Stack now 0 2 14 24 31 55 88 116 136 145 151
 Entering state 88
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 36 ("      ")
 --accepting rule at line 39 ("if")
-Next token is token TOK_IF (0x55e85609b360->{TOK_IF 7.11.7 "if":)
-Shifting token TOK_IF (0x55e85609b360->{TOK_IF 7.11.7 "if":)
+Next token is token TOK_IF (0x560f82985470->{TOK_IF 7.11.7 "if":)
+Shifting token TOK_IF (0x560f82985470->{TOK_IF 7.11.7 "if":)
 Entering state 115
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 73 ("(")
-Next token is token '(' (0x55e85609b460->{'(' 7.11.10 "(":)
-Shifting token '(' (0x55e85609b460->{'(' 7.11.10 "(":)
+Next token is token '(' (0x560f82985570->{'(' 7.11.10 "(":)
+Shifting token '(' (0x560f82985570->{'(' 7.11.10 "(":)
 Entering state 135
 Reading a token: --accepting rule at line 54 ("number")
-Next token is token TOK_IDENT (0x55e85609b4e0->{TOK_IDENT 7.11.11 "number":)
-Shifting token TOK_IDENT (0x55e85609b4e0->{TOK_IDENT 7.11.11 "number":)
+Next token is token TOK_IDENT (0x560f829855f0->{TOK_IDENT 7.11.11 "number":)
+Shifting token TOK_IDENT (0x560f829855f0->{TOK_IDENT 7.11.11 "number":)
 Entering state 42
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 60 ("<=")
-Next token is token TOK_LE (0x55e85609b560->{TOK_LE 7.11.18 "<=":)
+Next token is token TOK_LE (0x560f82985670->{TOK_LE 7.11.18 "<=":)
 Reducing stack by rule 54 (line 189):
-   $1 = token TOK_IDENT (0x55e85609b4e0->{TOK_IDENT 7.11.11 "number":)
--> $$ = nterm variable (0x55e85609b4e0->{TOK_IDENT 7.11.11 "number":)
+   $1 = token TOK_IDENT (0x560f829855f0->{TOK_IDENT 7.11.11 "number":)
+-> $$ = nterm variable (0x560f829855f0->{TOK_IDENT 7.11.11 "number":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 115 135
 Entering state 53
 Reducing stack by rule 45 (line 145):
-   $1 = nterm variable (0x55e85609b4e0->{TOK_IDENT 7.11.11 "number":)
--> $$ = nterm expr (0x55e85609b4e0->{TOK_IDENT 7.11.11 "number":)
+   $1 = nterm variable (0x560f829855f0->{TOK_IDENT 7.11.11 "number":)
+-> $$ = nterm expr (0x560f829855f0->{TOK_IDENT 7.11.11 "number":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 115 135
 Entering state 144
-Next token is token TOK_LE (0x55e85609b560->{TOK_LE 7.11.18 "<=":)
-Shifting token TOK_LE (0x55e85609b560->{TOK_LE 7.11.18 "<=":)
+Next token is token TOK_LE (0x560f82985670->{TOK_LE 7.11.18 "<=":)
+Shifting token TOK_LE (0x560f82985670->{TOK_LE 7.11.18 "<=":)
 Entering state 71
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 53 ("0")
-Next token is token TOK_INTCON (0x55e85609b620->{TOK_INTCON 7.11.21 "0":)
-Shifting token TOK_INTCON (0x55e85609b620->{TOK_INTCON 7.11.21 "0":)
+Next token is token TOK_INTCON (0x560f82985730->{TOK_INTCON 7.11.21 "0":)
+Shifting token TOK_INTCON (0x560f82985730->{TOK_INTCON 7.11.21 "0":)
 Entering state 43
 Reducing stack by rule 57 (line 197):
-   $1 = token TOK_INTCON (0x55e85609b620->{TOK_INTCON 7.11.21 "0":)
--> $$ = nterm constant (0x55e85609b620->{TOK_INTCON 7.11.21 "0":)
+   $1 = token TOK_INTCON (0x560f82985730->{TOK_INTCON 7.11.21 "0":)
+-> $$ = nterm constant (0x560f82985730->{TOK_INTCON 7.11.21 "0":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 115 135 144 71
 Entering state 54
 Reducing stack by rule 46 (line 146):
-   $1 = nterm constant (0x55e85609b620->{TOK_INTCON 7.11.21 "0":)
--> $$ = nterm expr (0x55e85609b620->{TOK_INTCON 7.11.21 "0":)
+   $1 = nterm constant (0x560f82985730->{TOK_INTCON 7.11.21 "0":)
+-> $$ = nterm expr (0x560f82985730->{TOK_INTCON 7.11.21 "0":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 115 135 144 71
 Entering state 103
 Reading a token: --accepting rule at line 74 (")")
-Next token is token ')' (0x55e85609b6a0->{')' 7.11.22 ")":)
+Next token is token ')' (0x560f829857b0->{')' 7.11.22 ")":)
 Reducing stack by rule 35 (line 131):
-   $1 = nterm expr (0x55e85609b4e0->{TOK_IDENT 7.11.11 "number":)
-   $2 = token TOK_LE (0x55e85609b560->{TOK_LE 7.11.18 "<=":)
-   $3 = nterm expr (0x55e85609b620->{TOK_INTCON 7.11.21 "0":)
--> $$ = nterm expr (0x55e85609b560->{TOK_LE 7.11.18 "<=": 0x55e85609b4e0 0x55e85609b620)
+   $1 = nterm expr (0x560f829855f0->{TOK_IDENT 7.11.11 "number":)
+   $2 = token TOK_LE (0x560f82985670->{TOK_LE 7.11.18 "<=":)
+   $3 = nterm expr (0x560f82985730->{TOK_INTCON 7.11.21 "0":)
+-> $$ = nterm expr (0x560f82985670->{TOK_LE 7.11.18 "<=": 0x560f829855f0 0x560f82985730)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 115 135
 Entering state 144
-Next token is token ')' (0x55e85609b6a0->{')' 7.11.22 ")":)
-Shifting token ')' (0x55e85609b6a0->{')' 7.11.22 ")":)
+Next token is token ')' (0x560f829857b0->{')' 7.11.22 ")":)
+Shifting token ')' (0x560f829857b0->{')' 7.11.22 ")":)
 Entering state 150
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("done")
-Next token is token TOK_IDENT (0x55e85609b740->{TOK_IDENT 7.11.24 "done":)
-Shifting token TOK_IDENT (0x55e85609b740->{TOK_IDENT 7.11.24 "done":)
+Next token is token TOK_IDENT (0x560f82985850->{TOK_IDENT 7.11.24 "done":)
+Shifting token TOK_IDENT (0x560f82985850->{TOK_IDENT 7.11.24 "done":)
 Entering state 42
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 68 ("=")
-Next token is token '=' (0x55e85609b7c0->{'=' 7.11.29 "=":)
+Next token is token '=' (0x560f829858d0->{'=' 7.11.29 "=":)
 Reducing stack by rule 54 (line 189):
-   $1 = token TOK_IDENT (0x55e85609b740->{TOK_IDENT 7.11.24 "done":)
--> $$ = nterm variable (0x55e85609b740->{TOK_IDENT 7.11.24 "done":)
+   $1 = token TOK_IDENT (0x560f82985850->{TOK_IDENT 7.11.24 "done":)
+-> $$ = nterm variable (0x560f82985850->{TOK_IDENT 7.11.24 "done":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 115 135 144 150
 Entering state 53
 Reducing stack by rule 45 (line 145):
-   $1 = nterm variable (0x55e85609b740->{TOK_IDENT 7.11.24 "done":)
--> $$ = nterm expr (0x55e85609b740->{TOK_IDENT 7.11.24 "done":)
+   $1 = nterm variable (0x560f82985850->{TOK_IDENT 7.11.24 "done":)
+-> $$ = nterm expr (0x560f82985850->{TOK_IDENT 7.11.24 "done":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 115 135 144 150
 Entering state 123
-Next token is token '=' (0x55e85609b7c0->{'=' 7.11.29 "=":)
-Shifting token '=' (0x55e85609b7c0->{'=' 7.11.29 "=":)
+Next token is token '=' (0x560f829858d0->{'=' 7.11.29 "=":)
+Shifting token '=' (0x560f829858d0->{'=' 7.11.29 "=":)
 Entering state 73
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 53 ("1")
-Next token is token TOK_INTCON (0x55e85609b840->{TOK_INTCON 7.11.31 "1":)
-Shifting token TOK_INTCON (0x55e85609b840->{TOK_INTCON 7.11.31 "1":)
+Next token is token TOK_INTCON (0x560f82985950->{TOK_INTCON 7.11.31 "1":)
+Shifting token TOK_INTCON (0x560f82985950->{TOK_INTCON 7.11.31 "1":)
 Entering state 43
 Reducing stack by rule 57 (line 197):
-   $1 = token TOK_INTCON (0x55e85609b840->{TOK_INTCON 7.11.31 "1":)
--> $$ = nterm constant (0x55e85609b840->{TOK_INTCON 7.11.31 "1":)
+   $1 = token TOK_INTCON (0x560f82985950->{TOK_INTCON 7.11.31 "1":)
+-> $$ = nterm constant (0x560f82985950->{TOK_INTCON 7.11.31 "1":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 115 135 144 150 123 73
 Entering state 54
 Reducing stack by rule 46 (line 146):
-   $1 = nterm constant (0x55e85609b840->{TOK_INTCON 7.11.31 "1":)
--> $$ = nterm expr (0x55e85609b840->{TOK_INTCON 7.11.31 "1":)
+   $1 = nterm constant (0x560f82985950->{TOK_INTCON 7.11.31 "1":)
+-> $$ = nterm expr (0x560f82985950->{TOK_INTCON 7.11.31 "1":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 115 135 144 150 123 73
 Entering state 105
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e85609b8c0->{';' 7.11.32 ";":)
+Next token is token ';' (0x560f829859d0->{';' 7.11.32 ";":)
 Reducing stack by rule 27 (line 123):
-   $1 = nterm expr (0x55e85609b740->{TOK_IDENT 7.11.24 "done":)
-   $2 = token '=' (0x55e85609b7c0->{'=' 7.11.29 "=":)
-   $3 = nterm expr (0x55e85609b840->{TOK_INTCON 7.11.31 "1":)
--> $$ = nterm expr (0x55e85609b7c0->{'=' 7.11.29 "=": 0x55e85609b740 0x55e85609b840)
+   $1 = nterm expr (0x560f82985850->{TOK_IDENT 7.11.24 "done":)
+   $2 = token '=' (0x560f829858d0->{'=' 7.11.29 "=":)
+   $3 = nterm expr (0x560f82985950->{TOK_INTCON 7.11.31 "1":)
+-> $$ = nterm expr (0x560f829858d0->{'=' 7.11.29 "=": 0x560f82985850 0x560f82985950)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 115 135 144 150
 Entering state 123
-Next token is token ';' (0x55e85609b8c0->{';' 7.11.32 ";":)
-Shifting token ';' (0x55e85609b8c0->{';' 7.11.32 ";":)
+Next token is token ';' (0x560f829859d0->{';' 7.11.32 ";":)
+Shifting token ';' (0x560f829859d0->{';' 7.11.32 ";":)
 Entering state 140
 Reducing stack by rule 18 (line 91):
-   $1 = nterm expr (0x55e85609b7c0->{'=' 7.11.29 "=": 0x55e85609b740 0x55e85609b840)
-   $2 = token ';' (0x55e85609b8c0->{';' 7.11.32 ";":)
-Deleting astree (0x55e85609b8c0->{';' 7.11.32 ";":)
--> $$ = nterm statement (0x55e85609b7c0->{'=' 7.11.29 "=": 0x55e85609b740 0x55e85609b840)
+   $1 = nterm expr (0x560f829858d0->{'=' 7.11.29 "=": 0x560f82985850 0x560f82985950)
+   $2 = token ';' (0x560f829859d0->{';' 7.11.32 ";":)
+Deleting astree (0x560f829859d0->{';' 7.11.32 ";":)
+-> $$ = nterm statement (0x560f829858d0->{'=' 7.11.29 "=": 0x560f82985850 0x560f82985950)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 115 135 144 150
 Entering state 155
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 36 ("      ")
 --accepting rule at line 54 ("number")
-Next token is token TOK_IDENT (0x55e85609b8c0->{TOK_IDENT 7.12.7 "number":)
+Next token is token TOK_IDENT (0x560f829859d0->{TOK_IDENT 7.12.7 "number":)
 Reducing stack by rule 67 (line 228):
-   $1 = token TOK_IF (0x55e85609b360->{TOK_IF 7.11.7 "if":)
-   $2 = token '(' (0x55e85609b460->{'(' 7.11.10 "(":)
-   $3 = nterm expr (0x55e85609b560->{TOK_LE 7.11.18 "<=": 0x55e85609b4e0 0x55e85609b620)
-   $4 = token ')' (0x55e85609b6a0->{')' 7.11.22 ")":)
-   $5 = nterm statement (0x55e85609b7c0->{'=' 7.11.29 "=": 0x55e85609b740 0x55e85609b840)
-Deleting astree (0x55e85609b460->{'(' 7.11.10 "(":)
-Deleting astree (0x55e85609b6a0->{')' 7.11.22 ")":)
--> $$ = nterm ifelse (0x55e85609b360->{TOK_IF 7.11.7 "if": 0x55e85609b560 0x55e85609b7c0)
+   $1 = token TOK_IF (0x560f82985470->{TOK_IF 7.11.7 "if":)
+   $2 = token '(' (0x560f82985570->{'(' 7.11.10 "(":)
+   $3 = nterm expr (0x560f82985670->{TOK_LE 7.11.18 "<=": 0x560f829855f0 0x560f82985730)
+   $4 = token ')' (0x560f829857b0->{')' 7.11.22 ")":)
+   $5 = nterm statement (0x560f829858d0->{'=' 7.11.29 "=": 0x560f82985850 0x560f82985950)
+Deleting astree (0x560f82985570->{'(' 7.11.10 "(":)
+Deleting astree (0x560f829857b0->{')' 7.11.22 ")":)
+-> $$ = nterm ifelse (0x560f82985470->{TOK_IF 7.11.7 "if": 0x560f82985670 0x560f829858d0)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88
 Entering state 126
 Reducing stack by rule 15 (line 88):
-   $1 = nterm ifelse (0x55e85609b360->{TOK_IF 7.11.7 "if": 0x55e85609b560 0x55e85609b7c0)
--> $$ = nterm statement (0x55e85609b360->{TOK_IF 7.11.7 "if": 0x55e85609b560 0x55e85609b7c0)
+   $1 = nterm ifelse (0x560f82985470->{TOK_IF 7.11.7 "if": 0x560f82985670 0x560f829858d0)
+-> $$ = nterm statement (0x560f82985470->{TOK_IF 7.11.7 "if": 0x560f82985670 0x560f829858d0)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88
 Entering state 129
 Reducing stack by rule 64 (line 213):
-   $1 = nterm bargs (0x55e85609af80->{TOK_BLOCK 7.8.21 "{": 0x55e85609b080 0x55e85609b220)
-   $2 = nterm statement (0x55e85609b360->{TOK_IF 7.11.7 "if": 0x55e85609b560 0x55e85609b7c0)
--> $$ = nterm bargs (0x55e85609af80->{TOK_BLOCK 7.8.21 "{": 0x55e85609b080 0x55e85609b220 0x55e85609b360)
+   $1 = nterm bargs (0x560f82985090->{TOK_BLOCK 7.8.21 "{": 0x560f82985190 0x560f82985330)
+   $2 = nterm statement (0x560f82985470->{TOK_IF 7.11.7 "if": 0x560f82985670 0x560f829858d0)
+-> $$ = nterm bargs (0x560f82985090->{TOK_BLOCK 7.8.21 "{": 0x560f82985190 0x560f82985330 0x560f82985470)
 Stack now 0 2 14 24 31 55 88 116 136 145 151
 Entering state 88
-Next token is token TOK_IDENT (0x55e85609b8c0->{TOK_IDENT 7.12.7 "number":)
-Shifting token TOK_IDENT (0x55e85609b8c0->{TOK_IDENT 7.12.7 "number":)
+Next token is token TOK_IDENT (0x560f829859d0->{TOK_IDENT 7.12.7 "number":)
+Shifting token TOK_IDENT (0x560f829859d0->{TOK_IDENT 7.12.7 "number":)
 Entering state 42
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 68 ("=")
-Next token is token '=' (0x55e85609b6a0->{'=' 7.12.14 "=":)
+Next token is token '=' (0x560f829857b0->{'=' 7.12.14 "=":)
 Reducing stack by rule 54 (line 189):
-   $1 = token TOK_IDENT (0x55e85609b8c0->{TOK_IDENT 7.12.7 "number":)
--> $$ = nterm variable (0x55e85609b8c0->{TOK_IDENT 7.12.7 "number":)
+   $1 = token TOK_IDENT (0x560f829859d0->{TOK_IDENT 7.12.7 "number":)
+-> $$ = nterm variable (0x560f829859d0->{TOK_IDENT 7.12.7 "number":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88
 Entering state 53
 Reducing stack by rule 45 (line 145):
-   $1 = nterm variable (0x55e85609b8c0->{TOK_IDENT 7.12.7 "number":)
--> $$ = nterm expr (0x55e85609b8c0->{TOK_IDENT 7.12.7 "number":)
+   $1 = nterm variable (0x560f829859d0->{TOK_IDENT 7.12.7 "number":)
+-> $$ = nterm expr (0x560f829859d0->{TOK_IDENT 7.12.7 "number":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88
 Entering state 123
-Next token is token '=' (0x55e85609b6a0->{'=' 7.12.14 "=":)
-Shifting token '=' (0x55e85609b6a0->{'=' 7.12.14 "=":)
+Next token is token '=' (0x560f829857b0->{'=' 7.12.14 "=":)
+Shifting token '=' (0x560f829857b0->{'=' 7.12.14 "=":)
 Entering state 73
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("number")
-Next token is token TOK_IDENT (0x55e85609b460->{TOK_IDENT 7.12.16 "number":)
-Shifting token TOK_IDENT (0x55e85609b460->{TOK_IDENT 7.12.16 "number":)
+Next token is token TOK_IDENT (0x560f82985570->{TOK_IDENT 7.12.16 "number":)
+Shifting token TOK_IDENT (0x560f82985570->{TOK_IDENT 7.12.16 "number":)
 Entering state 42
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 63 ("+")
-Next token is token '+' (0x55e85609b9b0->{'+' 7.12.23 "+":)
+Next token is token '+' (0x560f82985ac0->{'+' 7.12.23 "+":)
 Reducing stack by rule 54 (line 189):
-   $1 = token TOK_IDENT (0x55e85609b460->{TOK_IDENT 7.12.16 "number":)
--> $$ = nterm variable (0x55e85609b460->{TOK_IDENT 7.12.16 "number":)
+   $1 = token TOK_IDENT (0x560f82985570->{TOK_IDENT 7.12.16 "number":)
+-> $$ = nterm variable (0x560f82985570->{TOK_IDENT 7.12.16 "number":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 123 73
 Entering state 53
 Reducing stack by rule 45 (line 145):
-   $1 = nterm variable (0x55e85609b460->{TOK_IDENT 7.12.16 "number":)
--> $$ = nterm expr (0x55e85609b460->{TOK_IDENT 7.12.16 "number":)
+   $1 = nterm variable (0x560f82985570->{TOK_IDENT 7.12.16 "number":)
+-> $$ = nterm expr (0x560f82985570->{TOK_IDENT 7.12.16 "number":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 123 73
 Entering state 105
-Next token is token '+' (0x55e85609b9b0->{'+' 7.12.23 "+":)
-Shifting token '+' (0x55e85609b9b0->{'+' 7.12.23 "+":)
+Next token is token '+' (0x560f82985ac0->{'+' 7.12.23 "+":)
+Shifting token '+' (0x560f82985ac0->{'+' 7.12.23 "+":)
 Entering state 76
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 54 ("number")
-Next token is token TOK_IDENT (0x55e85609ba70->{TOK_IDENT 7.12.25 "number":)
-Shifting token TOK_IDENT (0x55e85609ba70->{TOK_IDENT 7.12.25 "number":)
+Next token is token TOK_IDENT (0x560f82985b80->{TOK_IDENT 7.12.25 "number":)
+Shifting token TOK_IDENT (0x560f82985b80->{TOK_IDENT 7.12.25 "number":)
 Entering state 42
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e85609baf0->{';' 7.12.31 ";":)
+Next token is token ';' (0x560f82985c00->{';' 7.12.31 ";":)
 Reducing stack by rule 54 (line 189):
-   $1 = token TOK_IDENT (0x55e85609ba70->{TOK_IDENT 7.12.25 "number":)
--> $$ = nterm variable (0x55e85609ba70->{TOK_IDENT 7.12.25 "number":)
+   $1 = token TOK_IDENT (0x560f82985b80->{TOK_IDENT 7.12.25 "number":)
+-> $$ = nterm variable (0x560f82985b80->{TOK_IDENT 7.12.25 "number":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 123 73 105 76
 Entering state 53
 Reducing stack by rule 45 (line 145):
-   $1 = nterm variable (0x55e85609ba70->{TOK_IDENT 7.12.25 "number":)
--> $$ = nterm expr (0x55e85609ba70->{TOK_IDENT 7.12.25 "number":)
+   $1 = nterm variable (0x560f82985b80->{TOK_IDENT 7.12.25 "number":)
+-> $$ = nterm expr (0x560f82985b80->{TOK_IDENT 7.12.25 "number":)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 123 73 105 76
 Entering state 108
-Next token is token ';' (0x55e85609baf0->{';' 7.12.31 ";":)
+Next token is token ';' (0x560f82985c00->{';' 7.12.31 ";":)
 Reducing stack by rule 28 (line 124):
-   $1 = nterm expr (0x55e85609b460->{TOK_IDENT 7.12.16 "number":)
-   $2 = token '+' (0x55e85609b9b0->{'+' 7.12.23 "+":)
-   $3 = nterm expr (0x55e85609ba70->{TOK_IDENT 7.12.25 "number":)
--> $$ = nterm expr (0x55e85609b9b0->{'+' 7.12.23 "+": 0x55e85609b460 0x55e85609ba70)
+   $1 = nterm expr (0x560f82985570->{TOK_IDENT 7.12.16 "number":)
+   $2 = token '+' (0x560f82985ac0->{'+' 7.12.23 "+":)
+   $3 = nterm expr (0x560f82985b80->{TOK_IDENT 7.12.25 "number":)
+-> $$ = nterm expr (0x560f82985ac0->{'+' 7.12.23 "+": 0x560f82985570 0x560f82985b80)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88 123 73
 Entering state 105
-Next token is token ';' (0x55e85609baf0->{';' 7.12.31 ";":)
+Next token is token ';' (0x560f82985c00->{';' 7.12.31 ";":)
 Reducing stack by rule 27 (line 123):
-   $1 = nterm expr (0x55e85609b8c0->{TOK_IDENT 7.12.7 "number":)
-   $2 = token '=' (0x55e85609b6a0->{'=' 7.12.14 "=":)
-   $3 = nterm expr (0x55e85609b9b0->{'+' 7.12.23 "+": 0x55e85609b460 0x55e85609ba70)
--> $$ = nterm expr (0x55e85609b6a0->{'=' 7.12.14 "=": 0x55e85609b8c0 0x55e85609b9b0)
+   $1 = nterm expr (0x560f829859d0->{TOK_IDENT 7.12.7 "number":)
+   $2 = token '=' (0x560f829857b0->{'=' 7.12.14 "=":)
+   $3 = nterm expr (0x560f82985ac0->{'+' 7.12.23 "+": 0x560f82985570 0x560f82985b80)
+-> $$ = nterm expr (0x560f829857b0->{'=' 7.12.14 "=": 0x560f829859d0 0x560f82985ac0)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88
 Entering state 123
-Next token is token ';' (0x55e85609baf0->{';' 7.12.31 ";":)
-Shifting token ';' (0x55e85609baf0->{';' 7.12.31 ";":)
+Next token is token ';' (0x560f82985c00->{';' 7.12.31 ";":)
+Shifting token ';' (0x560f82985c00->{';' 7.12.31 ";":)
 Entering state 140
 Reducing stack by rule 18 (line 91):
-   $1 = nterm expr (0x55e85609b6a0->{'=' 7.12.14 "=": 0x55e85609b8c0 0x55e85609b9b0)
-   $2 = token ';' (0x55e85609baf0->{';' 7.12.31 ";":)
-Deleting astree (0x55e85609baf0->{';' 7.12.31 ";":)
--> $$ = nterm statement (0x55e85609b6a0->{'=' 7.12.14 "=": 0x55e85609b8c0 0x55e85609b9b0)
+   $1 = nterm expr (0x560f829857b0->{'=' 7.12.14 "=": 0x560f829859d0 0x560f82985ac0)
+   $2 = token ';' (0x560f82985c00->{';' 7.12.31 ";":)
+Deleting astree (0x560f82985c00->{';' 7.12.31 ";":)
+-> $$ = nterm statement (0x560f829857b0->{'=' 7.12.14 "=": 0x560f829859d0 0x560f82985ac0)
 Stack now 0 2 14 24 31 55 88 116 136 145 151 88
 Entering state 129
 Reducing stack by rule 64 (line 213):
-   $1 = nterm bargs (0x55e85609af80->{TOK_BLOCK 7.8.21 "{": 0x55e85609b080 0x55e85609b220 0x55e85609b360)
-   $2 = nterm statement (0x55e85609b6a0->{'=' 7.12.14 "=": 0x55e85609b8c0 0x55e85609b9b0)
--> $$ = nterm bargs (0x55e85609af80->{TOK_BLOCK 7.8.21 "{": 0x55e85609b080 0x55e85609b220 0x55e85609b360 0x55e85609b6a0)
+   $1 = nterm bargs (0x560f82985090->{TOK_BLOCK 7.8.21 "{": 0x560f82985190 0x560f82985330 0x560f82985470)
+   $2 = nterm statement (0x560f829857b0->{'=' 7.12.14 "=": 0x560f829859d0 0x560f82985ac0)
+-> $$ = nterm bargs (0x560f82985090->{TOK_BLOCK 7.8.21 "{": 0x560f82985190 0x560f82985330 0x560f82985470 0x560f829857b0)
 Stack now 0 2 14 24 31 55 88 116 136 145 151
 Entering state 88
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 36 ("   ")
 --accepting rule at line 78 ("}")
-Next token is token '}' (0x55e85609baf0->{'}' 7.13.4 "}":)
-Shifting token '}' (0x55e85609baf0->{'}' 7.13.4 "}":)
+Next token is token '}' (0x560f82985c00->{'}' 7.13.4 "}":)
+Shifting token '}' (0x560f82985c00->{'}' 7.13.4 "}":)
 Entering state 128
 Reducing stack by rule 61 (line 204):
-   $1 = nterm bargs (0x55e85609af80->{TOK_BLOCK 7.8.21 "{": 0x55e85609b080 0x55e85609b220 0x55e85609b360 0x55e85609b6a0)
-   $2 = token '}' (0x55e85609baf0->{'}' 7.13.4 "}":)
-Deleting astree (0x55e85609baf0->{'}' 7.13.4 "}":)
--> $$ = nterm block (0x55e85609af80->{TOK_BLOCK 7.8.21 "{": 0x55e85609b080 0x55e85609b220 0x55e85609b360 0x55e85609b6a0)
+   $1 = nterm bargs (0x560f82985090->{TOK_BLOCK 7.8.21 "{": 0x560f82985190 0x560f82985330 0x560f82985470 0x560f829857b0)
+   $2 = token '}' (0x560f82985c00->{'}' 7.13.4 "}":)
+Deleting astree (0x560f82985c00->{'}' 7.13.4 "}":)
+-> $$ = nterm block (0x560f82985090->{TOK_BLOCK 7.8.21 "{": 0x560f82985190 0x560f82985330 0x560f82985470 0x560f829857b0)
 Stack now 0 2 14 24 31 55 88 116 136 145 151
 Entering state 124
 Reducing stack by rule 13 (line 86):
-   $1 = nterm block (0x55e85609af80->{TOK_BLOCK 7.8.21 "{": 0x55e85609b080 0x55e85609b220 0x55e85609b360 0x55e85609b6a0)
--> $$ = nterm statement (0x55e85609af80->{TOK_BLOCK 7.8.21 "{": 0x55e85609b080 0x55e85609b220 0x55e85609b360 0x55e85609b6a0)
+   $1 = nterm block (0x560f82985090->{TOK_BLOCK 7.8.21 "{": 0x560f82985190 0x560f82985330 0x560f82985470 0x560f829857b0)
+-> $$ = nterm statement (0x560f82985090->{TOK_BLOCK 7.8.21 "{": 0x560f82985190 0x560f82985330 0x560f82985470 0x560f829857b0)
 Stack now 0 2 14 24 31 55 88 116 136 145 151
 Entering state 156
 Reducing stack by rule 65 (line 216):
-   $1 = token TOK_WHILE (0x55e85609ac30->{TOK_WHILE 7.8.4 "while":)
-   $2 = token '(' (0x55e85609aaf0->{'(' 7.8.10 "(":)
-   $3 = nterm expr (0x55e85609adc0->{TOK_NOT 7.8.11 "not": 0x55e85609ae80)
-   $4 = token ')' (0x55e85609af00->{')' 7.8.19 ")":)
-   $5 = nterm statement (0x55e85609af80->{TOK_BLOCK 7.8.21 "{": 0x55e85609b080 0x55e85609b220 0x55e85609b360 0x55e85609b6a0)
-Deleting astree (0x55e85609aaf0->{'(' 7.8.10 "(":)
-Deleting astree (0x55e85609af00->{')' 7.8.19 ")":)
--> $$ = nterm while (0x55e85609ac30->{TOK_WHILE 7.8.4 "while": 0x55e85609adc0 0x55e85609af80)
+   $1 = token TOK_WHILE (0x560f82984d40->{TOK_WHILE 7.8.4 "while":)
+   $2 = token '(' (0x560f82984c00->{'(' 7.8.10 "(":)
+   $3 = nterm expr (0x560f82984ed0->{TOK_NOT 7.8.11 "not": 0x560f82984f90)
+   $4 = token ')' (0x560f82985010->{')' 7.8.19 ")":)
+   $5 = nterm statement (0x560f82985090->{TOK_BLOCK 7.8.21 "{": 0x560f82985190 0x560f82985330 0x560f82985470 0x560f829857b0)
+Deleting astree (0x560f82984c00->{'(' 7.8.10 "(":)
+Deleting astree (0x560f82985010->{')' 7.8.19 ")":)
+-> $$ = nterm while (0x560f82984d40->{TOK_WHILE 7.8.4 "while": 0x560f82984ed0 0x560f82985090)
 Stack now 0 2 14 24 31 55 88
 Entering state 125
 Reducing stack by rule 14 (line 87):
-   $1 = nterm while (0x55e85609ac30->{TOK_WHILE 7.8.4 "while": 0x55e85609adc0 0x55e85609af80)
--> $$ = nterm statement (0x55e85609ac30->{TOK_WHILE 7.8.4 "while": 0x55e85609adc0 0x55e85609af80)
+   $1 = nterm while (0x560f82984d40->{TOK_WHILE 7.8.4 "while": 0x560f82984ed0 0x560f82985090)
+-> $$ = nterm statement (0x560f82984d40->{TOK_WHILE 7.8.4 "while": 0x560f82984ed0 0x560f82985090)
 Stack now 0 2 14 24 31 55 88
 Entering state 129
 Reducing stack by rule 64 (line 213):
-   $1 = nterm bargs (0x55e85609a610->{TOK_BLOCK 7.5.12 "{": 0x55e85609aa10 0x55e85609acb0)
-   $2 = nterm statement (0x55e85609ac30->{TOK_WHILE 7.8.4 "while": 0x55e85609adc0 0x55e85609af80)
--> $$ = nterm bargs (0x55e85609a610->{TOK_BLOCK 7.5.12 "{": 0x55e85609aa10 0x55e85609acb0 0x55e85609ac30)
+   $1 = nterm bargs (0x560f829845a0->{TOK_BLOCK 7.5.12 "{": 0x560f82984b20 0x560f82984dc0)
+   $2 = nterm statement (0x560f82984d40->{TOK_WHILE 7.8.4 "while": 0x560f82984ed0 0x560f82985090)
+-> $$ = nterm bargs (0x560f829845a0->{TOK_BLOCK 7.5.12 "{": 0x560f82984b20 0x560f82984dc0 0x560f82984d40)
 Stack now 0 2 14 24 31 55
 Entering state 88
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 36 ("   ")
 --accepting rule at line 42 ("return")
-Next token is token TOK_RETURN (0x55e85609af00->{TOK_RETURN 7.14.4 "return":)
-Shifting token TOK_RETURN (0x55e85609af00->{TOK_RETURN 7.14.4 "return":)
+Next token is token TOK_RETURN (0x560f82985010->{TOK_RETURN 7.14.4 "return":)
+Shifting token TOK_RETURN (0x560f82985010->{TOK_RETURN 7.14.4 "return":)
 Entering state 117
 Reading a token: --accepting rule at line 36 (" ")
 --accepting rule at line 53 ("0")
-Next token is token TOK_INTCON (0x55e85609aaf0->{TOK_INTCON 7.14.11 "0":)
-Shifting token TOK_INTCON (0x55e85609aaf0->{TOK_INTCON 7.14.11 "0":)
+Next token is token TOK_INTCON (0x560f82984c00->{TOK_INTCON 7.14.11 "0":)
+Shifting token TOK_INTCON (0x560f82984c00->{TOK_INTCON 7.14.11 "0":)
 Entering state 43
 Reducing stack by rule 57 (line 197):
-   $1 = token TOK_INTCON (0x55e85609aaf0->{TOK_INTCON 7.14.11 "0":)
--> $$ = nterm constant (0x55e85609aaf0->{TOK_INTCON 7.14.11 "0":)
+   $1 = token TOK_INTCON (0x560f82984c00->{TOK_INTCON 7.14.11 "0":)
+-> $$ = nterm constant (0x560f82984c00->{TOK_INTCON 7.14.11 "0":)
 Stack now 0 2 14 24 31 55 88 117
 Entering state 54
 Reducing stack by rule 46 (line 146):
-   $1 = nterm constant (0x55e85609aaf0->{TOK_INTCON 7.14.11 "0":)
--> $$ = nterm expr (0x55e85609aaf0->{TOK_INTCON 7.14.11 "0":)
+   $1 = nterm constant (0x560f82984c00->{TOK_INTCON 7.14.11 "0":)
+-> $$ = nterm expr (0x560f82984c00->{TOK_INTCON 7.14.11 "0":)
 Stack now 0 2 14 24 31 55 88 117
 Entering state 138
 Reading a token: --accepting rule at line 72 (";")
-Next token is token ';' (0x55e85609baf0->{';' 7.14.12 ";":)
-Shifting token ';' (0x55e85609baf0->{';' 7.14.12 ";":)
+Next token is token ';' (0x560f82985c00->{';' 7.14.12 ";":)
+Shifting token ';' (0x560f82985c00->{';' 7.14.12 ";":)
 Entering state 146
 Reducing stack by rule 68 (line 234):
-   $1 = token TOK_RETURN (0x55e85609af00->{TOK_RETURN 7.14.4 "return":)
-   $2 = nterm expr (0x55e85609aaf0->{TOK_INTCON 7.14.11 "0":)
-   $3 = token ';' (0x55e85609baf0->{';' 7.14.12 ";":)
-Deleting astree (0x55e85609baf0->{';' 7.14.12 ";":)
--> $$ = nterm return (0x55e85609af00->{TOK_RETURN 7.14.4 "return": 0x55e85609aaf0)
+   $1 = token TOK_RETURN (0x560f82985010->{TOK_RETURN 7.14.4 "return":)
+   $2 = nterm expr (0x560f82984c00->{TOK_INTCON 7.14.11 "0":)
+   $3 = token ';' (0x560f82985c00->{';' 7.14.12 ";":)
+Deleting astree (0x560f82985c00->{';' 7.14.12 ";":)
+-> $$ = nterm return (0x560f82985010->{TOK_RETURN 7.14.4 "return": 0x560f82984c00)
 Stack now 0 2 14 24 31 55 88
 Entering state 127
 Reducing stack by rule 16 (line 89):
-   $1 = nterm return (0x55e85609af00->{TOK_RETURN 7.14.4 "return": 0x55e85609aaf0)
--> $$ = nterm statement (0x55e85609af00->{TOK_RETURN 7.14.4 "return": 0x55e85609aaf0)
+   $1 = nterm return (0x560f82985010->{TOK_RETURN 7.14.4 "return": 0x560f82984c00)
+-> $$ = nterm statement (0x560f82985010->{TOK_RETURN 7.14.4 "return": 0x560f82984c00)
 Stack now 0 2 14 24 31 55 88
 Entering state 129
 Reducing stack by rule 64 (line 213):
-   $1 = nterm bargs (0x55e85609a610->{TOK_BLOCK 7.5.12 "{": 0x55e85609aa10 0x55e85609acb0 0x55e85609ac30)
-   $2 = nterm statement (0x55e85609af00->{TOK_RETURN 7.14.4 "return": 0x55e85609aaf0)
--> $$ = nterm bargs (0x55e85609a610->{TOK_BLOCK 7.5.12 "{": 0x55e85609aa10 0x55e85609acb0 0x55e85609ac30 0x55e85609af00)
+   $1 = nterm bargs (0x560f829845a0->{TOK_BLOCK 7.5.12 "{": 0x560f82984b20 0x560f82984dc0 0x560f82984d40)
+   $2 = nterm statement (0x560f82985010->{TOK_RETURN 7.14.4 "return": 0x560f82984c00)
+-> $$ = nterm bargs (0x560f829845a0->{TOK_BLOCK 7.5.12 "{": 0x560f82984b20 0x560f82984dc0 0x560f82984d40 0x560f82985010)
 Stack now 0 2 14 24 31 55
 Entering state 88
 Reading a token: --accepting rule at line 37 ("
 ")
 --accepting rule at line 78 ("}")
-Next token is token '}' (0x55e85609baf0->{'}' 7.15.1 "}":)
-Shifting token '}' (0x55e85609baf0->{'}' 7.15.1 "}":)
+Next token is token '}' (0x560f82985c00->{'}' 7.15.1 "}":)
+Shifting token '}' (0x560f82985c00->{'}' 7.15.1 "}":)
 Entering state 128
 Reducing stack by rule 61 (line 204):
-   $1 = nterm bargs (0x55e85609a610->{TOK_BLOCK 7.5.12 "{": 0x55e85609aa10 0x55e85609acb0 0x55e85609ac30 0x55e85609af00)
-   $2 = token '}' (0x55e85609baf0->{'}' 7.15.1 "}":)
-Deleting astree (0x55e85609baf0->{'}' 7.15.1 "}":)
--> $$ = nterm block (0x55e85609a610->{TOK_BLOCK 7.5.12 "{": 0x55e85609aa10 0x55e85609acb0 0x55e85609ac30 0x55e85609af00)
+   $1 = nterm bargs (0x560f829845a0->{TOK_BLOCK 7.5.12 "{": 0x560f82984b20 0x560f82984dc0 0x560f82984d40 0x560f82985010)
+   $2 = token '}' (0x560f82985c00->{'}' 7.15.1 "}":)
+Deleting astree (0x560f82985c00->{'}' 7.15.1 "}":)
+-> $$ = nterm block (0x560f829845a0->{TOK_BLOCK 7.5.12 "{": 0x560f82984b20 0x560f82984dc0 0x560f82984d40 0x560f82985010)
 Stack now 0 2 14 24 31 55
 Entering state 87
 Reducing stack by rule 75 (line 274):
-   $1 = nterm block (0x55e85609a610->{TOK_BLOCK 7.5.12 "{": 0x55e85609aa10 0x55e85609acb0 0x55e85609ac30 0x55e85609af00)
--> $$ = nterm fend (0x55e85609a610->{TOK_BLOCK 7.5.12 "{": 0x55e85609aa10 0x55e85609acb0 0x55e85609ac30 0x55e85609af00)
+   $1 = nterm block (0x560f829845a0->{TOK_BLOCK 7.5.12 "{": 0x560f82984b20 0x560f82984dc0 0x560f82984d40 0x560f82985010)
+-> $$ = nterm fend (0x560f829845a0->{TOK_BLOCK 7.5.12 "{": 0x560f82984b20 0x560f82984dc0 0x560f82984d40 0x560f82985010)
 Stack now 0 2 14 24 31 55
 Entering state 89
 Reducing stack by rule 71 (line 250):
-   $1 = nterm type (0x55e85609a290->{TOK_INT 7.5.1 "int":)
-   $2 = token TOK_IDENT (0x55e85609a450->{TOK_IDENT 7.5.5 "main":)
-   $3 = token '(' (0x55e85609a510->{'(' 7.5.9 "(":)
-   $4 = token ')' (0x55e85609a590->{')' 7.5.10 ")":)
-   $5 = nterm fend (0x55e85609a610->{TOK_BLOCK 7.5.12 "{": 0x55e85609aa10 0x55e85609acb0 0x55e85609ac30 0x55e85609af00)
-Deleting astree (0x55e85609a590->{')' 7.5.10 ")":)
--> $$ = nterm function (0x55e85609baf0->{TOK_FUNCTION 7.5.1 "": 0x55e85609bee0 0x55e85609a510 0x55e85609a610)
+   $1 = nterm type (0x560f82984220->{TOK_INT 7.5.1 "int":)
+   $2 = token TOK_IDENT (0x560f829843e0->{TOK_IDENT 7.5.5 "main":)
+   $3 = token '(' (0x560f829844a0->{'(' 7.5.9 "(":)
+   $4 = token ')' (0x560f82984520->{')' 7.5.10 ")":)
+   $5 = nterm fend (0x560f829845a0->{TOK_BLOCK 7.5.12 "{": 0x560f82984b20 0x560f82984dc0 0x560f82984d40 0x560f82985010)
+Deleting astree (0x560f82984520->{')' 7.5.10 ")":)
+-> $$ = nterm function (0x560f82985c00->{TOK_FUNCTION 7.5.1 "": 0x560f82985d70 0x560f829844a0 0x560f829845a0)
 Stack now 0 2
 Entering state 16
 Reducing stack by rule 3 (line 54):
-   $1 = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0 0x55e8560994e0 0x55e8560999f0 0x55e856099d10 0x55e85609a010 0x55e85609a310)
-   $2 = nterm function (0x55e85609baf0->{TOK_FUNCTION 7.5.1 "": 0x55e85609bee0 0x55e85609a510 0x55e85609a610)
--> $$ = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0 0x55e8560994e0 0x55e8560999f0 0x55e856099d10 0x55e85609a010 0x55e85609a310 0x55e85609baf0)
+   $1 = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70 0x560f82983470 0x560f82983980 0x560f82983ca0 0x560f82983fa0 0x560f829842a0)
+   $2 = nterm function (0x560f82985c00->{TOK_FUNCTION 7.5.1 "": 0x560f82985d70 0x560f829844a0 0x560f829845a0)
+-> $$ = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70 0x560f82983470 0x560f82983980 0x560f82983ca0 0x560f82983fa0 0x560f829842a0 0x560f82985c00)
 Stack now 0
 Entering state 2
 Reading a token: --accepting rule at line 37 ("
@@ -1310,7 +1310,7 @@ Reading a token: --accepting rule at line 37 ("
 --EOF (start condition 0)
 Now at end of input.
 Reducing stack by rule 1 (line 50):
-   $1 = nterm program (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x55e856098990 0x55e856098eb0 0x55e8560994e0 0x55e8560999f0 0x55e856099d10 0x55e85609a010 0x55e85609a310 0x55e85609baf0)
+   $1 = nterm program (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>": 0x560f82982a50 0x560f82982f70 0x560f82983470 0x560f82983980 0x560f82983ca0 0x560f82983fa0 0x560f829842a0 0x560f82985c00)
 -> $$ = nterm start (nullptr)
 Stack now 0
 Entering state 1
@@ -1321,409 +1321,409 @@ Stack now 0 1 3
 Cleanup: popping token $end ()
 Cleanup: popping nterm start (nullptr)
 Deleting symbol...
-0x55e85609d290->{6.22.38}
+0x560f82986110->{6.22.38}
 attrib: int variable param lval 
 sequence: 2
 fields: 
 block: 1
 params: 
 Deleting symbol...
-0x55e85609d0b0->{6.22.12}
+0x560f82985f30->{6.22.12}
 attrib: string variable param lval 
 sequence: 0
 fields: 
 block: 1
 params: 
 Deleting symbol...
-0x55e85609d1b0->{6.22.25}
+0x560f82986030->{6.22.25}
 attrib: string variable param lval 
 sequence: 1
 fields: 
 block: 1
 params: 
 Deleting symbol...
-0x55e85609d0b0->{6.24.14}
+0x560f82985f30->{6.24.14}
 attrib: int variable param lval 
 sequence: 0
 fields: 
 block: 2
 params: 
 Deleting symbol...
-0x55e85609d3f0->{6.25.14}
+0x560f82986260->{6.25.14}
 attrib: int variable param lval 
 sequence: 0
 fields: 
 block: 3
 params: 
 Deleting symbol...
-0x55e85609d4f0->{6.26.14}
+0x560f82986360->{6.26.14}
 attrib: string variable param lval 
 sequence: 0
 fields: 
 block: 4
 params: 
 Deleting symbol...
-0x55e85609d7d0->{7.6.4}
+0x560f82986640->{7.6.4}
 attrib: int variable local lval 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d820->{7.6.17}
+0x560f82986690->{7.6.17}
 attrib: int const 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d870->{7.6.4}
+0x560f829866e0->{7.6.4}
 attrib: int variable local lval vreg 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d820->{7.7.4}
+0x560f82986690->{7.7.4}
 attrib: int variable local lval 
 sequence: 1
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d7d0->{7.7.15}
+0x560f82986640->{7.7.15}
 attrib: int const 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d8e0->{7.7.4}
+0x560f82986750->{7.7.4}
 attrib: int variable local lval vreg 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d8e0->{7.7.4}
+0x560f82986750->{7.7.4}
 attrib: int variable local lval vreg 
 sequence: 1
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d7d0->{7.6.4}
+0x560f82986640->{7.6.4}
 attrib: int variable local lval 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d8e0->{7.9.14}
+0x560f82986750->{7.9.14}
 attrib: void 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d7d0->{7.10.15}
+0x560f82986640->{7.10.15}
 attrib: int const 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d8e0->{7.10.14}
+0x560f82986750->{7.10.14}
 attrib: void 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d8e0->{7.6.4}
+0x560f82986750->{7.6.4}
 attrib: int variable local lval 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d7d0->{7.11.21}
+0x560f82986640->{7.11.21}
 attrib: int const 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d7d0->{7.11.18}
+0x560f82986640->{7.11.18}
 attrib: int vreg 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d7d0->{7.7.4}
+0x560f82986640->{7.7.4}
 attrib: int variable local lval 
 sequence: 1
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d8e0->{7.11.31}
+0x560f82986750->{7.11.31}
 attrib: int const 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d820->{7.11.29}
+0x560f82986690->{7.11.29}
 attrib: int variable local lval vreg 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d8e0->{7.6.4}
+0x560f82986750->{7.6.4}
 attrib: int variable local lval 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d7d0->{7.6.4}
+0x560f82986640->{7.6.4}
 attrib: int variable local lval 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d820->{7.6.4}
+0x560f82986690->{7.6.4}
 attrib: int variable local lval 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d7d0->{7.12.23}
+0x560f82986640->{7.12.23}
 attrib: int vreg 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d8e0->{7.12.14}
+0x560f82986750->{7.12.14}
 attrib: int variable local lval vreg 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d8e0->{7.14.11}
+0x560f82986750->{7.14.11}
 attrib: int const 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d870->{7.7.4}
+0x560f829866e0->{7.7.4}
 attrib: int variable local lval 
 sequence: 1
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d740->{7.6.4}
+0x560f829865b0->{7.6.4}
 attrib: int variable local lval 
 sequence: 0
 fields: 
 block: 8
 params: 
 Deleting symbol...
-0x55e85609d6b0->{7.5.1}
+0x560f82986520->{7.5.1}
 attrib: int function 
 sequence: 0
 fields: 
 block: 7
 params: 
 Deleting symbol...
-0x55e85609d640->{6.30.1}
+0x560f829864b0->{6.30.1}
 attrib: string function 
 sequence: 0
 fields: 
 block: 6
 params: 
 Deleting symbol...
-0x55e85609d1b0->{6.24.1}
+0x560f82986030->{6.24.1}
 attrib: void function 
 sequence: 0
 fields: 
 block: 1
 params: int variable param lval  //  
 Deleting symbol...
-0x55e85609d290->{6.24.14}
+0x560f82986110->{6.24.14}
 attrib: int variable param lval 
 sequence: 0
 fields: 
 block: 2
 params: 
 Deleting symbol...
-0x55e85609d000->{6.22.1}
-attrib: void function 
-sequence: 0
-fields: 
-block: 0
-params: string variable param lval  //  string variable param lval  //  int variable param lval  //  
-Deleting symbol...
-0x55e85609d140->{6.22.12}
-attrib: string variable param lval 
-sequence: 0
-fields: 
-block: 1
-params: 
-Deleting symbol...
-0x55e85609d220->{6.22.25}
-attrib: string variable param lval 
-sequence: 1
-fields: 
-block: 1
-params: 
-Deleting symbol...
-0x55e85609d320->{6.22.38}
-attrib: int variable param lval 
-sequence: 2
-fields: 
-block: 1
-params: 
-Deleting symbol...
-0x55e85609d5d0->{6.29.1}
-attrib: string function 
-sequence: 0
-fields: 
-block: 5
-params: 
-Deleting symbol...
-0x55e85609d3f0->{6.26.1}
+0x560f82986260->{6.26.1}
 attrib: void function 
 sequence: 0
 fields: 
 block: 3
 params: string variable param lval  //  
 Deleting symbol...
-0x55e85609d560->{6.26.14}
+0x560f829863d0->{6.26.14}
 attrib: string variable param lval 
 sequence: 0
 fields: 
 block: 4
 params: 
 Deleting symbol...
-0x55e85609d0b0->{6.25.1}
+0x560f82985e80->{6.22.1}
+attrib: void function 
+sequence: 0
+fields: 
+block: 0
+params: string variable param lval  //  string variable param lval  //  int variable param lval  //  
+Deleting symbol...
+0x560f82985fc0->{6.22.12}
+attrib: string variable param lval 
+sequence: 0
+fields: 
+block: 1
+params: 
+Deleting symbol...
+0x560f829860a0->{6.22.25}
+attrib: string variable param lval 
+sequence: 1
+fields: 
+block: 1
+params: 
+Deleting symbol...
+0x560f82986190->{6.22.38}
+attrib: int variable param lval 
+sequence: 2
+fields: 
+block: 1
+params: 
+Deleting symbol...
+0x560f82986440->{6.29.1}
+attrib: string function 
+sequence: 0
+fields: 
+block: 5
+params: 
+Deleting symbol...
+0x560f82985f30->{6.25.1}
 attrib: void function 
 sequence: 0
 fields: 
 block: 2
 params: int variable param lval  //  
 Deleting symbol...
-0x55e85609d480->{6.25.14}
+0x560f829862f0->{6.25.14}
 attrib: int variable param lval 
 sequence: 0
 fields: 
 block: 3
 params: 
 Deleting symbol...
-0x55e85609d4f0->{6.28.1}
+0x560f82986360->{6.28.1}
 attrib: int function 
 sequence: 0
 fields: 
 block: 4
 params: 
-Deleting astree (0x55e85609aaf0->{TOK_INTCON 7.14.11 "0":)
-Deleting astree (0x55e85609af00->{TOK_RETURN 7.14.4 "return":)
-Deleting astree (0x55e85609ba70->{TOK_IDENT 7.12.25 "number":)
-Deleting astree (0x55e85609b460->{TOK_IDENT 7.12.16 "number":)
-Deleting astree (0x55e85609b9b0->{'+' 7.12.23 "+":)
-Deleting astree (0x55e85609b8c0->{TOK_IDENT 7.12.7 "number":)
-Deleting astree (0x55e85609b6a0->{'=' 7.12.14 "=":)
-Deleting astree (0x55e85609b840->{TOK_INTCON 7.11.31 "1":)
-Deleting astree (0x55e85609b740->{TOK_IDENT 7.11.24 "done":)
-Deleting astree (0x55e85609b7c0->{'=' 7.11.29 "=":)
-Deleting astree (0x55e85609b620->{TOK_INTCON 7.11.21 "0":)
-Deleting astree (0x55e85609b4e0->{TOK_IDENT 7.11.11 "number":)
-Deleting astree (0x55e85609b560->{TOK_LE 7.11.18 "<=":)
-Deleting astree (0x55e85609b360->{TOK_IF 7.11.7 "if":)
-Deleting astree (0x55e85609b2a0->{TOK_CHARCON 7.10.15 "'\n'":)
-Deleting astree (0x55e85609b180->{TOK_IDENT 7.10.7 "putchr":)
-Deleting astree (0x55e85609b220->{TOK_CALL 7.10.14 "(":)
-Deleting astree (0x55e85609b100->{TOK_IDENT 7.9.15 "number":)
-Deleting astree (0x55e85609b000->{TOK_IDENT 7.9.7 "putint":)
-Deleting astree (0x55e85609b080->{TOK_CALL 7.9.14 "(":)
-Deleting astree (0x55e85609af80->{TOK_BLOCK 7.8.21 "{":)
-Deleting astree (0x55e85609ae80->{TOK_IDENT 7.8.15 "done":)
-Deleting astree (0x55e85609adc0->{TOK_NOT 7.8.11 "not":)
-Deleting astree (0x55e85609ac30->{TOK_WHILE 7.8.4 "while":)
-Deleting astree (0x55e85609ab70->{TOK_INTCON 7.7.15 "0":)
-Deleting astree (0x55e85609a810->{TOK_IDENT 7.7.8 "done":)
-Deleting astree (0x55e85609a990->{TOK_INT 7.7.4 "int":)
-Deleting astree (0x55e85609acb0->{TOK_TYPE_ID 7.7.4 "":)
-Deleting astree (0x55e85609a8d0->{TOK_INTCON 7.6.17 "1":)
-Deleting astree (0x55e85609a750->{TOK_IDENT 7.6.8 "number":)
-Deleting astree (0x55e85609a6d0->{TOK_INT 7.6.4 "int":)
-Deleting astree (0x55e85609aa10->{TOK_TYPE_ID 7.6.4 "":)
-Deleting astree (0x55e85609a610->{TOK_BLOCK 7.5.12 "{":)
-Deleting astree (0x55e85609a510->{TOK_PARAM 7.5.9 "(":)
-Deleting astree (0x55e85609a450->{TOK_IDENT 7.5.5 "main":)
-Deleting astree (0x55e85609a290->{TOK_INT 7.5.1 "int":)
-Deleting astree (0x55e85609bee0->{TOK_TYPE_ID 7.5.1 "":)
-Deleting astree (0x55e85609baf0->{TOK_FUNCTION 7.5.1 "":)
-Deleting astree (0x55e85609a210->{TOK_PARAM 6.30.13 "(":)
-Deleting astree (0x55e85609a150->{TOK_IDENT 6.30.8 "getln":)
-Deleting astree (0x55e856099f90->{TOK_STRING 6.30.1 "string":)
-Deleting astree (0x55e85609a390->{TOK_TYPE_ID 6.30.1 "":)
-Deleting astree (0x55e85609a310->{TOK_FUNCTION 6.30.1 "":)
-Deleting astree (0x55e856099f10->{TOK_PARAM 6.29.14 "(":)
-Deleting astree (0x55e856099e50->{TOK_IDENT 6.29.8 "getstr":)
-Deleting astree (0x55e856099c90->{TOK_STRING 6.29.1 "string":)
-Deleting astree (0x55e85609a090->{TOK_TYPE_ID 6.29.1 "":)
-Deleting astree (0x55e85609a010->{TOK_FUNCTION 6.29.1 "":)
-Deleting astree (0x55e856099c10->{TOK_PARAM 6.28.11 "(":)
-Deleting astree (0x55e856099b50->{TOK_IDENT 6.28.5 "getchr":)
-Deleting astree (0x55e856099970->{TOK_INT 6.28.1 "int":)
-Deleting astree (0x55e856099d90->{TOK_TYPE_ID 6.28.1 "":)
-Deleting astree (0x55e856099d10->{TOK_FUNCTION 6.28.1 "":)
-Deleting astree (0x55e856099830->{TOK_IDENT 6.26.21 "str":)
-Deleting astree (0x55e8560997b0->{TOK_STRING 6.26.14 "string":)
-Deleting astree (0x55e8560998f0->{TOK_TYPE_ID 6.26.14 "":)
-Deleting astree (0x55e856099730->{TOK_PARAM 6.26.13 "(":)
-Deleting astree (0x55e856099670->{TOK_IDENT 6.26.6 "putstr":)
-Deleting astree (0x55e856099460->{TOK_VOID 6.26.1 "void":)
-Deleting astree (0x55e856099a70->{TOK_TYPE_ID 6.26.1 "":)
-Deleting astree (0x55e8560999f0->{TOK_FUNCTION 6.26.1 "":)
-Deleting astree (0x55e8560991d0->{TOK_IDENT 6.25.18 "num":)
-Deleting astree (0x55e856099150->{TOK_INT 6.25.14 "int":)
-Deleting astree (0x55e8560993c0->{TOK_TYPE_ID 6.25.14 "":)
-Deleting astree (0x55e8560990d0->{TOK_PARAM 6.25.13 "(":)
-Deleting astree (0x55e856099010->{TOK_IDENT 6.25.6 "putint":)
-Deleting astree (0x55e856098e30->{TOK_VOID 6.25.1 "void":)
-Deleting astree (0x55e856099560->{TOK_TYPE_ID 6.25.1 "":)
-Deleting astree (0x55e8560994e0->{TOK_FUNCTION 6.25.1 "":)
-Deleting astree (0x55e856098cb0->{TOK_IDENT 6.24.18 "chr":)
-Deleting astree (0x55e856098c30->{TOK_INT 6.24.14 "int":)
-Deleting astree (0x55e856098d70->{TOK_TYPE_ID 6.24.14 "":)
-Deleting astree (0x55e856098bb0->{TOK_PARAM 6.24.13 "(":)
-Deleting astree (0x55e856098af0->{TOK_IDENT 6.24.6 "putchr":)
-Deleting astree (0x55e8560984b0->{TOK_VOID 6.24.1 "void":)
-Deleting astree (0x55e856098f30->{TOK_TYPE_ID 6.24.1 "":)
-Deleting astree (0x55e856098eb0->{TOK_FUNCTION 6.24.1 "":)
-Deleting astree (0x55e8560987f0->{TOK_IDENT 6.22.42 "line":)
-Deleting astree (0x55e856098730->{TOK_INT 6.22.38 "int":)
-Deleting astree (0x55e8560988b0->{TOK_TYPE_ID 6.22.38 "":)
-Deleting astree (0x55e8560985b0->{TOK_IDENT 6.22.32 "file":)
-Deleting astree (0x55e856098530->{TOK_STRING 6.22.25 "string":)
-Deleting astree (0x55e856098670->{TOK_TYPE_ID 6.22.25 "":)
-Deleting astree (0x55e856098310->{TOK_IDENT 6.22.19 "expr":)
-Deleting astree (0x55e856098250->{TOK_STRING 6.22.12 "string":)
-Deleting astree (0x55e8560983d0->{TOK_TYPE_ID 6.22.12 "":)
-Deleting astree (0x55e856098190->{TOK_PARAM 6.22.11 "(":)
-Deleting astree (0x55e856098090->{TOK_IDENT 6.22.6 "fail":)
-Deleting astree (0x55e856096fc0->{TOK_VOID 6.22.1 "void":)
-Deleting astree (0x55e856098a50->{TOK_TYPE_ID 6.22.1 "":)
-Deleting astree (0x55e856098990->{TOK_FUNCTION 6.22.1 "":)
-Deleting astree (0x55e856091ca0->{TOK_ROOT 0.0.0 "<<ROOT>>":)
+Deleting astree (0x560f82984c00->{TOK_INTCON 7.14.11 "0":)
+Deleting astree (0x560f82985010->{TOK_RETURN 7.14.4 "return":)
+Deleting astree (0x560f82985b80->{TOK_IDENT 7.12.25 "number":)
+Deleting astree (0x560f82985570->{TOK_IDENT 7.12.16 "number":)
+Deleting astree (0x560f82985ac0->{'+' 7.12.23 "+":)
+Deleting astree (0x560f829859d0->{TOK_IDENT 7.12.7 "number":)
+Deleting astree (0x560f829857b0->{'=' 7.12.14 "=":)
+Deleting astree (0x560f82985950->{TOK_INTCON 7.11.31 "1":)
+Deleting astree (0x560f82985850->{TOK_IDENT 7.11.24 "done":)
+Deleting astree (0x560f829858d0->{'=' 7.11.29 "=":)
+Deleting astree (0x560f82985730->{TOK_INTCON 7.11.21 "0":)
+Deleting astree (0x560f829855f0->{TOK_IDENT 7.11.11 "number":)
+Deleting astree (0x560f82985670->{TOK_LE 7.11.18 "<=":)
+Deleting astree (0x560f82985470->{TOK_IF 7.11.7 "if":)
+Deleting astree (0x560f829853b0->{TOK_CHARCON 7.10.15 "'\n'":)
+Deleting astree (0x560f82985290->{TOK_IDENT 7.10.7 "putchr":)
+Deleting astree (0x560f82985330->{TOK_CALL 7.10.14 "(":)
+Deleting astree (0x560f82985210->{TOK_IDENT 7.9.15 "number":)
+Deleting astree (0x560f82985110->{TOK_IDENT 7.9.7 "putint":)
+Deleting astree (0x560f82985190->{TOK_CALL 7.9.14 "(":)
+Deleting astree (0x560f82985090->{TOK_BLOCK 7.8.21 "{":)
+Deleting astree (0x560f82984f90->{TOK_IDENT 7.8.15 "done":)
+Deleting astree (0x560f82984ed0->{TOK_NOT 7.8.11 "not":)
+Deleting astree (0x560f82984d40->{TOK_WHILE 7.8.4 "while":)
+Deleting astree (0x560f82984c80->{TOK_INTCON 7.7.15 "0":)
+Deleting astree (0x560f82984920->{TOK_IDENT 7.7.8 "done":)
+Deleting astree (0x560f82984aa0->{TOK_INT 7.7.4 "int":)
+Deleting astree (0x560f82984dc0->{TOK_TYPE_ID 7.7.4 "":)
+Deleting astree (0x560f829849e0->{TOK_INTCON 7.6.17 "1":)
+Deleting astree (0x560f82984860->{TOK_IDENT 7.6.8 "number":)
+Deleting astree (0x560f829847e0->{TOK_INT 7.6.4 "int":)
+Deleting astree (0x560f82984b20->{TOK_TYPE_ID 7.6.4 "":)
+Deleting astree (0x560f829845a0->{TOK_BLOCK 7.5.12 "{":)
+Deleting astree (0x560f829844a0->{TOK_PARAM 7.5.9 "(":)
+Deleting astree (0x560f829843e0->{TOK_IDENT 7.5.5 "main":)
+Deleting astree (0x560f82984220->{TOK_INT 7.5.1 "int":)
+Deleting astree (0x560f82985d70->{TOK_TYPE_ID 7.5.1 "":)
+Deleting astree (0x560f82985c00->{TOK_FUNCTION 7.5.1 "":)
+Deleting astree (0x560f829841a0->{TOK_PARAM 6.30.13 "(":)
+Deleting astree (0x560f829840e0->{TOK_IDENT 6.30.8 "getln":)
+Deleting astree (0x560f82983f20->{TOK_STRING 6.30.1 "string":)
+Deleting astree (0x560f82984320->{TOK_TYPE_ID 6.30.1 "":)
+Deleting astree (0x560f829842a0->{TOK_FUNCTION 6.30.1 "":)
+Deleting astree (0x560f82983ea0->{TOK_PARAM 6.29.14 "(":)
+Deleting astree (0x560f82983de0->{TOK_IDENT 6.29.8 "getstr":)
+Deleting astree (0x560f82983c20->{TOK_STRING 6.29.1 "string":)
+Deleting astree (0x560f82984020->{TOK_TYPE_ID 6.29.1 "":)
+Deleting astree (0x560f82983fa0->{TOK_FUNCTION 6.29.1 "":)
+Deleting astree (0x560f82983ba0->{TOK_PARAM 6.28.11 "(":)
+Deleting astree (0x560f82983ae0->{TOK_IDENT 6.28.5 "getchr":)
+Deleting astree (0x560f82983900->{TOK_INT 6.28.1 "int":)
+Deleting astree (0x560f82983d20->{TOK_TYPE_ID 6.28.1 "":)
+Deleting astree (0x560f82983ca0->{TOK_FUNCTION 6.28.1 "":)
+Deleting astree (0x560f829837c0->{TOK_IDENT 6.26.21 "str":)
+Deleting astree (0x560f82983740->{TOK_STRING 6.26.14 "string":)
+Deleting astree (0x560f82983880->{TOK_TYPE_ID 6.26.14 "":)
+Deleting astree (0x560f829836c0->{TOK_PARAM 6.26.13 "(":)
+Deleting astree (0x560f82983600->{TOK_IDENT 6.26.6 "putstr":)
+Deleting astree (0x560f829833f0->{TOK_VOID 6.26.1 "void":)
+Deleting astree (0x560f82983a00->{TOK_TYPE_ID 6.26.1 "":)
+Deleting astree (0x560f82983980->{TOK_FUNCTION 6.26.1 "":)
+Deleting astree (0x560f82983290->{TOK_IDENT 6.25.18 "num":)
+Deleting astree (0x560f82983210->{TOK_INT 6.25.14 "int":)
+Deleting astree (0x560f82983350->{TOK_TYPE_ID 6.25.14 "":)
+Deleting astree (0x560f82983190->{TOK_PARAM 6.25.13 "(":)
+Deleting astree (0x560f829830d0->{TOK_IDENT 6.25.6 "putint":)
+Deleting astree (0x560f82982ef0->{TOK_VOID 6.25.1 "void":)
+Deleting astree (0x560f829834f0->{TOK_TYPE_ID 6.25.1 "":)
+Deleting astree (0x560f82983470->{TOK_FUNCTION 6.25.1 "":)
+Deleting astree (0x560f82982d70->{TOK_IDENT 6.24.18 "chr":)
+Deleting astree (0x560f82982cf0->{TOK_INT 6.24.14 "int":)
+Deleting astree (0x560f82982e30->{TOK_TYPE_ID 6.24.14 "":)
+Deleting astree (0x560f82982c70->{TOK_PARAM 6.24.13 "(":)
+Deleting astree (0x560f82982bb0->{TOK_IDENT 6.24.6 "putchr":)
+Deleting astree (0x560f82982470->{TOK_VOID 6.24.1 "void":)
+Deleting astree (0x560f82982ff0->{TOK_TYPE_ID 6.24.1 "":)
+Deleting astree (0x560f82982f70->{TOK_FUNCTION 6.24.1 "":)
+Deleting astree (0x560f829827f0->{TOK_IDENT 6.22.42 "line":)
+Deleting astree (0x560f82982730->{TOK_INT 6.22.38 "int":)
+Deleting astree (0x560f829828b0->{TOK_TYPE_ID 6.22.38 "":)
+Deleting astree (0x560f829825b0->{TOK_IDENT 6.22.32 "file":)
+Deleting astree (0x560f82982530->{TOK_STRING 6.22.25 "string":)
+Deleting astree (0x560f82982670->{TOK_TYPE_ID 6.22.25 "":)
+Deleting astree (0x560f82982270->{TOK_IDENT 6.22.19 "expr":)
+Deleting astree (0x560f829821b0->{TOK_STRING 6.22.12 "string":)
+Deleting astree (0x560f82982390->{TOK_TYPE_ID 6.22.12 "":)
+Deleting astree (0x560f829820f0->{TOK_PARAM 6.22.11 "(":)
+Deleting astree (0x560f82982030->{TOK_IDENT 6.22.6 "fail":)
+Deleting astree (0x560f82980f60->{TOK_VOID 6.22.1 "void":)
+Deleting astree (0x560f82982b10->{TOK_TYPE_ID 6.22.1 "":)
+Deleting astree (0x560f82982a50->{TOK_FUNCTION 6.22.1 "":)
+Deleting astree (0x560f8297bd50->{TOK_ROOT 0.0.0 "<<ROOT>>":)

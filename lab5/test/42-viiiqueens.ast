@@ -56,7 +56,7 @@ TYPE_ID "" 7.6.1 {0} int array variable lval vreg (7.6.1)
 ARRAY "array" 7.6.1 {0} 
 INT "int" 7.6.7 {0} 
 IDENT "board" 7.6.12 {0} 
-NULLPTR "nullptr" 7.6.20 {0} int array variable lval vreg 
+NULLPTR "nullptr" 7.6.20 {0} nullptr_t const 
 FUNCTION "" 7.8.1 {7} int function 
 TYPE_ID "" 7.8.1 {0} 
 INT "int" 7.8.1 {0} 
@@ -69,11 +69,11 @@ BLOCK "{" 7.8.26 {8}
 TYPE_ID "" 7.9.4 {8} int variable local lval vreg (7.9.4)
 INT "int" 7.9.4 {0} 
 IDENT "col" 7.9.8 {0} 
-INTCON "0" 7.9.14 {8} int variable local lval vreg 
+INTCON "0" 7.9.14 {8} int const 
 TYPE_ID "" 7.10.4 {8} int variable local lval vreg (7.10.4)
 INT "int" 7.10.4 {0} 
 IDENT "diagonal" 7.10.8 {0} 
-INTCON "0" 7.10.19 {8} int variable local lval vreg 
+INTCON "0" 7.10.19 {8} int const 
 WHILE "while" 7.11.4 {8} 
 LT "<" 7.11.15 {8} int vreg 
 IDENT "col" 7.11.11 {8} int variable local lval (7.9.4)
@@ -130,7 +130,7 @@ BLOCK "{" 7.21.20 {9}
 TYPE_ID "" 7.22.4 {9} int variable local lval vreg (7.22.4)
 INT "int" 7.22.4 {0} 
 IDENT "col" 7.22.8 {0} 
-INTCON "0" 7.22.14 {9} int variable local lval vreg 
+INTCON "0" 7.22.14 {9} int const 
 WHILE "while" 7.23.4 {9} 
 LT "<" 7.23.15 {9} int vreg 
 IDENT "col" 7.23.11 {9} int variable local lval (7.22.4)
@@ -163,7 +163,7 @@ BLOCK "{" 7.30.26 {10}
 TYPE_ID "" 7.31.4 {10} int variable local lval vreg (7.31.4)
 INT "int" 7.31.4 {0} 
 IDENT "row" 7.31.8 {0} 
-INTCON "0" 7.31.14 {10} int variable local lval vreg 
+INTCON "0" 7.31.14 {10} int const 
 IF "if" 7.32.4 {10} 
 EQ "==" 7.32.15 {10} int vreg 
 IDENT "newcol" 7.32.8 {10} int variable param lval (7.30.14)

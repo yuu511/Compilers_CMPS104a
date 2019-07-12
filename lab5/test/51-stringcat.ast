@@ -64,7 +64,7 @@ BLOCK "{" 7.8.25 {8}
 TYPE_ID "" 7.9.4 {8} int variable local lval vreg (7.9.4)
 INT "int" 7.9.4 {0} 
 IDENT "len" 7.9.8 {0} 
-INTCON "0" 7.9.14 {8} int variable local lval vreg 
+INTCON "0" 7.9.14 {8} int const 
 WHILE "while" 7.10.4 {8} 
 NE "!=" 7.10.20 {8} int vreg 
 INDEX "[" 7.10.14 {8} int lval vaddr 
@@ -93,13 +93,13 @@ BLOCK "{" 7.14.39 {9}
 TYPE_ID "" 7.15.4 {9} int variable local lval vreg (7.15.4)
 INT "int" 7.15.4 {0} 
 IDENT "pos" 7.15.8 {0} 
-CALL "(" 7.15.21 {9} int variable local lval vreg (7.8.1)
+CALL "(" 7.15.21 {7} int function (7.8.1)
 IDENT "strlen" 7.15.14 {0} 
 IDENT "dest" 7.15.22 {9} string variable param lval (7.14.14)
 TYPE_ID "" 7.16.4 {9} int variable local lval vreg (7.16.4)
 INT "int" 7.16.4 {0} 
 IDENT "srcix" 7.16.8 {0} 
-INTCON "0" 7.16.16 {9} int variable local lval vreg 
+INTCON "0" 7.16.16 {9} int const 
 WHILE "while" 7.17.4 {9} 
 NE "!=" 7.17.22 {9} int vreg 
 INDEX "[" 7.17.14 {9} int lval vaddr 
@@ -145,11 +145,11 @@ BLOCK "{" 7.25.41 {10}
 TYPE_ID "" 7.26.4 {10} int variable local lval vreg (7.26.4)
 INT "int" 7.26.4 {0} 
 IDENT "length" 7.26.8 {0} 
-INTCON "0" 7.26.17 {10} int variable local lval vreg 
+INTCON "0" 7.26.17 {10} int const 
 TYPE_ID "" 7.27.4 {10} int variable local lval vreg (7.27.4)
 INT "int" 7.27.4 {0} 
 IDENT "argi" 7.27.8 {0} 
-INTCON "1" 7.27.15 {10} int variable local lval vreg 
+INTCON "1" 7.27.15 {10} int const 
 WHILE "while" 7.28.4 {10} 
 LT "<" 7.28.16 {10} int vreg 
 IDENT "argi" 7.28.11 {10} int variable local lval (7.27.4)
@@ -183,7 +183,7 @@ CHARCON "'\n'" 7.34.12 {10} int const
 TYPE_ID "" 7.35.4 {10} string variable local lval vreg (7.35.4)
 STRING "string" 7.35.4 {0} 
 IDENT "concat" 7.35.11 {0} 
-ALLOC "alloc" 7.35.20 {10} string variable local lval vreg 
+ALLOC "alloc" 7.35.20 {10} string vreg 
 STRING "string" 7.35.26 {0} 
 IDENT "length" 7.35.35 {10} int variable local lval (7.26.4)
 '=' "=" 7.36.9 {10} int variable local lval vreg 

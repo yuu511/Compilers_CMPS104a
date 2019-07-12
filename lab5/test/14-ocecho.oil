@@ -1,6 +1,22 @@
 main:      .function int 
-.param int argc
-.param ptr argv
-.local int argi
-return
-.end
+           .param int argc
+           .param ptr argv
+           .local int argi
+           argi = 1  
+.wh0:      $t0:i = argi < argc
+           goto .od0 if not $t0:i
+.do0:
+.if0:      $t1:i = argi > 1
+           goto .fi0 if not $t1:i
+.th0:      call putchr(' ')  
+.fi0:
+           $t2:c = argv[argi * :c]  
+           call putstr($t2:c)  
+           $t3:i = argi + 1
+           argi = $t3:i  
+           goto .wh0
+.od0:
+           call putstr("\n")  
+           return 0
+           return
+           .end

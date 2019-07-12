@@ -1,3 +1,5 @@
 main:      .function int 
-return
-.end
+           call putstr("Hello, world!\n")  
+           return 0
+           return
+           .end

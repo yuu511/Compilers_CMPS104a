@@ -62,7 +62,7 @@ TYPE_ID "" 7.11.4 {8} int array variable local lval vreg (7.11.4)
 ARRAY "array" 7.11.4 {0} 
 INT "int" 7.11.10 {0} 
 IDENT "fibonacci" 7.11.15 {0} 
-ALLOC "alloc" 7.11.27 {8} int array variable local lval vreg 
+ALLOC "alloc" 7.11.27 {8} int array 
 ARRAY "array" 7.11.33 {0} 
 INT "int" 7.11.39 {0} 
 INTCON "30" 7.11.46 {8} int const 
@@ -79,7 +79,7 @@ INTCON "1" 7.13.19 {8} int const
 TYPE_ID "" 7.14.4 {8} int variable local lval vreg (7.14.4)
 INT "int" 7.14.4 {0} 
 IDENT "index" 7.14.8 {0} 
-INTCON "2" 7.14.16 {8} int variable local lval vreg 
+INTCON "2" 7.14.16 {8} int const 
 WHILE "while" 7.15.4 {8} 
 LT "<" 7.15.17 {8} int vreg 
 IDENT "index" 7.15.11 {8} int variable local lval (7.14.4)

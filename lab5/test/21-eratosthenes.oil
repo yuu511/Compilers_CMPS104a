@@ -1,6 +1,31 @@
 main:      .function int 
-.local int prime
-.local int index
-.local ptr sieve
-return
-.end
+           .local int prime
+           .local int index
+           .local ptr sieve
+           prime = 2  
+           index = 2  
+           $t0:p = 100 * sizeof int
+           sieve = call malloc($t0:p)  
+.wh0:      $t1:i = index < 100
+           goto .od0 if not $t1:i
+.do0:      sieve[index * :i] = 1  
+           $t2:i = index + 1
+           index = $t2:i  
+           goto .wh0
+.od0:
+.wh1:      $t3:i = prime < 100
+           goto .od1 if not $t3:i
+           $t4:i = prime + 1
+           prime = $t4:i  
+           goto .wh1
+.od1:
+           index = 2  
+.wh2:      $t5:i = index < 100
+           goto .od2 if not $t5:i
+           $t6:i = index + 1
+           index = $t6:i  
+           goto .wh2
+.od2:
+           return 0
+           return
+           .end

@@ -699,12 +699,14 @@ int compatible(symbol *l,symbol *r){
       return 1;
     }
   }
-  if (l->sname != nullptr && r->sname != nullptr){
-    if (strcmp(l->sname->c_str(),r->sname->c_str()) != 0){
-      errprintf ("struct %s assigned as %s %zd.%zd.%zd\n",
-                  l->sname->c_str(), r->sname->c_str(),
-                  l->lloc.filenr, l->lloc.linenr, l->lloc.offset);
-      return 0;
+  if (l->attributes[static_cast<int>(attr::TYPEID)] && r->attributes[static_cast<int>(attr::TYPEID)]){
+    if (l->sname != nullptr && r->sname != nullptr){
+      if (strcmp(l->sname->c_str(),r->sname->c_str()) != 0){
+        errprintf ("struct %s assigned as %s %zd.%zd.%zd\n",
+                    l->sname->c_str(), r->sname->c_str(),
+                    l->lloc.filenr, l->lloc.linenr, l->lloc.offset);
+        return 0;
+      }
     }
   }
   attr_bitset left = l->attributes;

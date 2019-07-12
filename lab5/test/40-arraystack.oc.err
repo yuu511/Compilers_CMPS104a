@@ -1,0 +1,7 @@
+3ac: non-recognized expression parsed:';' 
+ 3ac: warning: expr parsed without assignment: ;:
+3ac: invalid statement passed :;
+3ac: non-recognized expression parsed:';' 
+ 3ac: warning: expr parsed without assignment: ;:
+3ac: invalid statement passed :;
+NUMBER OF ERRORS REPORTED: 4

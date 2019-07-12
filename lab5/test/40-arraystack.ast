@@ -78,7 +78,7 @@ TYPE_ID "" 7.14.4 {8} variable struct stack local lval vreg (7.14.4)
 PTR "ptr" 7.14.4 {0} 
 IDENT "stack" 7.14.15 {0} 
 IDENT "stack" 7.14.22 {0} 
-ALLOC "alloc" 7.14.30 {8} variable struct stack local lval vreg 
+ALLOC "alloc" 7.14.30 {8} struct stack vreg 
 IDENT "stack" 7.14.43 {0} 
 '=' "=" 7.15.16 {8} string array lval vreg vaddr 
 ARROW "->" 7.15.9 {8} string array lval vaddr 
@@ -163,7 +163,7 @@ BLOCK "{" 7.27.38 {10}
 TYPE_ID "" 7.28.4 {10} string variable local lval vaddr (7.28.4)
 STRING "string" 7.28.4 {0} 
 IDENT "tmp" 7.28.11 {0} 
-INDEX "[" 7.28.28 {10} string variable local lval vaddr 
+INDEX "[" 7.28.28 {10} string lval vaddr 
 ARROW "->" 7.28.22 {10} string array lval vaddr 
 IDENT "stack" 7.28.17 {10} variable struct stack param lval (7.27.13)
 IDENT "data" 7.28.24 {0} 
@@ -230,13 +230,13 @@ TYPE_ID "" 7.39.4 {12} variable struct stack local lval vreg (7.39.4)
 PTR "ptr" 7.39.4 {0} 
 IDENT "stack" 7.39.15 {0} 
 IDENT "stack" 7.39.22 {0} 
-CALL "(" 7.39.40 {12} variable struct stack local lval vreg (7.13.1)
+CALL "(" 7.39.40 {7} function struct stack (7.13.1)
 IDENT "new_stack" 7.39.30 {0} 
 INTCON "100" 7.39.41 {12} int const 
 TYPE_ID "" 7.40.4 {12} int variable local lval vreg (7.40.4)
 INT "int" 7.40.4 {0} 
 IDENT "argi" 7.40.8 {0} 
-INTCON "0" 7.40.15 {12} int variable local lval vreg 
+INTCON "0" 7.40.15 {12} int const 
 WHILE "while" 7.41.4 {12} 
 LT "<" 7.41.16 {12} int vreg 
 IDENT "argi" 7.41.11 {12} int variable local lval (7.40.4)

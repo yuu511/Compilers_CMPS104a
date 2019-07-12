@@ -66,12 +66,12 @@ BLOCK "{" 7.9.12 {8}
 TYPE_ID "" 7.10.4 {8} int variable local lval vreg (7.10.4)
 INT "int" 7.10.4 {0} 
 IDENT "a" 7.10.8 {0} 
-INTCON "6" 7.10.12 {8} int variable local lval vreg 
+INTCON "6" 7.10.12 {8} int const 
 TYPE_ID "" 7.11.4 {8} variable struct foo local lval vreg (7.11.4)
 PTR "ptr" 7.11.4 {0} 
 IDENT "foo" 7.11.15 {0} 
 IDENT "b" 7.11.20 {0} 
-ALLOC "alloc" 7.11.24 {8} variable struct foo local lval vreg 
+ALLOC "alloc" 7.11.24 {8} struct foo vreg 
 IDENT "foo" 7.11.37 {0} 
 '=' "=" 7.12.9 {8} int lval vreg vaddr 
 ARROW "->" 7.12.5 {8} int lval vaddr 

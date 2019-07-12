@@ -64,15 +64,15 @@ BLOCK "{" 7.5.23 {8}
 TYPE_ID "" 7.6.4 {8} int variable local lval vreg (7.6.4)
 INT "int" 7.6.4 {0} 
 IDENT "neg" 7.6.8 {0} 
-INTCON "0" 7.6.14 {8} int variable local lval vreg 
+INTCON "0" 7.6.14 {8} int const 
 TYPE_ID "" 7.7.4 {8} int variable local lval vreg (7.7.4)
 INT "int" 7.7.4 {0} 
 IDENT "num" 7.7.8 {0} 
-INTCON "0" 7.7.14 {8} int variable local lval vreg 
+INTCON "0" 7.7.14 {8} int const 
 TYPE_ID "" 7.8.4 {8} int variable local lval vreg (7.8.4)
 INT "int" 7.8.4 {0} 
 IDENT "digit" 7.8.8 {0} 
-INTCON "0" 7.8.16 {8} int variable local lval vreg 
+INTCON "0" 7.8.16 {8} int const 
 BLOCK "{" 7.9.4 {8} 
 IF "if" 7.9.5 {8} 
 NOT "not" 7.9.9 {8} int vreg 
@@ -110,7 +110,7 @@ INTCON "1" 7.13.16 {8} int const
 TYPE_ID "" 7.15.7 {8} int variable local lval vreg (7.15.7)
 INT "int" 7.15.7 {0} 
 IDENT "contin" 7.15.11 {0} 
-INTCON "1" 7.15.20 {8} int variable local lval vreg 
+INTCON "1" 7.15.20 {8} int const 
 WHILE "while" 7.16.7 {8} 
 IDENT "contin" 7.16.14 {8} int variable local lval (7.15.7)
 BLOCK "{" 7.16.22 {8} 
@@ -128,7 +128,7 @@ BLOCK "{" 7.19.16 {8}
 TYPE_ID "" 7.20.13 {8} int variable local lval vaddr (7.20.13)
 INT "int" 7.20.13 {0} 
 IDENT "chr" 7.20.17 {0} 
-INDEX "[" 7.20.26 {8} int variable local lval vaddr 
+INDEX "[" 7.20.26 {8} int lval vaddr 
 IDENT "str" 7.20.23 {8} string variable param lval (7.5.11)
 IDENT "digit" 7.20.27 {8} int variable local lval (7.8.4)
 '=' "=" 7.21.19 {8} int variable local lval vreg 
@@ -183,11 +183,11 @@ BLOCK "{" 7.32.41 {9}
 TYPE_ID "" 7.33.4 {9} int variable local lval vreg (7.33.4)
 INT "int" 7.33.4 {0} 
 IDENT "argi" 7.33.8 {0} 
-INTCON "1" 7.33.15 {9} int variable local lval vreg 
+INTCON "1" 7.33.15 {9} int const 
 TYPE_ID "" 7.34.4 {9} string variable local lval vreg (7.34.4)
 STRING "string" 7.34.4 {0} 
 IDENT "arg" 7.34.11 {0} 
-NULLPTR "nullptr" 7.34.17 {9} string variable local lval vreg 
+NULLPTR "nullptr" 7.34.17 {9} nullptr_t const 
 WHILE "while" 7.35.4 {9} 
 LT "<" 7.35.16 {9} int vreg 
 IDENT "argi" 7.35.11 {9} int variable local lval (7.33.4)

@@ -1,14 +1,47 @@
 dot_product: .function int 
-.param int size
-.param ptr vec1
-.param ptr vec2
-.local int index
-.local int dot
-return
-.end
+           .param int size
+           .param ptr vec1
+           .param ptr vec2
+           .local int index
+           .local int dot
+           index = 0  
+           dot = 0  
+.wh0:      $t0:i = index < size
+           goto .od0 if not $t0:i
+.do0:      $t3:i = vec1[index * :i]  
+           $t4:i = vec2[index * :i]  
+           $t2:i = $t3:i * $t4:i
+           $t1:i = dot + $t2:i
+           dot = $t1:i  
+           $t5:i = index + 1
+           index = $t5:i  
+           goto .wh0
+.od0:
+           return dot
+           return
+           .end
 main:      .function int 
-.local ptr vec1
-.local ptr vec2
-.local int index
-return
-.end
+           .local ptr vec1
+           .local ptr vec2
+           .local int index
+           $t0:p = 10 * sizeof int
+           vec1 = call malloc($t0:p)  
+           $t1:p = 10 * sizeof int
+           vec2 = call malloc($t1:p)  
+           index = 0  
+.wh1:      $t2:i = index < 10
+           goto .od1 if not $t2:i
+.do1:      $t3:i = index + 10
+           vec1[index * :i] = $t3:i  
+           $t4:i = index * 10
+           vec2[index * :i] = $t4:i  
+           $t5:i = index + 1
+           index = $t5:i  
+           goto .wh1
+.od1:
+           $t6:i = call dot_product(10,vec1,vec2)  
+           call putint($t6:i)  
+           call putchr('\n')  
+           return 0
+           return
+           .end

@@ -61,16 +61,16 @@ BLOCK "{" 7.8.12 {8}
 TYPE_ID "" 7.9.4 {8} int variable local lval vreg (7.9.4)
 INT "int" 7.9.4 {0} 
 IDENT "prime" 7.9.8 {0} 
-INTCON "2" 7.9.16 {8} int variable local lval vreg 
+INTCON "2" 7.9.16 {8} int const 
 TYPE_ID "" 7.10.4 {8} int variable local lval vreg (7.10.4)
 INT "int" 7.10.4 {0} 
 IDENT "index" 7.10.8 {0} 
-INTCON "2" 7.10.16 {8} int variable local lval vreg 
+INTCON "2" 7.10.16 {8} int const 
 TYPE_ID "" 7.11.4 {8} int array variable local lval vreg (7.11.4)
 ARRAY "array" 7.11.4 {0} 
 INT "int" 7.11.10 {0} 
 IDENT "sieve" 7.11.15 {0} 
-ALLOC "alloc" 7.11.23 {8} int array variable local lval vreg 
+ALLOC "alloc" 7.11.23 {8} int array 
 ARRAY "array" 7.11.29 {0} 
 INT "int" 7.11.35 {0} 
 INTCON "100" 7.11.41 {8} int const 

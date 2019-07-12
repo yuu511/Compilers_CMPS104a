@@ -1,5 +1,17 @@
 main:      .function int 
-.param int argc
-.param ptr argv
-return
-.end
+           .param int argc
+           .param ptr argv
+           $t0:c = argv[0 * :c]  
+           call putstr($t0:c)  
+           call putstr(": ")  
+           call putstr("13-macros.oc")  
+           call putchr('[')  
+           call putint(10)  
+           call putstr("] compiled ")  
+           call putstr("Jul 12 2019")  
+           call putstr(" ")  
+           call putstr("02:00:33")  
+           call putstr("\n")  
+           return 0
+           return
+           .end

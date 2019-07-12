@@ -61,15 +61,15 @@ BLOCK "{" 7.5.12 {8}
 TYPE_ID "" 7.6.4 {8} int variable local lval vreg (7.6.4)
 INT "int" 7.6.4 {0} 
 IDENT "a" 7.6.8 {0} 
-INTCON "3" 7.6.12 {8} int variable local lval vreg 
+INTCON "3" 7.6.12 {8} int const 
 TYPE_ID "" 7.7.4 {8} int variable local lval vreg (7.7.4)
 INT "int" 7.7.4 {0} 
 IDENT "b" 7.7.8 {0} 
-INTCON "8" 7.7.12 {8} int variable local lval vreg 
+INTCON "8" 7.7.12 {8} int const 
 TYPE_ID "" 7.8.4 {8} int variable local lval vreg (7.8.4)
 INT "int" 7.8.4 {0} 
 IDENT "c" 7.8.8 {0} 
-'+' "+" 7.8.14 {8} int variable local lval vreg 
+'+' "+" 7.8.14 {8} int vreg 
 IDENT "a" 7.8.12 {8} int variable local lval (7.6.4)
 IDENT "b" 7.8.16 {8} int variable local lval (7.7.4)
 '=' "=" 7.9.6 {8} int variable local lval vreg 

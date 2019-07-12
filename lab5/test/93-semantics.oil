@@ -1,7 +1,0 @@
-main:      .function int 
-.local int c
-.local n
-.local int x
-.local int y
-return
-.end

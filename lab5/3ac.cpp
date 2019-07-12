@@ -105,6 +105,7 @@ reg::reg(reg *selection_index_,const string *sname_, const string *field_){
   unop = nullptr;
 }
 
+// stringify the parameters
 string reg::str(){
   string ret="";
   if (unop != nullptr){
@@ -115,7 +116,22 @@ string reg::str(){
       ret.append(" ");
     }
   }
-  if (index != -1 && name){ //2
+  if (selection_index && array_ident && name){ //6
+    ret.append(array_ident->str());
+    ret.append("[");
+    ret.append(selection_index->str());
+    ret.append(" * ");
+    ret.append(*name);
+    ret.append("]");
+  }
+  else if (selection_index && ident && field){ //7
+    ret.append(selection_index->str());
+    ret.append("->");
+    ret.append(*ident);
+    ret.append(".");
+    ret.append(*field);
+  }
+  else if (index != -1 && name){ //2
     ret.append("$t");
     ret.append(to_string(index));
     ret.append(*name);
@@ -133,6 +149,9 @@ string reg::str(){
     }
     ret.append(")");
   } 
+  else if (ident){ //1
+    ret.append(*ident);
+  }
   else if (name){ //4
     ret.append(*name);
   }
@@ -140,24 +159,6 @@ string reg::str(){
     ret.append("(.s");
     ret.append(to_string(index));
     ret.append(")");
-  }
-  else if (selection_index && array_ident && name){ //6
-    ret.append(array_ident->str());
-    ret.append("[");
-    ret.append(selection_index->str());
-    ret.append(" * ");
-    ret.append(*name);
-    ret.append("]");
-  }
-  else if (selection_index && ident && field){ //7
-    ret.append(selection_index->str());
-    ret.append("->");
-    ret.append(*ident);
-    ret.append(".");
-    ret.append(*field);
-  }
-  else if (ident){ //1
-    ret.append(*ident);
   }
   return ret;
 }
@@ -284,7 +285,7 @@ astree *recurse_non_equal(astree *expr){
 }
 
 // special helper function for astree_stride for index only
-string *astree_stride_symbol_index(symbol *current){
+template <class Type> string *astree_stride_symbol_index(const Type &current){
   if (current->attributes[static_cast<int>(attr::STRING)]){
     return new string (":c");
   }
@@ -300,7 +301,7 @@ string *astree_stride_symbol_index(symbol *current){
 }
 
 //helper function for astree_stride
-string *astree_stride_symbol_array(symbol *current){
+template <class Type> string *astree_stride_symbol(const Type &current){
   if ( current->attributes[static_cast<int>(attr::ARRAY)]
       || current->attributes[static_cast<int>(attr::STRING)]
       || current->attributes[static_cast<int>(attr::TYPEID)]){
@@ -346,20 +347,15 @@ string *astree_stride(ac3_table *current,astree *expr){
     case TOK_CALL:
       // find function definition in global table
       parse = all_sym->global->find(expr->children[0]->lexinfo)->second;
-      return astree_stride_symbol_array(parse);
+      return astree_stride_symbol(parse);
     case TOK_INDEX:
-      // if(parse->count(expr->children[0]->lexinfo))
-      //   parse = parse->find(expr->children[0]->lexinfo)->second;
-      // else if (all_sym->global->count(expr->children[0]->lexinfo))
-      //   parse = all_sym->global->find(expr->children[0]->lexinfo)->second;
-      // return astree_stride_symbol_index(parse);
-      return new string(":c");
+      return astree_stride_symbol_index(expr);
     case TOK_ARROW:
       // get symbol of struct
       parse = all_sym->struct_t->find(expr->sname)->second;
       // get symbol of struct parameter
       parse = parse->fields->find(expr->children[1]->lexinfo)->second;
-      return astree_stride_symbol_array(parse);
+      return astree_stride_symbol(parse);
     case '=':
       astree *noneq = recurse_non_equal(expr);
       return astree_stride(current,noneq);
@@ -373,18 +369,20 @@ reg *parse_variable(astree *expr, ac3_table *current){
   reg *selection = nullptr;
   if (expr->children.size()){
     if (expr->symbol == TOK_ARROW){
+      astree *ident = expr->children[0];
+      astree *field = expr->children[1];
       reg *ret; 
-      if (expr->children[0]->children.size()){
-        ret = new reg(astree_stride(current,expr->children[0]),reg_count);
-        p_expr(expr->children[0],current);
-      }
-      else {
-        ret = new reg(expr->children[0]->lexinfo);
-      }
-      selection = new reg(ret,expr->sname,expr->children[1]->lexinfo);
+      ident->children.size() ? ret = expr_reg(ident,current) : ret = new reg(ident->lexinfo);
+      selection = new reg(ret,expr->sname,field->lexinfo);
     }
     else if (expr->symbol == TOK_INDEX){
-
+      astree *ident = expr->children[0];
+      astree *index = expr->children[1];
+      reg *select;
+      reg *number;
+      ident->children.size() ? select = expr_reg(ident,current) : select = new reg(ident->lexinfo);
+      index->children.size() ? number = expr_reg(index,current) : number = new reg(index->lexinfo);
+      selection = new reg(select,number,astree_stride(current,expr));
     }
   }
   else
@@ -801,13 +799,7 @@ ac3 *p_field(astree *expr, ac3_table *current){
   bot->t0 = new reg(astree_stride(current,expr),reg_count);
   ++reg_count;
   reg *ret; 
-  if (ident->children.size()){
-    ret = new reg(astree_stride(current,ident),reg_count);
-    p_expr(expr->children[0],current);
-  }
-  else {
-    ret = new reg(expr->children[0]->lexinfo);
-  }
+  ident->children.size() ? ret = expr_reg(ident,current) : ret = new reg(ident->lexinfo);
   reg *selection = new reg(ret,expr->sname,field->lexinfo);
   bot->t1 = selection;
   bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
@@ -1097,16 +1089,17 @@ ac3 *p_index(astree *expr, ac3_table *current){
   ac3 *bot = new ac3(expr);
   astree *ident = expr->children[0];
   astree *index = expr->children[1];
-  bot->t0 = parse_variable(expr,current);
+  bot->t0 = new reg(astree_stride(current,expr),reg_count);
   ++reg_count;
+  reg *select;
   reg *number;
-  if (index->children.size()){
-    number = expr_reg(index,current);
-  }
-  else {
-    number = new reg(index->lexinfo);
-  }
-  
+  reg *ret;
+  ident->children.size() ? select = expr_reg(ident,current) : select = new reg(ident->lexinfo);
+  index->children.size() ? number = expr_reg(index,current) : number = new reg(index->lexinfo);
+  ret = new reg(select,number,astree_stride(current,expr));
+  bot->t1 = ret;
+  bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
+  current->push_back(bot);
   return bot;
 }
 

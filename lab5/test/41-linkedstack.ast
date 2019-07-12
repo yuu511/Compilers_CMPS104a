@@ -91,7 +91,7 @@ INTCON "15" 7.15.80 {8} int const
 ';' ";" 7.15.85 {0} 
 RETURN "return" 7.16.4 {8} 
 EQ "==" 7.16.22 {8} int vreg 
-ARROW "->" 7.16.16 {8} struct node lval vaddr 
+ARROW "->" 7.16.16 {8} struct stack lval vaddr 
 IDENT "stack" 7.16.11 {8} variable struct stack param lval (7.14.12)
 IDENT "top" 7.16.18 {0} 
 NULLPTR "nullptr" 7.16.25 {8} nullptr_t const 
@@ -106,10 +106,10 @@ TYPE_ID "" 7.20.4 {9} variable struct stack local lval vreg (7.20.4)
 PTR "ptr" 7.20.4 {0} 
 IDENT "stack" 7.20.15 {0} 
 IDENT "stack" 7.20.22 {0} 
-ALLOC "alloc" 7.20.30 {9} variable struct stack local lval vreg 
+ALLOC "alloc" 7.20.30 {9} struct stack vreg 
 IDENT "stack" 7.20.43 {0} 
 '=' "=" 7.21.15 {9} struct node lval vreg vaddr 
-ARROW "->" 7.21.9 {9} struct node lval vaddr 
+ARROW "->" 7.21.9 {9} struct stack lval vaddr 
 IDENT "stack" 7.21.4 {9} variable struct stack local lval (7.20.4)
 IDENT "top" 7.21.11 {0} 
 NULLPTR "nullptr" 7.21.17 {9} nullptr_t const 
@@ -132,7 +132,7 @@ TYPE_ID "" 7.26.4 {10} variable struct node local lval vreg (7.26.4)
 PTR "ptr" 7.26.4 {0} 
 IDENT "node" 7.26.16 {0} 
 IDENT "tmp" 7.26.22 {0} 
-ALLOC "alloc" 7.26.28 {10} variable struct node local lval vreg 
+ALLOC "alloc" 7.26.28 {10} struct node vreg 
 IDENT "node" 7.26.41 {0} 
 BLOCK "{" 7.27.4 {10} 
 IF "if" 7.27.5 {10} 
@@ -155,11 +155,11 @@ IDENT "str" 7.28.16 {10} string variable param lval (7.25.37)
 ARROW "->" 7.29.7 {10} struct node lval vaddr 
 IDENT "tmp" 7.29.4 {10} variable struct node local lval (7.26.4)
 IDENT "link" 7.29.9 {0} 
-ARROW "->" 7.29.21 {10} struct node lval vaddr 
+ARROW "->" 7.29.21 {10} struct stack lval vaddr 
 IDENT "stack" 7.29.16 {10} variable struct stack param lval (7.25.12)
 IDENT "top" 7.29.23 {0} 
 '=' "=" 7.30.15 {10} struct node lval vreg vaddr 
-ARROW "->" 7.30.9 {10} struct node lval vaddr 
+ARROW "->" 7.30.9 {10} struct stack lval vaddr 
 IDENT "stack" 7.30.4 {10} variable struct stack param lval (7.25.12)
 IDENT "top" 7.30.11 {0} 
 IDENT "tmp" 7.30.17 {10} variable struct node local lval (7.26.4)
@@ -176,8 +176,8 @@ BLOCK "{" 7.33.38 {11}
 TYPE_ID "" 7.34.4 {11} string variable local lval vaddr (7.34.4)
 STRING "string" 7.34.4 {0} 
 IDENT "tmp" 7.34.11 {0} 
-ARROW "->" 7.34.27 {11} string variable local lval vaddr 
-ARROW "->" 7.34.22 {11} struct node lval vaddr 
+ARROW "->" 7.34.27 {11} string lval vaddr 
+ARROW "->" 7.34.22 {11} struct stack lval vaddr 
 IDENT "stack" 7.34.17 {11} variable struct stack param lval (7.33.13)
 IDENT "top" 7.34.24 {0} 
 IDENT "data" 7.34.29 {0} 
@@ -207,11 +207,11 @@ STRINGCON ""41-linkedstack.oc"" 7.36.61 {11} string const
 INTCON "36" 7.36.82 {11} int const 
 ';' ";" 7.36.87 {0} 
 '=' "=" 7.37.15 {11} struct node lval vaddr 
-ARROW "->" 7.37.9 {11} struct node lval vaddr 
+ARROW "->" 7.37.9 {11} struct stack lval vaddr 
 IDENT "stack" 7.37.4 {11} variable struct stack param lval (7.33.13)
 IDENT "top" 7.37.11 {0} 
 ARROW "->" 7.37.27 {11} struct node lval vaddr 
-ARROW "->" 7.37.22 {11} struct node lval vaddr 
+ARROW "->" 7.37.22 {11} struct stack lval vaddr 
 IDENT "stack" 7.37.17 {11} variable struct stack param lval (7.33.13)
 IDENT "top" 7.37.24 {0} 
 IDENT "link" 7.37.29 {0} 
@@ -233,12 +233,12 @@ BLOCK "{" 7.41.41 {12}
 TYPE_ID "" 7.42.4 {12} int variable local lval vreg (7.42.4)
 INT "int" 7.42.4 {0} 
 IDENT "argi" 7.42.8 {0} 
-INTCON "0" 7.42.15 {12} int variable local lval vreg 
+INTCON "0" 7.42.15 {12} int const 
 TYPE_ID "" 7.43.4 {12} variable struct stack local lval vreg (7.43.4)
 PTR "ptr" 7.43.4 {0} 
 IDENT "stack" 7.43.15 {0} 
 IDENT "stack" 7.43.22 {0} 
-CALL "(" 7.43.39 {12} variable struct stack local lval vreg (7.19.1)
+CALL "(" 7.43.39 {8} function struct stack (7.19.1)
 IDENT "new_stack" 7.43.30 {0} 
 WHILE "while" 7.44.4 {12} 
 LT "<" 7.44.16 {12} int vreg 

@@ -88,7 +88,7 @@ BLOCK "{" 7.13.12 {9}
 TYPE_ID "" 7.14.4 {9} int variable local lval vreg (7.14.4)
 INT "int" 7.14.4 {0} 
 IDENT "n" 7.14.8 {0} 
-INTCON "0" 7.14.12 {9} int variable local lval vreg 
+INTCON "0" 7.14.12 {9} int const 
 WHILE "while" 7.15.4 {9} 
 LT "<" 7.15.13 {9} int vreg 
 IDENT "n" 7.15.11 {9} int variable local lval (7.14.4)
