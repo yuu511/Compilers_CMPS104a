@@ -24,11 +24,9 @@ ac3 *p_expr(astree *expr, symbol_table *current);
 // 1. identifier
 reg::reg(const string *ident_){
   ident = ident_; 
-  reg_number = -1;
+  index = -1;
   parameters = nullptr;
   typesize = nullptr;
-  string_index = -1;
-  sname = nullptr;
   field = nullptr;
   name = nullptr;
   selection_index = nullptr;
@@ -38,11 +36,9 @@ reg::reg(const string *ident_){
 // 2. temp register
 reg::reg(string *stride, int reg_number_){
   ident = nullptr;
-  reg_number = reg_number_;
+  index = reg_number_;
   parameters = nullptr;
   typesize = nullptr;
-  string_index = -1;
-  sname = nullptr;
   field = nullptr;
   name = stride;
   selection_index = nullptr;
@@ -52,11 +48,9 @@ reg::reg(string *stride, int reg_number_){
 // 3. function
 reg::reg(string *fname, vector<reg*> *parameters_){
   ident = nullptr;
-  reg_number = -1;
+  index = -1;
   parameters= parameters_;
   typesize = nullptr;
-  string_index = -1;
-  sname = nullptr;
   field = nullptr;
   name = fname;
   selection_index = nullptr;
@@ -66,11 +60,9 @@ reg::reg(string *fname, vector<reg*> *parameters_){
 // 4. typesize
 reg::reg(string *typesize_, string *szof){
   ident = nullptr;
-  reg_number = -1;
+  index = -1;
   parameters = nullptr;
   typesize = typesize_;
-  string_index = -1;
-  sname = nullptr;
   field = nullptr;
   name = nullptr;
   selection_index = nullptr;
@@ -80,12 +72,10 @@ reg::reg(string *typesize_, string *szof){
 // 5. string ptr
 reg::reg(int string_index_){
   ident = nullptr;
-  reg_number = -1;
+  index = string_index_;
   parameters = nullptr;
   typesize = nullptr;
-  sname = nullptr;
   field = nullptr;
-  string_index = string_index_;
   name = nullptr;
   selection_index = nullptr;
   unop = nullptr;
@@ -93,13 +83,11 @@ reg::reg(int string_index_){
 
 // 7. selection
 reg::reg(reg *selection_index_,const string *sname_, const string *field_){
-  ident = nullptr;
-  reg_number = -1;
+  ident = sname_;
+  index = -1;
   parameters = nullptr;
   typesize = nullptr;
-  sname = sname_;
   field = field_;
-  string_index = -1;
   name = nullptr;
   selection_index = selection_index_;
   unop = nullptr;
@@ -118,9 +106,9 @@ string reg::str(){
   if (ident){
     ret.append(*ident);
   }
-  else if (reg_number != -1 && name){
+  else if (index != -1 && name){
     ret.append("$t");
-    ret.append(to_string(reg_number));
+    ret.append(to_string(index));
     ret.append(*name);
   }
   else if (parameters && name){
@@ -139,15 +127,15 @@ string reg::str(){
   else if (typesize){
     ret.append(*typesize);
   }
-  else if (string_index != -1){
+  else if (index != -1){
     ret.append("(.s");
-    ret.append(to_string(string_index));
+    ret.append(to_string(index));
     ret.append(")");
   }
-  else if (selection_index && sname && field){
+  else if (selection_index && ident && field){
     ret.append(selection_index->str());
     ret.append("->");
-    ret.append(*sname);
+    ret.append(*ident);
     ret.append(".");
     ret.append(*field);
   }
@@ -169,7 +157,7 @@ reg::~reg(){
 
 reg *reg::deep_copy(){
   reg *r= new reg(ident);  
-  r->reg_number = reg_number;
+  r->index = index;
   if (parameters){
     r->parameters = new vector<reg*>();
     for (auto itor: *parameters){
@@ -177,8 +165,6 @@ reg *reg::deep_copy(){
     }
   }
   if (typesize) r->typesize = new string(*typesize);
-  r->string_index = string_index;
-  r->sname = sname; 
   r->field = field;
   if (name) r-> name = new string (*name);
   if (selection_index) r-> selection_index = selection_index->deep_copy();

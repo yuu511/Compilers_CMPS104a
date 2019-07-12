@@ -26,11 +26,9 @@ using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)
 
 struct reg {
   const string *ident;
-  int reg_number;
+  int index;
   vector<reg*> *parameters;
   string *typesize;
-  int string_index;
-  const string *sname;
   const string *field;
   string *name;
   reg *selection_index;
@@ -38,10 +36,10 @@ struct reg {
 
   // constructors
   reg(const string *ident); //1
-  reg(string *stride, int reg_number); //2
+  reg(string *stride, int index); //2
   reg(string *fname, vector<reg*> *parameters); //3
   reg(string *typesize, string *szof); //4
-  reg(int string_index); //5 
+  reg(int index); //5 
   reg(const string *ident, string *stride, reg *selection_index); //6
   reg(reg *selection_index,const string *sname, const string *field); //7
 
