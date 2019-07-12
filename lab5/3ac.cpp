@@ -24,12 +24,12 @@ ac3 *p_expr(astree *expr, ac3_table *current);
 // 1. identifier
 reg::reg(const string *ident_){
   ident = ident_; 
-  index = -1;
   parameters = nullptr;
   field = nullptr;
   name = nullptr;
   selection_index = nullptr;
   array_ident = nullptr;
+  index = -1;
   unop = nullptr;
 }
 
@@ -115,10 +115,7 @@ string reg::str(){
       ret.append(" ");
     }
   }
-  if (ident){ //1
-    ret.append(*ident);
-  }
-  else if (index != -1 && name){ //2
+  if (index != -1 && name){ //2
     ret.append("$t");
     ret.append(to_string(index));
     ret.append(*name);
@@ -158,6 +155,9 @@ string reg::str(){
     ret.append(*ident);
     ret.append(".");
     ret.append(*field);
+  }
+  else if (ident){ //1
+    ret.append(*ident);
   }
   return ret;
 }
@@ -649,7 +649,7 @@ ac3 *asg_check_type(astree *expr, ac3_table *current, string *label){
     return asg_array(expr,current,label);
   }
   if (a[static_cast<int>(attr::TYPEID)]){
-    return asg_struct(expr, current,label);
+    return asg_struct(expr,current,label);
   }
   if (a[static_cast<int>(attr::STRING)]){
     return asg_string(expr,current,label);
@@ -794,26 +794,28 @@ ac3 *p_call(astree *expr, ac3_table *current, string *label){
   return bot;
 }
 
-ac3 *p_arrow(astree *expr, ac3_table *current){
+ac3 *p_field(astree *expr, ac3_table *current){
   ac3 *bot = new ac3(expr);
+  astree *ident = expr->children[0];
+  astree *field = expr->children[1];
   bot->t0 = new reg(astree_stride(current,expr),reg_count);
   ++reg_count;
   reg *ret; 
-  if (expr->children[0]->children.size()){
-    ret = new reg(astree_stride(current,expr->children[0]),reg_count);
+  if (ident->children.size()){
+    ret = new reg(astree_stride(current,ident),reg_count);
     p_expr(expr->children[0],current);
   }
   else {
     ret = new reg(expr->children[0]->lexinfo);
   }
-  reg *selection = new reg(ret,expr->sname,expr->children[1]->lexinfo);
+  reg *selection = new reg(ret,expr->sname,field->lexinfo);
   bot->t1 = selection;
   bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   current->push_back(bot);
   return bot;
 }
 
-// extra arguments for function call as an expression
+// extra arguments for string as an expression
 ac3 *p_string_expr (astree *expr, ac3_table *current){
   // store function call in register
   reg *ret = new reg(astree_stride(current,expr),reg_count);
@@ -1092,7 +1094,20 @@ ac3 *p_return(astree *expr, ac3_table *current, string *label){
 }
 
 ac3 *p_index(astree *expr, ac3_table *current){
-
+  ac3 *bot = new ac3(expr);
+  astree *ident = expr->children[0];
+  astree *index = expr->children[1];
+  bot->t0 = parse_variable(expr,current);
+  ++reg_count;
+  reg *number;
+  if (index->children.size()){
+    number = expr_reg(index,current);
+  }
+  else {
+    number = new reg(index->lexinfo);
+  }
+  
+  return bot;
 }
 
 // large switch statement for expressions
@@ -1135,7 +1150,7 @@ ac3 *p_expr(astree *expr, ac3_table *current){
       return p_alloc(expr,current);
       break;
     case TOK_ARROW:
-      return p_arrow(expr,current);
+      return p_field(expr,current);
       break;
     case TOK_INDEX:
       return p_index(expr,current);

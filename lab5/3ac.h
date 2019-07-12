@@ -26,14 +26,13 @@ using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)
 
 struct reg {
   const string *ident;
-  int index;
   vector<reg*> *parameters;
-  string *typesize;
   const string *field;
   string *name;
   reg *selection_index;
   reg *array_ident;
   string *unop;
+  int index;
 
   // constructors
   reg(const string *ident); //1
