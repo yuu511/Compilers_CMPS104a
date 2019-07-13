@@ -695,7 +695,6 @@ ac3 *p_binop(astree *expr, ac3_table *current){
   else {
     ac->t1 =new reg(left->lexinfo);
   }
-  
   astree *right = expr->children[1];
   if (right->children.size()){
     ac->t2 = new reg(astree_stride(current,right),reg_count);
@@ -828,35 +827,9 @@ ac3 *p_call_expr (astree *expr, ac3_table *current){
   return call;
 }
 
-// check validity of loop condition
-int check_loop_validity (astree *s){
-  if (s == nullptr)
-    return 0;
-  switch (s->symbol){
-    case TOK_EQ:
-    case TOK_NE:
-    case TOK_GT:
-    case TOK_GE:
-    case TOK_LT:
-    case TOK_LE:
-    case TOK_NOT:
-    case TOK_IDENT:
-    case TOK_INTCON:
-    case TOK_CHARCON:
-    case TOK_NULLPTR:
-      return 1;
-  }
-  return 0;
-}
-
 ac3 *p_if(astree *expr, ac3_table *current, string *label){ 
   astree *condition = expr->children[0];
   astree *if_statement = expr->children[1];
-  if (!check_loop_validity(condition)){
-    errprintf("3ac: invalid expr in loop!\n");
-    ++err_count;
-    return nullptr;
-  }
   int orig_if = if_count;
   ++if_count;
 
@@ -920,13 +893,6 @@ ac3 *p_if(astree *expr, ac3_table *current, string *label){
 ac3 *p_while(astree *expr, ac3_table *current, string *label){ 
   astree *condition = expr->children[0];
   astree *statement = expr->children[1];
-  // check validity of expression in loop condition
-  if (!check_loop_validity(condition)){
-    errprintf("3ac: invalid expr in loop!\n");
-    ++err_count;
-    return nullptr;
-  }
-
   int orig_while = while_count;
   ++while_count;
 
@@ -1097,6 +1063,19 @@ ac3 *p_index(astree *expr, ac3_table *current){
   return bot;
 }
 
+ac3 *p_semicolon(astree *expr, ac3_table *current,string *label){
+  ac3 *ac = new ac3(expr);
+  current->push_back(ac);
+  if (label){
+    ac3 *encapsulate = new ac3(expr);
+    encapsulate->label = label;
+    encapsulate->itype.set(static_cast<int>(instruction::LABEL_ONLY));
+    current->push_back(encapsulate);
+    return encapsulate;
+  }
+  return ac;
+}
+
 // large switch statement for expressions
 ac3 *p_expr(astree *expr, ac3_table *current){
   switch (expr->symbol){
@@ -1142,6 +1121,9 @@ ac3 *p_expr(astree *expr, ac3_table *current){
     case TOK_INDEX:
       return p_index(expr,current);
       break;
+    case ';':
+      return p_semicolon(expr,current,nullptr);
+      break;
   }
   errprintf ("3ac: non-recognized expression parsed:%s \n "
              , parser::get_tname(expr->symbol));
@@ -1153,8 +1135,19 @@ ac3 *p_expr(astree *expr, ac3_table *current){
 ac3 *p_expression(astree *expr, ac3_table *current, string *label){
   size_t index = current->size();
   ac3 *ac = p_expr(expr,current);
-  if(ac)
-    current->at(index)->label = label;
+  if(ac){
+    if (expr->symbol != ';'){
+      current->at(index)->label = label;
+    } else {
+      if (label){
+        ac3 *encapsulate = new ac3(expr);
+        encapsulate->label = label;
+        encapsulate->itype.set(static_cast<int>(instruction::LABEL_ONLY));
+        current->push_back(encapsulate);
+        return encapsulate;
+      }
+    }
+  }
   fprintf (stderr, "3ac: warning: expr parsed without assignment: %s:\n",expr->lexinfo->c_str()); 
   return ac;
 }
@@ -1187,6 +1180,9 @@ void p_stmt(astree *expr, ac3_table *current, string *label){
       break;
     case TOK_CALL:
       ac = p_call(expr,current,label);
+      break;
+    case ';':
+      ac = p_semicolon(expr,current,label);
       break;
     default:
       ac = p_expression(expr,current,label);

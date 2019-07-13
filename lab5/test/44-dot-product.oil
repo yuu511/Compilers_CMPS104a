@@ -7,7 +7,7 @@ dot_product: .function int
            index = 0  
            dot = 0  
 .wh0:      $t0:i = index < size
-           goto .od0 if not $t0:i
+           goto .od0 if $t0:i
 .do0:      $t3:i = vec1[index * :i]  
            $t4:i = vec2[index * :i]  
            $t2:i = $t3:i * $t4:i
@@ -30,7 +30,7 @@ main:      .function int
            vec2 = call malloc($t1:p)  
            index = 0  
 .wh1:      $t2:i = index < 10
-           goto .od1 if not $t2:i
+           goto .od1 if $t2:i
 .do1:      $t3:i = index + 10
            vec1[index * :i] = $t3:i  
            $t4:i = index * 10

@@ -1,108 +1,102 @@
 ** 90-c8q.oc.err output:**
-@oÀŸU:1.1: syntax error, unexpected TOK_IDENT
-@oÀŸU:2.2: invalid source character (|)
-@oÀŸU:2.19: invalid source character (?)
-@oÀŸU:2.20: invalid source character (!)
-@oÀŸU:2.33: invalid source character (:)
-@oÀŸU:3.14: invalid source character (&)
-@oÀŸU:3.16: invalid source character (|)
-@oÀŸU:3.18: invalid source character (&)
-@oÀŸU:3.20: invalid source character (|)
-@oÀŸU:3.21: invalid source character (|)
-@oÀŸU:3.29: invalid source character (|)
-@oÀŸU:3.33: invalid source character (|)
+ \äŞHV:1.1: syntax error, unexpected TOK_IDENT
+ \äŞHV:2.2: invalid source character (|)
+ \äŞHV:2.19: invalid source character (?)
+ \äŞHV:2.20: invalid source character (!)
+ \äŞHV:2.33: invalid source character (:)
+ \äŞHV:3.14: invalid source character (&)
+ \äŞHV:3.16: invalid source character (|)
+ \äŞHV:3.18: invalid source character (&)
+ \äŞHV:3.20: invalid source character (|)
+ \äŞHV:3.21: invalid source character (|)
+ \äŞHV:3.29: invalid source character (|)
+ \äŞHV:3.33: invalid source character (|)
 
 ** 91-typecheck.oc.err output:**
-`¯
-ôU:9.4: syntax error, unexpected '[', expecting TOK_IDENT
-`¯
-ôU:13.14: syntax error, unexpected '[', expecting TOK_IDENT
-`¯
-ôU:16.1: syntax error, unexpected TOK_INT, expecting ';'
+ğÜj€äU:9.4: syntax error, unexpected '[', expecting TOK_IDENT
+ğÜj€äU:13.14: syntax error, unexpected '[', expecting TOK_IDENT
+ğÜj€äU:16.1: syntax error, unexpected TOK_INT, expecting ';'
 prototype foo defined multiple times: 5.12.1
-3ac: invalid function definition: 
 
 ** 92-uncomment.oc.err output:**
 92-uncomment.oc:1:1: error: unterminated comment
- /*
- ^
+    1 | /*
+      | ^
 /usr/bin/cpp -nostdinc 92-uncomment.oc: status 0x0100, exit 1
 
 ** 93-semantics.oc.err output:**
-@Ï™\¹U:4.4: syntax error, unexpected '[', expecting TOK_IDENT
+Ğ,›†¦U:4.4: syntax error, unexpected '[', expecting TOK_IDENT
 ident a not found in table: 4.10.12
 ident b not found in table: 4.10.16
-type mismatch: math expr 4.10.14
 VOID may not be a variable decl:4.11.4
 ident null not found in table: 4.11.13
 not compatible assignment: 4.11.4
 ident a not found in table: 4.12.12
 ident b not found in table: 4.12.16
-type mismatch: math expr 4.12.14
 ident a not found in table: 4.13.12
 ident b not found in table: 4.13.15
-return value mismatch : 4.14.4
+return type mismatch : 4.14.4
 
 ** 94-syntax.oc.err output:**
-@¯§¯V:4.9: syntax error, unexpected ';'
-@¯§¯V:7.10: invalid source character (.)
+ \êÕ(V:4.9: syntax error, unexpected ';'
+ \êÕ(V:7.10: invalid source character (.)
 
 ** 95-cobol.oc.err output:**
-@ï‘QV:3.1: invalid token (000100)
-@ï‘QV:3.8: syntax error, unexpected TOK_IDENT
-@ï‘QV:3.31: invalid source character (.)
-@ï‘QV:4.1: invalid token (000200)
-@ï‘QV:4.18: invalid source character (.)
-@ï‘QV:4.30: invalid source character (.)
-@ï‘QV:5.1: invalid token (000300)
-@ï‘QV:6.1: invalid token (000400)
-@ï‘QV:7.1: invalid token (000500)
-@ï‘QV:7.28: invalid source character (.)
-@ï‘QV:8.1: invalid token (000600)
-@ï‘QV:8.29: invalid source character (.)
-@ï‘QV:9.1: invalid token (000700)
-@ï‘QV:9.23: invalid source character (.)
-@ï‘QV:9.33: invalid source character (.)
-@ï‘QV:10.1: invalid token (000800)
-@ï‘QV:10.23: invalid source character (.)
-@ï‘QV:10.33: invalid source character (.)
-@ï‘QV:11.1: invalid token (000900)
-@ï‘QV:12.1: invalid token (001000)
-@ï‘QV:12.21: invalid source character (.)
-@ï‘QV:13.1: invalid token (001100)
-@ï‘QV:13.20: invalid source character (.)
-@ï‘QV:14.1: invalid token (001200)
-@ï‘QV:15.26: invalid source character (.)
-@ï‘QV:17.26: invalid source character (.)
-@ï‘QV:18.13: invalid source character (.)
-@ï‘QV:19.47: invalid source character (.)
-@ï‘QV:20.50: invalid source character (.)
-@ï‘QV:21.16: invalid source character (.)
-@ï‘QV:22.23: invalid source character (.)
-@ï‘QV:23.12: invalid source character (.)
+ ¼3"­U:3.1: invalid token (000100)
+ ¼3"­U:3.8: syntax error, unexpected TOK_IDENT
+ ¼3"­U:3.31: invalid source character (.)
+ ¼3"­U:4.1: invalid token (000200)
+ ¼3"­U:4.18: invalid source character (.)
+ ¼3"­U:4.30: invalid source character (.)
+ ¼3"­U:5.1: invalid token (000300)
+ ¼3"­U:6.1: invalid token (000400)
+ ¼3"­U:7.1: invalid token (000500)
+ ¼3"­U:7.28: invalid source character (.)
+ ¼3"­U:8.1: invalid token (000600)
+ ¼3"­U:8.29: invalid source character (.)
+ ¼3"­U:9.1: invalid token (000700)
+ ¼3"­U:9.23: invalid source character (.)
+ ¼3"­U:9.33: invalid source character (.)
+ ¼3"­U:10.1: invalid token (000800)
+ ¼3"­U:10.23: invalid source character (.)
+ ¼3"­U:10.33: invalid source character (.)
+ ¼3"­U:11.1: invalid token (000900)
+ ¼3"­U:12.1: invalid token (001000)
+ ¼3"­U:12.21: invalid source character (.)
+ ¼3"­U:13.1: invalid token (001100)
+ ¼3"­U:13.20: invalid source character (.)
+ ¼3"­U:14.1: invalid token (001200)
+ ¼3"­U:15.26: invalid source character (.)
+ ¼3"­U:17.26: invalid source character (.)
+ ¼3"­U:18.13: invalid source character (.)
+ ¼3"­U:19.47: invalid source character (.)
+ ¼3"­U:20.50: invalid source character (.)
+ ¼3"­U:21.16: invalid source character (.)
+ ¼3"­U:22.23: invalid source character (.)
+ ¼3"­U:23.12: invalid source character (.)
 parse failed (1)
 
 ** 96-unterminated.oc.err output:**
 96-unterminated.oc:6:15: warning: missing terminating " character
-    string s = "abc;
-               ^
+    6 |    string s = "abc;
+      |               ^
 96-unterminated.oc:7:13: warning: missing terminating ' character
-    char c = 'a;
-             ^
+    7 |    char c = 'a;
+      |             ^
 96-unterminated.oc:8:8: warning: missing terminating " character
-    s = "abcd\";
-        ^
+    8 |    s = "abcd\";
+      |        ^
 96-unterminated.oc:9:8: warning: missing terminating " character
-    s = "abc|\
-        ^
-@:5.15: invalid token ("\*/")
-@:5.20: syntax error, unexpected ';'
-@:6.15: invalid token ("abc;)
-@:7.9: syntax error, unexpected TOK_IDENT
-@:7.13: invalid token ('a;)
-@:8.8: invalid token ("abcd\";)
-@:9.8: invalid token ("abc|   ;)
-@:11.8: invalid token (23foobar)
+    9 |    s = "abc|\
+      |        ^
+àoõ(ÊU:5.15: invalid token ("\*/")
+àoõ(ÊU:5.20: syntax error, unexpected ';'
+àoõ(ÊU:6.15: invalid token ("abc;)
+àoõ(ÊU:7.9: syntax error, unexpected TOK_IDENT
+àoõ(ÊU:7.13: invalid token ('a;)
+àoõ(ÊU:8.8: invalid token ("abcd\";)
+àoõ(ÊU:9.8: invalid token ("abc|   ;)
+àoõ(ÊU:11.8: invalid token (23foobar)
 
 ** diffast.err output:**
 2,4c2,29

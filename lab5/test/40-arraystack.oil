@@ -23,7 +23,7 @@ push:      .function
            $t3:i = $t4:i - 1
            $t1:i = $t2:i < $t3:i
            $t0:i = not $t1:i  
-           goto .fi0 if not $t0:i
+           goto .fi0 if $t0:i
 .th0:      call fail("stack->top < stack->size - 1","40-arraystack.oc",22)  
 .fi0:
            $t6:i = stack->stack.top  
@@ -45,7 +45,7 @@ pop:       .function ptr
            $t6:i = -1  
            $t4:i = $t5:i != $t6:i
            $t3:i = not $t4:i  
-           goto .fi1 if not $t3:i
+           goto .fi1 if $t3:i
 .th1:      call fail("stack->top != EMPTY","40-arraystack.oc",29)  
 .fi1:
            $t8:i = stack->stack.top  
@@ -71,7 +71,7 @@ main:      .function int
            stack = $t0:p  
            argi = 0  
 .wh0:      $t1:i = argi < argc
-           goto .od0 if not $t1:i
+           goto .od0 if $t1:i
 .do0:      $t2:c = argv[argi * :c]  
            call push(stack,$t2:c)  
            $t3:i = argi + 1
@@ -80,7 +80,7 @@ main:      .function int
 .od0:
 .wh1:      $t5:i = call empty(stack)  
            $t4:i = not $t5:i  
-           goto .od1 if not $t4:i
+           goto .od1 if $t4:i
 .do1:      $t6:p = call pop(stack)  
            call putstr($t6:p)  
            call putchr('\n')  
