@@ -3,18 +3,16 @@ main:      .function int
            .param ptr argv
            .local int argi
            argi = 1  
-.wh0:      $t0:i = argi < argc
-           goto .od0 if not $t0:i
+           goto .wh0: if argi > argc
 .do0:
-.if0:      $t1:i = argi > 1
-           goto .fi0 if not $t1:i
+           goto .if0: if argi < 1
 .th0:      call putchr(' ')  
 .fi0:
-           $t2:c = argv[argi * :c]  
-           call putstr($t2:c)  
-           $t3:i = argi + 1
-           argi = $t3:i  
-           goto .wh0
+           $t0:c = argv[argi * :c]  
+           call putstr($t0:c)  
+           $t1:i = argi + 1
+           argi = $t1:i  
+           goto .wh0  
 .od0:
            call putstr("\n")  
            return 0

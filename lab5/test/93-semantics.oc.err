@@ -1,4 +1,4 @@
-Ð¬¹ðU:4.4: syntax error, unexpected '[', expecting TOK_IDENT
+ÐÜ:èJV:4.4: syntax error, unexpected '[', expecting TOK_IDENT
 ident a not found in table: 4.10.12
 ident b not found in table: 4.10.16
 VOID may not be a variable decl:4.11.4

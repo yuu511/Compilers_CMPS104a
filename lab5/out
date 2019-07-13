@@ -1,14 +1,168 @@
-==27932== Memcheck, a memory error detector
-==27932== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==27932== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==27932== Command: ./oc ./examples/test.oc
-==27932== 
-==27932== 
-==27932== HEAP SUMMARY:
-==27932==     in use at exit: 0 bytes in 0 blocks
-==27932==   total heap usage: 759 allocs, 759 frees, 164,053 bytes allocated
-==27932== 
-==27932== All heap blocks were freed -- no leaks are possible
-==27932== 
-==27932== For counts of detected and suppressed errors, rerun with: -v
-==27932== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3ac.cpp
+3ac.cpp: In function ‘ac3* p_not(astree*, std::string*)’:
+3ac.cpp:847:7: error: ‘t0’ was not declared in this scope; did you mean ‘tm’?
+  847 |       t0 = new reg(expr->children[0]->lexinfo);
+      |       ^~
+      |       tm
+3ac.cpp: In function ‘ac3* p_single_op(astree*, std::string*)’:
+3ac.cpp:866:1: warning: no return statement in function returning non-void [-Wreturn-type]
+  866 | }
+      | ^
+3ac.cpp:864:26: warning: unused parameter ‘expr’ [-Wunused-parameter]
+  864 | ac3 *p_single_op(astree *expr, string *goto_stmt){
+      |                  ~~~~~~~~^~~~
+3ac.cpp:864:40: warning: unused parameter ‘goto_stmt’ [-Wunused-parameter]
+  864 | ac3 *p_single_op(astree *expr, string *goto_stmt){
+      |                                ~~~~~~~~^~~~~~~~~
+3ac.cpp: In function ‘ac3* p_condition(astree*, std::string*)’:
+3ac.cpp:883:3: error: expected primary-expression before ‘}’ token
+  883 |   }
+      |   ^
+3ac.cpp: In function ‘ac3* p_if(astree*, ac3_table*, std::string*)’:
+3ac.cpp:924:56: error: no matching function for call to ‘std::__cxx11::basic_string<char>::basic_string(astree*&, std::string&)’
+  924 |   p_condition(condition,new string(condition,goto_label));
+      |                                                        ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:650:2: note: candidate: ‘template<class _Tp, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Tp&, const _Alloc&)’
+  650 |  basic_string(const _Tp& __t, const _Alloc& __a = _Alloc())
+      |  ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:650:2: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/9.1.0/bits/move.h:55,
+                 from /usr/include/c++/9.1.0/bits/stl_pair.h:59,
+                 from /usr/include/c++/9.1.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/9.1.0/bits/char_traits.h:39,
+                 from /usr/include/c++/9.1.0/string:40,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/type_traits: In substitution of ‘template<bool _Cond, class _Tp> using enable_if_t = typename std::enable_if::type [with bool _Cond = std::integral_constant<bool, false>::value; _Tp = void]’:
+/usr/include/c++/9.1.0/bits/basic_string.h:117:8:   required by substitution of ‘template<class _CharT, class _Traits, class _Alloc> template<class _Tp, class _Res> using _If_sv = std::enable_if_t<std::__and_<std::is_convertible<const _Tp&, std::basic_string_view<_CharT, _Traits> >, std::__not_<std::is_convertible<const _Tp*, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>*> >, std::__not_<std::is_convertible<const _Tp&, const _CharT*> > >::value, _Res> [with _Tp = astree*; _Res = void; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+/usr/include/c++/9.1.0/bits/basic_string.h:648:30:   required from here
+/usr/include/c++/9.1.0/type_traits:2426:11: error: no type named ‘type’ in ‘struct std::enable_if<false, void>’
+ 2426 |     using enable_if_t = typename enable_if<_Cond, _Tp>::type;
+      |           ^~~~~~~~~~~
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:639:2: note: candidate: ‘template<class _Tp, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Tp&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&)’
+  639 |  basic_string(const _Tp& __t, size_type __pos, size_type __n,
+      |  ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:639:2: note:   template argument deduction/substitution failed:
+3ac.cpp:924:56: note:   candidate expects 4 arguments, 2 provided
+  924 |   p_condition(condition,new string(condition,goto_label));
+      |                                                        ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:625:9: note: candidate: ‘template<class _InputIterator, class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(_InputIterator, _InputIterator, const _Alloc&)’
+  625 |         basic_string(_InputIterator __beg, _InputIterator __end,
+      |         ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:625:9: note:   template argument deduction/substitution failed:
+3ac.cpp:924:56: note:   deduced conflicting types for parameter ‘_InputIterator’ (‘astree*’ and ‘std::__cxx11::basic_string<char>’)
+  924 |   p_condition(condition,new string(condition,goto_label));
+      |                                                        ^
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:587:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  587 |       basic_string(basic_string&& __str, const _Alloc& __a)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:587:35: note:   no known conversion for argument 1 from ‘astree*’ to ‘std::__cxx11::basic_string<char>&&’
+  587 |       basic_string(basic_string&& __str, const _Alloc& __a)
+      |                    ~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:583:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  583 |       basic_string(const basic_string& __str, const _Alloc& __a)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:583:40: note:   no known conversion for argument 1 from ‘astree*’ to ‘const std::__cxx11::basic_string<char>&’
+  583 |       basic_string(const basic_string& __str, const _Alloc& __a)
+      |                    ~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:579:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::initializer_list<_Tp>, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  579 |       basic_string(initializer_list<_CharT> __l, const _Alloc& __a = _Alloc())
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:579:45: note:   no known conversion for argument 1 from ‘astree*’ to ‘std::initializer_list<char>’
+  579 |       basic_string(initializer_list<_CharT> __l, const _Alloc& __a = _Alloc())
+      |                    ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:552:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  552 |       basic_string(basic_string&& __str) noexcept
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:552:7: note:   candidate expects 1 argument, 2 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:540:7: note: candidate: ‘template<class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, _CharT, const _Alloc&)’
+  540 |       basic_string(size_type __n, _CharT __c, const _Alloc& __a = _Alloc())
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:540:7: note:   template argument deduction/substitution failed:
+3ac.cpp:924:36: note:   cannot convert ‘condition’ (type ‘astree*’) to type ‘std::__cxx11::basic_string<char>::size_type’ {aka ‘long unsigned int’}
+  924 |   p_condition(condition,new string(condition,goto_label));
+      |                                    ^~~~~~~~~
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:525:7: note: candidate: ‘template<class> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, const _Alloc&)’
+  525 |       basic_string(const _CharT* __s, const _Alloc& __a = _Alloc())
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:525:7: note:   template argument deduction/substitution failed:
+3ac.cpp:924:36: note:   cannot convert ‘condition’ (type ‘astree*’) to type ‘const char*’
+  924 |   p_condition(condition,new string(condition,goto_label));
+      |                                    ^~~~~~~~~
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from /usr/include/c++/9.1.0/bitset:47,
+                 from symbol_table.h:4,
+                 from 3ac.h:4,
+                 from 3ac.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:510:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  510 |       basic_string(const _CharT* __s, size_type __n,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:510:34: note:   no known conversion for argument 1 from ‘astree*’ to ‘const char*’
+  510 |       basic_string(const _CharT* __s, size_type __n,
+      |                    ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:492:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  492 |       basic_string(const basic_string& __str, size_type __pos,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:492:7: note:   candidate expects 4 arguments, 2 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:476:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  476 |       basic_string(const basic_string& __str, size_type __pos,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:476:7: note:   candidate expects 3 arguments, 2 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:461:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>; std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::size_type = long unsigned int]’
+  461 |       basic_string(const basic_string& __str, size_type __pos,
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:461:40: note:   no known conversion for argument 1 from ‘astree*’ to ‘const std::__cxx11::basic_string<char>&’
+  461 |       basic_string(const basic_string& __str, size_type __pos,
+      |                    ~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:448:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  448 |       basic_string(const basic_string& __str)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:448:7: note:   candidate expects 1 argument, 2 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:440:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  440 |       basic_string(const _Alloc& __a) _GLIBCXX_NOEXCEPT
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:440:7: note:   candidate expects 1 argument, 2 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:431:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string() [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  431 |       basic_string()
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:431:7: note:   candidate expects 0 arguments, 2 provided
+/usr/include/c++/9.1.0/bits/basic_string.h:145:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::basic_string(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::__sv_wrapper, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  145 |       basic_string(__sv_wrapper __svw, const _Alloc& __a)
+      |       ^~~~~~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:145:33: note:   no known conversion for argument 1 from ‘astree*’ to ‘std::__cxx11::basic_string<char>::__sv_wrapper’
+  145 |       basic_string(__sv_wrapper __svw, const _Alloc& __a)
+      |                    ~~~~~~~~~~~~~^~~~~
+3ac.cpp:906:10: warning: unused variable ‘top’ [-Wunused-variable]
+  906 |   size_t top = current->size();
+      |          ^~~
+3ac.cpp:907:11: warning: unused variable ‘if_header’ [-Wunused-variable]
+  907 |   string *if_header = new string(".if" + to_string(orig_if) + ":");
+      |           ^~~~~~~~~
+make: *** [Makefile:55: 3ac.o] Error 1

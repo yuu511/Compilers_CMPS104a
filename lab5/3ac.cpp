@@ -828,35 +828,70 @@ ac3 *p_call_expr (astree *expr, ac3_table *current){
   return call;
 }
 
+ac3 *p_condition_relop(astree *expr, ac3_table *current, string *goto_stmt, string *relop){
+  astree *left = expr->children[0];
+  astree *right = expr->children[1];
+  ac3 *if_goto = new ac3(expr);
+  if_goto-> t0 = left->children.size() ? expr_reg(left,current) : new reg(left->lexinfo);  
+  if_goto-> op = relop;
+  if_goto-> t1 = right->children.size() ? expr_reg(right,current) : new reg(right->lexinfo);  
+  if_goto->label = goto_stmt;
+  if_goto->itype.set(static_cast<int>(instruction::GOTO));
+  return if_goto;
+}
+
+ac3 *p_condition_single(astree *expr, string *goto_stmt){
+  astree *op =  expr->symbol == TOK_NOT ? expr->children[0] : expr; 
+  ac3 *if_goto = new ac3(expr);
+  reg *t0 = new reg(op->lexinfo);
+  if (expr->symbol == TOK_NOT){
+    if (!op->children.size()){
+      t0->unop = new string (*expr->lexinfo);
+    }
+    else {
+      errprintf ("not expression in loop may only be a single expression!\n");
+      ++err_count;
+      return nullptr;
+    }
+  }
+  if_goto->t0 = t0;
+  if_goto->label = goto_stmt;
+  if_goto->itype.set(static_cast<int>(instruction::GOTO));
+  return if_goto;
+}
+
+
 // check validity of loop condition
-int check_loop_validity (astree *s){
-  if (s == nullptr)
-    return 0;
-  switch (s->symbol){
+ac3 *p_condition(astree *expr,ac3_table *current,string *goto_stmt){
+  switch (expr->symbol){
     case TOK_EQ:
+      return p_condition_relop(expr,current,goto_stmt, new string ("!="));
     case TOK_NE:
+      return p_condition_relop(expr,current,goto_stmt, new string ("=="));
     case TOK_GT:
+      return p_condition_relop(expr,current,goto_stmt, new string ("<"));
     case TOK_GE:
+      return p_condition_relop(expr,current,goto_stmt, new string ("<="));
     case TOK_LT:
+      return p_condition_relop(expr,current,goto_stmt, new string (">"));
     case TOK_LE:
+      return p_condition_relop(expr,current,goto_stmt, new string (">="));
     case TOK_NOT:
     case TOK_IDENT:
     case TOK_INTCON:
     case TOK_CHARCON:
     case TOK_NULLPTR:
-      return 1;
+      return p_condition_single(expr,goto_stmt);
   }
-  return 0;
+  errprintf ("invalid condition for loop: %zd.%zd.%zd\n",
+             expr->lloc.filenr,expr->lloc.linenr,expr->lloc.offset);
+  ++err_count;
+  return nullptr;
 }
 
 ac3 *p_if(astree *expr, ac3_table *current, string *label){ 
   astree *condition = expr->children[0];
   astree *if_statement = expr->children[1];
-  if (!check_loop_validity(condition)){
-    errprintf("3ac: invalid expr in loop!\n");
-    ++err_count;
-    return nullptr;
-  }
   int orig_if = if_count;
   ++if_count;
 
@@ -876,17 +911,27 @@ ac3 *p_if(astree *expr, ac3_table *current, string *label){
   // otherwise, just go to the end of the if statment.
   string selection = expr->children.size() > 2 ? ".el" : ".fi"; 
   string goto_label = selection + to_string(orig_if);
-  reg *stored = expr_reg(condition,current);
+  // reg *stored = expr_reg(condition,current);
 
   // add label to element at saved index
-  current->at(top)->label = if_header;
+  // current->at(top)->label = if_header;
 
   /* goto statement */
-  reg *ret = stored;
-  ac3 *if_goto = new ac3 (condition,ret); 
-  if_goto->label = new string(goto_label);
-  if_goto->itype.set(static_cast<int>(instruction::GOTO));
+  // reg *ret = stored;
+  // ac3 *if_goto = new ac3 (condition,ret); 
+  // if_goto->label = new string(goto_label);
+  // if_goto->itype.set(static_cast<int>(instruction::GOTO));
+  // current->push_back(if_goto);
+
+  ac3 *if_goto = p_condition(condition,current,new string(goto_label));
   current->push_back(if_goto);
+  if (!if_goto){
+    delete if_header;
+    errprintf ("invalid condition for loop");
+    return nullptr;
+  }
+  current->at(top)->label = if_header;
+
 
   /* first statement */
   string *first_label = new string(".th" + to_string(orig_if) + ":");
@@ -921,11 +966,6 @@ ac3 *p_while(astree *expr, ac3_table *current, string *label){
   astree *condition = expr->children[0];
   astree *statement = expr->children[1];
   // check validity of expression in loop condition
-  if (!check_loop_validity(condition)){
-    errprintf("3ac: invalid expr in loop!\n");
-    ++err_count;
-    return nullptr;
-  }
 
   int orig_while = while_count;
   ++while_count;
@@ -944,20 +984,19 @@ ac3 *p_while(astree *expr, ac3_table *current, string *label){
   string goto_label = ".od" + to_string(orig_while);
 
   string *wh_header = new string(while_label + ":");
-  // get next index
-  size_t top = current->size();
-  reg *stored = expr_reg(condition,current);
-
-  // add label to element at saved index
-  current->at(top)->label = wh_header;
 
   /* goto statement */
-  reg *ret = stored;
-  ret->unop = stored->unop;
-  ac3 *wh_goto = new ac3 (condition,ret); 
-  wh_goto->label = new string(goto_label);
-  wh_goto->itype.set(static_cast<int>(instruction::GOTO));
+  size_t top = current->size();
+  ac3 *wh_goto = p_condition(condition,current,new string(goto_label));
   current->push_back(wh_goto);
+  if (!wh_goto){
+    delete wh_header;
+    errprintf ("invalid condition for loop \n");
+    ++err_count;
+    return nullptr;
+  }
+  // add label to element at saved index
+  current->at(top)->label = wh_header;
 
   /* first statement */
   string *first_label = new string(".do" + to_string(orig_while) + ":");
@@ -1333,13 +1372,15 @@ void emit_functions(FILE *out){
                   stmt->t2 ? stmt->t2->str().c_str() : "");
       }
       if (stmt->itype[static_cast<int>(instruction::GOTO)]){
-        // goto [LABEL] if not [t0]
-        // if not appears only if t0 exists
-        fprintf (out,"%-10s goto %s%s%s\n",
+        // goto [LABEL] if t0 op t1
+        // if only appears if t0 exits
+        fprintf (out,"%-10s goto %s%s%s %s %s\n",
                  "",
                  stmt->label ? stmt->label->c_str() : "",
                  stmt->t0 ? " if " : "" ,
-                 stmt->t0 ? stmt->t0->str().c_str() : "" );
+                 stmt->t0 ? stmt->t0->str().c_str() : "",
+                 stmt->op ? stmt->op->c_str() : "",
+                 stmt->t1 ? stmt->t1->str().c_str(): "");
       }
       if (stmt->itype[static_cast<int>(instruction::LABEL_ONLY)]){
         // [LABEL]

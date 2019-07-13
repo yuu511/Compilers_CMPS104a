@@ -2,12 +2,11 @@ strlen:    .function int
            .param ptr str
            .local int len
            len = 0  
-.wh0:      $t1:i = str[len * :i]  
-           $t0:i = $t1:i != '\0'
-           goto .od0 if not $t0:i
-.do0:      $t2:i = len + 1
-           len = $t2:i  
-           goto .wh0
+.wh0:      $t0:i = str[len * :i]  
+           goto .od0 if $t0:i == '\0'
+.do0:      $t1:i = len + 1
+           len = $t1:i  
+           goto .wh0  
 .od0:
            return len
            return
@@ -20,16 +19,15 @@ strcat:    .function
            $t0:i = call strlen(dest)  
            pos = $t0:i  
            srcix = 0  
-.wh1:      $t2:i = src[srcix * :i]  
-           $t1:i = $t2:i != '\0'
-           goto .od1 if not $t1:i
-.do1:      $t3:i = src[srcix * :i]  
-           dest[pos * :i] = $t3:i  
-           $t4:i = pos + 1
-           pos = $t4:i  
-           $t5:i = srcix + 1
-           srcix = $t5:i  
-           goto .wh1
+.wh1:      $t1:i = src[srcix * :i]  
+           goto .od1 if $t1:i == '\0'
+.do1:      $t2:i = src[srcix * :i]  
+           dest[pos * :i] = $t2:i  
+           $t3:i = pos + 1
+           pos = $t3:i  
+           $t4:i = srcix + 1
+           srcix = $t4:i  
+           goto .wh1  
 .od1:
            dest[pos * :i] = '\0'  
            return
@@ -42,16 +40,15 @@ main:      .function int
            .local ptr concat
            length = 0  
            argi = 1  
-.wh2:      $t0:i = argi < argc
-           goto .od2 if not $t0:i
-.do2:      $t4:c = argv[argi * :c]  
-           $t3:i = call strlen($t4:c)  
-           $t2:i = length + $t3:i
-           $t1:i = $t2:i + 2
-           length = $t1:i  
-           $t5:i = argi + 1
-           argi = $t5:i  
-           goto .wh2
+           goto .wh2: if argi > argc
+.do2:      $t3:c = argv[argi * :c]  
+           $t2:i = call strlen($t3:c)  
+           $t1:i = length + $t2:i
+           $t0:i = $t1:i + 2
+           length = $t0:i  
+           $t4:i = argi + 1
+           argi = $t4:i  
+           goto .wh2  
 .od2:
            call putstr("concat length = ")  
            call putint(length)  
@@ -59,15 +56,14 @@ main:      .function int
            concat = call malloc(length)  
            argi = 1  
            call putchr('[')  
-.wh3:      $t6:i = argi < argc
-           goto .od3 if not $t6:i
+           goto .wh3: if argi > argc
 .do3:      call strcat(concat,"(")  
-           $t7:c = argv[argi * :c]  
-           call strcat(concat,$t7:c)  
+           $t5:c = argv[argi * :c]  
+           call strcat(concat,$t5:c)  
            call strcat(concat,")")  
-           $t8:i = argi + 1
-           argi = $t8:i  
-           goto .wh3
+           $t6:i = argi + 1
+           argi = $t6:i  
+           goto .wh3  
 .od3:
            call putstr(concat)  
            call putstr("]\n")  

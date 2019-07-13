@@ -1,13 +1,24 @@
+not expression in loop may only be a single expression!
+invalid condition for loop3ac: invalid statement passed :if
 3ac: non-recognized expression parsed:';' 
  3ac: warning: expr parsed without assignment: ;:
 3ac: invalid statement passed :;
+not expression in loop may only be a single expression!
+invalid condition for loop3ac: invalid statement passed :if
 3ac: non-recognized expression parsed:';' 
  3ac: warning: expr parsed without assignment: ;:
 3ac: invalid statement passed :;
+not expression in loop may only be a single expression!
+invalid condition for loop3ac: invalid statement passed :if
 3ac: non-recognized expression parsed:';' 
  3ac: warning: expr parsed without assignment: ;:
 3ac: invalid statement passed :;
+not expression in loop may only be a single expression!
+invalid condition for loop3ac: invalid statement passed :if
 3ac: non-recognized expression parsed:';' 
  3ac: warning: expr parsed without assignment: ;:
 3ac: invalid statement passed :;
-NUMBER OF ERRORS REPORTED: 8
+not expression in loop may only be a single expression!
+invalid condition for loop 
+3ac: invalid statement passed :while
+NUMBER OF ERRORS REPORTED: 19

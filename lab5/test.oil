@@ -1,0 +1,80 @@
+.struct mami
+.field ptr madoka
+.field ptr two
+.field int one
+.field struct mami mamimami
+.field struct homura homu
+.field struct mami mamiarray
+.end 
+.struct madokami
+.field ptr place
+.field int wish
+.end 
+.struct homura
+.field struct madokami madomado
+.field int madoka
+.end 
+.s0:       "hehe"
+a:         .global int 
+b:         .global int 5
+c:         .global int 'a'
+w:         .global ptr 
+x:         .global ptr (.s0)
+y:         .global ptr nullptr
+thing:     .global struct mami nullptr
+thing2:    .global struct mami call malloc(sizeof struct mami)
+thing3:    .global ptr nullptr
+sayaka:    .function int 
+           .param int x
+           .param int y
+           return
+           .end
+filler:    .function int 
+           return
+           .end
+trivial:   .function 
+           .param int x
+           .local struct homura madoka
+           .local struct mami foo
+           .local struct madokami kyubey
+           .local struct mami he
+           .local int z
+           madoka = call malloc(sizeof struct homura)  
+           foo = call malloc(sizeof struct mami)  
+           kyubey = call malloc(sizeof struct madokami)  
+           $t0:p = 5 * sizeof struct mami
+           he = call malloc($t0:p)  
+           $t2:p = madoka->homura.madomado  
+           $t1:i = $t2:p->madokami.wish  
+           $t7:p = foo->mami.mamiarray  
+           $t6:p = $t7:p[5 * :p]  
+           $t5:p = $t6:p->mami.mamiarray  
+           $t4:p = $t5:p[2 * :p]  
+           $t3:p = $t4:p->mami.homu  
+           $t3:p->homura.madoka = $t1:i  
+.if0:      $t8:i = z + 1
+           $t10:i = 3 * x
+           $t9:i = $t10:i + 5
+           goto .el0 if $t8:i <= $t9:i
+.th0:
+           goto .wh0: if 1  
+.do0:      $t11:i = z + 1
+           z = $t11:i  
+           goto .wh0  
+.od0:
+           $t12:i = z + 1
+           z = $t12:i  
+           goto .fi0  
+.el0:
+           goto .if1: if z != 0123123
+.th1:      $t13:i = x + 1
+           x = $t13:i  
+           goto .fi1  
+.el1:
+           goto .if2: if x != 1
+.th2:
+.fi2:
+.fi1:
+.fi0:
+           return
+           .end

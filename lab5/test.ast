@@ -1,0 +1,197 @@
+ROOT "<<ROOT>>" 0.0.0 {0} 
+STRUCT "struct" 4.3.1 {0} struct mami 
+IDENT "mami" 4.3.8 {0} 
+TYPE_ID "" 4.4.18 {0} int field 
+INT "int" 4.4.18 {0} 
+IDENT "one" 4.4.22 {0} 
+TYPE_ID "" 4.5.18 {0} string field 
+STRING "string" 4.5.18 {0} 
+IDENT "two" 4.5.25 {0} 
+TYPE_ID "" 4.6.18 {0} field struct homura 
+PTR "ptr" 4.6.18 {0} 
+IDENT "homura" 4.6.30 {0} 
+IDENT "homu" 4.6.38 {0} 
+TYPE_ID "" 4.7.18 {0} field struct mami 
+PTR "ptr" 4.7.18 {0} 
+IDENT "mami" 4.7.30 {0} 
+IDENT "mamimami" 4.7.36 {0} 
+TYPE_ID "" 4.8.18 {0} array field struct mami 
+ARRAY "array" 4.8.18 {0} 
+PTR "ptr" 4.8.25 {0} 
+IDENT "mami" 4.8.37 {0} 
+IDENT "mamiarray" 4.8.45 {0} 
+TYPE_ID "" 4.9.18 {0} int array field 
+ARRAY "array" 4.9.18 {0} 
+INT "int" 4.9.25 {0} 
+IDENT "madoka" 4.9.30 {0} 
+STRUCT "struct" 4.12.1 {0} struct homura 
+IDENT "homura" 4.12.8 {0} 
+TYPE_ID "" 4.13.17 {0} int field 
+INT "int" 4.13.17 {0} 
+IDENT "madoka" 4.13.21 {0} 
+TYPE_ID "" 4.14.17 {0} field struct madokami 
+PTR "ptr" 4.14.17 {0} 
+IDENT "madokami" 4.14.28 {0} 
+IDENT "madomado" 4.14.38 {0} 
+STRUCT "struct" 4.17.1 {0} struct madokami 
+IDENT "madokami" 4.17.8 {0} 
+TYPE_ID "" 4.18.19 {0} int field 
+INT "int" 4.18.19 {0} 
+IDENT "wish" 4.18.23 {0} 
+TYPE_ID "" 4.19.19 {0} string field 
+STRING "string" 4.19.19 {0} 
+IDENT "place" 4.19.26 {0} 
+TYPE_ID "" 4.23.1 {0} int variable lval (4.23.1)
+INT "int" 4.23.1 {0} 
+IDENT "a" 4.23.5 {0} 
+TYPE_ID "" 4.24.1 {0} int variable lval vreg (4.24.1)
+INT "int" 4.24.1 {0} 
+IDENT "b" 4.24.5 {0} 
+INTCON "5" 4.24.9 {0} int const 
+TYPE_ID "" 4.25.1 {0} int variable lval vreg (4.25.1)
+INT "int" 4.25.1 {0} 
+IDENT "c" 4.25.5 {0} 
+CHARCON "'a'" 4.25.9 {0} int const 
+TYPE_ID "" 4.26.1 {0} string variable lval (4.26.1)
+STRING "string" 4.26.1 {0} 
+IDENT "w" 4.26.8 {0} 
+TYPE_ID "" 4.27.1 {0} string variable lval vreg (4.27.1)
+STRING "string" 4.27.1 {0} 
+IDENT "x" 4.27.8 {0} 
+STRINGCON ""hehe"" 4.27.12 {0} string const 
+TYPE_ID "" 4.28.1 {0} string variable lval vreg (4.28.1)
+STRING "string" 4.28.1 {0} 
+IDENT "y" 4.28.8 {0} 
+NULLPTR "nullptr" 4.28.12 {0} nullptr_t const 
+TYPE_ID "" 4.29.1 {0} variable struct mami lval vreg (4.29.1)
+PTR "ptr" 4.29.1 {0} 
+IDENT "mami" 4.29.13 {0} 
+IDENT "thing" 4.29.19 {0} 
+NULLPTR "nullptr" 4.29.27 {0} nullptr_t const 
+TYPE_ID "" 4.30.1 {0} variable struct mami lval vreg (4.30.1)
+PTR "ptr" 4.30.1 {0} 
+IDENT "mami" 4.30.13 {0} 
+IDENT "thing2" 4.30.19 {0} 
+ALLOC "alloc" 4.30.28 {0} struct mami vreg 
+IDENT "mami" 4.30.42 {0} 
+TYPE_ID "" 4.31.1 {0} int array variable lval vreg (4.31.1)
+ARRAY "array" 4.31.1 {0} 
+INT "int" 4.31.7 {0} 
+IDENT "thing3" 4.31.12 {0} 
+NULLPTR "nullptr" 4.31.21 {0} nullptr_t const 
+FUNCTION "" 4.33.1 {0} int function 
+TYPE_ID "" 4.33.1 {0} 
+INT "int" 4.33.1 {0} 
+IDENT "sayaka" 4.33.5 {0} 
+PARAM "(" 4.33.12 {0} 
+TYPE_ID "" 4.33.13 {1} int variable param lval 
+INT "int" 4.33.13 {0} 
+IDENT "x" 4.33.17 {0} 
+TYPE_ID "" 4.33.20 {1} int variable param lval 
+INT "int" 4.33.20 {0} 
+IDENT "y" 4.33.24 {0} 
+BLOCK "{" 4.33.26 {1} 
+FUNCTION "" 4.37.1 {1} int function 
+TYPE_ID "" 4.37.1 {0} 
+INT "int" 4.37.1 {0} 
+IDENT "filler" 4.37.5 {0} 
+PARAM "(" 4.37.11 {0} 
+BLOCK "{" 4.37.13 {2} 
+FUNCTION "" 4.42.1 {2} void function 
+TYPE_ID "" 4.42.1 {0} 
+VOID "void" 4.42.1 {0} 
+IDENT "trivial" 4.42.6 {0} 
+PARAM "(" 4.42.14 {0} 
+TYPE_ID "" 4.42.15 {3} int variable param lval 
+INT "int" 4.42.15 {0} 
+IDENT "x" 4.42.19 {0} 
+BLOCK "{" 4.42.21 {3} 
+TYPE_ID "" 4.44.3 {3} variable struct homura local lval vreg (4.44.3)
+PTR "ptr" 4.44.3 {0} 
+IDENT "homura" 4.44.15 {0} 
+IDENT "madoka" 4.44.23 {0} 
+ALLOC "alloc" 4.44.32 {3} struct homura vreg 
+IDENT "homura" 4.44.46 {0} 
+TYPE_ID "" 4.45.3 {3} variable struct mami local lval vreg (4.45.3)
+PTR "ptr" 4.45.3 {0} 
+IDENT "mami" 4.45.15 {0} 
+IDENT "foo" 4.45.21 {0} 
+ALLOC "alloc" 4.45.27 {3} struct mami vreg 
+IDENT "mami" 4.45.41 {0} 
+TYPE_ID "" 4.46.3 {3} variable struct madokami local lval vreg (4.46.3)
+PTR "ptr" 4.46.3 {0} 
+IDENT "madokami" 4.46.15 {0} 
+IDENT "kyubey" 4.46.25 {0} 
+ALLOC "alloc" 4.46.34 {3} struct madokami vreg 
+IDENT "madokami" 4.46.48 {0} 
+TYPE_ID "" 4.51.3 {3} array variable struct mami local lval vreg (4.51.3)
+ARRAY "array" 4.51.3 {0} 
+PTR "ptr" 4.51.9 {0} 
+IDENT "mami" 4.51.20 {0} 
+IDENT "he" 4.51.27 {0} 
+ALLOC "alloc" 4.51.32 {3} array struct mami 
+ARRAY "array" 4.51.39 {0} 
+PTR "ptr" 4.51.45 {0} 
+IDENT "mami" 4.51.56 {0} 
+INTCON "5" 4.51.64 {3} int const 
+'=' "=" 4.52.49 {3} int lval vaddr 
+ARROW "->" 4.52.40 {3} int lval vaddr 
+ARROW "->" 4.52.34 {3} struct mami lval vaddr 
+INDEX "[" 4.52.31 {3} struct mami lval vaddr 
+ARROW "->" 4.52.20 {3} array struct mami lval vaddr 
+INDEX "[" 4.52.17 {3} struct mami lval vaddr 
+ARROW "->" 4.52.6 {3} array struct mami lval vaddr 
+IDENT "foo" 4.52.3 {3} variable struct mami local lval (4.45.3)
+IDENT "mamiarray" 4.52.8 {0} 
+INTCON "5" 4.52.18 {3} int const 
+IDENT "mamiarray" 4.52.22 {0} 
+INTCON "2" 4.52.32 {3} int const 
+IDENT "homu" 4.52.36 {0} 
+IDENT "madoka" 4.52.42 {0} 
+ARROW "->" 4.52.67 {3} int lval vaddr 
+ARROW "->" 4.52.57 {3} struct homura lval vaddr 
+IDENT "madoka" 4.52.51 {3} variable struct homura local lval (4.44.3)
+IDENT "madomado" 4.52.59 {0} 
+IDENT "wish" 4.52.69 {0} 
+TYPE_ID "" 5.70.3 {3} int variable local lval (5.70.3)
+INT "int" 5.70.3 {0} 
+IDENT "z" 5.70.7 {0} 
+IF "if" 5.71.3 {3} 
+GE ">=" 5.71.11 {3} int vreg 
+'+' "+" 5.71.8 {3} int vreg 
+IDENT "z" 5.71.7 {3} int variable local lval (5.70.3)
+INTCON "1" 5.71.9 {3} int const 
+'+' "+" 5.71.17 {3} int vreg 
+'*' "*" 5.71.15 {3} int vreg 
+INTCON "3" 5.71.14 {3} int const 
+IDENT "x" 5.71.16 {3} int variable param lval (4.42.15)
+INTCON "5" 5.71.18 {3} int const 
+BLOCK "{" 5.71.20 {3} 
+WHILE "while" 5.72.5 {3} 
+INTCON "1" 5.72.12 {3} int const 
+BLOCK "{" 5.72.14 {3} 
+'=' "=" 5.73.9 {3} int variable local lval vreg 
+IDENT "z" 5.73.7 {3} int variable local lval (5.70.3)
+'+' "+" 5.73.12 {3} int vreg 
+IDENT "z" 5.73.11 {3} int variable local lval (5.70.3)
+INTCON "1" 5.73.13 {3} int const 
+'=' "=" 5.75.6 {3} int variable local lval vreg 
+IDENT "z" 5.75.5 {3} int variable local lval (5.70.3)
+'+' "+" 5.75.8 {3} int vreg 
+IDENT "z" 5.75.7 {3} int variable local lval (5.70.3)
+INTCON "1" 5.75.9 {3} int const 
+IF "if" 5.77.8 {3} 
+EQ "==" 5.77.14 {3} int vreg 
+IDENT "z" 5.77.12 {3} int variable local lval (5.70.3)
+INTCON "0123123" 5.77.17 {3} int const 
+BLOCK "{" 5.77.26 {3} 
+'=' "=" 5.78.6 {3} int variable param lval vreg 
+IDENT "x" 5.78.5 {3} int variable param lval (4.42.15)
+'+' "+" 5.78.8 {3} int vreg 
+IDENT "x" 5.78.7 {3} int variable param lval (4.42.15)
+INTCON "1" 5.78.9 {3} int const 
+IF "if" 5.80.8 {3} 
+EQ "==" 5.80.15 {3} int vreg 
+IDENT "x" 5.80.13 {3} int variable param lval (4.42.15)
+INTCON "1" 5.80.18 {3} int const 
+BLOCK "{" 5.80.20 {3} 

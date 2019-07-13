@@ -2,21 +2,19 @@ collatz:   .function int
            .param int n
            .local int c
            c = 0  
-.wh0:      $t0:i = n != 1
-           goto .od0 if not $t0:i
-.do0:      $t1:i = c + 1
-           c = $t1:i  
-.if0:      $t3:i = n % 2
-           $t2:i = $t3:i == 1
-           goto .el0 if not $t2:i
-.th0:      $t5:i = 3 * n
-           $t4:i = $t5:i + 1
+           goto .wh0: if n == 1
+.do0:      $t0:i = c + 1
+           c = $t0:i  
+.if0:      $t1:i = n % 2
+           goto .el0 if $t1:i != 1
+.th0:      $t3:i = 3 * n
+           $t2:i = $t3:i + 1
+           n = $t2:i  
+           goto .fi0  
+.el0:      $t4:i = n / 2
            n = $t4:i  
-           goto .fi0
-.el0:      $t6:i = n / 2
-           n = $t6:i  
 .fi0:
-           goto .wh0
+           goto .wh0  
 .od0:
            return c
            return

@@ -1,33 +1,33 @@
- ì`k9V:3.1: invalid token (000100)
- ì`k9V:3.8: syntax error, unexpected TOK_IDENT
- ì`k9V:3.31: invalid source character (.)
- ì`k9V:4.1: invalid token (000200)
- ì`k9V:4.18: invalid source character (.)
- ì`k9V:4.30: invalid source character (.)
- ì`k9V:5.1: invalid token (000300)
- ì`k9V:6.1: invalid token (000400)
- ì`k9V:7.1: invalid token (000500)
- ì`k9V:7.28: invalid source character (.)
- ì`k9V:8.1: invalid token (000600)
- ì`k9V:8.29: invalid source character (.)
- ì`k9V:9.1: invalid token (000700)
- ì`k9V:9.23: invalid source character (.)
- ì`k9V:9.33: invalid source character (.)
- ì`k9V:10.1: invalid token (000800)
- ì`k9V:10.23: invalid source character (.)
- ì`k9V:10.33: invalid source character (.)
- ì`k9V:11.1: invalid token (000900)
- ì`k9V:12.1: invalid token (001000)
- ì`k9V:12.21: invalid source character (.)
- ì`k9V:13.1: invalid token (001100)
- ì`k9V:13.20: invalid source character (.)
- ì`k9V:14.1: invalid token (001200)
- ì`k9V:15.26: invalid source character (.)
- ì`k9V:17.26: invalid source character (.)
- ì`k9V:18.13: invalid source character (.)
- ì`k9V:19.47: invalid source character (.)
- ì`k9V:20.50: invalid source character (.)
- ì`k9V:21.16: invalid source character (.)
- ì`k9V:22.23: invalid source character (.)
- ì`k9V:23.12: invalid source character (.)
+ mötU:3.1: invalid token (000100)
+ mötU:3.8: syntax error, unexpected TOK_IDENT
+ mötU:3.31: invalid source character (.)
+ mötU:4.1: invalid token (000200)
+ mötU:4.18: invalid source character (.)
+ mötU:4.30: invalid source character (.)
+ mötU:5.1: invalid token (000300)
+ mötU:6.1: invalid token (000400)
+ mötU:7.1: invalid token (000500)
+ mötU:7.28: invalid source character (.)
+ mötU:8.1: invalid token (000600)
+ mötU:8.29: invalid source character (.)
+ mötU:9.1: invalid token (000700)
+ mötU:9.23: invalid source character (.)
+ mötU:9.33: invalid source character (.)
+ mötU:10.1: invalid token (000800)
+ mötU:10.23: invalid source character (.)
+ mötU:10.33: invalid source character (.)
+ mötU:11.1: invalid token (000900)
+ mötU:12.1: invalid token (001000)
+ mötU:12.21: invalid source character (.)
+ mötU:13.1: invalid token (001100)
+ mötU:13.20: invalid source character (.)
+ mötU:14.1: invalid token (001200)
+ mötU:15.26: invalid source character (.)
+ mötU:17.26: invalid source character (.)
+ mötU:18.13: invalid source character (.)
+ mötU:19.47: invalid source character (.)
+ mötU:20.50: invalid source character (.)
+ mötU:21.16: invalid source character (.)
+ mötU:22.23: invalid source character (.)
+ mötU:23.12: invalid source character (.)
 parse failed (1)
