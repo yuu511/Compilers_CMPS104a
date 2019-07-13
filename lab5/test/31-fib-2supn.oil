@@ -1,7 +1,7 @@
 fibonacci: .function int 
            .param int n
 .if0:      $t0:i = n < 2
-           goto .fi0 if $t0:i
+           goto .fi0 if not $t0:i
 .th0:      return n
 .fi0:
            $t3:i = n - 1
@@ -16,7 +16,7 @@ main:      .function int
            .local int n
            n = 0  
 .wh0:      $t0:i = n < 10
-           goto .od0 if $t0:i
+           goto .od0 if not $t0:i
 .do0:      call putstr("fibonacci(")  
            call putint(n)  
            call putstr(") = ")  

@@ -6,12 +6,12 @@ is_safe:   .function int
            col = 0  
            diagonal = 0  
 .wh0:      $t0:i = col < newcol
-           goto .od0 if $t0:i
+           goto .od0 if not $t0:i
 .do0:
 .if0:      $t2:i = board[col * :i]  
            $t3:i = board[newcol * :i]  
            $t1:i = $t2:i == $t3:i
-           goto .fi0 if $t1:i
+           goto .fi0 if not $t1:i
 .th0:      return 0
 .fi0:
            $t5:i = board[col * :i]  
@@ -20,12 +20,12 @@ is_safe:   .function int
            diagonal = $t4:i  
 .if1:      $t8:i = col - newcol
            $t7:i = diagonal == $t8:i
-           goto .fi1 if $t7:i
+           goto .fi1 if not $t7:i
 .th1:      return 0
 .fi1:
 .if2:      $t10:i = newcol - col
            $t9:i = diagonal == $t10:i
-           goto .fi2 if $t9:i
+           goto .fi2 if not $t9:i
 .th2:      return 0
 .fi2:
            $t11:i = col + 1
@@ -39,7 +39,7 @@ printqueens: .function
            .local int col
            col = 0  
 .wh1:      $t0:i = col < 8
-           goto .od1 if $t0:i
+           goto .od1 if not $t0:i
 .do1:      $t2:i = board[col * :i]  
            $t1:i = $t2:i + '1'
            call putchr($t1:i)  
@@ -55,15 +55,15 @@ queens:    .function
            .local int row
            row = 0  
 .if3:      $t0:i = newcol == 8
-           goto .el3 if $t0:i
+           goto .el3 if not $t0:i
 .th3:      call printqueens()  
            goto .fi3
 .el3:
 .wh2:      $t1:i = row < 8
-           goto .od2 if $t1:i
+           goto .od2 if not $t1:i
 .do2:      board[newcol * :i] = row  
 .if4:      $t2:i = call is_safe(newcol)  
-           goto .fi4 if $t2:i
+           goto .fi4 if not $t2:i
 .th4:      $t3:i = newcol + 1
            call queens($t3:i)  
 .fi4:

@@ -7,7 +7,7 @@ main:      .function int
            fibonacci[1 * :i] = 1  
            index = 2  
 .wh0:      $t1:i = index < 30
-           goto .od0 if $t1:i
+           goto .od0 if not $t1:i
 .do0:      $t4:i = index - 1
            $t3:i = fibonacci[$t4:i * :i]  
            $t6:i = index - 2
@@ -21,7 +21,7 @@ main:      .function int
            index = 0  
            call putstr("Numeri di figlio Bonacci\n")  
 .wh1:      $t8:i = index < 30
-           goto .od1 if $t8:i
+           goto .od1 if not $t8:i
 .do1:      call putstr("fibonacci[")  
            call putint(index)  
            call putstr("] = ")  

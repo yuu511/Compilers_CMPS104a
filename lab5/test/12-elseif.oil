@@ -1,17 +1,17 @@
 main:      .function int 
            .param int argc
 .if0:      $t0:i = argc == 1
-           goto .el0 if $t0:i
+           goto .el0 if not $t0:i
 .th0:      call putstr("one")  
            goto .fi0
 .el0:
 .if1:      $t1:i = argc == 2
-           goto .el1 if $t1:i
+           goto .el1 if not $t1:i
 .th1:      call putstr("two")  
            goto .fi1
 .el1:
 .if2:      $t2:i = argc == 3
-           goto .el2 if $t2:i
+           goto .el2 if not $t2:i
 .th2:      call putstr("three")  
            goto .fi2
 .el2:      call putstr("many")  

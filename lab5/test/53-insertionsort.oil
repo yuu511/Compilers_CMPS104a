@@ -12,7 +12,7 @@ strcmp:    .function int
            s2c = 0  
            cmp = 0  
 .wh0:      $t0:i = contin  
-           goto .od0 if $t0:i
+           goto .od0 if not $t0:i
 .do0:      $t1:i = s1[index * :i]  
            s1c = $t1:i  
            $t2:i = s2[index * :i]  
@@ -20,15 +20,15 @@ strcmp:    .function int
            $t3:i = s1c - s2c
            cmp = $t3:i  
 .if0:      $t4:i = cmp != 0
-           goto .fi0 if $t4:i
+           goto .fi0 if not $t4:i
 .th0:      return cmp
 .fi0:
 .if1:      $t5:i = s1c == '\0'
-           goto .fi1 if $t5:i
+           goto .fi1 if not $t5:i
 .th1:      contin = 0  
 .fi1:
 .if2:      $t6:i = s2c == '\0'
-           goto .fi2 if $t6:i
+           goto .fi2 if not $t6:i
 .th2:      contin = 0  
 .fi2:
            $t7:i = index + 1
@@ -50,16 +50,16 @@ insertion_sort: .function
            element = nullptr  
            contin = 0  
 .wh1:      $t0:i = sorted < size
-           goto .od1 if $t0:i
+           goto .od1 if not $t0:i
 .do1:      slot = sorted  
            $t1:c = words[slot * :c]  
            element = $t1:c  
            contin = 1  
 .wh2:      $t2:i = contin  
-           goto .od2 if $t2:i
+           goto .od2 if not $t2:i
 .do2:
 .if3:      $t3:i = slot == 0
-           goto .el3 if $t3:i
+           goto .el3 if not $t3:i
 .th3:      contin = 0  
            goto .fi3
 .el3:
@@ -67,7 +67,7 @@ insertion_sort: .function
            $t6:c = words[$t7:i * :c]  
            $t5:i = call strcmp($t6:c,element)  
            $t4:i = $t5:i <= 0
-           goto .el4 if $t4:i
+           goto .el4 if not $t4:i
 .th4:      contin = 0  
            goto .fi4
 .el4:      $t9:i = slot - 1
@@ -92,7 +92,7 @@ print_array: .function
            .local int index
            index = 0  
 .wh3:      $t0:i = index < size
-           goto .od3 if $t0:i
+           goto .od3 if not $t0:i
 .do3:      $t1:c = words[index * :c]  
            call putstr($t1:c)  
            call putchr('\n')  
@@ -110,16 +110,16 @@ read_words: .function int
            count = 0  
            word = nullptr  
 .wh4:      $t0:i = 1  
-           goto .od4 if $t0:i
+           goto .od4 if not $t0:i
 .do4:
 .if5:      $t1:i = count == size
-           goto .fi5 if $t1:i
+           goto .fi5 if not $t1:i
 .th5:      return count
 .fi5:
            $t2:p = call getstr()  
            word = $t2:p  
 .if6:      $t3:i = word == nullptr
-           goto .fi6 if $t3:i
+           goto .fi6 if not $t3:i
 .th6:      return count
 .fi6:
            words[count * :c] = word  

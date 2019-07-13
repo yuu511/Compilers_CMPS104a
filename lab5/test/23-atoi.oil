@@ -10,27 +10,27 @@ atoi:      .function int
            digit = 0  
 .if0:      $t1:i = str != nullptr
            $t0:i = not $t1:i  
-           goto .fi0 if $t0:i
+           goto .fi0 if not $t0:i
 .th0:      call fail("str != nullptr","23-atoi.oc",9)  
 .fi0:
 .if1:      $t3:i = str[0 * :i]  
            $t2:i = $t3:i != '\0'
-           goto .fi1 if $t2:i
+           goto .fi1 if not $t2:i
 .th1:
 .if2:      $t5:i = str[0 * :i]  
            $t4:i = $t5:i == '-'
-           goto .fi2 if $t4:i
+           goto .fi2 if not $t4:i
 .th2:      $t6:i = digit + 1
            digit = $t6:i  
            neg = 1  
 .fi2:
            contin = 1  
 .wh0:      $t7:i = contin  
-           goto .od0 if $t7:i
+           goto .od0 if not $t7:i
 .do0:
 .if3:      $t9:i = str[digit * :i]  
            $t8:i = $t9:i == '\0'
-           goto .el3 if $t8:i
+           goto .el3 if not $t8:i
 .th3:      contin = 0  
            goto .fi3
 .el3:      $t10:i = str[digit * :i]  
@@ -38,12 +38,12 @@ atoi:      .function int
            $t11:i = digit + 1
            digit = $t11:i  
 .if4:      $t12:i = chr < '0'
-           goto .el4 if $t12:i
+           goto .el4 if not $t12:i
 .th4:      contin = 0  
            goto .fi4
 .el4:
 .if5:      $t13:i = chr > '9'
-           goto .el5 if $t13:i
+           goto .el5 if not $t13:i
 .th5:      contin = 0  
            goto .fi5
 .el5:      $t16:i = num * 10
@@ -56,7 +56,7 @@ atoi:      .function int
            goto .wh0
 .od0:
 .if6:      $t17:i = neg  
-           goto .fi6 if $t17:i
+           goto .fi6 if not $t17:i
 .th6:      $t18:i = -num  
            num = $t18:i  
 .fi6:
@@ -72,7 +72,7 @@ main:      .function int
            argi = 1  
            arg = nullptr  
 .wh1:      $t0:i = argi < argc
-           goto .od1 if $t0:i
+           goto .od1 if not $t0:i
 .do1:      $t1:c = argv[argi * :c]  
            arg = $t1:c  
            call putstr(arg)  

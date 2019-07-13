@@ -1,4 +1,4 @@
-πάj€δU:9.4: syntax error, unexpected '[', expecting TOK_IDENT
-πάj€δU:13.14: syntax error, unexpected '[', expecting TOK_IDENT
-πάj€δU:16.1: syntax error, unexpected TOK_INT, expecting ';'
+π|gΒƒU:9.4: syntax error, unexpected '[', expecting TOK_IDENT
+π|gΒƒU:13.14: syntax error, unexpected '[', expecting TOK_IDENT
+π|gΒƒU:16.1: syntax error, unexpected TOK_INT, expecting ';'
 prototype foo defined multiple times: 5.12.1

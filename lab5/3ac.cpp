@@ -1334,7 +1334,7 @@ void emit_functions(FILE *out){
         fprintf (out,"%-10s goto %s%s%s\n",
                  "",
                  stmt->label ? stmt->label->c_str() : "",
-                 stmt->t0 ? " if " : "" ,
+                 stmt->t0 ? " if not " : "" ,
                  stmt->t0 ? stmt->t0->str().c_str() : "" );
       }
       if (stmt->itype[static_cast<int>(instruction::LABEL_ONLY)]){
