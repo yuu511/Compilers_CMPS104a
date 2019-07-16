@@ -11,7 +11,7 @@ using namespace std;
 #include "astree.h"
 #include "lyutils.h"
 
-symbol_table *global = new symbol_table();
+symbol_table *global;
 symbol_table *local;
 symbol_table *struct_t = new symbol_table();
 unordered_map<const string*,symbol_table*> *master = 
@@ -47,14 +47,14 @@ symbol::~symbol(){
     fprintf(stderr, "Deleting symbol...\n");
     symbol::dump_symbol(stderr,this);
   }
-  if (fields != nullptr){ 
+  if (fields){ 
     for (auto itor: *fields){
         delete itor.second;
     }
     fields->clear();
     delete fields;
   }
-  if (parameters != nullptr){
+  if (parameters){
     for (auto itor: *parameters){
       delete itor;
     }
@@ -66,7 +66,7 @@ symbol* symbol::symbol_deepcopy(astree *ast){
   symbol *sym = new symbol(ast,this->block_nr);
   sym->attributes = this->attributes;
   sym->sequence = this->sequence;
-  if (this->fields != nullptr ){
+  if (this->fields){
     symbol_table *newfields = new symbol_table();
     for (auto itor: *newfields){
       newfields->emplace(itor.first,itor.second);    
@@ -75,7 +75,7 @@ symbol* symbol::symbol_deepcopy(astree *ast){
   }
   sym->lloc = this->lloc;
   sym->block_nr = this->block_nr;
-  if (this->parameters != nullptr) {
+  if (this->parameters) {
   vector<symbol*> *newvector  = new vector<symbol*>();
     for (auto itor: *parameters){
       newvector->push_back(itor);
@@ -167,7 +167,7 @@ string dump_attributes(symbol *sym){
 
 string dump_table_fields(symbol_table *s){
   string st;
-  if (s != nullptr){
+  if (s){
       for(auto itor: *s){
          st += dump_attributes(itor.second); 
          // ident
@@ -181,10 +181,10 @@ string dump_table_fields(symbol_table *s){
 void symbol::dump_symbol (FILE* outfile,symbol *sym){
   string f="";
   string p="";
-  if (sym->fields != nullptr){
+  if (sym->fields){
     f = dump_table_fields(sym->fields);
   }
-  if (sym->parameters != nullptr){
+  if (sym->parameters){
      for (auto itor: *(sym->parameters)){
        p.append(dump_attributes(itor));
        p.append(" //  ");
@@ -219,7 +219,7 @@ int type_enum (int t_code){
 }
 
 int struct_exists(const string *sname){
-  if (sname != nullptr){
+  if (sname){
     if (struct_t->find(sname)!=struct_t->end()){
       return 1;
     }
@@ -229,7 +229,7 @@ int struct_exists(const string *sname){
 
 int struct_valid(const string *sname, location lloc){
   if (struct_exists(sname)){
-    if (struct_t->find(sname)->second->fields != nullptr){
+    if (struct_t->find(sname)->second->fields){
       return 1; 
     }
     else {
@@ -304,7 +304,7 @@ void print_map(FILE* out, symbol_table *sym){
 
 void print_struct(FILE* out,const string* name, symbol* sym){
   // do not print out non-defined structs
-  if (sym->fields!= nullptr){
+  if (sym->fields){
     // struct name
     fprintf(out,"%s (%zd.%zd.%zd) {%zd} %s\n",
             name->c_str(),
@@ -458,7 +458,7 @@ int matching_attrib(symbol *p, symbol *f){
     return 0;
   }
   else {
-    if (p->sname != nullptr && f->sname != nullptr){
+    if (p->sname && f->sname){
       if (strcmp(p->sname->c_str(), f->sname->c_str()) != 0){
 	  errprintf ("structure name mismatch: attempt to assign struct '%s' to struct '%s'\n",
 	              p->sname->c_str(), f->sname->c_str());
@@ -471,7 +471,7 @@ int matching_attrib(symbol *p, symbol *f){
       return 0; 
     }
     // check parameter attribs
-    if (p->parameters != nullptr  && f->parameters != nullptr){
+    if (p->parameters && f->parameters ){
       if (p->parameters->size() != f->parameters->size())
          return 0;
       for (unsigned int i = 0 ; i< f->parameters->size(); i++){
@@ -480,8 +480,7 @@ int matching_attrib(symbol *p, symbol *f){
 	        errprintf("attempt to match nonpointer type with pointer\n");
 	        return 0;
 	     }
-         else if (p->parameters->at(i)->sname != nullptr && 
-         f->parameters->at(i)->sname != nullptr ) {
+         else if ( p->parameters->at(i)->sname && f->parameters->at(i)->sname ) {
              if (strcmp(p->parameters->at(i)->sname->c_str(), 
                f->parameters->at(i)->sname->c_str()) != 0){
 	           errprintf ("structure name mismatch:attempt to assign %s to %s\n",
@@ -618,7 +617,7 @@ void p_function (astree *s){
       }
       else{
         local->emplace(id,f);
-	    symbol *f_copy = f->symbol_deepcopy(c);
+	symbol *f_copy = f->symbol_deepcopy(c);
         sym->parameters->push_back(f_copy);
       }
       astree_attribs(f,c);
@@ -640,17 +639,29 @@ void p_function (astree *s){
           current = 0;
         }
         else {
-              errprintf( "nonmatching function definition for prototype %s: %zd.%zd.%zd\n",
-                         fname->c_str(),
-                         sym->lloc.filenr, sym->lloc.linenr,
-                         sym->lloc.offset);
+          errprintf( "nonmatching function definition for prototype %s: %zd.%zd.%zd\n",
+                     fname->c_str(),
+                     sym->lloc.filenr, sym->lloc.linenr,
+                     sym->lloc.offset);
+	  delete sym;
+          for (auto itor: *block){
+            delete itor.second;
+          }
+	  delete block;
+	  return;
         }
       }
       else{ 
-       errprintf("function %s defined multiple times: %zd.%zd.%zd\n",
-                  fname->c_str(),
-                  sym->lloc.filenr, sym->lloc.linenr,
-                  sym->lloc.offset);
+        errprintf("function %s defined multiple times: %zd.%zd.%zd\n",
+                   fname->c_str(),
+                   sym->lloc.filenr, sym->lloc.linenr,
+                   sym->lloc.offset);
+	delete sym; 
+        for (auto itor: *block){
+          delete itor.second;
+        }
+	delete block;
+	return;
       }
     }
     else{
@@ -667,6 +678,12 @@ void p_function (astree *s){
                    fname->c_str(),
                    sym->lloc.filenr, sym->lloc.linenr,
                    sym->lloc.offset);
+      delete sym;
+      for (auto itor: *block){
+        delete itor.second;
+      }
+      delete block;
+      return;
     }
     else{
       sym->attributes.set(static_cast<int>(attr::PROTOTYPE));
@@ -700,7 +717,7 @@ int compatible(symbol *l,symbol *r){
     }
   }
   if (l->attributes[static_cast<int>(attr::TYPEID)] && r->attributes[static_cast<int>(attr::TYPEID)]){
-    if (l->sname != nullptr && r->sname != nullptr){
+    if (l->sname && r->sname){
       if (strcmp(l->sname->c_str(),r->sname->c_str()) != 0){
         errprintf ("struct %s assigned as %s %zd.%zd.%zd\n",
                     l->sname->c_str(), r->sname->c_str(),
@@ -729,14 +746,19 @@ symbol *p_assignment (astree *parent, symbol *left, symbol *right){
                 , left->lloc.offset);
     delete left;
     delete right;
-    return ret;
+    delete ret;
+    return nullptr;
   }
   if (!compatible(left,right)){
     errprintf ("not compatible assignment: %zd.%zd.%zd\n",
                 left->lloc.filenr, left->lloc.linenr
                 , left->lloc.offset);
+    delete left;
+    delete right;
+    delete ret;
+    return nullptr;
   }
-  if (left->sname != nullptr)
+  if (left->sname)
     ret->sname = left->sname;
   delete left;  
   delete right;
@@ -778,14 +800,26 @@ symbol *p_NULLPTR(astree *s){
 }
 
 symbol *p_binop(astree *s){
-  if (s->children.size() < 2)
+  if (s->children.size() < 2) {
     errprintf ("p_binop called incorrectly: %zd.%zd.%zd\n",
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
+    return nullptr;
+  }
   symbol *left = p_expression(s->children[0]);
   symbol *right = p_expression(s->children[1]);
-  if (!(compare_types(left->attributes,right->attributes)))
+  if (!left || !right){
+    errprintf ("expression not parsed correctly\n");
+    delete left;
+    delete right;
+    return nullptr;
+  }
+  if (!(compare_types(left->attributes,right->attributes))){
     errprintf ("type mismatch: math expr %zd.%zd.%zd\n",
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
+    delete left;
+    delete right;
+    return nullptr;
+  }
   delete left;
   delete right;
   symbol *ret = new symbol (s,current);
@@ -797,9 +831,15 @@ symbol *p_binop(astree *s){
 
 symbol *p_unary(astree *s){
   symbol *unary = p_expression(s->children[0]);
-  if (!(unary->attributes[static_cast<int>(attr::INT)]))
+  if (!unary){
+   return nullptr;
+  }
+  if (!(unary->attributes[static_cast<int>(attr::INT)])){
     errprintf ("type mismatch: unary expr %zd.%zd.%zd\n",
                 s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
+    delete unary;
+    return nullptr;
+  }
   unary->attributes.set(static_cast<int>(attr::INT));
   unary->attributes.set(static_cast<int>(attr::VREG));
   astree_attribs(unary,s);
@@ -816,6 +856,11 @@ symbol *p_eq(astree *s){
   if (s->children.size() > 1){
     symbol *left = p_expression(s->children[0]);
     symbol *right = p_expression(s->children[1]);
+    if (!left || !right){
+      delete left;
+      delete right;
+      return nullptr;
+    }
     return p_assignment(s,left,right);
   }
   errprintf ("inapproriate call: p_eq %zd.%zd.%zd\n"); 
@@ -836,12 +881,17 @@ symbol *p_alloc(astree *s){
                  s->lloc.filenr,
                  s->lloc.linenr,
                  s->lloc.offset);
-
+      delete sym;
+      return nullptr;
     }
   }
   else {
     if (s->children[0]->symbol == TOK_ARRAY){
       symbol *eval = p_expression(s->children[1]);
+      if (!eval){
+        delete sym;
+        return nullptr;
+      }
       if (!(eval->attributes[static_cast<int>(attr::INT)])){
         errprintf("expr not an int: (%zd.%zd.%zd)\n",
                    s->lloc.filenr,
@@ -853,6 +903,9 @@ symbol *p_alloc(astree *s){
        errprintf ("VOID may not be a type:%zd.%zd.%zd\n",
                    s->lloc.filenr, s->lloc.linenr,
                    s->lloc.offset);
+         delete sym;
+	 delete eval;
+	 return nullptr;
       }
       if (base == TOK_PTR){
         base =
@@ -870,6 +923,8 @@ symbol *p_alloc(astree *s){
                      s->lloc.filenr,
                      s->lloc.linenr,
                      s->lloc.offset);
+	   delete sym;
+	   return nullptr;
         }
       }
       sym->attributes.set(static_cast<int>(attr::ARRAY));
@@ -878,11 +933,18 @@ symbol *p_alloc(astree *s){
     }
     else {
       symbol *eval = p_expression(s->children[1]);
+      if (!eval){
+        delete sym;
+	return nullptr;
+      }
       if (!(eval->attributes[static_cast<int>(attr::INT)])){
         errprintf("expr not an int: (%zd.%zd.%zd)\n",
                    s->lloc.filenr,
                    s->lloc.linenr,
                    s->lloc.offset);
+	delete eval;
+	delete sym;
+	return nullptr;
       }
       sym->attributes.set(static_cast<int>(attr::STRING));
       sym->attributes.set(static_cast<int>(attr::VREG));
@@ -897,14 +959,26 @@ symbol *p_comp(astree *s){
   symbol *sym = new symbol(s,current);
   if (s->children.size()<2){
     errprintf("p_comp called incorrectly\n");
+    delete sym;
+    return nullptr;
   }
   symbol *left = p_expression(s->children[0]);
   symbol *right = p_expression(s->children[1]);
+  if (!left || !right){
+    delete sym;
+    delete left;
+    delete right;
+    return nullptr;
+  }
   if (!compatible(left,right)){
     errprintf ("incompatible comparison: %zd.%zd.%zd\n",
                s->lloc.filenr,
                s->lloc.linenr,
                s->lloc.offset);
+    delete sym;
+    delete left;
+    delete right;
+    return nullptr;
   }
   sym->attributes.set(static_cast<int>(attr::INT));
   sym->attributes.set(static_cast<int>(attr::VREG));
@@ -917,7 +991,7 @@ symbol *p_comp(astree *s){
 symbol *p_ident (astree *s){
   const string *name = s->lexinfo;
   symbol *test = nullptr;
-  if (local->find(name)!=struct_t->end()){
+  if (local && local->find(name)!=struct_t->end()){
     test = local->find(name)->second;
   }
   if (test == nullptr){
@@ -933,7 +1007,7 @@ symbol *p_ident (astree *s){
     s->lloc.filenr,
     s->lloc.linenr,
     s->lloc.offset);
-    sym = new symbol(s,current);
+    return nullptr;
   } else { 
     sym = test->symbol_deepcopy(s);
     astree_attribs(sym,s);
@@ -954,7 +1028,8 @@ symbol *p_call(astree *s){
         ("call err: %zd params expected, %zd recieved: %zd.%zd.%zd\n",
          0,s->children.size()-1,
          s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
-         return ret;
+	 delete ret;
+	 return nullptr;
       }
     }
     else {
@@ -963,7 +1038,8 @@ symbol *p_call(astree *s){
         ("call err: %zd params expected, %zd recieved: %zd.%zd.%zd\n",
          test->parameters->size(),s->children.size()-1,
          s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
-         return ret;
+	 delete ret;
+	 return nullptr;
       }
     }
     for (unsigned int i = 1; i< s->children.size(); i++){
@@ -971,6 +1047,9 @@ symbol *p_call(astree *s){
       if (!(compatible(args,test->parameters->at(i-1)))){
         errprintf ("incompatible types :%zd.%zd.%zd\n",
         s->lloc.filenr, s->lloc.linenr, s->lloc.offset);
+	delete ret;
+	delete args;
+	return nullptr;
       }
       delete args;
     }
@@ -980,19 +1059,21 @@ symbol *p_call(astree *s){
                fname->c_str(),
                s->lloc.filenr, s->lloc.linenr,
                s->lloc.offset);
+     delete ret;
+     return nullptr;
   }
-  if (test != nullptr){
+  if (test){
     ret->attributes[static_cast<int>(attr::VOID)] = test->attributes[static_cast<int>(attr::VOID)];   
     ret->attributes[static_cast<int>(attr::INT)] = test->attributes[static_cast<int>(attr::INT)];   
     ret->attributes[static_cast<int>(attr::STRING)] = test->attributes[static_cast<int>(attr::STRING)];   
     ret->attributes[static_cast<int>(attr::TYPEID)] = test->attributes[static_cast<int>(attr::TYPEID)];   
     ret->attributes[static_cast<int>(attr::ARRAY)] = test->attributes[static_cast<int>(attr::ARRAY)];   
-    if (test->sname != nullptr){
+    if (test->sname){
       ret->sname = test->sname;
     }
   }
   astree_attribs(test,s);
-  if (s != nullptr && test != nullptr){
+  if (s && test){
     s->lloc_orig = test->lloc;
   }
   return ret;
@@ -1000,7 +1081,7 @@ symbol *p_call(astree *s){
 
 symbol *p_index(astree *s){
   symbol *ident = p_expression(s->children[0]);
-  if (ident != nullptr){
+  if (ident){
     if (!(ident->attributes[static_cast<int>(attr::ARRAY)] ||
           ident->attributes[static_cast<int>(attr::STRING)])){
       errprintf (
@@ -1008,7 +1089,12 @@ symbol *p_index(astree *s){
       "is not a string or array :%zd.%zd.%zd\n",
       s->lloc.filenr, s->lloc.linenr,
       s->lloc.offset);
+      delete ident;
+      return nullptr;
     }
+  } else {
+    delete ident;
+    return nullptr;
   }
  
   symbol *index = p_expression(s->children[1]); 
@@ -1019,7 +1105,13 @@ symbol *p_index(astree *s){
       "int index :%zd.%zd.%zd\n",
       s->lloc.filenr, s->lloc.linenr,
       s->lloc.offset);
+      delete index;
+      return nullptr;
     }
+  } else {
+    delete ident;
+    delete index;
+    return nullptr;
   }
  
   symbol *sym = new symbol(s,current);
@@ -1028,7 +1120,7 @@ symbol *p_index(astree *s){
     sym->attributes[static_cast<int>(attr::INT)]    = ident->attributes[static_cast<int>(attr::INT)];   
     sym->attributes[static_cast<int>(attr::TYPEID)] = ident->attributes[static_cast<int>(attr::TYPEID)];   
     sym->attributes[static_cast<int>(attr::STRING)] = ident->attributes[static_cast<int>(attr::STRING)];   
-    if (ident->sname != nullptr){
+    if (ident->sname){
       sym->sname = ident->sname;
     }
   } else if (ident->attributes[static_cast<int>(attr::STRING)]){
@@ -1045,6 +1137,9 @@ symbol *p_index(astree *s){
 
 symbol *p_field (astree *s){
   symbol *ident   = p_expression(s->children[0]);
+  if (!ident){
+    return nullptr;
+  }
   const string *field_name = s->children[1]->lexinfo;
   symbol *sym = new symbol (s,current);
   if (ident->attributes[static_cast<int>(attr::TYPEID)] && ident->sname !=nullptr){
@@ -1077,6 +1172,8 @@ symbol *p_field (astree *s){
           "request for field %s not found in struct %s: %zd.%zd.%zd\n",
             field_name->c_str(),ident->sname->c_str(),
             sym->lloc.filenr, sym->lloc.linenr, sym->lloc.offset);
+	  delete ident;
+	  return nullptr;
         }
       }
     }
@@ -1084,6 +1181,8 @@ symbol *p_field (astree *s){
     errprintf ("field called on non-struct : %zd.%zd.%zd",
                 sym->lloc.filenr, sym->lloc.linenr, sym->lloc.offset);
 
+    delete ident;
+    return nullptr;
   }
   delete ident;
   return sym;
@@ -1190,7 +1289,7 @@ void p_typeid(astree *s){
 
   // check for existence in local or global tables
   // depending on current scope.
-  if (current != 0 && local != nullptr){
+  if (current != 0 && local){
     if (local->find(vname)!=struct_t->end()){
       errprintf ("name %s already defined within block %d: "
                  "%zd.%zd.%zd\n",
@@ -1219,10 +1318,10 @@ void p_typeid(astree *s){
       return;
     }
   }
-  if (s != nullptr && sym != nullptr){
+  if (s && sym){
     s->lloc_orig = sym->lloc;
   }
-  if (current != 0 && local != nullptr){
+  if (current != 0 && local){
     sym->sequence = local->size();
     sym->attributes.set(static_cast<int>(attr::LOCAL));
     astree_attribs(sym,s);
@@ -1239,6 +1338,12 @@ void p_typeid(astree *s){
     astree *parse = s->children[2];
     symbol *left = sym->symbol_deepcopy(s);
     symbol *right = p_expression(parse); 
+    if (!left || !right){
+      errprintf ("expression not parsed correctly\n");
+      delete left;
+      delete right;
+      return;
+    }
     symbol *parsed;
     parsed = p_assignment(s,left,right);
     delete parsed;
@@ -1247,6 +1352,9 @@ void p_typeid(astree *s){
 
 void p_loop(astree *s){
   symbol *sym = p_expression(s->children[0]);
+  if (!sym){
+    return;
+  }
   if (!(sym->attributes[static_cast<int>(attr::INT)] ||
         sym->attributes[static_cast<int>(attr::NULLPTR_T)] ||
         sym->attributes[static_cast<int>(attr::TYPEID)] )){
@@ -1279,14 +1387,14 @@ void p_return (astree *s){
     return;
   }
   symbol *ret = p_expression(s->children[0]);
-  if (ret != nullptr){
+  if (ret){
     if (!compare_types(func->attributes,ret->attributes))
        errprintf ( "return type mismatch : %zd.%zd.%zd\n",
                    s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
-     if (!(func->sname != nullptr) != !(ret->sname !=nullptr))
+     if (!(func->sname) != !(ret->sname))
        errprintf ("ptr and non-ptr return matched: %zd.%zd.%zd\n",
                   s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
-     if (func->sname != nullptr && ret->sname !=nullptr){
+     if (func->sname  && ret->sname){
        if (func -> sname != ret->sname ){
          errprintf ( "attempted to assign struct %s to %s in return"
 	             ": %zd.%zd.%zd\n",
@@ -1307,6 +1415,7 @@ void p_return (astree *s){
 void gen_table(astree *s){
   switch(s->symbol){
     case TOK_ROOT:
+      global = new symbol_table();
       table_ptrs = new all_tables(struct_t,global,master);
       master->emplace(s->lexinfo,global);      
       for (astree* child: s->children) gen_table(child);        

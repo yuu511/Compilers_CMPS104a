@@ -183,18 +183,18 @@ int main (int argc, char** argv) {
      int sym_rc = ssymgen(parser::root);
      // dump the hashed tokenset to file.
      string_set::dump(strfp);
+     // dump the astree
+     astree::draw(astfp,parser::root);
 
       /* if the symbol table generation was sucessful */
      if (!sym_rc){
        // dump all symbol tables
-        dump_all_tables(symfp);
+       dump_all_tables(symfp);
        // generate the 3ac tables
-        generate_3ac(parser::root,get_tables());
+       generate_3ac(parser::root,get_tables());
        // dump the 3ac tables
-        emit_all3ac(oilfp);
+       emit_all3ac(oilfp);
      }
-     // dump the astree
-     astree::draw(astfp,parser::root);
    }
 
    // Close all files.
@@ -205,15 +205,16 @@ int main (int argc, char** argv) {
    e_close(symfp);
    e_close(oilfp);
 
-   // free memory 
-   free_3ac();
+   // free symbol table memory
    free_symbol();
-   yylex_destroy();
+   // free 3ac memory
+   free_3ac();
    if (parse_rc) {
       errprintf("parse failed (%d)\n", parse_rc);
    }else {
       destroy(parser::root);
    }
+   yylex_destroy();
    return exec::exit_status;
 }
 
