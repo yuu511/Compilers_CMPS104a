@@ -280,8 +280,8 @@ reg *expr_reg (astree *expr, ac3_table *current){
 
 // recurse down until you find a non-equals symbol,return it
 astree *recurse_non_equal(astree *expr){
-  if (expr->symbol == '='){
-    return recurse_non_equal(expr->children[1]);
+  while (expr->symbol != '=' && expr->children.size() == 2){
+    expr = expr->children[1];
   }
   return expr;
 }

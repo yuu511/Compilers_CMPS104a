@@ -1,24 +1,24 @@
-==24310== Memcheck, a memory error detector
-==24310== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==24310== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==24310== Command: ../oc 91-typecheck.oc
-==24310== 
-¿⁄:9.4: syntax error, unexpected '[', expecting TOK_IDENT
-¿⁄:13.14: syntax error, unexpected '[', expecting TOK_IDENT
-¿⁄:16.1: syntax error, unexpected TOK_INT, expecting ';'
+==3916== Memcheck, a memory error detector
+==3916== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3916== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==3916== Command: ../oc 91-typecheck.oc
+==3916== 
+êD∏:9.4: syntax error, unexpected '[', expecting TOK_IDENT
+êD∏:13.14: syntax error, unexpected '[', expecting TOK_IDENT
+êD∏:16.1: syntax error, unexpected TOK_INT, expecting ';'
 prototype foo defined multiple times: 5.12.1
-==24310== 
-==24310== HEAP SUMMARY:
-==24310==     in use at exit: 344 bytes in 8 blocks
-==24310==   total heap usage: 320 allocs, 312 frees, 136,439 bytes allocated
-==24310== 
-==24310== LEAK SUMMARY:
-==24310==    definitely lost: 72 bytes in 1 blocks
-==24310==    indirectly lost: 104 bytes in 3 blocks
-==24310==      possibly lost: 0 bytes in 0 blocks
-==24310==    still reachable: 168 bytes in 4 blocks
-==24310==         suppressed: 0 bytes in 0 blocks
-==24310== Rerun with --leak-check=full to see details of leaked memory
-==24310== 
-==24310== For counts of detected and suppressed errors, rerun with: -v
-==24310== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==3916== 
+==3916== HEAP SUMMARY:
+==3916==     in use at exit: 352 bytes in 8 blocks
+==3916==   total heap usage: 318 allocs, 310 frees, 135,871 bytes allocated
+==3916== 
+==3916== LEAK SUMMARY:
+==3916==    definitely lost: 72 bytes in 1 blocks
+==3916==    indirectly lost: 104 bytes in 3 blocks
+==3916==      possibly lost: 0 bytes in 0 blocks
+==3916==    still reachable: 176 bytes in 4 blocks
+==3916==         suppressed: 0 bytes in 0 blocks
+==3916== Rerun with --leak-check=full to see details of leaked memory
+==3916== 
+==3916== For counts of detected and suppressed errors, rerun with: -v
+==3916== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
