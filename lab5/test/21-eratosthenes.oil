@@ -11,7 +11,7 @@ main:      .function int
            $t1:i = index + 1
            index = $t1:i  
            goto .wh0  
-.od0
+.od0:
 .wh1:      goto .od1 if prime > 100
 .do1:
 .if0:      $t2:i = sieve[prime * :i]  
@@ -23,12 +23,12 @@ main:      .function int
            $t4:i = index + prime
            index = $t4:i  
            goto .wh2  
-.od2
+.od2:
 .fi0:
            $t5:i = prime + 1
            prime = $t5:i  
            goto .wh1  
-.od1
+.od1:
            index = 2  
 .wh3:      goto .od3 if index > 100
 .do3:
@@ -40,7 +40,7 @@ main:      .function int
            $t7:i = index + 1
            index = $t7:i  
            goto .wh3  
-.od3
+.od3:
            return 0
            return
            .end

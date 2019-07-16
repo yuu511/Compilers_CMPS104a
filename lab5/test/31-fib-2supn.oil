@@ -24,7 +24,7 @@ main:      .function int
            $t1:i = n + 1
            n = $t1:i  
            goto .wh0  
-.od0
+.od0:
            return 0
            return
            .end

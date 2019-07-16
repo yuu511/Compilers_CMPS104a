@@ -7,7 +7,7 @@ main:      .function int
            call putint(count)  
            call putchr('\n')  
            goto .wh0  
-.od0
+.od0:
            return 0
            return
            .end

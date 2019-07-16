@@ -10,12 +10,12 @@ collatz:   .function int
 .th0:      $t3:i = 3 * n
            $t2:i = $t3:i + 1
            n = $t2:i  
-.fi0       goto   
+           goto .fi0  
 .el0:      $t4:i = n / 2
            n = $t4:i  
 .fi0:
            goto .wh0  
-.od0
+.od0:
            return c
            return
            .end

@@ -7,7 +7,7 @@ strlen:    .function int
 .do0:      $t1:i = len + 1
            len = $t1:i  
            goto .wh0  
-.od0
+.od0:
            return len
            return
            .end
@@ -28,7 +28,7 @@ strcat:    .function
            $t4:i = srcix + 1
            srcix = $t4:i  
            goto .wh1  
-.od1
+.od1:
            dest[pos * :i] = '\0'  
            return
            .end
@@ -49,7 +49,7 @@ main:      .function int
            $t4:i = argi + 1
            argi = $t4:i  
            goto .wh2  
-.od2
+.od2:
            call putstr("concat length = ")  
            call putint(length)  
            call putchr('\n')  
@@ -64,7 +64,7 @@ main:      .function int
            $t6:i = argi + 1
            argi = $t6:i  
            goto .wh3  
-.od3
+.od3:
            call putstr(concat)  
            call putstr("]\n")  
            return 0

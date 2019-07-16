@@ -27,7 +27,7 @@ is_safe:   .function int
            $t7:i = col + 1
            col = $t7:i  
            goto .wh0  
-.od0
+.od0:
            return 1
            return
            .end
@@ -41,7 +41,7 @@ printqueens: .function
            $t2:i = col + 1
            col = $t2:i  
            goto .wh1  
-.od1
+.od1:
            call putchr('\n')  
            return
            .end
@@ -51,7 +51,7 @@ queens:    .function
            row = 0  
 .if3:      goto .el3 if newcol != 8
 .th3:      call printqueens()  
-.fi3       goto   
+           goto .fi3  
 .el3:
 .wh2:      goto .od2 if row > 8
 .do2:      board[newcol * :i] = row  
@@ -63,7 +63,7 @@ queens:    .function
            $t2:i = row + 1
            row = $t2:i  
            goto .wh2  
-.od2
+.od2:
 .fi3:
            return
            .end

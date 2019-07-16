@@ -3,33 +3,6 @@ stack (7.7.1) {0} struct stack
    size (7.9.4) int field 1
    top (7.10.4) int field 2
 
-empty (7.34.1) {10} int function 
-   stack (7.34.12) {11} variable struct stack param lval 0
-
-push (7.21.1) {8} void function 
-   stack (7.21.12) {9} variable struct stack param lval 0
-   str (7.21.37) {9} string variable param lval 1
-
-pop (7.27.1) {9} string function 
-   stack (7.27.13) {10} variable struct stack param lval 0
-   tmp (7.28.4) {10} string variable local lval 1
-
-new_stack (7.13.1) {7} function struct stack 
-   size (7.13.30) {8} int variable param lval 0
-   stack (7.14.4) {8} variable struct stack local lval 1
-
-getln (6.30.1) {6} string function 
-
-putchr (6.24.1) {1} void function 
-
-fail (6.22.1) {0} void function 
-
-putint (6.25.1) {2} void function 
-
-putstr (6.26.1) {3} void function 
-
-getstr (6.29.1) {5} string function 
-
 main (7.38.1) {11} int function 
    argc (7.38.11) {12} int variable param lval 0
    argv (7.38.21) {12} string array variable param lval 1
@@ -37,4 +10,31 @@ main (7.38.1) {11} int function
    argi (7.40.4) {12} int variable local lval 3
 
 getchr (6.28.1) {4} int function 
+
+putstr (6.26.1) {3} void function 
+
+fail (6.22.1) {0} void function 
+
+getstr (6.29.1) {5} string function 
+
+pop (7.27.1) {9} string function 
+   stack (7.27.13) {10} variable struct stack param lval 0
+   tmp (7.28.4) {10} string variable local lval 1
+
+putchr (6.24.1) {1} void function 
+
+getln (6.30.1) {6} string function 
+
+empty (7.34.1) {10} int function 
+   stack (7.34.12) {11} variable struct stack param lval 0
+
+putint (6.25.1) {2} void function 
+
+new_stack (7.13.1) {7} function struct stack 
+   size (7.13.30) {8} int variable param lval 0
+   stack (7.14.4) {8} variable struct stack local lval 1
+
+push (7.21.1) {8} void function 
+   stack (7.21.12) {9} variable struct stack param lval 0
+   str (7.21.37) {9} string variable param lval 1
 

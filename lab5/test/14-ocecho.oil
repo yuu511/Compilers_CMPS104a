@@ -13,7 +13,7 @@ main:      .function int
            $t1:i = argi + 1
            argi = $t1:i  
            goto .wh0  
-.od0
+.od0:
            call putstr("\n")  
            return 0
            return

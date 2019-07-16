@@ -1,0 +1,81 @@
+atoi:      .function int 
+           .param ptr str
+           .local int neg
+           .local int num
+           .local int digit
+           .local int contin
+           .local int chr
+           neg = 0  
+           num = 0  
+           digit = 0  
+.if0:      $t1:i = str != nullptr
+           $t0:i = not $t1:i  
+           goto .fi0 if not $t0:i  
+.th0:      call fail("str != nullptr","23-atoi.oc",9)  
+.fi0:
+.if1:      $t2:i = str[0 * :i]  
+           goto .fi1 if $t2:i == '\0'
+.th1:
+.if2:      $t3:i = str[0 * :i]  
+           goto .fi2 if $t3:i != '-'
+.th2:      $t4:i = digit + 1
+           digit = $t4:i  
+           neg = 1  
+.fi2:
+           contin = 1  
+.wh0:      goto .od0 if not contin  
+.do0:
+.if3:      $t5:i = str[digit * :i]  
+           goto .el3 if $t5:i != '\0'
+.th3:      contin = 0  
+           goto .fi3  
+.el3:      $t6:i = str[digit * :i]  
+           chr = $t6:i  
+           $t7:i = digit + 1
+           digit = $t7:i  
+.if4:      goto .el4 if chr > '0'
+.th4:      contin = 0  
+           goto .fi4  
+.el4:
+.if5:      goto .el5 if chr < '9'
+.th5:      contin = 0  
+           goto .fi5  
+.el5:      $t10:i = num * 10
+           $t9:i = $t10:i + chr
+           $t8:i = $t9:i - '0'
+           num = $t8:i  
+.fi5:
+.fi4:
+.fi3:
+           goto .wh0  
+.od0:
+.if6:      goto .fi6 if not neg  
+.th6:      $t11:i = -num  
+           num = $t11:i  
+.fi6:
+.fi1:
+           return num
+           return
+           .end
+main:      .function int 
+           .param int argc
+           .param ptr argv
+           .local int argi
+           .local ptr arg
+           argi = 1  
+           arg = nullptr  
+.wh1:      goto .od1 if argi > argc
+.do1:      $t0:c = argv[argi * :c]  
+           arg = $t0:c  
+           call putstr(arg)  
+           call putstr(" = ")  
+           $t1:i = call atoi(arg)  
+           call putint($t1:i)  
+           call putchr('\n')  
+           $t2:i = argi + 1
+           argi = $t2:i  
+           goto .wh1  
+.od1:
+           return 0
+           return
+           .end

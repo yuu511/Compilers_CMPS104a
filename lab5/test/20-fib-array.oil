@@ -16,7 +16,7 @@ main:      .function int
            $t6:i = index + 1
            index = $t6:i  
            goto .wh0  
-.od0
+.od0:
            index = 0  
            call putstr("Numeri di figlio Bonacci\n")  
 .wh1:      goto .od1 if index > 30
@@ -29,7 +29,7 @@ main:      .function int
            $t8:i = index + 1
            index = $t8:i  
            goto .wh1  
-.od1
+.od1:
            return 0
            return
            .end

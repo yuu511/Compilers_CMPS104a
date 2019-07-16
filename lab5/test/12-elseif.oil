@@ -2,15 +2,15 @@ main:      .function int
            .param int argc
 .if0:      goto .el0 if argc != 1
 .th0:      call putstr("one")  
-.fi0       goto   
+           goto .fi0  
 .el0:
 .if1:      goto .el1 if argc != 2
 .th1:      call putstr("two")  
-.fi1       goto   
+           goto .fi1  
 .el1:
 .if2:      goto .el2 if argc != 3
 .th2:      call putstr("three")  
-.fi2       goto   
+           goto .fi2  
 .el2:      call putstr("many")  
 .fi2:
 .fi1:

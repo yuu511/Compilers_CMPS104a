@@ -1,0 +1,53 @@
+==24322== Memcheck, a memory error detector
+==24322== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==24322== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==24322== Command: ../oc 95-cobol.oc
+==24322== 
+ÀÚ:3.1: invalid token (000100)
+ÀÚ:3.8: syntax error, unexpected TOK_IDENT
+ÀÚ:3.31: invalid source character (.)
+ÀÚ:4.1: invalid token (000200)
+ÀÚ:4.18: invalid source character (.)
+ÀÚ:4.30: invalid source character (.)
+ÀÚ:5.1: invalid token (000300)
+ÀÚ:6.1: invalid token (000400)
+ÀÚ:7.1: invalid token (000500)
+ÀÚ:7.28: invalid source character (.)
+ÀÚ:8.1: invalid token (000600)
+ÀÚ:8.29: invalid source character (.)
+ÀÚ:9.1: invalid token (000700)
+ÀÚ:9.23: invalid source character (.)
+ÀÚ:9.33: invalid source character (.)
+ÀÚ:10.1: invalid token (000800)
+ÀÚ:10.23: invalid source character (.)
+ÀÚ:10.33: invalid source character (.)
+ÀÚ:11.1: invalid token (000900)
+ÀÚ:12.1: invalid token (001000)
+ÀÚ:12.21: invalid source character (.)
+ÀÚ:13.1: invalid token (001100)
+ÀÚ:13.20: invalid source character (.)
+ÀÚ:14.1: invalid token (001200)
+ÀÚ:15.26: invalid source character (.)
+ÀÚ:17.26: invalid source character (.)
+ÀÚ:18.13: invalid source character (.)
+ÀÚ:19.47: invalid source character (.)
+ÀÚ:20.50: invalid source character (.)
+ÀÚ:21.16: invalid source character (.)
+ÀÚ:22.23: invalid source character (.)
+ÀÚ:23.12: invalid source character (.)
+parse failed (1)
+==24322== 
+==24322== HEAP SUMMARY:
+==24322==     in use at exit: 56 bytes in 1 blocks
+==24322==   total heap usage: 140 allocs, 139 frees, 111,652 bytes allocated
+==24322== 
+==24322== LEAK SUMMARY:
+==24322==    definitely lost: 0 bytes in 0 blocks
+==24322==    indirectly lost: 0 bytes in 0 blocks
+==24322==      possibly lost: 0 bytes in 0 blocks
+==24322==    still reachable: 56 bytes in 1 blocks
+==24322==         suppressed: 0 bytes in 0 blocks
+==24322== Rerun with --leak-check=full to see details of leaked memory
+==24322== 
+==24322== For counts of detected and suppressed errors, rerun with: -v
+==24322== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

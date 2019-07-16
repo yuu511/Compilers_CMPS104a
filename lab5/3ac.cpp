@@ -878,8 +878,8 @@ ac3 *p_loop_condition(string *goto_label, astree *expr, ac3_table *current){
   else {
     ret = new ac3(expr);
     ret->condition = goto_label;
-    ret->t0->unop = new string("not");
     ret->t1 = new reg(expr->lexinfo);
+    ret->t1->unop = new string("not");
     ret->itype.set(static_cast<int>(instruction::GOTO));
   }
   return ret;

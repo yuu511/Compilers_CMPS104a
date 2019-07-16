@@ -1,29 +1,29 @@
+main (7.20.1) {9} int function 
+   argc (7.20.11) {10} int variable param lval 0
+   argv (7.20.21) {10} string array variable param lval 1
+   count (7.22.4) {10} int variable local lval 2
+
+getln (6.30.1) {6} string function 
+
+putchr (6.24.1) {1} void function 
+
 towers (7.13.1) {8} void function 
    ndisks (7.13.14) {9} int variable param lval 0
    src (7.13.26) {9} string variable param lval 1
    tmp (7.13.38) {9} string variable param lval 2
    dst (7.13.50) {9} string variable param lval 3
 
-getln (6.30.1) {6} string function 
-
-main (7.20.1) {9} int function 
-   argc (7.20.11) {10} int variable param lval 0
-   argv (7.20.21) {10} string array variable param lval 1
-   count (7.22.4) {10} int variable local lval 2
-
 move (7.5.1) {7} void function 
    src (7.5.12) {8} string variable param lval 0
    dst (7.5.24) {8} string variable param lval 1
 
-putchr (6.24.1) {1} void function 
+getstr (6.29.1) {5} string function 
 
 fail (6.22.1) {0} void function 
 
 putint (6.25.1) {2} void function 
 
 putstr (6.26.1) {3} void function 
-
-getstr (6.29.1) {5} string function 
 
 getchr (6.28.1) {4} int function 
 

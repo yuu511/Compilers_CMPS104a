@@ -15,7 +15,7 @@ dot_product: .function int
            $t4:i = index + 1
            index = $t4:i  
            goto .wh0  
-.od0
+.od0:
            return dot
            return
            .end
@@ -36,7 +36,7 @@ main:      .function int
            $t4:i = index + 1
            index = $t4:i  
            goto .wh1  
-.od1
+.od1:
            $t5:i = call dot_product(10,vec1,vec2)  
            call putint($t5:i)  
            call putchr('\n')  

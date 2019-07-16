@@ -13,7 +13,7 @@ main:      .function int
            $t1:i = number + number
            number = $t1:i  
            goto .wh0  
-.od0
+.od0:
            return 0
            return
            .end
