@@ -1,32 +1,30 @@
 fibonacci: .function int 
            .param int n
-.if0:      $t0:i = n < 2
-           goto .fi0 if not $t0:i
+.if0:      goto .fi0 if n > 2
 .th0:      return n
 .fi0:
-           $t3:i = n - 1
-           $t2:i = call fibonacci($t3:i)  
-           $t5:i = n - 2
-           $t4:i = call fibonacci($t5:i)  
-           $t1:i = $t2:i + $t4:i
-           return $t1:i
+           $t2:i = n - 1
+           $t1:i = call fibonacci($t2:i)  
+           $t4:i = n - 2
+           $t3:i = call fibonacci($t4:i)  
+           $t0:i = $t1:i + $t3:i
+           return $t0:i
            return
            .end
 main:      .function int 
            .local int n
            n = 0  
-.wh0:      $t0:i = n < 10
-           goto .od0 if not $t0:i
+.wh0:      goto .od0 if n > 10
 .do0:      call putstr("fibonacci(")  
            call putint(n)  
            call putstr(") = ")  
-           $t1:i = call fibonacci(n)  
-           call putint($t1:i)  
+           $t0:i = call fibonacci(n)  
+           call putint($t0:i)  
            call putchr('\n')  
-           $t2:i = n + 1
-           n = $t2:i  
-           goto .wh0
-.od0:
+           $t1:i = n + 1
+           n = $t1:i  
+           goto .wh0  
+.od0
            return 0
            return
            .end

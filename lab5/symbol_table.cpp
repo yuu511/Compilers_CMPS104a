@@ -1250,10 +1250,10 @@ void p_loop(astree *s){
   if (!(sym->attributes[static_cast<int>(attr::INT)] ||
         sym->attributes[static_cast<int>(attr::NULLPTR_T)] ||
         sym->attributes[static_cast<int>(attr::TYPEID)] )){
-    errprintf ("invalid expr for loop: %zd.%zd.%zd\n",
-               s->lloc.filenr,
-               s->lloc.linenr,
-               s->lloc.offset);
+        errprintf ("invalid expr for loop: %zd.%zd.%zd\n",
+                   s->lloc.filenr,
+                   s->lloc.linenr,
+                   s->lloc.offset);
   }
   s->block_number = current;
   delete sym;

@@ -1,164 +1,164 @@
-ROOT "<<ROOT>>" 0.0.0 {0} 
-FUNCTION "" 6.22.1 {0} void function 
-TYPE_ID "" 6.22.1 {0} 
-VOID "void" 6.22.1 {0} 
-IDENT "fail" 6.22.6 {0} 
-PARAM "(" 6.22.11 {0} 
-TYPE_ID "" 6.22.12 {1} string variable param lval 
-STRING "string" 6.22.12 {0} 
-IDENT "expr" 6.22.19 {0} 
-TYPE_ID "" 6.22.25 {1} string variable param lval 
-STRING "string" 6.22.25 {0} 
-IDENT "file" 6.22.32 {0} 
-TYPE_ID "" 6.22.38 {1} int variable param lval 
-INT "int" 6.22.38 {0} 
-IDENT "line" 6.22.42 {0} 
-FUNCTION "" 6.24.1 {1} void function 
-TYPE_ID "" 6.24.1 {0} 
-VOID "void" 6.24.1 {0} 
-IDENT "putchr" 6.24.6 {0} 
-PARAM "(" 6.24.13 {0} 
-TYPE_ID "" 6.24.14 {2} int variable param lval 
-INT "int" 6.24.14 {0} 
-IDENT "chr" 6.24.18 {0} 
-FUNCTION "" 6.25.1 {2} void function 
-TYPE_ID "" 6.25.1 {0} 
-VOID "void" 6.25.1 {0} 
-IDENT "putint" 6.25.6 {0} 
-PARAM "(" 6.25.13 {0} 
-TYPE_ID "" 6.25.14 {3} int variable param lval 
-INT "int" 6.25.14 {0} 
-IDENT "num" 6.25.18 {0} 
-FUNCTION "" 6.26.1 {3} void function 
-TYPE_ID "" 6.26.1 {0} 
-VOID "void" 6.26.1 {0} 
-IDENT "putstr" 6.26.6 {0} 
-PARAM "(" 6.26.13 {0} 
-TYPE_ID "" 6.26.14 {4} string variable param lval 
-STRING "string" 6.26.14 {0} 
-IDENT "str" 6.26.21 {0} 
-FUNCTION "" 6.28.1 {4} int function 
-TYPE_ID "" 6.28.1 {0} 
-INT "int" 6.28.1 {0} 
-IDENT "getchr" 6.28.5 {0} 
-PARAM "(" 6.28.11 {0} 
-FUNCTION "" 6.29.1 {5} string function 
-TYPE_ID "" 6.29.1 {0} 
-STRING "string" 6.29.1 {0} 
-IDENT "getstr" 6.29.8 {0} 
-PARAM "(" 6.29.14 {0} 
-FUNCTION "" 6.30.1 {6} string function 
-TYPE_ID "" 6.30.1 {0} 
-STRING "string" 6.30.1 {0} 
-IDENT "getln" 6.30.8 {0} 
-PARAM "(" 6.30.13 {0} 
-FUNCTION "" 7.5.1 {7} int function 
-TYPE_ID "" 7.5.1 {0} 
-INT "int" 7.5.1 {0} 
-IDENT "dot_product" 7.5.5 {0} 
-PARAM "(" 7.5.17 {0} 
-TYPE_ID "" 7.5.18 {8} int variable param lval 
-INT "int" 7.5.18 {0} 
-IDENT "size" 7.5.22 {0} 
-TYPE_ID "" 7.5.28 {8} int array variable param lval 
-ARRAY "array" 7.5.28 {0} 
-INT "int" 7.5.34 {0} 
-IDENT "vec1" 7.5.39 {0} 
-TYPE_ID "" 7.5.45 {8} int array variable param lval 
-ARRAY "array" 7.5.45 {0} 
-INT "int" 7.5.51 {0} 
-IDENT "vec2" 7.5.56 {0} 
-BLOCK "{" 7.5.62 {8} 
-TYPE_ID "" 7.6.4 {8} int variable local lval vreg (7.6.4)
-INT "int" 7.6.4 {0} 
-IDENT "index" 7.6.8 {0} 
-INTCON "0" 7.6.16 {8} int const 
-TYPE_ID "" 7.7.4 {8} int variable local lval vreg (7.7.4)
-INT "int" 7.7.4 {0} 
-IDENT "dot" 7.7.8 {0} 
-INTCON "0" 7.7.14 {8} int const 
-WHILE "while" 7.8.4 {8} 
-LT "<" 7.8.17 {8} int vreg 
-IDENT "index" 7.8.11 {8} int variable local lval (7.6.4)
-IDENT "size" 7.8.19 {8} int variable param lval (7.5.18)
-BLOCK "{" 7.8.25 {8} 
-'=' "=" 7.9.11 {8} int variable local lval vreg 
-IDENT "dot" 7.9.7 {8} int variable local lval (7.7.4)
-'+' "+" 7.9.17 {8} int vreg 
-IDENT "dot" 7.9.13 {8} int variable local lval (7.7.4)
-'*' "*" 7.9.31 {8} int vreg 
-INDEX "[" 7.9.23 {8} int lval vaddr 
-IDENT "vec1" 7.9.19 {8} int array variable param lval (7.5.28)
-IDENT "index" 7.9.24 {8} int variable local lval (7.6.4)
-INDEX "[" 7.9.37 {8} int lval vaddr 
-IDENT "vec2" 7.9.33 {8} int array variable param lval (7.5.45)
-IDENT "index" 7.9.38 {8} int variable local lval (7.6.4)
-'=' "=" 7.10.13 {8} int variable local lval vreg 
-IDENT "index" 7.10.7 {8} int variable local lval (7.6.4)
-'+' "+" 7.10.21 {8} int vreg 
-IDENT "index" 7.10.15 {8} int variable local lval (7.6.4)
-INTCON "1" 7.10.23 {8} int const 
-RETURN "return" 7.12.4 {8} 
-IDENT "dot" 7.12.11 {8} int variable local lval (7.7.4)
-FUNCTION "" 7.17.1 {8} int function 
-TYPE_ID "" 7.17.1 {0} 
-INT "int" 7.17.1 {0} 
-IDENT "main" 7.17.5 {0} 
-PARAM "(" 7.17.9 {0} 
-BLOCK "{" 7.17.12 {9} 
-TYPE_ID "" 7.18.4 {9} int array variable local lval vreg (7.18.4)
-ARRAY "array" 7.18.4 {0} 
-INT "int" 7.18.10 {0} 
-IDENT "vec1" 7.18.15 {0} 
-ALLOC "alloc" 7.18.22 {9} int array 
-ARRAY "array" 7.18.28 {0} 
-INT "int" 7.18.34 {0} 
-INTCON "10" 7.18.41 {9} int const 
-TYPE_ID "" 7.19.4 {9} int array variable local lval vreg (7.19.4)
-ARRAY "array" 7.19.4 {0} 
-INT "int" 7.19.10 {0} 
-IDENT "vec2" 7.19.15 {0} 
-ALLOC "alloc" 7.19.22 {9} int array 
-ARRAY "array" 7.19.28 {0} 
-INT "int" 7.19.34 {0} 
-INTCON "10" 7.19.41 {9} int const 
-TYPE_ID "" 7.20.4 {9} int variable local lval vreg (7.20.4)
-INT "int" 7.20.4 {0} 
-IDENT "index" 7.20.8 {0} 
-INTCON "0" 7.20.16 {9} int const 
-WHILE "while" 7.21.4 {9} 
-LT "<" 7.21.17 {9} int vreg 
-IDENT "index" 7.21.11 {9} int variable local lval (7.20.4)
-INTCON "10" 7.21.19 {9} int const 
-BLOCK "{" 7.21.23 {9} 
-'=' "=" 7.22.19 {9} int lval vreg vaddr 
-INDEX "[" 7.22.11 {9} int lval vaddr 
-IDENT "vec1" 7.22.7 {9} int array variable local lval (7.18.4)
-IDENT "index" 7.22.12 {9} int variable local lval (7.20.4)
-'+' "+" 7.22.27 {9} int vreg 
-IDENT "index" 7.22.21 {9} int variable local lval (7.20.4)
-INTCON "10" 7.22.29 {9} int const 
-'=' "=" 7.23.19 {9} int lval vreg vaddr 
-INDEX "[" 7.23.11 {9} int lval vaddr 
-IDENT "vec2" 7.23.7 {9} int array variable local lval (7.19.4)
-IDENT "index" 7.23.12 {9} int variable local lval (7.20.4)
-'*' "*" 7.23.27 {9} int vreg 
-IDENT "index" 7.23.21 {9} int variable local lval (7.20.4)
-INTCON "10" 7.23.29 {9} int const 
-'=' "=" 7.24.13 {9} int variable local lval vreg 
-IDENT "index" 7.24.7 {9} int variable local lval (7.20.4)
-'+' "+" 7.24.21 {9} int vreg 
-IDENT "index" 7.24.15 {9} int variable local lval (7.20.4)
-INTCON "1" 7.24.23 {9} int const 
-CALL "(" 7.26.11 {2} void function (6.25.1)
-IDENT "putint" 7.26.4 {0} 
-CALL "(" 7.26.24 {7} int function (7.5.1)
-IDENT "dot_product" 7.26.12 {0} 
-INTCON "10" 7.26.25 {9} int const 
-IDENT "vec1" 7.26.29 {9} int array variable local lval (7.18.4)
-IDENT "vec2" 7.26.35 {9} int array variable local lval (7.19.4)
-CALL "(" 7.27.11 {1} void function (6.24.1)
-IDENT "putchr" 7.27.4 {0} 
-CHARCON "'\n'" 7.27.12 {9} int const 
-RETURN "return" 7.28.4 {9} 
-INTCON "0" 7.28.11 {9} int const 
+ROOT "<<ROOT>>" 0.0.0
+| FUNCTION "" 6.22.1
+| | TYPE_ID "" 6.22.1
+| | | VOID "void" 6.22.1
+| | | IDENT "fail" 6.22.6
+| | PARAM "(" 6.22.11
+| | | TYPE_ID "" 6.22.12
+| | | | STRING "string" 6.22.12
+| | | | IDENT "expr" 6.22.19
+| | | TYPE_ID "" 6.22.25
+| | | | STRING "string" 6.22.25
+| | | | IDENT "file" 6.22.32
+| | | TYPE_ID "" 6.22.38
+| | | | INT "int" 6.22.38
+| | | | IDENT "line" 6.22.42
+| FUNCTION "" 6.24.1
+| | TYPE_ID "" 6.24.1
+| | | VOID "void" 6.24.1
+| | | IDENT "putchr" 6.24.6
+| | PARAM "(" 6.24.13
+| | | TYPE_ID "" 6.24.14
+| | | | INT "int" 6.24.14
+| | | | IDENT "chr" 6.24.18
+| FUNCTION "" 6.25.1
+| | TYPE_ID "" 6.25.1
+| | | VOID "void" 6.25.1
+| | | IDENT "putint" 6.25.6
+| | PARAM "(" 6.25.13
+| | | TYPE_ID "" 6.25.14
+| | | | INT "int" 6.25.14
+| | | | IDENT "num" 6.25.18
+| FUNCTION "" 6.26.1
+| | TYPE_ID "" 6.26.1
+| | | VOID "void" 6.26.1
+| | | IDENT "putstr" 6.26.6
+| | PARAM "(" 6.26.13
+| | | TYPE_ID "" 6.26.14
+| | | | STRING "string" 6.26.14
+| | | | IDENT "str" 6.26.21
+| FUNCTION "" 6.28.1
+| | TYPE_ID "" 6.28.1
+| | | INT "int" 6.28.1
+| | | IDENT "getchr" 6.28.5
+| | PARAM "(" 6.28.11
+| FUNCTION "" 6.29.1
+| | TYPE_ID "" 6.29.1
+| | | STRING "string" 6.29.1
+| | | IDENT "getstr" 6.29.8
+| | PARAM "(" 6.29.14
+| FUNCTION "" 6.30.1
+| | TYPE_ID "" 6.30.1
+| | | STRING "string" 6.30.1
+| | | IDENT "getln" 6.30.8
+| | PARAM "(" 6.30.13
+| FUNCTION "" 7.5.1
+| | TYPE_ID "" 7.5.1
+| | | INT "int" 7.5.1
+| | | IDENT "dot_product" 7.5.5
+| | PARAM "(" 7.5.17
+| | | TYPE_ID "" 7.5.18
+| | | | INT "int" 7.5.18
+| | | | IDENT "size" 7.5.22
+| | | TYPE_ID "" 7.5.28
+| | | | ARRAY "array" 7.5.28
+| | | | | INT "int" 7.5.34
+| | | | IDENT "vec1" 7.5.39
+| | | TYPE_ID "" 7.5.45
+| | | | ARRAY "array" 7.5.45
+| | | | | INT "int" 7.5.51
+| | | | IDENT "vec2" 7.5.56
+| | BLOCK "{" 7.5.62
+| | | TYPE_ID "" 7.6.4
+| | | | INT "int" 7.6.4
+| | | | IDENT "index" 7.6.8
+| | | | INTCON "0" 7.6.16
+| | | TYPE_ID "" 7.7.4
+| | | | INT "int" 7.7.4
+| | | | IDENT "dot" 7.7.8
+| | | | INTCON "0" 7.7.14
+| | | WHILE "while" 7.8.4
+| | | | LT "<" 7.8.17
+| | | | | IDENT "index" 7.8.11
+| | | | | IDENT "size" 7.8.19
+| | | | BLOCK "{" 7.8.25
+| | | | | '=' "=" 7.9.11
+| | | | | | IDENT "dot" 7.9.7
+| | | | | | '+' "+" 7.9.17
+| | | | | | | IDENT "dot" 7.9.13
+| | | | | | | '*' "*" 7.9.31
+| | | | | | | | INDEX "[" 7.9.23
+| | | | | | | | | IDENT "vec1" 7.9.19
+| | | | | | | | | IDENT "index" 7.9.24
+| | | | | | | | INDEX "[" 7.9.37
+| | | | | | | | | IDENT "vec2" 7.9.33
+| | | | | | | | | IDENT "index" 7.9.38
+| | | | | '=' "=" 7.10.13
+| | | | | | IDENT "index" 7.10.7
+| | | | | | '+' "+" 7.10.21
+| | | | | | | IDENT "index" 7.10.15
+| | | | | | | INTCON "1" 7.10.23
+| | | RETURN "return" 7.12.4
+| | | | IDENT "dot" 7.12.11
+| FUNCTION "" 7.17.1
+| | TYPE_ID "" 7.17.1
+| | | INT "int" 7.17.1
+| | | IDENT "main" 7.17.5
+| | PARAM "(" 7.17.9
+| | BLOCK "{" 7.17.12
+| | | TYPE_ID "" 7.18.4
+| | | | ARRAY "array" 7.18.4
+| | | | | INT "int" 7.18.10
+| | | | IDENT "vec1" 7.18.15
+| | | | ALLOC "alloc" 7.18.22
+| | | | | ARRAY "array" 7.18.28
+| | | | | | INT "int" 7.18.34
+| | | | | INTCON "10" 7.18.41
+| | | TYPE_ID "" 7.19.4
+| | | | ARRAY "array" 7.19.4
+| | | | | INT "int" 7.19.10
+| | | | IDENT "vec2" 7.19.15
+| | | | ALLOC "alloc" 7.19.22
+| | | | | ARRAY "array" 7.19.28
+| | | | | | INT "int" 7.19.34
+| | | | | INTCON "10" 7.19.41
+| | | TYPE_ID "" 7.20.4
+| | | | INT "int" 7.20.4
+| | | | IDENT "index" 7.20.8
+| | | | INTCON "0" 7.20.16
+| | | WHILE "while" 7.21.4
+| | | | LT "<" 7.21.17
+| | | | | IDENT "index" 7.21.11
+| | | | | INTCON "10" 7.21.19
+| | | | BLOCK "{" 7.21.23
+| | | | | '=' "=" 7.22.19
+| | | | | | INDEX "[" 7.22.11
+| | | | | | | IDENT "vec1" 7.22.7
+| | | | | | | IDENT "index" 7.22.12
+| | | | | | '+' "+" 7.22.27
+| | | | | | | IDENT "index" 7.22.21
+| | | | | | | INTCON "10" 7.22.29
+| | | | | '=' "=" 7.23.19
+| | | | | | INDEX "[" 7.23.11
+| | | | | | | IDENT "vec2" 7.23.7
+| | | | | | | IDENT "index" 7.23.12
+| | | | | | '*' "*" 7.23.27
+| | | | | | | IDENT "index" 7.23.21
+| | | | | | | INTCON "10" 7.23.29
+| | | | | '=' "=" 7.24.13
+| | | | | | IDENT "index" 7.24.7
+| | | | | | '+' "+" 7.24.21
+| | | | | | | IDENT "index" 7.24.15
+| | | | | | | INTCON "1" 7.24.23
+| | | CALL "(" 7.26.11
+| | | | IDENT "putint" 7.26.4
+| | | | CALL "(" 7.26.24
+| | | | | IDENT "dot_product" 7.26.12
+| | | | | INTCON "10" 7.26.25
+| | | | | IDENT "vec1" 7.26.29
+| | | | | IDENT "vec2" 7.26.35
+| | | CALL "(" 7.27.11
+| | | | IDENT "putchr" 7.27.4
+| | | | CHARCON "'\n'" 7.27.12
+| | | RETURN "return" 7.28.4
+| | | | INTCON "0" 7.28.11

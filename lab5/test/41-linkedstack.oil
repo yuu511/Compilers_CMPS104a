@@ -9,7 +9,7 @@ empty:     .function int
            .param struct stack stack
 .if0:      $t1:i = stack != nullptr
            $t0:i = not $t1:i  
-           goto .fi0 if not $t0:i
+           goto .fi0 if not $t0:i  
 .th0:      call fail("stack != nullptr","41-linkedstack.oc",15)  
 .fi0:
            $t3:p = stack->stack.top  
@@ -31,7 +31,7 @@ push:      .function
            tmp = call malloc(sizeof struct node)  
 .if1:      $t1:i = stack != nullptr
            $t0:i = not $t1:i  
-           goto .fi1 if not $t0:i
+           goto .fi1 if not $t0:i  
 .th1:      call fail("stack != nullptr","41-linkedstack.oc",27)  
 .fi1:
            tmp->node.data = str  
@@ -48,13 +48,13 @@ pop:       .function ptr
            tmp = $t0:p  
 .if2:      $t3:i = stack != nullptr
            $t2:i = not $t3:i  
-           goto .fi2 if not $t2:i
+           goto .fi2 if not $t2:i  
 .th2:      call fail("stack != nullptr","41-linkedstack.oc",35)  
 .fi2:
 .if3:      $t6:i = call empty(stack)  
            $t5:i = not $t6:i  
            $t4:i = not $t5:i  
-           goto .fi3 if not $t4:i
+           goto .fi3 if not $t4:i  
 .th3:      call fail("not empty (stack)","41-linkedstack.oc",36)  
 .fi3:
            $t8:p = stack->stack.top  
@@ -71,22 +71,21 @@ main:      .function int
            argi = 0  
            $t0:p = call new_stack()  
            stack = $t0:p  
-.wh0:      $t1:i = argi < argc
-           goto .od0 if not $t1:i
-.do0:      $t2:c = argv[argi * :c]  
-           call push(stack,$t2:c)  
-           $t3:i = argi + 1
-           argi = $t3:i  
-           goto .wh0
-.od0:
-.wh1:      $t5:i = call empty(stack)  
-           $t4:i = not $t5:i  
-           goto .od1 if not $t4:i
-.do1:      $t6:p = call pop(stack)  
-           call putstr($t6:p)  
+.wh0:      goto .od0 if argi > argc
+.do0:      $t1:c = argv[argi * :c]  
+           call push(stack,$t1:c)  
+           $t2:i = argi + 1
+           argi = $t2:i  
+           goto .wh0  
+.od0
+.wh1:      $t4:i = call empty(stack)  
+           $t3:i = not $t4:i  
+           goto .od1 if not $t3:i  
+.do1:      $t5:p = call pop(stack)  
+           call putstr($t5:p)  
            call putchr('\n')  
-           goto .wh1
-.od1:
+           goto .wh1  
+.od1
            return 0
            return
            .end

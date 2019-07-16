@@ -1,141 +1,141 @@
-ROOT "<<ROOT>>" 0.0.0 {0} 
-FUNCTION "" 6.22.1 {0} void function 
-TYPE_ID "" 6.22.1 {0} 
-VOID "void" 6.22.1 {0} 
-IDENT "fail" 6.22.6 {0} 
-PARAM "(" 6.22.11 {0} 
-TYPE_ID "" 6.22.12 {1} string variable param lval 
-STRING "string" 6.22.12 {0} 
-IDENT "expr" 6.22.19 {0} 
-TYPE_ID "" 6.22.25 {1} string variable param lval 
-STRING "string" 6.22.25 {0} 
-IDENT "file" 6.22.32 {0} 
-TYPE_ID "" 6.22.38 {1} int variable param lval 
-INT "int" 6.22.38 {0} 
-IDENT "line" 6.22.42 {0} 
-FUNCTION "" 6.24.1 {1} void function 
-TYPE_ID "" 6.24.1 {0} 
-VOID "void" 6.24.1 {0} 
-IDENT "putchr" 6.24.6 {0} 
-PARAM "(" 6.24.13 {0} 
-TYPE_ID "" 6.24.14 {2} int variable param lval 
-INT "int" 6.24.14 {0} 
-IDENT "chr" 6.24.18 {0} 
-FUNCTION "" 6.25.1 {2} void function 
-TYPE_ID "" 6.25.1 {0} 
-VOID "void" 6.25.1 {0} 
-IDENT "putint" 6.25.6 {0} 
-PARAM "(" 6.25.13 {0} 
-TYPE_ID "" 6.25.14 {3} int variable param lval 
-INT "int" 6.25.14 {0} 
-IDENT "num" 6.25.18 {0} 
-FUNCTION "" 6.26.1 {3} void function 
-TYPE_ID "" 6.26.1 {0} 
-VOID "void" 6.26.1 {0} 
-IDENT "putstr" 6.26.6 {0} 
-PARAM "(" 6.26.13 {0} 
-TYPE_ID "" 6.26.14 {4} string variable param lval 
-STRING "string" 6.26.14 {0} 
-IDENT "str" 6.26.21 {0} 
-FUNCTION "" 6.28.1 {4} int function 
-TYPE_ID "" 6.28.1 {0} 
-INT "int" 6.28.1 {0} 
-IDENT "getchr" 6.28.5 {0} 
-PARAM "(" 6.28.11 {0} 
-FUNCTION "" 6.29.1 {5} string function 
-TYPE_ID "" 6.29.1 {0} 
-STRING "string" 6.29.1 {0} 
-IDENT "getstr" 6.29.8 {0} 
-PARAM "(" 6.29.14 {0} 
-FUNCTION "" 6.30.1 {6} string function 
-TYPE_ID "" 6.30.1 {0} 
-STRING "string" 6.30.1 {0} 
-IDENT "getln" 6.30.8 {0} 
-PARAM "(" 6.30.13 {0} 
-FUNCTION "" 7.9.1 {7} int function 
-TYPE_ID "" 7.9.1 {0} 
-INT "int" 7.9.1 {0} 
-IDENT "collatz" 7.9.5 {0} 
-PARAM "(" 7.9.13 {0} 
-TYPE_ID "" 7.9.14 {8} int variable param lval 
-INT "int" 7.9.14 {0} 
-IDENT "n" 7.9.18 {0} 
-BLOCK "{" 7.9.21 {8} 
-TYPE_ID "" 7.10.4 {8} int variable local lval vreg (7.10.4)
-INT "int" 7.10.4 {0} 
-IDENT "c" 7.10.8 {0} 
-INTCON "0" 7.10.12 {8} int const 
-WHILE "while" 7.11.4 {8} 
-NE "!=" 7.11.13 {8} int vreg 
-IDENT "n" 7.11.11 {8} int variable param lval (7.9.14)
-INTCON "1" 7.11.16 {8} int const 
-BLOCK "{" 7.11.19 {8} 
-'=' "=" 7.12.9 {8} int variable local lval vreg 
-IDENT "c" 7.12.7 {8} int variable local lval (7.10.4)
-'+' "+" 7.12.13 {8} int vreg 
-IDENT "c" 7.12.11 {8} int variable local lval (7.10.4)
-INTCON "1" 7.12.15 {8} int const 
-IF "if" 7.13.7 {8} 
-EQ "==" 7.13.17 {8} int vreg 
-'%' "%" 7.13.13 {8} int vreg 
-IDENT "n" 7.13.11 {8} int variable param lval (7.9.14)
-INTCON "2" 7.13.15 {8} int const 
-INTCON "1" 7.13.20 {8} int const 
-'=' "=" 7.13.25 {8} int variable param lval vreg 
-IDENT "n" 7.13.23 {8} int variable param lval (7.9.14)
-'+' "+" 7.13.33 {8} int vreg 
-'*' "*" 7.13.29 {8} int vreg 
-INTCON "3" 7.13.27 {8} int const 
-IDENT "n" 7.13.31 {8} int variable param lval (7.9.14)
-INTCON "1" 7.13.35 {8} int const 
-'=' "=" 7.14.25 {8} int variable param lval vreg 
-IDENT "n" 7.14.23 {8} int variable param lval (7.9.14)
-'/' "/" 7.14.29 {8} int vreg 
-IDENT "n" 7.14.27 {8} int variable param lval (7.9.14)
-INTCON "2" 7.14.31 {8} int const 
-RETURN "return" 7.16.4 {8} 
-IDENT "c" 7.16.11 {8} int variable local lval (7.10.4)
-FUNCTION "" 7.19.1 {8} void function 
-TYPE_ID "" 7.19.1 {0} 
-VOID "void" 7.19.1 {0} 
-IDENT "test" 7.19.6 {0} 
-PARAM "(" 7.19.11 {0} 
-TYPE_ID "" 7.19.12 {9} int variable param lval 
-INT "int" 7.19.12 {0} 
-IDENT "n" 7.19.16 {0} 
-BLOCK "{" 7.19.19 {9} 
-TYPE_ID "" 7.20.4 {9} int variable local lval vreg (7.20.4)
-INT "int" 7.20.4 {0} 
-IDENT "c" 7.20.8 {0} 
-CALL "(" 7.20.20 {7} int function (7.9.1)
-IDENT "collatz" 7.20.12 {0} 
-IDENT "n" 7.20.21 {9} int variable param lval (7.19.12)
-CALL "(" 7.21.11 {3} void function (6.26.1)
-IDENT "putstr" 7.21.4 {0} 
-STRINGCON ""collatz("" 7.21.12 {9} string const 
-CALL "(" 7.22.11 {2} void function (6.25.1)
-IDENT "putint" 7.22.4 {0} 
-IDENT "n" 7.22.12 {9} int variable param lval (7.19.12)
-CALL "(" 7.23.11 {3} void function (6.26.1)
-IDENT "putstr" 7.23.4 {0} 
-STRINGCON "") = "" 7.23.12 {9} string const 
-CALL "(" 7.24.11 {2} void function (6.25.1)
-IDENT "putint" 7.24.4 {0} 
-IDENT "c" 7.24.12 {9} int variable local lval (7.20.4)
-CALL "(" 7.25.11 {1} void function (6.24.1)
-IDENT "putchr" 7.25.4 {0} 
-CHARCON "'\n'" 7.25.12 {9} int const 
-FUNCTION "" 7.28.1 {9} int function 
-TYPE_ID "" 7.28.1 {0} 
-INT "int" 7.28.1 {0} 
-IDENT "main" 7.28.5 {0} 
-PARAM "(" 7.28.9 {0} 
-BLOCK "{" 7.28.12 {10} 
-CALL "(" 7.29.9 {8} void function (7.19.1)
-IDENT "test" 7.29.4 {0} 
-INTCON "3" 7.29.10 {10} int const 
-CALL "(" 7.30.9 {8} void function (7.19.1)
-IDENT "test" 7.30.4 {0} 
-INTCON "50" 7.30.10 {10} int const 
-RETURN "return" 7.31.4 {10} 
-INTCON "0" 7.31.11 {10} int const 
+ROOT "<<ROOT>>" 0.0.0
+| FUNCTION "" 6.22.1
+| | TYPE_ID "" 6.22.1
+| | | VOID "void" 6.22.1
+| | | IDENT "fail" 6.22.6
+| | PARAM "(" 6.22.11
+| | | TYPE_ID "" 6.22.12
+| | | | STRING "string" 6.22.12
+| | | | IDENT "expr" 6.22.19
+| | | TYPE_ID "" 6.22.25
+| | | | STRING "string" 6.22.25
+| | | | IDENT "file" 6.22.32
+| | | TYPE_ID "" 6.22.38
+| | | | INT "int" 6.22.38
+| | | | IDENT "line" 6.22.42
+| FUNCTION "" 6.24.1
+| | TYPE_ID "" 6.24.1
+| | | VOID "void" 6.24.1
+| | | IDENT "putchr" 6.24.6
+| | PARAM "(" 6.24.13
+| | | TYPE_ID "" 6.24.14
+| | | | INT "int" 6.24.14
+| | | | IDENT "chr" 6.24.18
+| FUNCTION "" 6.25.1
+| | TYPE_ID "" 6.25.1
+| | | VOID "void" 6.25.1
+| | | IDENT "putint" 6.25.6
+| | PARAM "(" 6.25.13
+| | | TYPE_ID "" 6.25.14
+| | | | INT "int" 6.25.14
+| | | | IDENT "num" 6.25.18
+| FUNCTION "" 6.26.1
+| | TYPE_ID "" 6.26.1
+| | | VOID "void" 6.26.1
+| | | IDENT "putstr" 6.26.6
+| | PARAM "(" 6.26.13
+| | | TYPE_ID "" 6.26.14
+| | | | STRING "string" 6.26.14
+| | | | IDENT "str" 6.26.21
+| FUNCTION "" 6.28.1
+| | TYPE_ID "" 6.28.1
+| | | INT "int" 6.28.1
+| | | IDENT "getchr" 6.28.5
+| | PARAM "(" 6.28.11
+| FUNCTION "" 6.29.1
+| | TYPE_ID "" 6.29.1
+| | | STRING "string" 6.29.1
+| | | IDENT "getstr" 6.29.8
+| | PARAM "(" 6.29.14
+| FUNCTION "" 6.30.1
+| | TYPE_ID "" 6.30.1
+| | | STRING "string" 6.30.1
+| | | IDENT "getln" 6.30.8
+| | PARAM "(" 6.30.13
+| FUNCTION "" 7.9.1
+| | TYPE_ID "" 7.9.1
+| | | INT "int" 7.9.1
+| | | IDENT "collatz" 7.9.5
+| | PARAM "(" 7.9.13
+| | | TYPE_ID "" 7.9.14
+| | | | INT "int" 7.9.14
+| | | | IDENT "n" 7.9.18
+| | BLOCK "{" 7.9.21
+| | | TYPE_ID "" 7.10.4
+| | | | INT "int" 7.10.4
+| | | | IDENT "c" 7.10.8
+| | | | INTCON "0" 7.10.12
+| | | WHILE "while" 7.11.4
+| | | | NE "!=" 7.11.13
+| | | | | IDENT "n" 7.11.11
+| | | | | INTCON "1" 7.11.16
+| | | | BLOCK "{" 7.11.19
+| | | | | '=' "=" 7.12.9
+| | | | | | IDENT "c" 7.12.7
+| | | | | | '+' "+" 7.12.13
+| | | | | | | IDENT "c" 7.12.11
+| | | | | | | INTCON "1" 7.12.15
+| | | | | IF "if" 7.13.7
+| | | | | | EQ "==" 7.13.17
+| | | | | | | '%' "%" 7.13.13
+| | | | | | | | IDENT "n" 7.13.11
+| | | | | | | | INTCON "2" 7.13.15
+| | | | | | | INTCON "1" 7.13.20
+| | | | | | '=' "=" 7.13.25
+| | | | | | | IDENT "n" 7.13.23
+| | | | | | | '+' "+" 7.13.33
+| | | | | | | | '*' "*" 7.13.29
+| | | | | | | | | INTCON "3" 7.13.27
+| | | | | | | | | IDENT "n" 7.13.31
+| | | | | | | | INTCON "1" 7.13.35
+| | | | | | '=' "=" 7.14.25
+| | | | | | | IDENT "n" 7.14.23
+| | | | | | | '/' "/" 7.14.29
+| | | | | | | | IDENT "n" 7.14.27
+| | | | | | | | INTCON "2" 7.14.31
+| | | RETURN "return" 7.16.4
+| | | | IDENT "c" 7.16.11
+| FUNCTION "" 7.19.1
+| | TYPE_ID "" 7.19.1
+| | | VOID "void" 7.19.1
+| | | IDENT "test" 7.19.6
+| | PARAM "(" 7.19.11
+| | | TYPE_ID "" 7.19.12
+| | | | INT "int" 7.19.12
+| | | | IDENT "n" 7.19.16
+| | BLOCK "{" 7.19.19
+| | | TYPE_ID "" 7.20.4
+| | | | INT "int" 7.20.4
+| | | | IDENT "c" 7.20.8
+| | | | CALL "(" 7.20.20
+| | | | | IDENT "collatz" 7.20.12
+| | | | | IDENT "n" 7.20.21
+| | | CALL "(" 7.21.11
+| | | | IDENT "putstr" 7.21.4
+| | | | STRINGCON ""collatz("" 7.21.12
+| | | CALL "(" 7.22.11
+| | | | IDENT "putint" 7.22.4
+| | | | IDENT "n" 7.22.12
+| | | CALL "(" 7.23.11
+| | | | IDENT "putstr" 7.23.4
+| | | | STRINGCON "") = "" 7.23.12
+| | | CALL "(" 7.24.11
+| | | | IDENT "putint" 7.24.4
+| | | | IDENT "c" 7.24.12
+| | | CALL "(" 7.25.11
+| | | | IDENT "putchr" 7.25.4
+| | | | CHARCON "'\n'" 7.25.12
+| FUNCTION "" 7.28.1
+| | TYPE_ID "" 7.28.1
+| | | INT "int" 7.28.1
+| | | IDENT "main" 7.28.5
+| | PARAM "(" 7.28.9
+| | BLOCK "{" 7.28.12
+| | | CALL "(" 7.29.9
+| | | | IDENT "test" 7.29.4
+| | | | INTCON "3" 7.29.10
+| | | CALL "(" 7.30.9
+| | | | IDENT "test" 7.30.4
+| | | | INTCON "50" 7.30.10
+| | | RETURN "return" 7.31.4
+| | | | INTCON "0" 7.31.11

@@ -59,7 +59,7 @@ struct reg {
     [LABEL] [t0]  = [t1] [OPERATOR] [t2] 
     
     GOTO:
-    goto [LABEL] if not [t0]
+    [LABEL] goto [condition] if t1 op t2
     
     LABEL_ONLY:
     [LABEL]
@@ -73,6 +73,7 @@ struct reg {
 struct ac3{
   astree *expr;
   string *label;
+  string *condition;
   reg *t0;
   string *op;
   reg *t1;

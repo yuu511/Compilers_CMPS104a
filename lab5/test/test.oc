@@ -157,3 +157,12 @@ struct allofem { int one;
 // int test;
 // int test = 5;
 
+int collatz (int n){
+  int c = 0;
+  while (n != 1){
+    c = c + 1;
+    if (n % 2 == 1) n = 3 * n +1;
+      else n = n / 2;
+  }
+  return c;
+}

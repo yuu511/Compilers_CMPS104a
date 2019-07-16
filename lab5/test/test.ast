@@ -1,24 +1,67 @@
-ROOT "<<ROOT>>" 0.0.0 {0} 
-STRUCT "struct" 4.3.1 {0} struct test 
-IDENT "test" 4.3.8 {0} 
-STRUCT "struct" 4.4.1 {0} struct onearg 
-IDENT "onearg" 4.4.8 {0} 
-TYPE_ID "" 4.4.15 {0} int field 
-INT "int" 4.4.15 {0} 
-IDENT "trivial" 4.4.19 {0} 
-STRUCT "struct" 4.8.1 {0} struct allofem 
-IDENT "allofem" 4.8.8 {0} 
-TYPE_ID "" 4.8.18 {0} int field 
-INT "int" 4.8.18 {0} 
-IDENT "one" 4.8.22 {0} 
-TYPE_ID "" 4.9.18 {0} string field 
-STRING "string" 4.9.18 {0} 
-IDENT "two" 4.9.25 {0} 
-TYPE_ID "" 4.10.18 {0} field struct none 
-PTR "ptr" 4.10.18 {0} 
-IDENT "none" 4.10.30 {0} 
-IDENT "homura" 4.10.37 {0} 
-TYPE_ID "" 4.11.18 {0} int array field 
-ARRAY "array" 4.11.18 {0} 
-INT "int" 4.11.25 {0} 
-IDENT "sayaka" 4.11.30 {0} 
+ROOT "<<ROOT>>" 0.0.0
+| STRUCT "struct" 4.3.1
+| | IDENT "test" 4.3.8
+| STRUCT "struct" 4.4.1
+| | IDENT "onearg" 4.4.8
+| | TYPE_ID "" 4.4.15
+| | | INT "int" 4.4.15
+| | | IDENT "trivial" 4.4.19
+| STRUCT "struct" 4.8.1
+| | IDENT "allofem" 4.8.8
+| | TYPE_ID "" 4.8.18
+| | | INT "int" 4.8.18
+| | | IDENT "one" 4.8.22
+| | TYPE_ID "" 4.9.18
+| | | STRING "string" 4.9.18
+| | | IDENT "two" 4.9.25
+| | TYPE_ID "" 4.10.18
+| | | PTR "ptr" 4.10.18
+| | | | IDENT "none" 4.10.30
+| | | IDENT "homura" 4.10.37
+| | TYPE_ID "" 4.11.18
+| | | ARRAY "array" 4.11.18
+| | | | INT "int" 4.11.25
+| | | IDENT "sayaka" 4.11.30
+| FUNCTION "" 5.160.1
+| | TYPE_ID "" 5.160.1
+| | | INT "int" 5.160.1
+| | | IDENT "collatz" 5.160.5
+| | PARAM "(" 5.160.13
+| | | TYPE_ID "" 5.160.14
+| | | | INT "int" 5.160.14
+| | | | IDENT "n" 5.160.18
+| | BLOCK "{" 5.160.20
+| | | TYPE_ID "" 5.161.3
+| | | | INT "int" 5.161.3
+| | | | IDENT "c" 5.161.7
+| | | | INTCON "0" 5.161.11
+| | | WHILE "while" 5.162.3
+| | | | NE "!=" 5.162.12
+| | | | | IDENT "n" 5.162.10
+| | | | | INTCON "1" 5.162.15
+| | | | BLOCK "{" 5.162.17
+| | | | | '=' "=" 5.163.7
+| | | | | | IDENT "c" 5.163.5
+| | | | | | '+' "+" 5.163.11
+| | | | | | | IDENT "c" 5.163.9
+| | | | | | | INTCON "1" 5.163.13
+| | | | | IF "if" 5.164.5
+| | | | | | EQ "==" 5.164.15
+| | | | | | | '%' "%" 5.164.11
+| | | | | | | | IDENT "n" 5.164.9
+| | | | | | | | INTCON "2" 5.164.13
+| | | | | | | INTCON "1" 5.164.18
+| | | | | | '=' "=" 5.164.23
+| | | | | | | IDENT "n" 5.164.21
+| | | | | | | '+' "+" 5.164.31
+| | | | | | | | '*' "*" 5.164.27
+| | | | | | | | | INTCON "3" 5.164.25
+| | | | | | | | | IDENT "n" 5.164.29
+| | | | | | | | INTCON "1" 5.164.32
+| | | | | | '=' "=" 5.165.14
+| | | | | | | IDENT "n" 5.165.12
+| | | | | | | '/' "/" 5.165.18
+| | | | | | | | IDENT "n" 5.165.16
+| | | | | | | | INTCON "2" 5.165.20
+| | | RETURN "return" 5.167.3
+| | | | IDENT "c" 5.167.10

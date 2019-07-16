@@ -1,4 +1,4 @@
-string_set[   1]:    3729804957429652673 0x55dd7652edd8->"<<ROOT>>"
-load_factor = 0.500
-bucket_count = 2
+string_set[   2]:    3729804957429652673 0x56196bc79cc8->"<<ROOT>>"
+load_factor = 0.333
+bucket_count = 3
 max_bucket_size = 1

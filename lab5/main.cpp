@@ -135,6 +135,10 @@ int main (int argc, char** argv) {
    yy_flex_debug = 0;
    yydebug = 0;
    exec::execname = basename (argv[0]);
+   if (argc <= 1){
+     errprintf ("please specify filename for program\n");
+     return exec::exit_status;
+   }
    char* filename = argv[argc-1];
    string input_stripped = strp(filename);
    string append;
@@ -170,7 +174,7 @@ int main (int argc, char** argv) {
    // personal debug flag ,
    // draws astree to stderr
    if (a_debug){
-     astree::draw (stderr,parser::root);
+     astree::draw_attrib (stderr,parser::root);
    }
   
    /* if the parse was sucessful */
@@ -190,7 +194,7 @@ int main (int argc, char** argv) {
         emit_all3ac(oilfp);
      }
      // dump the astree
-     astree::draw_attrib(astfp,parser::root);
+     astree::draw(astfp,parser::root);
    }
 
    // Close all files.

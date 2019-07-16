@@ -1,22 +1,22 @@
+#!/usr/bin/env python3
 import glob
 import os.path
+import subprocess
 
-TESTDIR = "./test"
-files = glob.glob(os.path.join(TESTDIR,"*.oc"))
+EXECUTABLE = "../oc"
+EXECUTABLE_ARGS_AST = "-@ast"
+EXECUTABLE_ARGS_LEXYACC = "-ly"
+files = glob.glob("*.oc")
 VERBOSE = 0
 
 def test_non_9x(names):
   for f in names:
-    print(os.path.basename(f))
+    subprocess.run([EXECUTABLE,f],stderr=subprocess.STDOUT)
 
 def test_9x(names):
-  for f in names:
-    print(os.path.basename(f))
-
+  pass  
 
 if __name__ == '__main__':
-  BASEDIR = os.getcwd()
-  os.chdir(TESTDIR)
   non_9x = []
   error_9x = []
   for f in files:
@@ -26,4 +26,3 @@ if __name__ == '__main__':
       non_9x.append(f)
   test_non_9x(sorted(non_9x))
   test_9x(sorted(error_9x))
-  os.chdir(BASEDIR)

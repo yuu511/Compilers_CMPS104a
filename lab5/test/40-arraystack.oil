@@ -1,6 +1,6 @@
 .struct stack
-.field ptr data
 .field int top
+.field ptr data
 .field int size
 .end 
 new_stack: .function struct stack 
@@ -23,7 +23,7 @@ push:      .function
            $t3:i = $t4:i - 1
            $t1:i = $t2:i < $t3:i
            $t0:i = not $t1:i  
-           goto .fi0 if not $t0:i
+           goto .fi0 if not $t0:i  
 .th0:      call fail("stack->top < stack->size - 1","40-arraystack.oc",22)  
 .fi0:
            $t6:i = stack->stack.top  
@@ -45,7 +45,7 @@ pop:       .function ptr
            $t6:i = -1  
            $t4:i = $t5:i != $t6:i
            $t3:i = not $t4:i  
-           goto .fi1 if not $t3:i
+           goto .fi1 if not $t3:i  
 .th1:      call fail("stack->top != EMPTY","40-arraystack.oc",29)  
 .fi1:
            $t8:i = stack->stack.top  
@@ -70,22 +70,21 @@ main:      .function int
            $t0:p = call new_stack(100)  
            stack = $t0:p  
            argi = 0  
-.wh0:      $t1:i = argi < argc
-           goto .od0 if not $t1:i
-.do0:      $t2:c = argv[argi * :c]  
-           call push(stack,$t2:c)  
-           $t3:i = argi + 1
-           argi = $t3:i  
-           goto .wh0
-.od0:
-.wh1:      $t5:i = call empty(stack)  
-           $t4:i = not $t5:i  
-           goto .od1 if not $t4:i
-.do1:      $t6:p = call pop(stack)  
-           call putstr($t6:p)  
+.wh0:      goto .od0 if argi > argc
+.do0:      $t1:c = argv[argi * :c]  
+           call push(stack,$t1:c)  
+           $t2:i = argi + 1
+           argi = $t2:i  
+           goto .wh0  
+.od0
+.wh1:      $t4:i = call empty(stack)  
+           $t3:i = not $t4:i  
+           goto .od1 if not $t3:i  
+.do1:      $t5:p = call pop(stack)  
+           call putstr($t5:p)  
            call putchr('\n')  
-           goto .wh1
-.od1:
+           goto .wh1  
+.od1
            return 0
            return
            .end
