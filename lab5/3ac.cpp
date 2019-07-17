@@ -450,25 +450,19 @@ string *alloc_array_typesize(astree *expr){
 ac3 *alloc_array(astree *expr,ac3_table *current, reg *init){
   ac3 *bot = new ac3(expr);
   ac3 *parsed_sz = new ac3(expr);
-  reg *malloc_number;
   astree *alloc_sz = expr->children[1];
-  // the size to malloc (stored in a reg)
+  /* the size to malloc (stored in a reg)  */
   reg *ret = new reg(astree_stride(current,expr),reg_count);
   ++reg_count;
   parsed_sz->t0 = ret;  
-  if (alloc_sz->children.size()){
-    malloc_number = expr_reg(alloc_sz,current);
-  } 
-  else {
-    malloc_number = new reg(alloc_sz->lexinfo);
-  }
-  parsed_sz->t1 = malloc_number;
+  // if the number is an expression, parse it, otherwise assign it directly
+  parsed_sz->t1 = alloc_sz->children.size() ? expr_reg(alloc_sz,current) : new reg(alloc_sz->lexinfo);
   parsed_sz->op = new string("*");
   parsed_sz->t2 = new reg(alloc_array_typesize(expr),new string("sizeof"));
   parsed_sz->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   current->push_back(parsed_sz);
 
-  // malloc function call
+  /* the actual malloc call */
   vector<reg*> *malloc_params = new vector <reg*>();
   malloc_params->push_back(ret->deep_copy());
   bot->t0 = init;
@@ -492,15 +486,10 @@ ac3 *alloc_struct(astree *expr,ac3_table *current, reg *init){
 
 ac3 *alloc_string(astree *expr,ac3_table *current, reg *init){
   ac3 *bot = new ac3(expr);
-  reg *malloc_number;
   astree *alloc_sz = expr->children[1];
   vector <reg*> *malloc_params = new vector<reg*>();
-  if (alloc_sz->children.size()){
-    malloc_number = expr_reg(alloc_sz,current);
-  }
-  else {
-    malloc_number = new reg(alloc_sz->lexinfo);
-  }
+  // if number is an expression, parse it, otherwise just assign the single number.
+  reg *malloc_number = alloc_sz->children.size() ? expr_reg(alloc_sz,current) : new reg (alloc_sz->lexinfo);
   malloc_params->push_back(malloc_number);
   bot->t0 = init;
   bot->t1 = new reg(new string("malloc"),malloc_params);
@@ -778,13 +767,9 @@ ac3 *p_call(astree *expr, ac3_table *current, string *label){
       }
       args->push_back(push);
     }
-    reg *fname = new reg(new string (*(expr->children[0]->lexinfo)),args);
-    bot->t1 = fname; 
   } 
-  else {
-    reg *fname = new reg(new string (*(expr->children[0]->lexinfo)),args);
-    bot->t1 = fname;
-  }
+  reg *fname = new reg(new string (*(expr->children[0]->lexinfo)),args);
+  bot->t1 = fname;
   bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   current->push_back(bot);
   current->at(index)->label = label;
