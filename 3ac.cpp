@@ -841,7 +841,7 @@ ac3 *p_loop_condition(string *goto_label, astree *expr, ac3_table *current){
 	  return p_loop_condition_relop(new string (">="),goto_label,expr,current);
         case TOK_GT:          
 	  return p_loop_condition_relop(new string ("<"),goto_label,expr,current);
-	case TOK_GE:          
+	    case TOK_GE:          
 	  return p_loop_condition_relop(new string ("<="),goto_label,expr,current);
 	default:
 	  ret = new ac3(expr);
