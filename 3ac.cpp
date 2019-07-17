@@ -832,26 +832,27 @@ ac3 *p_loop_condition(string *goto_label, astree *expr, ac3_table *current){
     if (expr->children.size() > 1){
       switch (expr->symbol){
         case TOK_EQ:
-	  return p_loop_condition_relop(new string ("!="),goto_label,expr,current);
+	      return p_loop_condition_relop(new string ("!="),goto_label,expr,current);
         case TOK_NE:
-	  return p_loop_condition_relop(new string ("=="),goto_label,expr,current);
+	      return p_loop_condition_relop(new string ("=="),goto_label,expr,current);
         case TOK_LT:          
-	  return p_loop_condition_relop(new string (">"),goto_label,expr,current);
+	      return p_loop_condition_relop(new string (">"),goto_label,expr,current);
         case TOK_LE:          
-	  return p_loop_condition_relop(new string (">="),goto_label,expr,current);
+	      return p_loop_condition_relop(new string (">="),goto_label,expr,current);
         case TOK_GT:          
-	  return p_loop_condition_relop(new string ("<"),goto_label,expr,current);
+	      return p_loop_condition_relop(new string ("<"),goto_label,expr,current);
 	    case TOK_GE:          
-	  return p_loop_condition_relop(new string ("<="),goto_label,expr,current);
-	default:
-	  ret = new ac3(expr);
-	  reg *parse = expr_reg(expr,current);
-	  parse->unop = new string ("not");
+	      return p_loop_condition_relop(new string ("<="),goto_label,expr,current);
+	    default:
+	      ret = new ac3(expr);
+	      reg *parse = expr_reg(expr,current);
+	      parse->unop = new string ("not");
           ret->condition = goto_label;
-	  ret->t1 = parse;
-	  ret->itype.set(static_cast<int>(instruction::GOTO));
+	      ret->t1 = parse;
+	      ret->itype.set(static_cast<int>(instruction::GOTO));
       }
-    } else {
+    } 
+    else {
       ret = new ac3(expr);
       reg *parse = expr_reg(expr,current);
       parse->unop = new string ("not");
