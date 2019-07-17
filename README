@@ -9,7 +9,8 @@ Each module of the compiler emits an output file.
 5. 3ac.cpp : Three Adress Code : .oil
 
 Check out the ./test/ folder.
-tests 9* are designed to throw errors.
+tests 9* are designed to throw errors 
+(the program will only move onto the next module if the previous module was a success)
 Source files: *.oc
 Generated Intermediate code : *.oil
 
