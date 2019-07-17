@@ -1,0 +1,48 @@
+ROOT "<<ROOT>>" 0.0.0
+| TYPE_ID "" 4.4.1
+| | ARRAY "array" 4.4.1
+| | | INT "int" 4.4.8
+| | IDENT "a" 4.4.13
+| | NULLPTR "nullptr" 4.4.17
+| TYPE_ID "" 4.5.1
+| | ARRAY "array" 4.5.1
+| | | INT "int" 4.5.8
+| | IDENT "b" 4.5.13
+| | NULLPTR "nullptr" 4.5.17
+| FUNCTION "" 4.7.1
+| | TYPE_ID "" 4.7.1
+| | | ARRAY "array" 4.7.1
+| | | | VOID "void" 4.7.7
+| | | IDENT "f" 4.7.13
+| | PARAM "(" 4.7.14
+| | BLOCK "{" 4.7.17
+| FUNCTION "" 4.9.1
+| | TYPE_ID "" 4.9.1
+| | | INT "int" 4.9.1
+| | | IDENT "main" 4.9.5
+| | PARAM "(" 4.9.9
+| | BLOCK "{" 4.9.12
+| | | TYPE_ID "" 4.10.4
+| | | | INT "int" 4.10.4
+| | | | IDENT "c" 4.10.8
+| | | | '+' "+" 4.10.14
+| | | | | IDENT "a" 4.10.12
+| | | | | IDENT "b" 4.10.16
+| | | TYPE_ID "" 4.11.4
+| | | | VOID "void" 4.11.4
+| | | | IDENT "n" 4.11.9
+| | | | NULLPTR "nullptr" 4.11.13
+| | | TYPE_ID "" 4.12.4
+| | | | INT "int" 4.12.4
+| | | | IDENT "x" 4.12.8
+| | | | LT "<" 4.12.14
+| | | | | IDENT "a" 4.12.12
+| | | | | IDENT "b" 4.12.16
+| | | TYPE_ID "" 4.13.4
+| | | | INT "int" 4.13.4
+| | | | IDENT "y" 4.13.8
+| | | | EQ "==" 4.13.13
+| | | | | IDENT "a" 4.13.12
+| | | | | IDENT "b" 4.13.15
+| | | RETURN "return" 4.14.4
+| | | | STRINGCON ""foobar"" 4.14.11

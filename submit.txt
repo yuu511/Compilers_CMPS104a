@@ -1,0 +1,34 @@
+Submitting the files you specified...
+copying README
+copying scanner\.l
+copying parser\.y
+copying astree\.h
+copying astree\.cpp
+copying lyutils\.h
+copying lyutils\.cpp
+copying string_set\.h
+copying string_set\.cpp
+copying auxlib\.h
+copying auxlib\.cpp
+copying symbol_table\.h
+copying symbol_table\.cpp
+copying main\.cpp
+copying Makefile
+
+15 Files submitted: 
+  Makefile (revision 9)
+  README (revision 9)
+  astree.cpp (revision 9)
+  astree.h (revision 9)
+  auxlib.cpp (revision 9)
+  auxlib.h (revision 9)
+  lyutils.cpp (revision 9)
+  lyutils.h (revision 9)
+  main.cpp (revision 9)
+  parser.y (revision 9)
+  scanner.l (revision 9)
+  string_set.cpp (revision 9)
+  string_set.h (revision 9)
+  symbol_table.cpp (revision 9)
+  symbol_table.h (revision 9)
+

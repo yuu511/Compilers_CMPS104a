@@ -1,6 +1,5 @@
-Compiler for the fictuous oc language, which is mostly a subset of c++.
-Built in c++,with GNU toolchain (Flex + Bison).
-The completed project is in the lab5 folder.
+Compiler for the fictuous oc language, which is a C like.
+Built in C++,with GNU toolchain (Flex + Bison).
 Each module of the compiler emits an output file.
 lab1: C-Preprocessor : .str
 lab2: Scanner: .tok
@@ -8,5 +7,8 @@ lab3: Parser (Abstract Syntax Tree): .ast
 lab4: Symbol table and type checker: .sym
 lab5: Three Adress Code: .oil
 
-Check out Lab5/test for examples.
-Lab5/test/9* examples are designed to throw errors.
+Check out the ./test/ folder.
+Source files: *.oc
+Generated Intermediate code : *.oil
+
+output tested by ./test/run_test.py
