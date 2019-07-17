@@ -1,0 +1,21 @@
+.struct foo
+.field int a
+.end 
+main:      .function int 
+           .local int a
+           .local struct foo b
+           a = 6  
+           b = call malloc(sizeof struct foo)  
+           b->foo.a = 8  
+           $t2:i = b->foo.a  
+           $t1:i = a * $t2:i
+           $t0:i = $t1:i + 6
+           a = $t0:i  
+           call putint(a)  
+           call putchr(' ')  
+           $t3:i = b->foo.a  
+           call putint($t3:i)  
+           call putchr('\n')  
+           return 0
+           return
+           .end

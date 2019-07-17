@@ -1,0 +1,13 @@
+main:      .function int 
+           .local int count
+           count = 0  
+.wh0:      goto .od0 if count > 16
+.do0:      $t0:i = count + 1
+           count = $t0:i  
+           call putint(count)  
+           call putchr('\n')  
+           goto .wh0  
+.od0:
+           return 0
+           return
+           .end

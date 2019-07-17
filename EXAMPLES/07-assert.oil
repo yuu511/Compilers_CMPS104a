@@ -1,0 +1,9 @@
+main:      .function int 
+.if0:      $t1:i = "nullptr" == nullptr
+           $t0:i = not $t1:i  
+           goto .fi0 if not $t0:i  
+.th0:      call fail("\"nullptr\" == nullptr","07-assert.oc",6)  
+.fi0:
+           return 1
+           return
+           .end

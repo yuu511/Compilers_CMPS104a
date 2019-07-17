@@ -1,0 +1,39 @@
+collatz:   .function int 
+           .param int n
+           .local int c
+           c = 0  
+.wh0:      goto .od0 if n == 1
+.do0:      $t0:i = c + 1
+           c = $t0:i  
+.if0:      $t1:i = n % 2
+           goto .el0 if $t1:i != 1
+.th0:      $t3:i = 3 * n
+           $t2:i = $t3:i + 1
+           n = $t2:i  
+           goto .fi0  
+.el0:      $t4:i = n / 2
+           n = $t4:i  
+.fi0:
+           goto .wh0  
+.od0:
+           return c
+           return
+           .end
+test:      .function 
+           .param int n
+           .local int c
+           $t0:i = call collatz(n)  
+           c = $t0:i  
+           call putstr("collatz(")  
+           call putint(n)  
+           call putstr(") = ")  
+           call putint(c)  
+           call putchr('\n')  
+           return
+           .end
+main:      .function int 
+           call test(3)  
+           call test(50)  
+           return 0
+           return
+           .end

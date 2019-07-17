@@ -1,0 +1,14 @@
+.struct bar
+.end 
+.struct foo
+.end 
+.s0:       "a"
+main:      .function int 
+           .local ptr s
+           .local ptr sa
+           s = (.s0)  
+           $t0:p = 10 * sizeof ptr
+           sa = call malloc($t0:p)  
+           return 0
+           return
+           .end

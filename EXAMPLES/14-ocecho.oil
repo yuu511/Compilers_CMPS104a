@@ -1,0 +1,20 @@
+main:      .function int 
+           .param int argc
+           .param ptr argv
+           .local int argi
+           argi = 1  
+.wh0:      goto .od0 if argi > argc
+.do0:
+.if0:      goto .fi0 if argi < 1
+.th0:      call putchr(' ')  
+.fi0:
+           $t0:c = argv[argi * :c]  
+           call putstr($t0:c)  
+           $t1:i = argi + 1
+           argi = $t1:i  
+           goto .wh0  
+.od0:
+           call putstr("\n")  
+           return 0
+           return
+           .end

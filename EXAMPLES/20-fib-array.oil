@@ -1,0 +1,35 @@
+main:      .function int 
+           .local ptr fibonacci
+           .local int index
+           $t0:p = 30 * sizeof int
+           fibonacci = call malloc($t0:p)  
+           fibonacci[0 * :i] = 0  
+           fibonacci[1 * :i] = 1  
+           index = 2  
+.wh0:      goto .od0 if index > 30
+.do0:      $t3:i = index - 1
+           $t2:i = fibonacci[$t3:i * :i]  
+           $t5:i = index - 2
+           $t4:i = fibonacci[$t5:i * :i]  
+           $t1:i = $t2:i + $t4:i
+           fibonacci[index * :i] = $t1:i  
+           $t6:i = index + 1
+           index = $t6:i  
+           goto .wh0  
+.od0:
+           index = 0  
+           call putstr("Numeri di figlio Bonacci\n")  
+.wh1:      goto .od1 if index > 30
+.do1:      call putstr("fibonacci[")  
+           call putint(index)  
+           call putstr("] = ")  
+           $t7:i = fibonacci[index * :i]  
+           call putint($t7:i)  
+           call putchr('\n')  
+           $t8:i = index + 1
+           index = $t8:i  
+           goto .wh1  
+.od1:
+           return 0
+           return
+           .end

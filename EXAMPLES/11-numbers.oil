@@ -1,0 +1,19 @@
+main:      .function int 
+           .local int number
+           .local int done
+           number = 1  
+           done = 0  
+.wh0:      $t0:i = not done  
+           goto .od0 if not $t0:i  
+.do0:      call putint(number)  
+           call putchr('\n')  
+.if0:      goto .fi0 if number >= 0
+.th0:      done = 1  
+.fi0:
+           $t1:i = number + number
+           number = $t1:i  
+           goto .wh0  
+.od0:
+           return 0
+           return
+           .end
