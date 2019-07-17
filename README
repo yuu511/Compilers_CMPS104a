@@ -1,11 +1,12 @@
 Compiler for the fictuous oc language, which is designed to be a subset of C++.
 Built in C++,with GNU toolchain (Flex + Bison).
 Each module of the compiler emits an output file.
-string_set.cpp : C-Preprocessor : .str
-scanner.l: Scanner : .tok
-parser.y / astree.cpp: Parser (Abstract Syntax Tree) : .ast
-symbol_table.cpp : Symbol table and type checker : .sym
-3ac.cpp : Three Adress Code : .oil
+
+1. string_set.cpp : C-Preprocessor : .str
+2. scanner.l: Scanner : .tok
+3. parser.y / astree.cpp: Parser (Abstract Syntax Tree) : .ast
+4. symbol_table.cpp : Symbol table and type checker : .sym
+5. 3ac.cpp : Three Adress Code : .oil
 
 Check out the ./test/ folder.
 Source files: *.oc
