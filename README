@@ -1,4 +1,4 @@
-Compiler for the fictuous oc language, which is a C like.
+Compiler for the fictuous oc language, which is designed to be a subset of C++.
 Built in C++,with GNU toolchain (Flex + Bison).
 Each module of the compiler emits an output file.
 lab1: C-Preprocessor : .str
