@@ -1,85 +1,64 @@
 On branch object
+Your branch is up to date with 'origin/object'.
+
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git checkout -- <file>..." to discard changes in working directory)
 
-	modified:   ../.gitignore
 	modified:   ../3ac.cpp
-	modified:   ../3ac.h
+	modified:   ../3ac.o
+	modified:   ../oc
 	modified:   00-trivial.oc.valgrind
 	modified:   00-trivial.str
 	modified:   01-hello.oc.valgrind
 	modified:   01-hello.str
-	modified:   01-hello.sym
 	modified:   03-test3.oc.valgrind
 	modified:   03-test3.str
-	modified:   03-test3.sym
 	modified:   04-test4.oc.valgrind
 	modified:   04-test4.str
-	modified:   04-test4.sym
 	modified:   06-test6.oc.valgrind
 	modified:   06-test6.str
-	modified:   06-test6.sym
 	modified:   07-assert.oc.valgrind
 	modified:   07-assert.str
-	modified:   07-assert.sym
 	modified:   10-hundred.oc.valgrind
 	modified:   10-hundred.str
-	modified:   10-hundred.sym
 	modified:   11-numbers.oc.valgrind
 	modified:   11-numbers.str
-	modified:   11-numbers.sym
 	modified:   12-elseif.oc.valgrind
 	modified:   12-elseif.str
-	modified:   12-elseif.sym
 	modified:   13-macros.ast
 	modified:   13-macros.oc.valgrind
 	modified:   13-macros.oil
 	modified:   13-macros.str
-	modified:   13-macros.sym
 	modified:   13-macros.tok
 	modified:   14-ocecho.oc.valgrind
 	modified:   14-ocecho.str
-	modified:   14-ocecho.sym
 	modified:   20-fib-array.oc.valgrind
 	modified:   20-fib-array.str
-	modified:   20-fib-array.sym
 	modified:   21-eratosthenes.oc.valgrind
 	modified:   21-eratosthenes.str
-	modified:   21-eratosthenes.sym
 	modified:   23-atoi.oc.valgrind
 	modified:   23-atoi.str
-	modified:   23-atoi.sym
 	modified:   30-fac-fnloop.oc.valgrind
 	modified:   30-fac-fnloop.str
-	modified:   30-fac-fnloop.sym
 	modified:   31-fib-2supn.oc.valgrind
 	modified:   31-fib-2supn.str
-	modified:   31-fib-2supn.sym
 	modified:   33-collatz.oc.valgrind
 	modified:   33-collatz.str
-	modified:   33-collatz.sym
 	modified:   40-arraystack.oc.valgrind
 	modified:   40-arraystack.str
-	modified:   40-arraystack.sym
 	modified:   41-linkedstack.oc.valgrind
 	modified:   41-linkedstack.str
-	modified:   41-linkedstack.sym
 	modified:   42-viiiqueens.oc.valgrind
 	modified:   42-viiiqueens.str
-	modified:   42-viiiqueens.sym
 	modified:   44-dot-product.oc.valgrind
 	modified:   44-dot-product.str
-	modified:   44-dot-product.sym
 	modified:   45-towers-of-hanoi.oc.valgrind
 	modified:   45-towers-of-hanoi.str
-	modified:   45-towers-of-hanoi.sym
 	modified:   51-stringcat.oc.valgrind
 	modified:   51-stringcat.str
-	modified:   51-stringcat.sym
 	modified:   53-insertionsort.oc.valgrind
 	modified:   53-insertionsort.str
-	modified:   53-insertionsort.sym
 	modified:   90-c8q.oc.valgrind
 	modified:   90-c8q.str
 	modified:   91-typecheck.oc.valgrind
@@ -94,42 +73,7 @@ Changes not staged for commit:
 	modified:   96-unterminated.oc.valgrind
 	modified:   96-unterminated.str
 	modified:   out
-	modified:   test.ast
-	modified:   test.oc
 	modified:   test.oc.valgrind
-	modified:   test.oil
 	modified:   test.str
-	modified:   test.sym
-	modified:   test.tok
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-
-	../1
-	../3ac.o
-	../Makefile.deps
-	../astree.o
-	../auxlib.o
-	../lyutils.o
-	../main.o
-	../oc
-	../out
-	../string_set.o
-	../symbol_table.o
-	../test.ast
-	../test.oil
-	../test.str
-	../test.sym
-	../test.tok
-	vgcore.22965
-	vgcore.23030
-	vgcore.23057
-	../vgcore.19154
-	../yylex.cpp
-	../yylex.o
-	../yyparse.cpp
-	../yyparse.h
-	../yyparse.o
-	../yyparse.output
 
 no changes added to commit (use "git add" and/or "git commit -a")

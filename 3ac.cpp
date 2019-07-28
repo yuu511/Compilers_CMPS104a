@@ -5,21 +5,10 @@
 #include "auxlib.h"
 #include <algorithm>
 
-// quick lookup between a function's symbol table and 3ac statements
-unordered_map <symbol_table*, ac3_table*> *table_lookup =  new unordered_map<symbol_table*, ac3_table*>;
-
-// all symbol tables (generated in previous module symbol_table.cpp)
-all_tables *all_sym;
-
-// all 3ac tables
-all_3ac *all_ac;
-
-/* global counters for registers and labels */
-int reg_count, while_count, if_count = 0;
-int err_count = 0;
-
-void p_stmt(astree *expr, ac3_table *current, string *label);
-ac3 *p_expr(astree *expr, ac3_table *current);
+unordered_map <symbol_table*, ac3_table*> *table_lookup = nullptr;
+all_tables *all_sym = nullptr;
+all_3ac *all_ac = nullptr;
+int reg_count, while_count, if_count, err_count = 0;
 
 /* 0. reg parent functions */
 reg::reg(){
@@ -311,6 +300,7 @@ template <class Type> string parse_typesize(const Type &o){
   return st;
 }
 
+ac3 *p_expr(astree *expr, ac3_table *current);
 // parse expression, and return a register that it is stored in
 reg *expr_reg (astree *expr, ac3_table *current){
   ac3 *parsed_expr  = p_expr(expr,current);
@@ -921,6 +911,8 @@ ac3 *p_loop_condition(string *goto_label, astree *expr, ac3_table *current){
   return ret;
 }
 
+void p_stmt(astree *expr, ac3_table *current, string *label);
+
 ac3 *p_if(astree *expr, ac3_table *current, string *label){ 
   astree *condition = expr->children[0];
   astree *if_statement = expr->children[1];
@@ -1499,15 +1491,13 @@ int generate_3ac(astree *root, all_tables *table){
     return 1;
   }
   all_sym = table;
-  // all string constants used
+  table_lookup = new unordered_map<symbol_table*, ac3_table*>;
+
   vector<const string*> *all_strings  = new vector <const string*>();
-  // all globals
   ac3_table *all_globals = new ac3_table; 
-  // all function
-  vector<pair<const string*,ac3_table*>> *all_functions = 
-  new vector<pair<const string*,ac3_table*>>();
+  vector<pair<const string*,ac3_table*>> *all_functions = new vector<pair<const string*,ac3_table*>>();
  
-  // link global symbol table with blobal statement table
+  // link global symbol table with global statement table
   table_lookup->emplace(table->global,all_globals);
   all_ac = new all_3ac(all_globals,all_functions,all_strings);
   ac_traverse(root);
