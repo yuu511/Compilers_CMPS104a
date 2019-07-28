@@ -1,18 +1,18 @@
-==23621== Memcheck, a memory error detector
-==23621== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==23621== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==23621== Command: ../oc 93-semantics.oc
-==23621== 
+==25043== Memcheck, a memory error detector
+==25043== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==25043== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==25043== Command: ../oc 93-semantics.oc
+==25043== 
  sÚ:7.19: syntax error, unexpected ';'
 VOID may not be a variable decl:4.11.4
 not compatible assignment: 4.11.4
 return type mismatch : 4.14.4
-==23621== 
-==23621== HEAP SUMMARY:
-==23621==     in use at exit: 0 bytes in 0 blocks
-==23621==   total heap usage: 231 allocs, 231 frees, 123,447 bytes allocated
-==23621== 
-==23621== All heap blocks were freed -- no leaks are possible
-==23621== 
-==23621== For counts of detected and suppressed errors, rerun with: -v
-==23621== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==25043== 
+==25043== HEAP SUMMARY:
+==25043==     in use at exit: 0 bytes in 0 blocks
+==25043==   total heap usage: 231 allocs, 231 frees, 123,447 bytes allocated
+==25043== 
+==25043== All heap blocks were freed -- no leaks are possible
+==25043== 
+==25043== For counts of detected and suppressed errors, rerun with: -v
+==25043== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

@@ -8,7 +8,7 @@ new_stack: .function struct stack
            .local struct stack stack
            stack = call malloc(sizeof struct stack)  
            $t0:p = size * sizeof ptr
-           -> = call malloc($t0:p)  
+           stack->stack.data = call malloc($t0:p)  
            stack->stack.size = size  
            $t1:i = -1  
            stack->stack.top = $t1:i  

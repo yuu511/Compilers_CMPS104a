@@ -549,8 +549,8 @@ ac3 *asg_array(astree *expr, ac3_table *current, string *label){
 
   if (parse->children.size()){
     if (parse->symbol == TOK_ALLOC){
-      reg *ret = new reg_ident(ident->lexinfo);
-      bot = alloc_array(parse,current,ret);
+      reg *t0 = parse_variable(ident,current);
+      bot = alloc_array(parse,current,t0);
       current->at(top)->label = label;
     }
     else {
@@ -583,8 +583,8 @@ ac3 *asg_struct(astree *expr, ac3_table *current, string *label){
 
   if (parse->children.size()){
     if (parse->symbol == TOK_ALLOC){
-      reg *ret = new reg_ident(ident->lexinfo);
-      bot = alloc_struct(parse,current,ret);
+      reg *t0 = parse_variable(ident,current);
+      bot = alloc_struct(parse,current,t0);
       current->at(top)->label = label;
     }
     else {
@@ -640,8 +640,8 @@ ac3 *asg_string(astree *expr, ac3_table *current, string *label){
 
   if (parse->children.size()){
     if (parse->symbol == TOK_ALLOC){
-      reg *ret = new reg_ident(ident->lexinfo);
-      bot = alloc_string(parse,current,ret);
+      reg *t0 = parse_variable(ident,current);
+      bot = alloc_string(parse,current,t0);
       current->at(top)->label = label;
     }
     else {
@@ -656,7 +656,8 @@ ac3 *asg_string(astree *expr, ac3_table *current, string *label){
   }
   else {
     if (parse->symbol == TOK_STRINGCON){
-      bot = p_string(parse,current,parse_variable(ident,current));
+      reg *t0 = parse_variable(ident,current);
+      bot = p_string(parse,current,t0);
       current->at(top)->label = label;
     }
     else {
