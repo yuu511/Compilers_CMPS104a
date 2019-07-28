@@ -5,6 +5,8 @@
 #include "auxlib.h"
 #include <algorithm>
 
+using namespace std;
+
 int reg_count, while_count, if_count, err_count = 0;
 
 namespace three_address_code {
@@ -17,6 +19,9 @@ namespace three_address_code {
 /* 0. reg parent functions */
 reg::reg(){
   unop = nullptr;
+  reg_counter = reg_count;
+  while_counter = while_count;
+  if_counter = if_count;
 }
 
 reg::~reg(){

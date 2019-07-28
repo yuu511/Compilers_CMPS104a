@@ -4,17 +4,8 @@
 #include "symbol_table.h"
 #include "astree.h"
 
-// generates 3-address code files
 int generate_3ac();
-
-// free memory associated with 3ac tables
 void free_3ac();
-
-// return object with all generated 3-address code tables
-struct all_3ac;
-all_3ac *return_3ac();
-
-// emit all of 3-address code statements in file [FILENAME].oil
 void emit_all3ac(FILE *out);
 
 /* 
@@ -33,6 +24,9 @@ void emit_all3ac(FILE *out);
 
 struct reg { // parent struct
   string *unop;
+  int reg_counter;
+  int while_counter;
+  int if_counter;
   reg(); // constructor
   void set_unop(string *unop);// functions
   // virtual functions
