@@ -42,6 +42,8 @@ void free_symbol();
 
 void dump_all_tables(FILE* outfile);
 
-all_tables *get_tables();
+namespace symtable{
+  extern all_tables *tables;
+}
 
 #endif

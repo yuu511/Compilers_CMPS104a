@@ -5,7 +5,7 @@
 #include "astree.h"
 
 // generates 3-address code files
-int generate_3ac(astree *root, all_tables *table);
+int generate_3ac();
 
 // free memory associated with 3ac tables
 void free_3ac();

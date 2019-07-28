@@ -14,10 +14,11 @@ using namespace std;
 symbol_table *global;
 symbol_table *local;
 symbol_table *struct_t = new symbol_table();
-unordered_map<const string*,symbol_table*> *master = 
-new unordered_map<const string*,symbol_table*>;
-// pointers to master,struct_t, and global
-all_tables *table_ptrs;
+unordered_map<const string*,symbol_table*> *master = new unordered_map<const string*,symbol_table*>;
+
+namespace symtable{ 
+  all_tables *tables = nullptr; 
+}
 
 int current = 0;
 int next_block = 1;
@@ -1416,7 +1417,7 @@ void gen_table(astree *s){
   switch(s->symbol){
     case TOK_ROOT:
       global = new symbol_table();
-      table_ptrs = new all_tables(struct_t,global,master);
+      symtable::tables = new all_tables(struct_t,global,master);
       master->emplace(s->lexinfo,global);      
       for (astree* child: s->children) gen_table(child);        
       break;
@@ -1470,7 +1471,7 @@ void free_symbol(){
   }
   struct_t->clear();
   delete struct_t;
-  delete table_ptrs;
+  delete symtable::tables;
 }
 
 void dump_all_tables(FILE* out){
@@ -1478,8 +1479,4 @@ void dump_all_tables(FILE* out){
     print_struct(out,itor.first,itor.second);  
   }
   print_map(out,global);
-}
-
-all_tables *get_tables(){
-  return table_ptrs;
 }
