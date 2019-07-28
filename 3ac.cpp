@@ -355,7 +355,7 @@ template <class Type> string *astree_stride_symbol(const Type &current){
     return new string(":i");
   }
   ++err_count; 
-  errprintf ("3ac: Invalid symbol parsed for astree_stride_symbol_array\n");
+  errprintf ("3ac: Invalid symbol parsed for astree_stride_symbol\n");
   return nullptr;
 }
 
