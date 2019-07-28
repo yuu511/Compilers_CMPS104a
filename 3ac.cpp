@@ -384,7 +384,7 @@ string *astree_stride(ac3_table *current,astree *expr){
     case TOK_NE:
       return new string(":i");
     case TOK_IDENT:
-      return new string(":i");
+      return astree_stride_symbol(expr);
     case TOK_CALL:
       // find function definition in global table
       parse = symtable::global->find(expr->children[0]->lexinfo)->second;
@@ -1441,7 +1441,6 @@ void emit_functions(FILE *out){
     fprintf (out,"%-10s .end\n","");
   }
 }
-
 
 void ac_traverse(astree *s){
   for (astree *child: s->children){
