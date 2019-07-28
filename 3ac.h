@@ -163,18 +163,19 @@ struct ac3{
 
 using ac3_table = vector<ac3*>;
 
-/*
-  all tables generated are stored in this object.
-  store function ac3 tables with function name for easy lookup.
-  all strings literals are stored in a vector.
+/* 
+   namespace for values to return:
+   1. Table for all 3-address code global statements.
+   2. For every function : table of 3-address code statements.
+   2. Table mapping the 3-Address code tables its respective symbol table.
+   3. Table containing all string literals used in the program.
 */
 
-struct all_3ac{
-  ac3_table *all_globals;  
-  vector<pair<const string*,ac3_table*>> *all_functions;
-  vector<const string*> *all_strings;
-  all_3ac(ac3_table *all_globals, 
-          vector<pair<const string*,ac3_table*>> *all_functions,
-          vector<const string*> *all_strings);
-};
+namespace three_address_code {
+  extern ac3_table *all_globals; 
+  extern vector<pair<const string*,ac3_table*>> *all_functions;
+  extern unordered_map <symbol_table*, ac3_table*> *table_lookup;
+  extern vector<const string*> *all_strings;
+}
+
 #endif

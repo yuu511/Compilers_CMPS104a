@@ -4,23 +4,23 @@
 #include <stdio.h>
 #include <string.h>
 #include <vector>
-
-using namespace std;
 #include "auxlib.h"
 #include "symbol_table.h"
 #include "astree.h"
 #include "lyutils.h"
+
+using namespace std;
+
+symbol_table *local;
+int current = 0;
+int next_block = 1;
+const string *current_function;
 
 namespace symtable{ 
   unordered_map<const string*,symbol_table*> *master = nullptr;
   symbol_table *struct_t = nullptr;
   symbol_table *global = nullptr;
 }
-
-symbol_table *local;
-int current = 0;
-int next_block = 1;
-const string *current_function;
 
 symbol::symbol (astree* ast_, size_t block_nr_){
   attributes = ast_->attributes;  
@@ -1451,19 +1451,21 @@ int ssymgen(astree *s){
 }
 
 void free_symbol(){
-  for (auto itor: *symtable::master){
-    for (auto itor2: *itor.second){
-      delete itor2.second; 
-    }
-    itor.second->clear();
-    delete itor.second;
-  }
-  symtable::master->clear();
-  delete symtable::master;
-  for (auto itor: *symtable::struct_t){
+  if (symtable::master){
+    for (auto itor: *symtable::master){
+      for (auto itor2: *itor.second){
+        delete itor2.second; 
+      }
+      itor.second->clear();
       delete itor.second;
+    }
   }
-  symtable::struct_t->clear();
+  delete symtable::master;
+  if (symtable::struct_t){
+    for (auto itor: *symtable::struct_t){
+        delete itor.second;
+    }
+  }
   delete symtable::struct_t;
 }
 

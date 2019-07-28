@@ -5,8 +5,13 @@
 #include "auxlib.h"
 #include <algorithm>
 
-unordered_map <symbol_table*, ac3_table*> *table_lookup = nullptr;
-all_3ac *all_ac = nullptr;
+namespace three_address_code {
+  unordered_map <symbol_table*, ac3_table*> *table_lookup = nullptr;
+  ac3_table *all_globals = nullptr; 
+  vector<const string*> *all_strings = nullptr;
+  vector<pair<const string*,ac3_table*>> *all_functions = nullptr;
+}
+
 int reg_count, while_count, if_count, err_count = 0;
 
 /* 0. reg parent functions */
@@ -228,31 +233,24 @@ reg_selection::~reg_selection(){
   delete ident;
 }
 
-all_3ac::all_3ac(ac3_table *all_globals_, 
-               vector<pair<const string*,ac3_table*>> *all_functions_,
-               vector<const string*> *all_strings_){
-  all_globals = all_globals_;
-  all_functions = all_functions_;
-  all_strings = all_strings_;
-}
-
 void free_3ac(){
-  delete table_lookup;
-  if (all_ac){
-    for (auto itor : *(all_ac->all_functions)){
+  delete three_address_code::table_lookup;
+  if (three_address_code::all_functions){
+    for (auto itor : *(three_address_code::all_functions)){
       for (auto itor2: *itor.second) {
         delete itor2; 
       }
       delete itor.second;
     }
-    for (auto itor: *(all_ac->all_globals)){
+  }
+  if (three_address_code::all_globals){
+    for (auto itor: *(three_address_code::all_globals)){
       delete itor;
     }
-    delete all_ac->all_globals;
-    delete all_ac->all_functions;
-    delete all_ac->all_strings;
-    delete all_ac;
   }
+  delete three_address_code::all_globals;
+  delete three_address_code::all_functions;
+  delete three_address_code::all_strings;
 }
 
 ac3::~ac3(){
@@ -608,13 +606,13 @@ ac3 *asg_struct(astree *expr, ac3_table *current, string *label){
 reg *p_string_reg(astree *expr){
   reg *t1;
   vector<const string*>::iterator it;
-  it = find(all_ac->all_strings->begin(),all_ac->all_strings->end(),expr->lexinfo);
-  if (it != all_ac->all_strings->end()){
-    t1 = new reg_string_pointer(it - all_ac->all_strings->begin()); 
+  it = find(three_address_code::all_strings->begin(),three_address_code::all_strings->end(),expr->lexinfo);
+  if (it != three_address_code::all_strings->end()){
+    t1 = new reg_string_pointer(it - three_address_code::all_strings->begin()); 
   }
   else {
-    t1 = new reg_string_pointer(all_ac->all_strings->size());
-    all_ac->all_strings->push_back(expr->lexinfo);
+    t1 = new reg_string_pointer(three_address_code::all_strings->size());
+    three_address_code::all_strings->push_back(expr->lexinfo);
   }
   return t1;
 }
@@ -1294,7 +1292,7 @@ void ac_globalvar(astree *child){
       return;
     }
   }
-  p_assignment(child,table_lookup->find(symtable::global)->second,nullptr);
+  p_assignment(child,three_address_code::table_lookup->find(symtable::global)->second,nullptr);
 }
 
 // helper function for emit struct
@@ -1330,7 +1328,7 @@ void emit_struct(FILE *out){
 // emit string constants here
 void emit_string(FILE *out){
   int i = 0;
-  for (auto itor: *(all_ac->all_strings)){
+  for (auto itor: *(three_address_code::all_strings)){
     fprintf (out,".s%d%-7s %s\n",i,":",itor->c_str());
     ++i;
   }
@@ -1338,7 +1336,7 @@ void emit_string(FILE *out){
  
 // emit global definitions here
 void emit_globaldef(FILE *out){
-  for (auto itor: *(all_ac->all_globals)){
+  for (auto itor: *(three_address_code::all_globals)){
     string name = itor->t0->str();
     name += ":";
     fprintf (out,"%-10s %s %s",
@@ -1354,7 +1352,7 @@ void emit_globaldef(FILE *out){
 
 void emit_functions(FILE *out){
   // print out all functions
-  for (auto itor: *(all_ac->all_functions)){
+  for (auto itor: *(three_address_code::all_functions)){
     // get symbol associated with function and
     // symbol table associated with functions block
     symbol *type = symtable::global->find(itor.first)->second;
@@ -1391,8 +1389,8 @@ void emit_functions(FILE *out){
     }
     // fetch statements associated with function
     ac3_table *found;
-    if (table_lookup->count(block))
-      found = table_lookup->find(block)->second;
+    if (three_address_code::table_lookup->count(block))
+      found = three_address_code::table_lookup->find(block)->second;
     else{
       errprintf ("3ac: ac3 table not found for function %s\n",fname.c_str());
       ++err_count;
@@ -1463,16 +1461,12 @@ void ac_traverse(astree *s){
         return;
       }
       ac3_table *new_function = new ac3_table;
-      table_lookup->emplace(found,new_function);
-      all_ac->all_functions->push_back(make_pair(name->lexinfo,new_function));
+      three_address_code::table_lookup->emplace(found,new_function);
+      three_address_code::all_functions->push_back(make_pair(name->lexinfo,new_function));
       reg_count = 0;
       p_stmt(child->children[2],new_function,nullptr);
     }
   }
-}
-
-all_3ac *return_3ac(){
-  return all_ac;
 }
 
 void emit_all3ac(FILE *out){
@@ -1488,15 +1482,12 @@ int generate_3ac(){
     ++err_count;
     return 1;
   }
-  table_lookup = new unordered_map<symbol_table*, ac3_table*>;
-
-  vector<const string*> *all_strings  = new vector <const string*>();
-  ac3_table *all_globals = new ac3_table; 
-  vector<pair<const string*,ac3_table*>> *all_functions = new vector<pair<const string*,ac3_table*>>();
- 
+  three_address_code::table_lookup = new unordered_map<symbol_table*, ac3_table*>;
+  three_address_code::all_strings  = new vector <const string*>();
+  three_address_code::all_globals  = new ac3_table; 
+  three_address_code::all_functions = new vector<pair<const string*,ac3_table*>>();
   // link global symbol table with global statement table
-  table_lookup->emplace(symtable::global,all_globals);
-  all_ac = new all_3ac(all_globals,all_functions,all_strings);
+  three_address_code::table_lookup->emplace(symtable::global,three_address_code::all_globals);
   ac_traverse(parser::root);
   if (err_count){
     errprintf ("NUMBER OF ERRORS REPORTED: %d\n",err_count);
