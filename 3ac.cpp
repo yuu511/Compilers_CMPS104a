@@ -5,14 +5,14 @@
 #include "auxlib.h"
 #include <algorithm>
 
+int reg_count, while_count, if_count, err_count = 0;
+
 namespace three_address_code {
   unordered_map <symbol_table*, ac3_table*> *table_lookup = nullptr;
   ac3_table *all_globals = nullptr; 
   vector<const string*> *all_strings = nullptr;
   vector<pair<const string*,ac3_table*>> *all_functions = nullptr;
 }
-
-int reg_count, while_count, if_count, err_count = 0;
 
 /* 0. reg parent functions */
 reg::reg(){
