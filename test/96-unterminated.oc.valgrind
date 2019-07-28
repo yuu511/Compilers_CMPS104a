@@ -1,8 +1,8 @@
-==23353== Memcheck, a memory error detector
-==23353== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==23353== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==23353== Command: ../oc 96-unterminated.oc
-==23353== 
+==23942== Memcheck, a memory error detector
+==23942== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==23942== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==23942== Command: ../oc 96-unterminated.oc
+==23942== 
 96-unterminated.oc:6:15: warning: missing terminating " character
     6 |    string s = "abc;
       |               ^
@@ -23,12 +23,12 @@ pxÚ:7.13: invalid token ('a;)
 pxÚ:8.8: invalid token ("abcd\";)
 pxÚ:9.8: invalid token ("abc|   ;)
 pxÚ:11.8: invalid token (23foobar)
-==23353== 
-==23353== HEAP SUMMARY:
-==23353==     in use at exit: 0 bytes in 0 blocks
-==23353==   total heap usage: 84 allocs, 84 frees, 113,583 bytes allocated
-==23353== 
-==23353== All heap blocks were freed -- no leaks are possible
-==23353== 
-==23353== For counts of detected and suppressed errors, rerun with: -v
-==23353== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==23942== 
+==23942== HEAP SUMMARY:
+==23942==     in use at exit: 0 bytes in 0 blocks
+==23942==   total heap usage: 84 allocs, 84 frees, 113,583 bytes allocated
+==23942== 
+==23942== All heap blocks were freed -- no leaks are possible
+==23942== 
+==23942== For counts of detected and suppressed errors, rerun with: -v
+==23942== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

@@ -21,14 +21,31 @@ int err_count = 0;
 void p_stmt(astree *expr, ac3_table *current, string *label);
 ac3 *p_expr(astree *expr, ac3_table *current);
 
+/* 0. reg parent functions */
 reg::reg(){
-  ident = nullptr;
-  parameters = nullptr;
-  field = nullptr;
-  name = nullptr;
-  selection_index = nullptr;
-  array_ident = nullptr;
   unop = nullptr;
+}
+
+reg::~reg(){
+  delete unop; 
+}
+
+reg *reg::deep_copy(){
+  reg *r = new reg();
+  if (unop) r->unop = new string(*unop);
+  return r;
+}
+
+string reg::str(){
+  string prefix="";
+  if (unop != nullptr){
+    prefix.append(*unop);
+    //add space (for readability)
+    if (*unop == "sizeof" || *unop == "not"){
+      prefix.append(" ");
+    }
+  }
+  return prefix;
 }
 
 /* 1. identifier register */
@@ -256,96 +273,6 @@ reg *reg_selection::deep_copy() {
 
 reg_selection::~reg_selection(){
   delete ident;
-}
-
-// stringify the parameters
-string reg::str(){
-  string ret="";
-  if (unop != nullptr){
-    ret.append(*unop);
-    //add space (for readability)
-    if (*unop == "sizeof" ||
-        *unop == "not"){
-      ret.append(" ");
-    }
-  }
-//  if (selection_index && array_ident && name){ //6
-//    ret.append(array_ident->str());
-//    ret.append("[");
-//    ret.append(selection_index->str());
-//    ret.append(" * ");
-//    ret.append(*name);
-//    ret.append("]");
-//  }
-//  else if (selection_index && ident && field){ //7
-//    ret.append(selection_index->str());
-//    ret.append("->");
-//    ret.append(*ident);
-//    ret.append(".");
-//    ret.append(*field);
-//  }
-//  else if (index != -1 && name){ //2
-//    ret.append("$t");
-//    ret.append(to_string(index));
-//    ret.append(*name);
-//  }
-//  else if (parameters && name){ //3
-//    ret.append("call ");
-//    ret.append(*name);
-//    ret.append("(");
-//    if (parameters->size() > 0){
-//      ret.append(parameters->at(0)->str());
-//      for (size_t i = 1; i < parameters->size(); i++){
-//        ret.append(",");
-//        ret.append(parameters->at(i)->str());
-//      }
-//    }
-//    ret.append(")");
-//  } 
-//  else if (ident){ //1
-//    ret.append(*ident);
-//  }
-//  else if (name){ //4
-//    ret.append(*name);
-//  }
-//  else if (index != -1){ //5
-//    ret.append("(.s");
-//    ret.append(to_string(index));
-//    ret.append(")");
-//  }
-//  return ret;
-  return ret;
-}
-
-reg::~reg(){
-  delete unop; 
-  // if (parameters){
-  //   for (auto itor : *parameters){
-  //     delete itor;
-  //   }
-  // }
-  // delete parameters;
-  // delete name;
-  // delete selection_index;
-  // delete array_ident;
-  // delete unop;
-}
-
-reg *reg::deep_copy(){
-  reg *r= new reg();  
-  r->index = index;
-  if (parameters){
-    r->parameters = new vector<reg*>();
-    for (auto itor: *parameters){
-      r->parameters->push_back(itor->deep_copy());
-    }
-  }
-  r->field = field;
-  if (name) r-> name = new string (*name);
-  if (selection_index) r-> selection_index = selection_index->deep_copy();
-  if (array_ident) r->array_ident = array_ident->deep_copy();
-  if (unop) r->unop = new string(*unop);
-  return r;
 }
 
 all_3ac::all_3ac(ac3_table *all_globals_, 

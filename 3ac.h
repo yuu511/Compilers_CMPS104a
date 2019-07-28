@@ -25,22 +25,12 @@ using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)
 */
 
 struct reg {
-  const string *ident;
-  vector<reg*> *parameters;
-  const string *field;
-  string *name;
-  reg *selection_index;
-  reg *array_ident;
   string *unop;
-  int index;
-
-  // constructor
-  reg();
-
+  reg(); // constructor
   // functions
-  virtual reg *deep_copy(); //deep copy register
   virtual string str(); // stringify register
-  virtual ~reg(); //reference count
+  virtual reg *deep_copy(); //deep copy register
+  virtual ~reg(); // destructor
 };
 
 struct reg_ident : reg { //1
@@ -86,7 +76,7 @@ struct reg_typesize : reg { // 4
 };
 
 struct reg_string_pointer : reg { // 5 
-  int reg_number_; // fields 
+  int index; // fields 
   reg_string_pointer(int index); // functions
   using reg::str;
   string str();
