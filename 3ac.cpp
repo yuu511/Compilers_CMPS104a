@@ -21,58 +21,8 @@ int err_count = 0;
 void p_stmt(astree *expr, ac3_table *current, string *label);
 ac3 *p_expr(astree *expr, ac3_table *current);
 
-// 1. identifier
-reg::reg(const string *ident_){
-  ident = ident_; 
-  parameters = nullptr;
-  field = nullptr;
-  name = nullptr;
-  selection_index = nullptr;
-  array_ident = nullptr;
-  index = -1;
-  unop = nullptr;
-}
-
-// 2. temp register
-reg::reg(string *stride, int reg_number_){
+reg::reg(){
   ident = nullptr;
-  index = reg_number_;
-  parameters = nullptr;
-  field = nullptr;
-  name = stride;
-  selection_index = nullptr;
-  array_ident = nullptr;
-  unop = nullptr;
-}
-
-// 3. function
-reg::reg(string *fname, vector<reg*> *parameters_){
-  ident = nullptr;
-  index = -1;
-  parameters= parameters_;
-  field = nullptr;
-  name = fname;
-  selection_index = nullptr;
-  array_ident = nullptr;
-  unop = nullptr;
-}
-
-// 4. typesize
-reg::reg(string *typesize_, string *szof){
-  ident = nullptr;
-  index = -1;
-  parameters = nullptr;
-  field = nullptr;
-  name = typesize_;
-  selection_index = nullptr;
-  array_ident = nullptr;
-  unop = szof;
-}
-
-// 5. string literal
-reg::reg(int string_index_){
-  ident = nullptr;
-  index = string_index_;
   parameters = nullptr;
   field = nullptr;
   name = nullptr;
@@ -81,28 +31,231 @@ reg::reg(int string_index_){
   unop = nullptr;
 }
 
-// 6. index to array
-reg::reg(reg *array_ident_, reg *selection_index_, string *stride){ 
-  ident = nullptr;
-  index = -1;
-  parameters = nullptr;
-  field = nullptr;
-  name = stride;
-  selection_index = selection_index_;
+/* 1. identifier register */
+reg_ident::reg_ident(const string *ident_){
+  ident = ident_;
+}
+
+string reg_ident::str(){
+  string fmt_string = "";  
+  if (unop != nullptr) {
+    fmt_string.append(*unop);
+    if (*unop == "sizeof" || *unop == "not") {
+      fmt_string.append(" ");
+    }
+  }
+  fmt_string.append(*ident);
+  return fmt_string;
+}
+
+reg *reg_ident::deep_copy(){
+  reg *r = new reg_ident(ident);
+  if (unop) r->unop = new string(*unop);
+  return r;
+}
+
+reg_ident::~reg_ident(){
+  ; //nothing to delete
+}
+
+/* 2. temporary register */
+reg_temp::reg_temp(string *stride_, int reg_number_){
+  stride = stride_;
+  reg_number = reg_number_;
+}
+
+string reg_temp::str(){
+  string fmt_string = "";
+  if (unop != nullptr) {
+    fmt_string.append(*unop);
+    if (*unop == "sizeof" || *unop == "not") {
+      fmt_string.append(" ");
+    }
+  }
+  fmt_string.append("$t");
+  fmt_string.append(to_string(reg_number));
+  fmt_string.append(*stride);
+  return fmt_string;
+}
+
+reg *reg_temp::deep_copy(){
+  reg *r = new reg_temp(new string(*stride),reg_number);
+  if (unop) r-> unop = new string (*unop);
+  return r;
+}
+
+reg_temp::~reg_temp(){
+  delete stride; 
+}
+
+/* 3. function */
+reg_function_call::reg_function_call(string *fname_,vector<reg*> *parameters_){
+  fname = fname_;
+  parameters = parameters_;
+}
+
+string reg_function_call::str(){
+  string fmt_string;
+  fmt_string.append("call ");
+  fmt_string.append(*fname);
+  fmt_string.append("(");
+  if (parameters->size() > 0){
+    fmt_string.append(parameters->at(0)->str());
+    for (size_t i = 1; i < parameters->size(); i++){
+      fmt_string.append(",");
+      fmt_string.append(parameters->at(i)->str());
+    }
+  }
+  fmt_string.append(")");
+  return fmt_string;
+}
+
+reg *reg_function_call::deep_copy(){
+  vector <reg*> *parameters_ = nullptr;
+  if (parameters) {
+    parameters_ = new vector<reg*>; 
+    for (auto itor: *parameters) parameters_->push_back(itor->deep_copy());
+  }
+  reg *r = new reg_function_call(new string(*fname),parameters_);  
+  if (unop) r-> unop = new string (*unop);
+  return r; 
+}
+
+reg_function_call::~reg_function_call(){
+  if(parameters){
+    for (auto itor : *parameters) delete itor;
+  }
+  delete parameters;
+  delete fname;
+}
+
+/* 4. typesize */
+reg_typesize::reg_typesize(string *typesize_){
+  typesize = typesize_;
+}
+
+string reg_typesize::str(){
+  string fmt_string;
+  if (unop != nullptr) {
+    fmt_string.append(*unop);
+    if (*unop == "sizeof" || *unop == "not") {
+      fmt_string.append(" ");
+    }
+  }
+  fmt_string.append(*typesize);
+  return fmt_string;
+}
+
+reg *reg_typesize::deep_copy(){
+  reg *r = new reg_typesize(new string(*typesize));
+  if (unop) r-> unop = new string (*unop);
+  return r;
+}
+
+reg_typesize::~reg_typesize(){
+  delete typesize;
+}
+
+/* 5. pointer to string literal */
+reg_string_pointer::reg_string_pointer(int index_){
+  index = index_;
+}
+
+string reg_string_pointer::str(){
+  string ret = "";
+  if (unop != nullptr) {
+    ret.append(*unop);
+    if (*unop == "sizeof" || *unop == "not") {
+      ret.append(" ");
+    }
+  }
+  ret.append("(.s");
+  ret.append(to_string(index));
+  ret.append(")");
+  return ret;
+}
+
+reg *reg_string_pointer::deep_copy(){
+  reg *r= new reg_string_pointer(index);  
+  if (unop) r->unop = new string(*unop);
+  return r;
+}
+
+reg_string_pointer::~reg_string_pointer(){
+  ; // nothing to delete
+}
+
+/* 6. index to array */
+reg_array_index::reg_array_index(reg *array_ident_, reg *selection_index_, string *stride_){
   array_ident = array_ident_;
-  unop = nullptr;
+  selection_index = selection_index_;
+  stride = stride_;
+}
+
+string reg_array_index::str(){
+  string fmt_string="";
+  if (unop != nullptr){
+    fmt_string.append(*unop);
+    //add space (for readability)
+    if (*unop == "sizeof" || *unop == "not"){
+      fmt_string.append(" ");
+    }
+  }
+  fmt_string.append(array_ident->str());
+  fmt_string.append("[");
+  fmt_string.append(selection_index->str());
+  fmt_string.append(" * ");
+  fmt_string.append(*stride);
+  fmt_string.append("]");
+  return fmt_string;
+}
+
+reg *reg_array_index::deep_copy(){
+  reg *r = new reg_array_index
+     (array_ident->deep_copy(),selection_index->deep_copy(),new string (*stride));  
+  if (unop) r-> unop = new string (*unop);
+  return r;
+}
+
+reg_array_index::~reg_array_index(){
+  delete array_ident;
+  delete selection_index;
+  delete stride;
 }
 
 // 7. selection
-reg::reg(reg *selection_index_,const string *sname_, const string *field_){
-  ident = sname_;
-  index = -1;
-  parameters = nullptr;
+reg_selection::reg_selection(reg *ident_, const string *sname_, const string *field_){
+  ident = ident_;
+  sname = sname_;
   field = field_;
-  name = nullptr;
-  selection_index = selection_index_;
-  array_ident = nullptr;
-  unop = nullptr;
+}
+
+string reg_selection::str(){
+  string string_fmt="";
+  if (unop != nullptr){
+    string_fmt.append(*unop);
+    //add space (for readability)
+    if (*unop == "sizeof" ||
+        *unop == "not"){
+      string_fmt.append(" ");
+    }
+  }
+  string_fmt.append(ident->str());
+  string_fmt.append("->");
+  string_fmt.append(*sname);
+  string_fmt.append(".");
+  string_fmt.append(*field);
+  return string_fmt;
+}
+
+reg *reg_selection::deep_copy() {
+  reg *r = new reg_selection(ident->deep_copy(),sname,field);
+  if (unop) r-> unop = new string (*unop);
+  return r;
+}
+
+reg_selection::~reg_selection(){
+  delete ident;
 }
 
 // stringify the parameters
@@ -116,68 +269,70 @@ string reg::str(){
       ret.append(" ");
     }
   }
-  if (selection_index && array_ident && name){ //6
-    ret.append(array_ident->str());
-    ret.append("[");
-    ret.append(selection_index->str());
-    ret.append(" * ");
-    ret.append(*name);
-    ret.append("]");
-  }
-  else if (selection_index && ident && field){ //7
-    ret.append(selection_index->str());
-    ret.append("->");
-    ret.append(*ident);
-    ret.append(".");
-    ret.append(*field);
-  }
-  else if (index != -1 && name){ //2
-    ret.append("$t");
-    ret.append(to_string(index));
-    ret.append(*name);
-  }
-  else if (parameters && name){ //3
-    ret.append("call ");
-    ret.append(*name);
-    ret.append("(");
-    if (parameters->size() > 0){
-      ret.append(parameters->at(0)->str());
-      for (size_t i = 1; i < parameters->size(); i++){
-        ret.append(",");
-        ret.append(parameters->at(i)->str());
-      }
-    }
-    ret.append(")");
-  } 
-  else if (ident){ //1
-    ret.append(*ident);
-  }
-  else if (name){ //4
-    ret.append(*name);
-  }
-  else if (index != -1){ //5
-    ret.append("(.s");
-    ret.append(to_string(index));
-    ret.append(")");
-  }
+//  if (selection_index && array_ident && name){ //6
+//    ret.append(array_ident->str());
+//    ret.append("[");
+//    ret.append(selection_index->str());
+//    ret.append(" * ");
+//    ret.append(*name);
+//    ret.append("]");
+//  }
+//  else if (selection_index && ident && field){ //7
+//    ret.append(selection_index->str());
+//    ret.append("->");
+//    ret.append(*ident);
+//    ret.append(".");
+//    ret.append(*field);
+//  }
+//  else if (index != -1 && name){ //2
+//    ret.append("$t");
+//    ret.append(to_string(index));
+//    ret.append(*name);
+//  }
+//  else if (parameters && name){ //3
+//    ret.append("call ");
+//    ret.append(*name);
+//    ret.append("(");
+//    if (parameters->size() > 0){
+//      ret.append(parameters->at(0)->str());
+//      for (size_t i = 1; i < parameters->size(); i++){
+//        ret.append(",");
+//        ret.append(parameters->at(i)->str());
+//      }
+//    }
+//    ret.append(")");
+//  } 
+//  else if (ident){ //1
+//    ret.append(*ident);
+//  }
+//  else if (name){ //4
+//    ret.append(*name);
+//  }
+//  else if (index != -1){ //5
+//    ret.append("(.s");
+//    ret.append(to_string(index));
+//    ret.append(")");
+//  }
+//  return ret;
   return ret;
 }
 
 reg::~reg(){
-  if (parameters){
-    for (auto itor : *parameters){
-      delete itor;
-    }
-  }
-  delete parameters;
-  delete name;
-  delete selection_index;
-  delete array_ident;
-  delete unop;
+  delete unop; 
+  // if (parameters){
+  //   for (auto itor : *parameters){
+  //     delete itor;
+  //   }
+  // }
+  // delete parameters;
+  // delete name;
+  // delete selection_index;
+  // delete array_ident;
+  // delete unop;
 }
 
 reg *reg::deep_copy(){
-  reg *r= new reg(ident);  
+  reg *r= new reg();  
   r->index = index;
   if (parameters){
     r->parameters = new vector<reg*>();
@@ -374,19 +529,19 @@ reg *parse_variable(astree *expr, ac3_table *current){
       astree *ident = expr->children[0];
       astree *field = expr->children[1];
       reg *ret; 
-      ident->children.size() ? ret = expr_reg(ident,current) : ret = new reg(ident->lexinfo);
-      selection = new reg(ret,expr->sname,field->lexinfo);
+      ident->children.size() ? ret = expr_reg(ident,current) : ret = new reg_ident(ident->lexinfo);
+      selection = new reg_selection(ret,expr->sname,field->lexinfo);
     }
     else if (expr->symbol == TOK_INDEX){
       astree *ident = expr->children[0];
       astree *index = expr->children[1];
-      reg *select = ident->children.size() ? expr_reg(ident,current) : new reg(ident->lexinfo);
-      reg *number = index->children.size() ? expr_reg(index,current) : new reg(index->lexinfo);
-      selection = new reg(select,number,astree_stride(current,expr));
+      reg *select = ident->children.size() ? expr_reg(ident,current) : new reg_ident(ident->lexinfo);
+      reg *number = index->children.size() ? expr_reg(index,current) : new reg_ident(index->lexinfo);
+      selection = new reg_array_index(select,number,astree_stride(current,expr));
     }
   }
   else
-    selection = new reg(expr->lexinfo);
+    selection = new reg_ident(expr->lexinfo);
   return selection;
 }
 
@@ -419,7 +574,7 @@ ac3 *asg_int(astree *expr, ac3_table *current, string *label){
   else {
     bot = new ac3(expr);
     bot->t0 = parse_variable(ident,current);
-    bot->t1 = new reg(parse->lexinfo);
+    bot->t1 = new reg_ident(parse->lexinfo);
     bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
     current->push_back(bot);
     current->at(top)->label = label; 
@@ -452,13 +607,13 @@ ac3 *alloc_array(astree *expr,ac3_table *current, reg *init){
   ac3 *parsed_sz = new ac3(expr);
   astree *alloc_sz = expr->children[1];
   /* the size to malloc (stored in a reg)  */
-  reg *ret = new reg(astree_stride(current,expr),reg_count);
+  reg *ret = new reg_temp(astree_stride(current,expr),reg_count);
   ++reg_count;
   parsed_sz->t0 = ret;  
   // if the number is an expression, parse it, otherwise assign it directly
-  parsed_sz->t1 = alloc_sz->children.size() ? expr_reg(alloc_sz,current) : new reg(alloc_sz->lexinfo);
+  parsed_sz->t1 = alloc_sz->children.size() ? expr_reg(alloc_sz,current) : new reg_ident(alloc_sz->lexinfo);
   parsed_sz->op = new string("*");
-  parsed_sz->t2 = new reg(alloc_array_typesize(expr),new string("sizeof"));
+  parsed_sz->t2 = new reg_typesize(alloc_array_typesize(expr)); parsed_sz->t2->unop = new string ("sizeof");
   parsed_sz->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   current->push_back(parsed_sz);
 
@@ -466,7 +621,7 @@ ac3 *alloc_array(astree *expr,ac3_table *current, reg *init){
   vector<reg*> *malloc_params = new vector <reg*>();
   malloc_params->push_back(ret->deep_copy());
   bot->t0 = init;
-  bot->t1 = new reg(new string ("malloc"),malloc_params);
+  bot->t1 = new reg_function_call(new string ("malloc"),malloc_params);
   bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   current->push_back(bot);
   return bot;
@@ -476,9 +631,10 @@ ac3 *alloc_struct(astree *expr,ac3_table *current, reg *init){
   ac3 *bot = new ac3(expr);
   vector <reg*> *malloc_params = new vector<reg*>();
   string *struct_name = new string("struct " + *(expr->children[0]->lexinfo));
-  malloc_params->push_back(new reg(struct_name,new string("sizeof")));
+  reg *malloc_typesz = new reg_typesize(struct_name); malloc_typesz->unop = new string ("sizeof");
+  malloc_params->push_back(malloc_typesz);  
   bot->t0 = init;
-  bot->t1 = new reg(new string("malloc"),malloc_params);
+  bot->t1 = new reg_function_call(new string("malloc"),malloc_params);
   bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   current->push_back(bot);
   return bot;
@@ -489,10 +645,10 @@ ac3 *alloc_string(astree *expr,ac3_table *current, reg *init){
   astree *alloc_sz = expr->children[1];
   vector <reg*> *malloc_params = new vector<reg*>();
   // if number is an expression, parse it, otherwise just assign the single number.
-  reg *malloc_number = alloc_sz->children.size() ? expr_reg(alloc_sz,current) : new reg (alloc_sz->lexinfo);
+  reg *malloc_number = alloc_sz->children.size() ? expr_reg(alloc_sz,current) : new reg_ident (alloc_sz->lexinfo);
   malloc_params->push_back(malloc_number);
   bot->t0 = init;
-  bot->t1 = new reg(new string("malloc"),malloc_params);
+  bot->t1 = new reg_function_call(new string("malloc"),malloc_params);
   bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   current->push_back(bot);
   return bot;
@@ -507,7 +663,7 @@ ac3 *asg_array(astree *expr, ac3_table *current, string *label){
 
   if (parse->children.size()){
     if (parse->symbol == TOK_ALLOC){
-      reg *ret = new reg(ident->lexinfo);
+      reg *ret = new reg_ident(ident->lexinfo);
       bot = alloc_array(parse,current,ret);
       current->at(top)->label = label;
     }
@@ -524,7 +680,7 @@ ac3 *asg_array(astree *expr, ac3_table *current, string *label){
   else {
     bot = new ac3(expr);
     bot->t0 = parse_variable(ident,current);
-    bot->t1 = new reg(parse->lexinfo);
+    bot->t1 = new reg_ident(parse->lexinfo);
     bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
     current->push_back(bot);
     current->at(top)->label = label;
@@ -541,7 +697,7 @@ ac3 *asg_struct(astree *expr, ac3_table *current, string *label){
 
   if (parse->children.size()){
     if (parse->symbol == TOK_ALLOC){
-      reg *ret = new reg(ident->lexinfo);
+      reg *ret = new reg_ident(ident->lexinfo);
       bot = alloc_struct(parse,current,ret);
       current->at(top)->label = label;
     }
@@ -558,7 +714,7 @@ ac3 *asg_struct(astree *expr, ac3_table *current, string *label){
   else {
     bot = new ac3(expr);
     bot->t0 = parse_variable(ident,current);
-    bot->t1 = new reg(parse->lexinfo);
+    bot->t1 = new reg_ident(parse->lexinfo);
     bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
     current->push_back(bot);
     current->at(top)->label = label;
@@ -571,10 +727,10 @@ reg *p_string_reg(astree *expr){
   vector<const string*>::iterator it;
   it = find(all_ac->all_strings->begin(),all_ac->all_strings->end(),expr->lexinfo);
   if (it != all_ac->all_strings->end()){
-    t1 = new reg(it - all_ac->all_strings->begin()); 
+    t1 = new reg_string_pointer(it - all_ac->all_strings->begin()); 
   }
   else {
-    t1 = new reg(all_ac->all_strings->size());
+    t1 = new reg_string_pointer(all_ac->all_strings->size());
     all_ac->all_strings->push_back(expr->lexinfo);
   }
   return t1;
@@ -598,7 +754,7 @@ ac3 *asg_string(astree *expr, ac3_table *current, string *label){
 
   if (parse->children.size()){
     if (parse->symbol == TOK_ALLOC){
-      reg *ret = new reg(ident->lexinfo);
+      reg *ret = new reg_ident(ident->lexinfo);
       bot = alloc_string(parse,current,ret);
       current->at(top)->label = label;
     }
@@ -620,7 +776,7 @@ ac3 *asg_string(astree *expr, ac3_table *current, string *label){
     else {
       bot = new ac3(expr);
       bot->t0 = parse_variable(ident,current);
-      bot->t1 = new reg(parse->lexinfo);
+      bot->t1 = new reg_ident(parse->lexinfo);
       bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
       current->push_back(bot);
       current->at(top)->label = label;
@@ -664,7 +820,7 @@ ac3 *p_assignment(astree *expr, ac3_table *current, string *label){
     astree *ident;
     expr->symbol == TOK_TYPE_ID ? ident = expr->children[1] : ident = expr->children[0]; 
     ac3 *ac =new ac3(expr);
-    ac->t0 = new reg(ident->lexinfo);
+    ac->t0 = new reg_ident(ident->lexinfo);
     ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
     current->push_back(ac);
   }
@@ -674,25 +830,25 @@ ac3 *p_assignment(astree *expr, ac3_table *current, string *label){
 ac3 *p_binop(astree *expr, ac3_table *current){
   ac3 *ac = new ac3(expr); 
   ac->op = new string(*(expr->lexinfo));
-  ac->t0 = new reg(astree_stride(current,expr),reg_count);
+  ac->t0 = new reg_temp(astree_stride(current,expr),reg_count);
   ++reg_count;
   // parse the expressions
   // check the two children
   astree *left = expr->children[0];
   if (left->children.size()) {
-    ac->t1 = new reg(astree_stride(current,left),reg_count);
+    ac->t1 = new reg_temp(astree_stride(current,left),reg_count);
     p_expr(left,current);
   } 
   else {
-    ac->t1 =new reg(left->lexinfo);
+    ac->t1 =new reg_ident(left->lexinfo);
   }
   astree *right = expr->children[1];
   if (right->children.size()){
-    ac->t2 = new reg(astree_stride(current,right),reg_count);
+    ac->t2 = new reg_temp(astree_stride(current,right),reg_count);
     p_expr(right,current);
   } 
   else {
-    ac->t2 =new reg(right->lexinfo);
+    ac->t2 =new reg_ident(right->lexinfo);
   }
   ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   current->push_back(ac);
@@ -701,18 +857,18 @@ ac3 *p_binop(astree *expr, ac3_table *current){
 
 ac3 *p_unop(astree *expr, ac3_table *current){
   ac3 *ac =new ac3(expr);
-  ac->t0 = new reg(astree_stride(current,expr),reg_count);
+  ac->t0 = new reg_temp(astree_stride(current,expr),reg_count);
   ++reg_count;
 
   astree *assignment = expr->children[0];
   if (assignment->children.size()){
-    reg *unary = new reg(astree_stride(current,assignment),reg_count);
+    reg *unary = new reg_temp(astree_stride(current,assignment),reg_count);
     unary->unop = new string(*(expr->lexinfo));
     ac->t1 = unary;
     p_expr(assignment,current);
   }
   else {
-    reg *unary = new reg(assignment->lexinfo);
+    reg *unary = new reg_ident(assignment->lexinfo);
     unary->unop = new string(*(expr->lexinfo));
     ac->t1 = unary;
   }
@@ -736,9 +892,9 @@ ac3 *p_polymorphic(astree *expr, ac3_table *current){
 
 ac3 *p_static_val(astree *expr, ac3_table *current){
   ac3 *ac = new ac3(expr); 
-  ac->t0 = new reg(astree_stride(current,expr),reg_count);
+  ac->t0 = new reg_temp(astree_stride(current,expr),reg_count);
   ++reg_count;
-  ac->t1 = new reg(expr->lexinfo);  
+  ac->t1 = new reg_ident(expr->lexinfo);  
   current->push_back(ac);
   ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   return ac;
@@ -763,12 +919,12 @@ ac3 *p_call(astree *expr, ac3_table *current, string *label){
         }
       } 
       else {
-        push = new reg(expr->children[i]->lexinfo);  
+        push = new reg_ident(expr->children[i]->lexinfo);  
       }
       args->push_back(push);
     }
   } 
-  reg *fname = new reg(new string (*(expr->children[0]->lexinfo)),args);
+  reg *fname = new reg_function_call(new string (*(expr->children[0]->lexinfo)),args);
   bot->t1 = fname;
   bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   current->push_back(bot);
@@ -780,10 +936,10 @@ ac3 *p_field(astree *expr, ac3_table *current){
   ac3 *bot = new ac3(expr);
   astree *ident = expr->children[0];
   astree *field = expr->children[1];
-  bot->t0 = new reg(astree_stride(current,expr),reg_count);
+  bot->t0 = new reg_temp(astree_stride(current,expr),reg_count);
   ++reg_count;
-  reg *ret = ident->children.size() ? expr_reg(ident,current) : new reg(ident->lexinfo);
-  reg *selection = new reg(ret,expr->sname,field->lexinfo);
+  reg *ret = ident->children.size() ? expr_reg(ident,current) : new reg_ident(ident->lexinfo);
+  reg *selection = new reg_selection(ret,expr->sname,field->lexinfo);
   bot->t1 = selection;
   bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   current->push_back(bot);
@@ -793,7 +949,7 @@ ac3 *p_field(astree *expr, ac3_table *current){
 // extra arguments for string as an expression
 ac3 *p_string_expr (astree *expr, ac3_table *current){
   // store function call in register
-  reg *ret = new reg(astree_stride(current,expr),reg_count);
+  reg *ret = new reg_temp(astree_stride(current,expr),reg_count);
   ++reg_count;
   ac3 *str = p_string(expr,current,ret);  
   return str;
@@ -802,7 +958,7 @@ ac3 *p_string_expr (astree *expr, ac3_table *current){
 // extra arguments for function call as an expression
 ac3 *p_call_expr (astree *expr, ac3_table *current){
   // store function call in register
-  reg *ret = new reg(astree_stride(current,expr),reg_count);
+  reg *ret = new reg_temp(astree_stride(current,expr),reg_count);
   ++reg_count;
   ac3 *call = p_call(expr,current,nullptr);  
   if (call)
@@ -819,9 +975,9 @@ ac3 *p_loop_condition_relop(string *relop, string *goto_label, astree *expr, ac3
   astree *right = expr->children[1];
   ac3 *ret = new ac3(expr);
   ret->condition = goto_label;
-  left->children.size() ? ret->t1 = expr_reg(left,current) : ret->t1 = new reg(left->lexinfo); 
+  left->children.size() ? ret->t1 = expr_reg(left,current) : ret->t1 = new reg_ident(left->lexinfo); 
   ret->op = relop;
-  right->children.size() ? ret->t2 = expr_reg(right,current) : ret->t2 = new reg(right->lexinfo); 
+  right->children.size() ? ret->t2 = expr_reg(right,current) : ret->t2 = new reg_ident(right->lexinfo); 
   ret->itype.set(static_cast<int>(instruction::GOTO));
   return ret;
 }
@@ -864,7 +1020,7 @@ ac3 *p_loop_condition(string *goto_label, astree *expr, ac3_table *current){
   else {
     ret = new ac3(expr);
     ret->condition = goto_label;
-    ret->t1 = new reg(expr->lexinfo);
+    ret->t1 = new reg_ident(expr->lexinfo);
     ret->t1->unop = new string("not");
     ret->itype.set(static_cast<int>(instruction::GOTO));
   }
@@ -995,7 +1151,7 @@ ac3 *p_equals(astree *expr, ac3_table *current){
   astree *final_val = recurse_non_equal(right);
   if (right->children.size()){
     if (final_val->children.size()){
-      ac->t1 = new reg(astree_stride(current,final_val),reg_count);
+      ac->t1 = new reg_temp(astree_stride(current,final_val),reg_count);
       p_expr(right,current);
     } 
     else {
@@ -1004,7 +1160,7 @@ ac3 *p_equals(astree *expr, ac3_table *current){
         p_expr(right,current);
       } 
       else {
-        ac->t1 = new reg(final_val->lexinfo);
+        ac->t1 = new reg_ident(final_val->lexinfo);
         p_expr(right,current);
       }
     }
@@ -1014,7 +1170,7 @@ ac3 *p_equals(astree *expr, ac3_table *current){
       ac->t1 = p_string_reg(right);
     }
     else {
-      ac->t1 =new reg(right->lexinfo);
+      ac->t1 =new reg_ident(right->lexinfo);
     }
   }
   ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
@@ -1024,7 +1180,7 @@ ac3 *p_equals(astree *expr, ac3_table *current){
 
 // helper function for p_alloc (for cases where alloc is part of an expression)
 ac3 *p_alloc(astree *expr, ac3_table *current){
-  reg *ret = new reg (astree_stride(current,expr),reg_count);
+  reg *ret = new reg_temp (astree_stride(current,expr),reg_count);
   ++reg_count;
   switch (expr->children[0]->symbol){
     case TOK_ARRAY:
@@ -1074,7 +1230,7 @@ ac3 *p_return(astree *expr, ac3_table *current, string *label){
       }
     }
     else {
-      bot->t0 = new reg(assignment->lexinfo);
+      bot->t0 = new reg_ident(assignment->lexinfo);
     }
     bot->itype.set(static_cast<int>(instruction::RETURN));
     current->push_back(bot);
@@ -1093,12 +1249,12 @@ ac3 *p_index(astree *expr, ac3_table *current){
   ac3 *bot = new ac3(expr);
   astree *ident = expr->children[0];
   astree *index = expr->children[1];
-  bot->t0 = new reg(astree_stride(current,expr),reg_count);
+  bot->t0 = new reg_temp(astree_stride(current,expr),reg_count);
   ++reg_count;
   reg *ret;
-  reg *select = ident->children.size() ? expr_reg(ident,current) : new reg(ident->lexinfo);
-  reg *number = index->children.size() ? expr_reg(index,current) : new reg(index->lexinfo);
-  ret = new reg(select,number,astree_stride(current,expr));
+  reg *select = ident->children.size() ? expr_reg(ident,current) : new reg_ident(ident->lexinfo);
+  reg *number = index->children.size() ? expr_reg(index,current) : new reg_ident(index->lexinfo);
+  ret = new reg_array_index(select,number,astree_stride(current,expr));
   bot->t1 = ret;
   bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   current->push_back(bot);
@@ -1298,7 +1454,7 @@ void emit_string(FILE *out){
 // emit global definitions here
 void emit_globaldef(FILE *out){
   for (auto itor: *(all_ac->all_globals)){
-    string name = *(itor->t0->ident);
+    string name = itor->t0->str();
     name += ":";
     fprintf (out,"%-10s %s %s",
              name.c_str(),

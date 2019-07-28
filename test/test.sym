@@ -1,15 +1,16 @@
-allofem (4.8.1) {0} struct allofem 
-   one (4.8.18) int field 0
-   two (4.9.18) string field 1
-   homura (4.10.18) field struct none 2
-   sayaka (4.11.18) int array field 3
+mami (5.17.1) {0} struct mami 
+   m_homura (5.18.3) field struct homura 0
+   m_mami_array (5.19.3) array field struct mami 1
+   muskets (5.20.3) int field 2
 
-test (4.3.1) {0} struct test 
+main (6.48.1) {1} int function 
+   test (6.49.3) {2} string variable local lval 0
+   mami (6.50.3) {2} string variable local lval 1
+   x (6.51.3) {2} int variable local lval 2
+   mami_instance (6.53.3) {2} variable struct mami local lval 3
+   mami_array (6.54.3) {2} array variable struct mami local lval 4
 
-onearg (4.4.1) {0} struct onearg 
-   trivial (4.4.15) int field 0
-
-collatz (5.160.1) {0} int function 
-   n (5.160.14) {1} int variable param lval 0
-   c (5.161.3) {1} int variable local lval 1
+test (6.44.1) {0} int function 
+   x (6.44.11) {1} int variable param lval 0
+   y (6.44.18) {1} int variable param lval 1
 

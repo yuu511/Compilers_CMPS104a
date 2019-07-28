@@ -1,67 +1,81 @@
 ROOT "<<ROOT>>" 0.0.0
-| STRUCT "struct" 4.3.1
-| | IDENT "test" 4.3.8
-| STRUCT "struct" 4.4.1
-| | IDENT "onearg" 4.4.8
-| | TYPE_ID "" 4.4.15
-| | | INT "int" 4.4.15
-| | | IDENT "trivial" 4.4.19
-| STRUCT "struct" 4.8.1
-| | IDENT "allofem" 4.8.8
-| | TYPE_ID "" 4.8.18
-| | | INT "int" 4.8.18
-| | | IDENT "one" 4.8.22
-| | TYPE_ID "" 4.9.18
-| | | STRING "string" 4.9.18
-| | | IDENT "two" 4.9.25
-| | TYPE_ID "" 4.10.18
-| | | PTR "ptr" 4.10.18
-| | | | IDENT "none" 4.10.30
-| | | IDENT "homura" 4.10.37
-| | TYPE_ID "" 4.11.18
-| | | ARRAY "array" 4.11.18
-| | | | INT "int" 4.11.25
-| | | IDENT "sayaka" 4.11.30
-| FUNCTION "" 5.160.1
-| | TYPE_ID "" 5.160.1
-| | | INT "int" 5.160.1
-| | | IDENT "collatz" 5.160.5
-| | PARAM "(" 5.160.13
-| | | TYPE_ID "" 5.160.14
-| | | | INT "int" 5.160.14
-| | | | IDENT "n" 5.160.18
-| | BLOCK "{" 5.160.20
-| | | TYPE_ID "" 5.161.3
-| | | | INT "int" 5.161.3
-| | | | IDENT "c" 5.161.7
-| | | | INTCON "0" 5.161.11
-| | | WHILE "while" 5.162.3
-| | | | NE "!=" 5.162.12
-| | | | | IDENT "n" 5.162.10
-| | | | | INTCON "1" 5.162.15
-| | | | BLOCK "{" 5.162.17
-| | | | | '=' "=" 5.163.7
-| | | | | | IDENT "c" 5.163.5
-| | | | | | '+' "+" 5.163.11
-| | | | | | | IDENT "c" 5.163.9
-| | | | | | | INTCON "1" 5.163.13
-| | | | | IF "if" 5.164.5
-| | | | | | EQ "==" 5.164.15
-| | | | | | | '%' "%" 5.164.11
-| | | | | | | | IDENT "n" 5.164.9
-| | | | | | | | INTCON "2" 5.164.13
-| | | | | | | INTCON "1" 5.164.18
-| | | | | | '=' "=" 5.164.23
-| | | | | | | IDENT "n" 5.164.21
-| | | | | | | '+' "+" 5.164.31
-| | | | | | | | '*' "*" 5.164.27
-| | | | | | | | | INTCON "3" 5.164.25
-| | | | | | | | | IDENT "n" 5.164.29
-| | | | | | | | INTCON "1" 5.164.32
-| | | | | | '=' "=" 5.165.14
-| | | | | | | IDENT "n" 5.165.12
-| | | | | | | '/' "/" 5.165.18
-| | | | | | | | IDENT "n" 5.165.16
-| | | | | | | | INTCON "2" 5.165.20
-| | | RETURN "return" 5.167.3
-| | | | IDENT "c" 5.167.10
+| STRUCT "struct" 5.17.1
+| | IDENT "mami" 5.17.8
+| | TYPE_ID "" 5.18.3
+| | | PTR "ptr" 5.18.3
+| | | | IDENT "homura" 5.18.15
+| | | IDENT "m_homura" 5.18.23
+| | TYPE_ID "" 5.19.3
+| | | ARRAY "array" 5.19.3
+| | | | PTR "ptr" 5.19.10
+| | | | | IDENT "mami" 5.19.22
+| | | IDENT "m_mami_array" 5.19.30
+| | TYPE_ID "" 5.20.3
+| | | INT "int" 5.20.3
+| | | IDENT "muskets" 5.20.7
+| FUNCTION "" 6.44.1
+| | TYPE_ID "" 6.44.1
+| | | INT "int" 6.44.1
+| | | IDENT "test" 6.44.5
+| | PARAM "(" 6.44.10
+| | | TYPE_ID "" 6.44.11
+| | | | INT "int" 6.44.11
+| | | | IDENT "x" 6.44.15
+| | | TYPE_ID "" 6.44.18
+| | | | INT "int" 6.44.18
+| | | | IDENT "y" 6.44.22
+| | BLOCK "{" 6.44.24
+| FUNCTION "" 6.48.1
+| | TYPE_ID "" 6.48.1
+| | | INT "int" 6.48.1
+| | | IDENT "main" 6.48.5
+| | PARAM "(" 6.48.9
+| | BLOCK "{" 6.48.11
+| | | TYPE_ID "" 6.49.3
+| | | | STRING "string" 6.49.3
+| | | | IDENT "test" 6.49.10
+| | | TYPE_ID "" 6.50.3
+| | | | STRING "string" 6.50.3
+| | | | IDENT "mami" 6.50.10
+| | | | STRINGCON ""STTTTTTTTTTTTTTRING"" 6.50.17
+| | | TYPE_ID "" 6.51.3
+| | | | INT "int" 6.51.3
+| | | | IDENT "x" 6.51.7
+| | | | '+' "+" 6.51.26
+| | | | | '+' "+" 6.51.22
+| | | | | | '+' "+" 6.51.18
+| | | | | | | INTCON "123213" 6.51.11
+| | | | | | | INTCON "5" 6.51.20
+| | | | | | INTCON "3" 6.51.24
+| | | | | CALL "(" 6.51.32
+| | | | | | IDENT "test" 6.51.28
+| | | | | | INTCON "3" 6.51.33
+| | | | | | INTCON "4" 6.51.35
+| | | '=' "=" 6.52.8
+| | | | IDENT "test" 6.52.3
+| | | | IDENT "mami" 6.52.10
+| | | TYPE_ID "" 6.53.3
+| | | | PTR "ptr" 6.53.3
+| | | | | IDENT "mami" 6.53.15
+| | | | IDENT "mami_instance" 6.53.21
+| | | | ALLOC "alloc" 6.53.37
+| | | | | IDENT "mami" 6.53.51
+| | | TYPE_ID "" 6.54.3
+| | | | ARRAY "array" 6.54.3
+| | | | | PTR "ptr" 6.54.10
+| | | | | | IDENT "mami" 6.54.22
+| | | | IDENT "mami_array" 6.54.29
+| | | | ALLOC "alloc" 6.54.42
+| | | | | ARRAY "array" 6.54.48
+| | | | | | PTR "ptr" 6.54.54
+| | | | | | | IDENT "mami" 6.54.65
+| | | | | INTCON "5" 6.54.73
+| | | '=' "=" 6.55.17
+| | | | INDEX "[" 6.55.13
+| | | | | IDENT "mami_array" 6.55.3
+| | | | | INTCON "2" 6.55.14
+| | | | '=' "=" 6.55.33
+| | | | | INDEX "[" 6.55.29
+| | | | | | IDENT "mami_array" 6.55.19
+| | | | | | INTCON "3" 6.55.30
+| | | | | NULLPTR "nullptr" 6.55.35

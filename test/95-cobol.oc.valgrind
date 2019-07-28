@@ -1,47 +1,47 @@
-==6756== Memcheck, a memory error detector
-==6756== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==6756== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
-==6756== Command: ../oc 95-cobol.oc
-==6756== 
-B¸:3.1: invalid token (000100)
-B¸:3.8: syntax error, unexpected TOK_IDENT
-B¸:3.31: invalid source character (.)
-B¸:4.1: invalid token (000200)
-B¸:4.18: invalid source character (.)
-B¸:4.30: invalid source character (.)
-B¸:5.1: invalid token (000300)
-B¸:6.1: invalid token (000400)
-B¸:7.1: invalid token (000500)
-B¸:7.28: invalid source character (.)
-B¸:8.1: invalid token (000600)
-B¸:8.29: invalid source character (.)
-B¸:9.1: invalid token (000700)
-B¸:9.23: invalid source character (.)
-B¸:9.33: invalid source character (.)
-B¸:10.1: invalid token (000800)
-B¸:10.23: invalid source character (.)
-B¸:10.33: invalid source character (.)
-B¸:11.1: invalid token (000900)
-B¸:12.1: invalid token (001000)
-B¸:12.21: invalid source character (.)
-B¸:13.1: invalid token (001100)
-B¸:13.20: invalid source character (.)
-B¸:14.1: invalid token (001200)
-B¸:15.26: invalid source character (.)
-B¸:17.26: invalid source character (.)
-B¸:18.13: invalid source character (.)
-B¸:19.47: invalid source character (.)
-B¸:20.50: invalid source character (.)
-B¸:21.16: invalid source character (.)
-B¸:22.23: invalid source character (.)
-B¸:23.12: invalid source character (.)
+==23350== Memcheck, a memory error detector
+==23350== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==23350== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==23350== Command: ../oc 95-cobol.oc
+==23350== 
+@sÚ:3.1: invalid token (000100)
+@sÚ:3.8: syntax error, unexpected TOK_IDENT
+@sÚ:3.31: invalid source character (.)
+@sÚ:4.1: invalid token (000200)
+@sÚ:4.18: invalid source character (.)
+@sÚ:4.30: invalid source character (.)
+@sÚ:5.1: invalid token (000300)
+@sÚ:6.1: invalid token (000400)
+@sÚ:7.1: invalid token (000500)
+@sÚ:7.28: invalid source character (.)
+@sÚ:8.1: invalid token (000600)
+@sÚ:8.29: invalid source character (.)
+@sÚ:9.1: invalid token (000700)
+@sÚ:9.23: invalid source character (.)
+@sÚ:9.33: invalid source character (.)
+@sÚ:10.1: invalid token (000800)
+@sÚ:10.23: invalid source character (.)
+@sÚ:10.33: invalid source character (.)
+@sÚ:11.1: invalid token (000900)
+@sÚ:12.1: invalid token (001000)
+@sÚ:12.21: invalid source character (.)
+@sÚ:13.1: invalid token (001100)
+@sÚ:13.20: invalid source character (.)
+@sÚ:14.1: invalid token (001200)
+@sÚ:15.26: invalid source character (.)
+@sÚ:17.26: invalid source character (.)
+@sÚ:18.13: invalid source character (.)
+@sÚ:19.47: invalid source character (.)
+@sÚ:20.50: invalid source character (.)
+@sÚ:21.16: invalid source character (.)
+@sÚ:22.23: invalid source character (.)
+@sÚ:23.12: invalid source character (.)
 parse failed (1)
-==6756== 
-==6756== HEAP SUMMARY:
-==6756==     in use at exit: 0 bytes in 0 blocks
-==6756==   total heap usage: 138 allocs, 138 frees, 111,780 bytes allocated
-==6756== 
-==6756== All heap blocks were freed -- no leaks are possible
-==6756== 
-==6756== For counts of detected and suppressed errors, rerun with: -v
-==6756== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==23350== 
+==23350== HEAP SUMMARY:
+==23350==     in use at exit: 0 bytes in 0 blocks
+==23350==   total heap usage: 139 allocs, 139 frees, 111,596 bytes allocated
+==23350== 
+==23350== All heap blocks were freed -- no leaks are possible
+==23350== 
+==23350== For counts of detected and suppressed errors, rerun with: -v
+==23350== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

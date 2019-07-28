@@ -1,34 +1,33 @@
-.struct none
+.struct mami
+.field int muskets
+.field struct homura m_homura
+.field struct mami m_mami_array
 .end 
-.struct allofem
-.field struct none homura
-.field int one
-.field ptr sayaka
-.field ptr two
+.struct homura
 .end 
-.struct test
-.end 
-.struct onearg
-.field int trivial
-.end 
-collatz:   .function int 
-           .param int n
-           .local int c
-           c = 0  
-.wh0:      goto .od0 if n == 1
-.do0:      $t0:i = c + 1
-           c = $t0:i  
-.if0:      $t1:i = n % 2
-           goto .el0 if $t1:i != 1
-.th0:      $t3:i = 3 * n
-           $t2:i = $t3:i + 1
-           n = $t2:i  
-           goto .fi0  
-.el0:      $t4:i = n / 2
-           n = $t4:i  
-.fi0:
-           goto .wh0  
-.od0:
-           return c
+.s0:       "STTTTTTTTTTTTTTRING"
+test:      .function int 
+           .param int x
+           .param int y
+           return
+           .end
+main:      .function int 
+           .local ptr test
+           .local ptr mami
+           .local int x
+           .local struct mami mami_instance
+           .local struct mami mami_array
+           mami = (.s0)  
+           $t2:i = 123213 + 5
+           $t1:i = $t2:i + 3
+           $t3:i = call test(3,4)  
+           $t0:i = $t1:i + $t3:i
+           x = $t0:i  
+           test = mami  
+           mami_instance = call malloc(sizeof struct mami)  
+           $t4:p = 5 * sizeof struct mami
+           mami_array = call malloc($t4:p)  
+           mami_array[3 * :p] = nullptr  
+           mami_array[2 * :p] = mami_array[3 * :p]  
            return
            .end

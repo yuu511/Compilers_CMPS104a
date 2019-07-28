@@ -1,25 +1,16 @@
+getchr (6.28.1) {4} int function 
+
+putstr (6.26.1) {3} void function 
+
+putint (6.25.1) {2} void function 
+
+fail (6.22.1) {0} void function 
+
 main (7.72.1) {11} int function 
    count (7.73.4) {12} int variable local lval 0
    words (7.74.4) {12} string array variable local lval 1
 
-read_words (7.60.1) {10} int function 
-   size (7.60.17) {11} int variable param lval 0
-   words (7.60.27) {11} string array variable param lval 1
-   count (7.61.4) {11} int variable local lval 2
-   word (7.62.4) {11} string variable local lval 3
-
-print_array (7.51.1) {9} void function 
-   size (7.51.19) {10} int variable param lval 0
-   words (7.51.29) {10} string array variable param lval 1
-   index (7.52.4) {10} int variable local lval 2
-
-insertion_sort (7.26.1) {8} void function 
-   size (7.26.22) {9} int variable param lval 0
-   words (7.26.32) {9} string array variable param lval 1
-   sorted (7.27.4) {9} int variable local lval 2
-   slot (7.28.4) {9} int variable local lval 3
-   element (7.29.4) {9} string variable local lval 4
-   contin (7.30.4) {9} int variable local lval 5
+getstr (6.29.1) {5} string function 
 
 strcmp (7.8.1) {7} int function 
    s1 (7.8.13) {8} string variable param lval 0
@@ -30,17 +21,26 @@ strcmp (7.8.1) {7} int function
    s2c (7.12.4) {8} int variable local lval 5
    cmp (7.13.4) {8} int variable local lval 6
 
-getln (6.30.1) {6} string function 
-
 putchr (6.24.1) {1} void function 
 
-getchr (6.28.1) {4} int function 
+getln (6.30.1) {6} string function 
 
-fail (6.22.1) {0} void function 
+insertion_sort (7.26.1) {8} void function 
+   size (7.26.22) {9} int variable param lval 0
+   words (7.26.32) {9} string array variable param lval 1
+   sorted (7.27.4) {9} int variable local lval 2
+   slot (7.28.4) {9} int variable local lval 3
+   element (7.29.4) {9} string variable local lval 4
+   contin (7.30.4) {9} int variable local lval 5
 
-getstr (6.29.1) {5} string function 
+print_array (7.51.1) {9} void function 
+   size (7.51.19) {10} int variable param lval 0
+   words (7.51.29) {10} string array variable param lval 1
+   index (7.52.4) {10} int variable local lval 2
 
-putint (6.25.1) {2} void function 
-
-putstr (6.26.1) {3} void function 
+read_words (7.60.1) {10} int function 
+   size (7.60.17) {11} int variable param lval 0
+   words (7.60.27) {11} string array variable param lval 1
+   count (7.61.4) {11} int variable local lval 2
+   word (7.62.4) {11} string variable local lval 3
 

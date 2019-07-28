@@ -34,19 +34,89 @@ struct reg {
   string *unop;
   int index;
 
-  // constructors
-  reg(const string *ident); //1
-  reg(string *stride, int index); //2
-  reg(string *fname, vector<reg*> *parameters); //3
-  reg(string *typesize, string *szof); //4
-  reg(int index); //5 
-  reg(reg *array_ident, reg *selection_index, string *stride); //6
-  reg(reg *selection_index,const string *sname, const string *field); //7
+  // constructor
+  reg();
 
   // functions
-  reg *deep_copy(); //deep copy register
-  string str(); // stringify register
-  ~reg(); //reference count
+  virtual reg *deep_copy(); //deep copy register
+  virtual string str(); // stringify register
+  virtual ~reg(); //reference count
+};
+
+struct reg_ident : reg { //1
+  const string *ident; // fields
+  reg_ident(const string *ident); // functions
+  using reg::str;
+  string str();
+  using reg::deep_copy;
+  reg *deep_copy();
+  ~reg_ident();
+};
+
+struct reg_temp : reg { //2
+  string *stride; // fields 
+  int reg_number;
+  reg_temp(string *stride, int reg_number); // functions
+  using reg::str;
+  string str();
+  using reg::deep_copy;
+  reg *deep_copy();
+  ~reg_temp();
+};
+
+struct reg_function_call : reg { // 3
+  string *fname; // fields
+  vector<reg*> *parameters;
+  reg_function_call(string *fname, vector<reg*> *parameters); // functions
+  using reg::str;
+  string str();
+  using reg::deep_copy;
+  reg *deep_copy();
+  ~reg_function_call();
+};
+
+struct reg_typesize : reg { // 4
+  string *typesize; // fields
+  reg_typesize(string *typesize); // functions
+  using reg::str;
+  string str();
+  using reg::deep_copy;
+  reg *deep_copy();
+  ~reg_typesize();
+};
+
+struct reg_string_pointer : reg { // 5 
+  int reg_number_; // fields 
+  reg_string_pointer(int index); // functions
+  using reg::str;
+  string str();
+  using reg::deep_copy;
+  reg *deep_copy();
+  ~reg_string_pointer();
+};
+
+struct reg_array_index : reg { //6
+  reg *array_ident; // fields
+  reg *selection_index;
+  string *stride;
+  reg_array_index(reg *array_ident, reg *selection_index, string *stride); // functions
+  using reg::str;
+  string str();
+  using reg::deep_copy;
+  reg *deep_copy();
+  ~reg_array_index();
+};
+
+struct reg_selection : reg { //7
+  reg *ident;
+  const string *sname;
+  const string *field;
+  reg_selection(reg *ident, const string *sname, const string *field);
+  using reg::str;
+  string str();
+  using reg::deep_copy;
+  reg *deep_copy();
+  ~reg_selection();
 };
 
 /*
