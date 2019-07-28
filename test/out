@@ -6,8 +6,8 @@ Changes not staged for commit:
   (use "git checkout -- <file>..." to discard changes in working directory)
 
 	modified:   ../3ac.cpp
-	modified:   ../3ac.o
-	modified:   ../oc
+	modified:   ../symbol_table.cpp
+	modified:   ../symbol_table.h
 	modified:   00-trivial.oc.valgrind
 	modified:   00-trivial.str
 	modified:   01-hello.oc.valgrind
@@ -75,5 +75,27 @@ Changes not staged for commit:
 	modified:   out
 	modified:   test.oc.valgrind
 	modified:   test.str
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	../3ac.o
+	../Makefile.deps
+	../astree.o
+	../auxlib.o
+	../lyutils.o
+	../main.o
+	../oc
+	../string_set.o
+	../symbol_table.o
+	.out.swp
+	vgcore.14044
+	vgcore.14820
+	../yylex.cpp
+	../yylex.o
+	../yyparse.cpp
+	../yyparse.h
+	../yyparse.o
+	../yyparse.output
 
 no changes added to commit (use "git add" and/or "git commit -a")

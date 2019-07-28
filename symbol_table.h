@@ -27,15 +27,6 @@ struct symbol {
   void dump_symbol (FILE* outfile, symbol *sym);
 };
 
-struct all_tables{
-  symbol_table *struct_t;
-  symbol_table *global;
-  unordered_map<const string*,symbol_table*> *master;
-  all_tables(symbol_table *struct_t,
-              symbol_table *global,
-              unordered_map<const string*,symbol_table*> *master);
-};
-
 int ssymgen(astree* node);
 
 void free_symbol();
@@ -43,7 +34,9 @@ void free_symbol();
 void dump_all_tables(FILE* outfile);
 
 namespace symtable{
-  extern all_tables *tables;
+  extern symbol_table *global;
+  extern symbol_table *struct_t;
+  extern unordered_map<const string*,symbol_table*> *master;
 }
 
 #endif

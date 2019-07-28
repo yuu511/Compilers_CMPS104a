@@ -2,4 +2,5 @@ lab*/*.o
 lab*/*.deps
 lab*/examples
 lab*/vgcore.*
+*.o
 tags

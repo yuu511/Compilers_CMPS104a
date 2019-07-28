@@ -1,8 +1,8 @@
-==13336== Memcheck, a memory error detector
-==13336== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==13336== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==13336== Command: ../oc 96-unterminated.oc
-==13336== 
+==14831== Memcheck, a memory error detector
+==14831== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==14831== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==14831== Command: ../oc 96-unterminated.oc
+==14831== 
 96-unterminated.oc:6:15: warning: missing terminating " character
     6 |    string s = "abc;
       |               ^
@@ -15,20 +15,20 @@
 96-unterminated.oc:9:8: warning: missing terminating " character
     9 |    s = "abc|\
       |        ^
-ðwÚ:5.15: invalid token ("\*/")
-ðwÚ:5.20: syntax error, unexpected ';'
-ðwÚ:6.15: invalid token ("abc;)
-ðwÚ:7.9: syntax error, unexpected TOK_IDENT
-ðwÚ:7.13: invalid token ('a;)
-ðwÚ:8.8: invalid token ("abcd\";)
-ðwÚ:9.8: invalid token ("abc|   ;)
-ðwÚ:11.8: invalid token (23foobar)
-==13336== 
-==13336== HEAP SUMMARY:
-==13336==     in use at exit: 0 bytes in 0 blocks
-==13336==   total heap usage: 83 allocs, 83 frees, 113,527 bytes allocated
-==13336== 
-==13336== All heap blocks were freed -- no leaks are possible
-==13336== 
-==13336== For counts of detected and suppressed errors, rerun with: -v
-==13336== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+ðvÚ:5.15: invalid token ("\*/")
+ðvÚ:5.20: syntax error, unexpected ';'
+ðvÚ:6.15: invalid token ("abc;)
+ðvÚ:7.9: syntax error, unexpected TOK_IDENT
+ðvÚ:7.13: invalid token ('a;)
+ðvÚ:8.8: invalid token ("abcd\";)
+ðvÚ:9.8: invalid token ("abc|   ;)
+ðvÚ:11.8: invalid token (23foobar)
+==14831== 
+==14831== HEAP SUMMARY:
+==14831==     in use at exit: 0 bytes in 0 blocks
+==14831==   total heap usage: 82 allocs, 82 frees, 113,503 bytes allocated
+==14831== 
+==14831== All heap blocks were freed -- no leaks are possible
+==14831== 
+==14831== For counts of detected and suppressed errors, rerun with: -v
+==14831== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

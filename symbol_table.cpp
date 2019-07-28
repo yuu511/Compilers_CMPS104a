@@ -11,27 +11,16 @@ using namespace std;
 #include "astree.h"
 #include "lyutils.h"
 
-symbol_table *global;
-symbol_table *local;
-symbol_table *struct_t = new symbol_table();
-unordered_map<const string*,symbol_table*> *master = new unordered_map<const string*,symbol_table*>;
-
 namespace symtable{ 
-  all_tables *tables = nullptr; 
+  unordered_map<const string*,symbol_table*> *master = nullptr;
+  symbol_table *struct_t = nullptr;
+  symbol_table *global = nullptr;
 }
 
+symbol_table *local;
 int current = 0;
 int next_block = 1;
 const string *current_function;
-symbol *p_expression(astree *s);
-void gen_table(astree *s);
-
-all_tables::all_tables(symbol_table *struct_t_,symbol_table *global_,
-unordered_map<const string*,symbol_table*> *master_){
-  struct_t = struct_t_;
-  global = global_;
-  master = master_;
-}
 
 symbol::symbol (astree* ast_, size_t block_nr_){
   attributes = ast_->attributes;  
@@ -221,7 +210,7 @@ int type_enum (int t_code){
 
 int struct_exists(const string *sname){
   if (sname){
-    if (struct_t->find(sname)!=struct_t->end()){
+    if (symtable::struct_t->find(sname)!=symtable::struct_t->end()){
       return 1;
     }
   }
@@ -230,7 +219,7 @@ int struct_exists(const string *sname){
 
 int struct_valid(const string *sname, location lloc){
   if (struct_exists(sname)){
-    if (struct_t->find(sname)->second->fields){
+    if (symtable::struct_t->find(sname)->second->fields){
       return 1; 
     }
     else {
@@ -269,8 +258,8 @@ void print_map(FILE* out, symbol_table *sym){
               itor.second-> block_nr,
               dump_attributes(itor.second).c_str());
       // print out the associated block ( if any )
-      if ((master->find(itor.first))!=master->end()){
-        symbol_table *block = master->find(itor.first)->second;
+      if ((symtable::master->find(itor.first))!=symtable::master->end()){
+        symbol_table *block = symtable::master->find(itor.first)->second;
         for (size_t i = 0; i < block->size(); i++){
           for (auto itor2: *block){
              if (itor2.second->sequence == i){
@@ -341,12 +330,12 @@ void p_struct (astree *s){
   sym->sname = name;
 
   // add to struct table first, then process fields.
-  if (struct_t->find(name)!=struct_t->end()){
-    if ((*struct_t)[name]->fields == nullptr){
-      symbol* old = struct_t->find(name)->second;
-      struct_t->erase(struct_t->find(name));
+  if (symtable::struct_t->find(name)!=symtable::struct_t->end()){
+    if ((*symtable::struct_t)[name]->fields == nullptr){
+      symbol* old = symtable::struct_t->find(name)->second;
+      symtable::struct_t->erase(symtable::struct_t->find(name));
       delete old;
-      struct_t->emplace(name,sym);  
+      symtable::struct_t->emplace(name,sym);  
     } 
     else{
       errprintf ("struct %s defined already: %zd.%zd.%zd\n",
@@ -357,7 +346,7 @@ void p_struct (astree *s){
     }  
   }
   else{
-    struct_t->emplace(name,sym);  
+    symtable::struct_t->emplace(name,sym);  
   }
   sym->fields = new symbol_table();
   astree_attribs(sym, s);
@@ -383,7 +372,7 @@ void p_struct (astree *s){
           symbol *placeholder = new symbol(c,0);         
           placeholder->attributes.set(static_cast<int>(attr::STRUCT));
           placeholder->sname = s_name;
-          struct_t->emplace(s_name,placeholder); 
+          symtable::struct_t->emplace(s_name,placeholder); 
         }
       }
       else{
@@ -402,7 +391,7 @@ void p_struct (astree *s){
           symbol *placeholder = new symbol(c,0);         
           placeholder->attributes.set(static_cast<int>(attr::STRUCT));
           placeholder->sname = s_name;
-          struct_t->emplace(s_name,placeholder); 
+          symtable::struct_t->emplace(s_name,placeholder); 
         }
       }
       else{
@@ -430,8 +419,8 @@ void p_struct (astree *s){
     }
     astree_attribs(f,c);
   }
-  struct_t->erase(struct_t->find(sym->sname));
-  struct_t->emplace(sym->sname,sym);
+  symtable::struct_t->erase(symtable::struct_t->find(sym->sname));
+  symtable::struct_t->emplace(sym->sname,sym);
 }
 
 int compare_types(attr_bitset left, attr_bitset right){
@@ -500,6 +489,8 @@ int matching_attrib(symbol *p, symbol *f){
   }
   return 0;
 }
+
+void gen_table(astree *s);
 
 void p_function (astree *s){
   current = next_block-1;
@@ -625,16 +616,16 @@ void p_function (astree *s){
     }
   }
   if (s->children.size()>2){
-    if (global->find(fname)!=sym->fields->end()){
-      if (global->find(fname)->second
+    if (symtable::global->find(fname)!=sym->fields->end()){
+      if (symtable::global->find(fname)->second
           ->attributes[static_cast<int>(attr::PROTOTYPE)]){
         // match params then emplace
-        symbol* old = global->find(fname)->second;
+        symbol* old = symtable::global->find(fname)->second;
         if (matching_attrib(old,sym)){
-          global->erase(global->find(fname));
+          symtable::global->erase(symtable::global->find(fname));
           delete old;
-          global->emplace(fname,sym);
-          master->emplace(fname,block);
+          symtable::global->emplace(fname,sym);
+          symtable::master->emplace(fname,block);
           current_function = fname;
           gen_table(s->children[2]);
           current = 0;
@@ -666,15 +657,15 @@ void p_function (astree *s){
       }
     }
     else{
-      global->emplace(fname,sym);
-      master->emplace(fname,block);
+      symtable::global->emplace(fname,sym);
+      symtable::master->emplace(fname,block);
       current_function = fname;
       gen_table(s->children[2]);
       current = 0;
     }
   }
   else{
-    if (global->find(fname)!=sym->fields->end()){
+    if (symtable::global->find(fname)!=sym->fields->end()){
         errprintf("prototype %s defined multiple times: %zd.%zd.%zd\n",
                    fname->c_str(),
                    sym->lloc.filenr, sym->lloc.linenr,
@@ -695,7 +686,7 @@ void p_function (astree *s){
       delete block;
       local = nullptr;
       current_function = fname;
-      global->emplace(fname,sym);
+      symtable::global->emplace(fname,sym);
       current = 0;
     }
   }
@@ -799,6 +790,8 @@ symbol *p_NULLPTR(astree *s){
   astree_attribs(sym,s);
   return sym;
 }
+
+symbol *p_expression(astree *s);
 
 symbol *p_binop(astree *s){
   if (s->children.size() < 2) {
@@ -992,12 +985,12 @@ symbol *p_comp(astree *s){
 symbol *p_ident (astree *s){
   const string *name = s->lexinfo;
   symbol *test = nullptr;
-  if (local && local->find(name)!=struct_t->end()){
+  if (local && local->find(name)!=symtable::struct_t->end()){
     test = local->find(name)->second;
   }
   if (test == nullptr){
-    if (global->find(name)!=struct_t->end()){
-      test = global->find(name)->second;
+    if (symtable::global->find(name)!=symtable::struct_t->end()){
+      test = symtable::global->find(name)->second;
     }
   }
 
@@ -1021,8 +1014,8 @@ symbol *p_call(astree *s){
   const string *fname = s->children[0]->lexinfo;
   symbol *ret = new symbol (s,current);
   symbol *test = nullptr;
-  if (global->find(fname)!=struct_t->end()){
-    test = global->find(fname)->second;
+  if (symtable::global->find(fname)!=symtable::struct_t->end()){
+    test = symtable::global->find(fname)->second;
     if (test->parameters == nullptr){
       if (s->children.size() != 1){
         errprintf 
@@ -1145,7 +1138,7 @@ symbol *p_field (astree *s){
   symbol *sym = new symbol (s,current);
   if (ident->attributes[static_cast<int>(attr::TYPEID)] && ident->sname !=nullptr){
     if (struct_valid(ident->sname,sym->lloc)){
-      symbol *found_struct = struct_t->find(ident->sname)->second; 
+      symbol *found_struct = symtable::struct_t->find(ident->sname)->second; 
       if (found_struct->fields !=nullptr){
         if ( found_struct->fields->find(field_name) !=
              found_struct->fields->end()){
@@ -1291,7 +1284,7 @@ void p_typeid(astree *s){
   // check for existence in local or global tables
   // depending on current scope.
   if (current != 0 && local){
-    if (local->find(vname)!=struct_t->end()){
+    if (local->find(vname)!=symtable::struct_t->end()){
       errprintf ("name %s already defined within block %d: "
                  "%zd.%zd.%zd\n",
                    vname->c_str(), current,
@@ -1303,10 +1296,10 @@ void p_typeid(astree *s){
   }
   else {
     string type ="";
-    if (global->find(vname) != global->end()){
-      if (global->find(vname)->second->attributes[static_cast<int>(attr::FUNCTION)])
+    if (symtable::global->find(vname) != symtable::global->end()){
+      if (symtable::global->find(vname)->second->attributes[static_cast<int>(attr::FUNCTION)])
         type.append ("function");
-      else if (global->find(vname)->second->attributes[static_cast<int>(attr::LVAL)])
+      else if (symtable::global->find(vname)->second->attributes[static_cast<int>(attr::LVAL)])
         type.append ("variable");
 
       errprintf ("name %s already defined globally"
@@ -1331,7 +1324,7 @@ void p_typeid(astree *s){
   else {
   // is a global decl
     astree_attribs(sym,s);
-    global->emplace(vname,sym);  
+    symtable::global->emplace(vname,sym);  
   }
   // if there is an expr to parse
   if ( s->children.size() > 2){
@@ -1378,7 +1371,7 @@ void p_return (astree *s){
     s->lloc.filenr,s->lloc.linenr,s->lloc.offset);
     return;
   }
-  symbol *func = global->find(current_function)->second;
+  symbol *func = symtable::global->find(current_function)->second;
   if (s->children.size() < 1){
     if (!(func->attributes[static_cast<int>(attr::VOID)])){
       errprintf (
@@ -1416,9 +1409,10 @@ void p_return (astree *s){
 void gen_table(astree *s){
   switch(s->symbol){
     case TOK_ROOT:
-      global = new symbol_table();
-      symtable::tables = new all_tables(struct_t,global,master);
-      master->emplace(s->lexinfo,global);      
+      symtable::global = new symbol_table();
+      symtable::master = new unordered_map<const string*,symbol_table*>;
+      symtable::struct_t = new symbol_table();
+      symtable::master->emplace(s->lexinfo,symtable::global);      
       for (astree* child: s->children) gen_table(child);        
       break;
     case TOK_BLOCK:
@@ -1457,26 +1451,25 @@ int ssymgen(astree *s){
 }
 
 void free_symbol(){
-  for (auto itor: *master){
+  for (auto itor: *symtable::master){
     for (auto itor2: *itor.second){
       delete itor2.second; 
     }
     itor.second->clear();
     delete itor.second;
   }
-  master->clear();
-  delete master;
-  for (auto itor: *struct_t){
+  symtable::master->clear();
+  delete symtable::master;
+  for (auto itor: *symtable::struct_t){
       delete itor.second;
   }
-  struct_t->clear();
-  delete struct_t;
-  delete symtable::tables;
+  symtable::struct_t->clear();
+  delete symtable::struct_t;
 }
 
 void dump_all_tables(FILE* out){
-  for (auto itor: *struct_t){
+  for (auto itor: *symtable::struct_t){
     print_struct(out,itor.first,itor.second);  
   }
-  print_map(out,global);
+  print_map(out,symtable::global);
 }

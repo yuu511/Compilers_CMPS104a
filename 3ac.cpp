@@ -384,13 +384,13 @@ string *astree_stride(ac3_table *current,astree *expr){
       return new string(":i");
     case TOK_CALL:
       // find function definition in global table
-      parse = symtable::tables->global->find(expr->children[0]->lexinfo)->second;
+      parse = symtable::global->find(expr->children[0]->lexinfo)->second;
       return astree_stride_symbol(parse);
     case TOK_INDEX:
       return astree_stride_symbol_index(expr);
     case TOK_ARROW:
       // get symbol of struct
-      parse = symtable::tables->struct_t->find(expr->sname)->second;
+      parse = symtable::struct_t->find(expr->sname)->second;
       // get symbol of struct parameter
       parse = parse->fields->find(expr->children[1]->lexinfo)->second;
       return astree_stride_symbol(parse);
@@ -1278,7 +1278,7 @@ void p_stmt(astree *expr, ac3_table *current, string *label){
   }
 }
 
-void ac_globalvar(astree *child, all_tables *table){
+void ac_globalvar(astree *child){
   if (child->children.size() > 2){
     astree *assignment = child->children[2];
     if (assignment->symbol == TOK_ALLOC){
@@ -1294,7 +1294,7 @@ void ac_globalvar(astree *child, all_tables *table){
       return;
     }
   }
-  p_assignment(child,table_lookup->find(table->global)->second,nullptr);
+  p_assignment(child,table_lookup->find(symtable::global)->second,nullptr);
 }
 
 // helper function for emit struct
@@ -1317,12 +1317,12 @@ void translate_struct (const string *name, symbol *sym, FILE *out){
 
 // emit structs
 void emit_struct(FILE *out){
-  if (symtable::tables->struct_t == nullptr){
+  if (symtable::struct_t == nullptr){
     errprintf("3ac: ac_struct called on null struct_table\n");
     ++err_count;
     return;
   }
-  for (auto itor: *(symtable::tables->struct_t)){
+  for (auto itor: *(symtable::struct_t)){
     translate_struct(itor.first,itor.second,out);  
   }
 }
@@ -1357,8 +1357,8 @@ void emit_functions(FILE *out){
   for (auto itor: *(all_ac->all_functions)){
     // get symbol associated with function and
     // symbol table associated with functions block
-    symbol *type = symtable::tables->global->find(itor.first)->second;
-    symbol_table *block = symtable::tables->master->find(itor.first)->second;
+    symbol *type = symtable::global->find(itor.first)->second;
+    symbol_table *block = symtable::master->find(itor.first)->second;
     
     // function name
     string fname;
@@ -1444,18 +1444,18 @@ void ac_traverse(astree *s){
   for (astree *child: s->children){
     if (child->symbol == TOK_TYPE_ID){
       // process the global variable
-      ac_globalvar(child,symtable::tables);
+      ac_globalvar(child);
     }
     // else process the function
     // ensure the function is valid, and not a prototype
     else if (child->symbol == TOK_FUNCTION 
              && !(child->attributes[static_cast<int>(attr::PROTOTYPE)])
-             && symtable::tables->global->count(child->children[0]->children[1]->lexinfo)){
+             && symtable::global->count(child->children[0]->children[1]->lexinfo)){
       astree *name = child->children[0]->children[1];
       symbol_table *found;
       // find symbol table associated with function
-      if (symtable::tables->master->find(name->lexinfo) != symtable::tables->master->end()){
-        found = symtable::tables->master->find(name->lexinfo)->second;
+      if (symtable::master->find(name->lexinfo) != symtable::master->end()){
+        found = symtable::master->find(name->lexinfo)->second;
       } 
       else {
         errprintf ("3ac: invalid function definition. Stopping address code generation \n");
@@ -1483,7 +1483,7 @@ void emit_all3ac(FILE *out){
 }
 
 int generate_3ac(){
-  if (!parser::root || !symtable::tables){
+  if (!parser::root || !symtable::master || !symtable::global || !symtable::struct_t){
     errprintf ("parse failed, or invalid table, stopping generation of assembly\n");
     ++err_count;
     return 1;
@@ -1495,7 +1495,7 @@ int generate_3ac(){
   vector<pair<const string*,ac3_table*>> *all_functions = new vector<pair<const string*,ac3_table*>>();
  
   // link global symbol table with global statement table
-  table_lookup->emplace(symtable::tables->global,all_globals);
+  table_lookup->emplace(symtable::global,all_globals);
   all_ac = new all_3ac(all_globals,all_functions,all_strings);
   ac_traverse(parser::root);
   if (err_count){
