@@ -12,8 +12,8 @@ using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)
 
 /* 
    reg may be:
-   1. an identifier e.g. x
-   2. a temporary register e.g. $t0
+   1. an identifier e.g. x , 5
+   2. a temporary register e.g. $t0 , $t1
    3. a function call e.g. call foo(arg1,arg2) 
    4. a typesize e.g. sizeof ptr (sizeof is stored in unop as it is an operator)
    5. a pointer to a string literal (.s[n]) where [n] is the index in string table
@@ -24,10 +24,11 @@ using instruction_bitset = bitset <static_cast<size_t>(instruction::BITSET_SIZE)
    the unary operator may also be "sizeof" iff the register is a typesize
 */
 
-struct reg {
+struct reg { // parent class
   string *unop;
   reg(); // constructor
-  // functions
+  void set_unop(string *unop);// functions
+  // virtual functions
   virtual string str(); // stringify register
   virtual reg *deep_copy(); //deep copy register
   virtual ~reg(); // destructor
@@ -144,7 +145,7 @@ struct ac3{
 };
 
 /*
-   all functions have an equivalent ac3 table 
+   all functions have an ac3 table assocciated with them
    (which is just a collection of 3 address code statements, defined above)
    all global declarations are also encapsulated within an ac3 table
 */

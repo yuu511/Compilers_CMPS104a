@@ -36,6 +36,10 @@ reg *reg::deep_copy(){
   return r;
 }
 
+void reg::set_unop(string *unop_){
+  unop = unop_; 
+}
+
 string reg::str(){
   string prefix="";
   if (unop != nullptr){
@@ -540,7 +544,8 @@ ac3 *alloc_array(astree *expr,ac3_table *current, reg *init){
   // if the number is an expression, parse it, otherwise assign it directly
   parsed_sz->t1 = alloc_sz->children.size() ? expr_reg(alloc_sz,current) : new reg_ident(alloc_sz->lexinfo);
   parsed_sz->op = new string("*");
-  parsed_sz->t2 = new reg_typesize(alloc_array_typesize(expr)); parsed_sz->t2->unop = new string ("sizeof");
+  parsed_sz->t2 = new reg_typesize(alloc_array_typesize(expr)); 
+  parsed_sz->t2->set_unop(new string("sizeof"));
   parsed_sz->itype.set(static_cast<int>(instruction::ASSIGNMENT));
   current->push_back(parsed_sz);
 
@@ -558,7 +563,8 @@ ac3 *alloc_struct(astree *expr,ac3_table *current, reg *init){
   ac3 *bot = new ac3(expr);
   vector <reg*> *malloc_params = new vector<reg*>();
   string *struct_name = new string("struct " + *(expr->children[0]->lexinfo));
-  reg *malloc_typesz = new reg_typesize(struct_name); malloc_typesz->unop = new string ("sizeof");
+  reg *malloc_typesz = new reg_typesize(struct_name); 
+  malloc_typesz->set_unop(new string("sizeof"));
   malloc_params->push_back(malloc_typesz);  
   bot->t0 = init;
   bot->t1 = new reg_function_call(new string("malloc"),malloc_params);
@@ -790,13 +796,13 @@ ac3 *p_unop(astree *expr, ac3_table *current){
   astree *assignment = expr->children[0];
   if (assignment->children.size()){
     reg *unary = new reg_temp(astree_stride(current,assignment),reg_count);
-    unary->unop = new string(*(expr->lexinfo));
+    unary->set_unop(new string(*(expr->lexinfo)));
     ac->t1 = unary;
     p_expr(assignment,current);
   }
   else {
     reg *unary = new reg_ident(assignment->lexinfo);
-    unary->unop = new string(*(expr->lexinfo));
+    unary->set_unop(new string(*(expr->lexinfo)));
     ac->t1 = unary;
   }
   ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
@@ -929,8 +935,8 @@ ac3 *p_loop_condition(string *goto_label, astree *expr, ac3_table *current){
 	    default:
 	      ret = new ac3(expr);
 	      reg *parse = expr_reg(expr,current);
-	      parse->unop = new string ("not");
-          ret->condition = goto_label;
+	      parse->set_unop(new string ("not"));
+              ret->condition = goto_label;
 	      ret->t1 = parse;
 	      ret->itype.set(static_cast<int>(instruction::GOTO));
       }
@@ -938,7 +944,7 @@ ac3 *p_loop_condition(string *goto_label, astree *expr, ac3_table *current){
     else {
       ret = new ac3(expr);
       reg *parse = expr_reg(expr,current);
-      parse->unop = new string ("not");
+      parse->set_unop(new string ("not"));
       ret->condition = goto_label;
       ret->t1 = parse;
       ret->itype.set(static_cast<int>(instruction::GOTO));
@@ -948,7 +954,7 @@ ac3 *p_loop_condition(string *goto_label, astree *expr, ac3_table *current){
     ret = new ac3(expr);
     ret->condition = goto_label;
     ret->t1 = new reg_ident(expr->lexinfo);
-    ret->t1->unop = new string("not");
+    ret->t1->set_unop(new string("not"));
     ret->itype.set(static_cast<int>(instruction::GOTO));
   }
   return ret;
