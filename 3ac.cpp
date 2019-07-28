@@ -58,13 +58,7 @@ reg_ident::reg_ident(const string *ident_){
 }
 
 string reg_ident::str(){
-  string fmt_string = "";  
-  if (unop != nullptr) {
-    fmt_string.append(*unop);
-    if (*unop == "sizeof" || *unop == "not") {
-      fmt_string.append(" ");
-    }
-  }
+  string fmt_string = reg::str();  
   fmt_string.append(*ident);
   return fmt_string;
 }
@@ -86,13 +80,7 @@ reg_temp::reg_temp(string *stride_, int reg_number_){
 }
 
 string reg_temp::str(){
-  string fmt_string = "";
-  if (unop != nullptr) {
-    fmt_string.append(*unop);
-    if (*unop == "sizeof" || *unop == "not") {
-      fmt_string.append(" ");
-    }
-  }
+  string fmt_string = reg::str();
   fmt_string.append("$t");
   fmt_string.append(to_string(reg_number));
   fmt_string.append(*stride);
@@ -116,7 +104,7 @@ reg_function_call::reg_function_call(string *fname_,vector<reg*> *parameters_){
 }
 
 string reg_function_call::str(){
-  string fmt_string;
+  string fmt_string = reg::str();
   fmt_string.append("call ");
   fmt_string.append(*fname);
   fmt_string.append("(");
@@ -156,13 +144,7 @@ reg_typesize::reg_typesize(string *typesize_){
 }
 
 string reg_typesize::str(){
-  string fmt_string;
-  if (unop != nullptr) {
-    fmt_string.append(*unop);
-    if (*unop == "sizeof" || *unop == "not") {
-      fmt_string.append(" ");
-    }
-  }
+  string fmt_string = reg::str();
   fmt_string.append(*typesize);
   return fmt_string;
 }
@@ -183,17 +165,11 @@ reg_string_pointer::reg_string_pointer(int index_){
 }
 
 string reg_string_pointer::str(){
-  string ret = "";
-  if (unop != nullptr) {
-    ret.append(*unop);
-    if (*unop == "sizeof" || *unop == "not") {
-      ret.append(" ");
-    }
-  }
-  ret.append("(.s");
-  ret.append(to_string(index));
-  ret.append(")");
-  return ret;
+  string fmt_string = reg::str();
+  fmt_string.append("(.s");
+  fmt_string.append(to_string(index));
+  fmt_string.append(")");
+  return fmt_string;
 }
 
 reg *reg_string_pointer::deep_copy(){
@@ -214,14 +190,7 @@ reg_array_index::reg_array_index(reg *array_ident_, reg *selection_index_, strin
 }
 
 string reg_array_index::str(){
-  string fmt_string="";
-  if (unop != nullptr){
-    fmt_string.append(*unop);
-    //add space (for readability)
-    if (*unop == "sizeof" || *unop == "not"){
-      fmt_string.append(" ");
-    }
-  }
+  string fmt_string= reg::str();
   fmt_string.append(array_ident->str());
   fmt_string.append("[");
   fmt_string.append(selection_index->str());
@@ -244,7 +213,7 @@ reg_array_index::~reg_array_index(){
   delete stride;
 }
 
-// 7. selection
+/* 7. selection */
 reg_selection::reg_selection(reg *ident_, const string *sname_, const string *field_){
   ident = ident_;
   sname = sname_;
@@ -252,15 +221,7 @@ reg_selection::reg_selection(reg *ident_, const string *sname_, const string *fi
 }
 
 string reg_selection::str(){
-  string string_fmt="";
-  if (unop != nullptr){
-    string_fmt.append(*unop);
-    //add space (for readability)
-    if (*unop == "sizeof" ||
-        *unop == "not"){
-      string_fmt.append(" ");
-    }
-  }
+  string string_fmt = reg::str();
   string_fmt.append(ident->str());
   string_fmt.append("->");
   string_fmt.append(*sname);

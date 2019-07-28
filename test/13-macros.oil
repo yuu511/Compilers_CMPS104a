@@ -10,7 +10,7 @@ main:      .function int
            call putstr("] compiled ")  
            call putstr("Jul 28 2019")  
            call putstr(" ")  
-           call putstr("00:15:23")  
+           call putstr("00:49:48")  
            call putstr("\n")  
            return 0
            return
