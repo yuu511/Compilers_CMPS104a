@@ -238,6 +238,15 @@ reg_selection::~reg_selection(){
   delete ident;
 }
 
+ac3::~ac3(){
+  delete label;
+  delete condition;
+  delete t0;
+  delete op;
+  delete t1;
+  delete t2;
+}
+
 void free_3ac(){
   delete three_address_code::table_lookup;
   if (three_address_code::all_functions){
@@ -256,15 +265,6 @@ void free_3ac(){
   delete three_address_code::all_globals;
   delete three_address_code::all_functions;
   delete three_address_code::all_strings;
-}
-
-ac3::~ac3(){
-  delete label;
-  delete condition;
-  delete t0;
-  delete op;
-  delete t1;
-  delete t2;
 }
 
 ac3::ac3 (astree *expr_,reg *t0_ ){
