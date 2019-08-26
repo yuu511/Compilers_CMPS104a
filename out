@@ -1,59 +1,515 @@
-g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c reg.cpp
-reg.cpp: In copy constructor ‘reg_ident::reg_ident(const reg_ident&)’:
-reg.cpp:52:15: error: no match for ‘operator=’ (operand types are ‘const string’ {aka ‘const std::__cxx11::basic_string<char>’} and ‘const string’ {aka ‘const std::__cxx11::basic_string<char>’})
-   52 |   *ident = *r.ident;
-      |               ^~~~~
-In file included from /usr/include/c++/9.1.0/string:55,
-                 from reg.h:4,
-                 from reg.cpp:1:
-/usr/include/c++/9.1.0/bits/basic_string.h:665:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’ <near match>
-  665 |       operator=(const basic_string& __str)
-      |       ^~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:665:7: note:   passing ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} as ‘this’ argument discards qualifiers
-/usr/include/c++/9.1.0/bits/basic_string.h:732:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’ <near match>
-  732 |       operator=(basic_string&& __str)
-      |       ^~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:732:7: note:   conversion of argument 1 would be ill-formed:
-reg.cpp:52:12: error: cannot bind rvalue reference of type ‘std::__cxx11::basic_string<char>&&’ to lvalue of type ‘const string’ {aka ‘const std::__cxx11::basic_string<char>’}
-   52 |   *ident = *r.ident;
-      |            ^~~~~~~~
-In file included from /usr/include/c++/9.1.0/string:55,
-                 from reg.h:4,
-                 from reg.cpp:1:
-/usr/include/c++/9.1.0/bits/basic_string.h:704:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const _CharT*) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-  704 |       operator=(const _CharT* __s)
-      |       ^~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:704:31: note:   no known conversion for argument 1 from ‘const string’ {aka ‘const std::__cxx11::basic_string<char>’} to ‘const char*’
-  704 |       operator=(const _CharT* __s)
-      |                 ~~~~~~~~~~~~~~^~~
-/usr/include/c++/9.1.0/bits/basic_string.h:715:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(_CharT) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-  715 |       operator=(_CharT __c)
-      |       ^~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:715:24: note:   no known conversion for argument 1 from ‘const string’ {aka ‘const std::__cxx11::basic_string<char>’} to ‘char’
-  715 |       operator=(_CharT __c)
-      |                 ~~~~~~~^~~
-/usr/include/c++/9.1.0/bits/basic_string.h:795:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(std::initializer_list<_Tp>) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-  795 |       operator=(initializer_list<_CharT> __l)
-      |       ^~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:795:42: note:   no known conversion for argument 1 from ‘const string’ {aka ‘const std::__cxx11::basic_string<char>’} to ‘std::initializer_list<char>’
-  795 |       operator=(initializer_list<_CharT> __l)
-      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
-/usr/include/c++/9.1.0/bits/basic_string.h:809:8: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const _Tp&) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-  809 |        operator=(const _Tp& __svt)
-      |        ^~~~~~~~
-/usr/include/c++/9.1.0/bits/basic_string.h:809:8: note:   template argument deduction/substitution failed:
-In file included from /usr/include/c++/9.1.0/bits/move.h:55,
-                 from /usr/include/c++/9.1.0/bits/stl_pair.h:59,
-                 from /usr/include/c++/9.1.0/bits/stl_algobase.h:64,
-                 from /usr/include/c++/9.1.0/bits/char_traits.h:39,
-                 from /usr/include/c++/9.1.0/string:40,
-                 from reg.h:4,
-                 from reg.cpp:1:
-/usr/include/c++/9.1.0/type_traits: In substitution of ‘template<bool _Cond, class _Tp> using enable_if_t = typename std::enable_if::type [with bool _Cond = std::integral_constant<bool, false>::value; _Tp = std::__cxx11::basic_string<char>&]’:
-/usr/include/c++/9.1.0/bits/basic_string.h:117:8:   required by substitution of ‘template<class _CharT, class _Traits, class _Alloc> template<class _Tp, class _Res> using _If_sv = std::enable_if_t<std::__and_<std::is_convertible<const _Tp&, std::basic_string_view<_CharT, _Traits> >, std::__not_<std::is_convertible<const _Tp*, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>*> >, std::__not_<std::is_convertible<const _Tp&, const _CharT*> > >::value, _Res> [with _Tp = std::__cxx11::basic_string<char>; _Res = std::__cxx11::basic_string<char>&; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
-/usr/include/c++/9.1.0/bits/basic_string.h:809:8:   required by substitution of ‘template<class _Tp> std::__cxx11::basic_string<char>::_If_sv<_Tp, std::__cxx11::basic_string<char>&> std::__cxx11::basic_string<char>::operator=<_Tp>(const _Tp&) [with _Tp = std::__cxx11::basic_string<char>]’
-reg.cpp:52:15:   required from here
-/usr/include/c++/9.1.0/type_traits:2426:11: error: no type named ‘type’ in ‘struct std::enable_if<false, std::__cxx11::basic_string<char>&>’
- 2426 |     using enable_if_t = typename enable_if<_Cond, _Tp>::type;
-      |           ^~~~~~~~~~~
-make: *** [Makefile:55: reg.o] Error 1
+g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c 3AC_emitter.cpp
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:42:37: error: ISO C++ forbids declaration of ‘ac3’ with no type [-fpermissive]
+   42 |   ac3(astree *expr,reg *t0 = nullptr);
+      |                                     ^
+statement_table.h:43:7: error: expected class-name before ‘(’ token
+   43 |   ~ac3();
+      |       ^
+3AC_emitter.cpp: In function ‘statement* asg_int(astree*, statement_table*, std::string*)’:
+3AC_emitter.cpp:201:29: error: no matching function for call to ‘statement::statement(astree*&)’
+  201 |     bot = new statement(expr);
+      |                             ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp:217:29: error: no matching function for call to ‘statement::statement(astree*&)’
+  217 |     bot = new statement(expr);
+      |                             ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* alloc_array(astree*, statement_table*, reg*)’:
+3AC_emitter.cpp:248:38: error: no matching function for call to ‘statement::statement(astree*&)’
+  248 |   statement *bot = new statement(expr);
+      |                                      ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp:249:44: error: no matching function for call to ‘statement::statement(astree*&)’
+  249 |   statement *parsed_sz = new statement(expr);
+      |                                            ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* alloc_struct(astree*, statement_table*, reg*)’:
+3AC_emitter.cpp:274:38: error: no matching function for call to ‘statement::statement(astree*&)’
+  274 |   statement *bot = new statement(expr);
+      |                                      ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* alloc_string(astree*, statement_table*, reg*)’:
+3AC_emitter.cpp:288:38: error: no matching function for call to ‘statement::statement(astree*&)’
+  288 |   statement *bot = new statement(expr);
+      |                                      ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* asg_array(astree*, statement_table*, std::string*)’:
+3AC_emitter.cpp:316:31: error: no matching function for call to ‘statement::statement(astree*&)’
+  316 |       bot = new statement(expr);
+      |                               ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp:325:29: error: no matching function for call to ‘statement::statement(astree*&)’
+  325 |     bot = new statement(expr);
+      |                             ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* asg_struct(astree*, statement_table*, std::string*)’:
+3AC_emitter.cpp:350:31: error: no matching function for call to ‘statement::statement(astree*&)’
+  350 |       bot = new statement(expr);
+      |                               ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp:359:29: error: no matching function for call to ‘statement::statement(astree*&)’
+  359 |     bot = new statement(expr);
+      |                             ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_string(astree*, statement_table*, reg*)’:
+3AC_emitter.cpp:384:38: error: no matching function for call to ‘statement::statement(astree*&)’
+  384 |   statement *bot = new statement(expr);
+      |                                      ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* asg_string(astree*, statement_table*, std::string*)’:
+3AC_emitter.cpp:407:31: error: no matching function for call to ‘statement::statement(astree*&)’
+  407 |       bot = new statement(expr);
+      |                               ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp:422:31: error: no matching function for call to ‘statement::statement(astree*&)’
+  422 |       bot = new statement(expr);
+      |                               ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_assignment(astree*, statement_table*, std::string*)’:
+3AC_emitter.cpp:467:38: error: no matching function for call to ‘statement::statement(astree*&)’
+  467 |     statement *ac =new statement(expr);
+      |                                      ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_binop(astree*, statement_table*)’:
+3AC_emitter.cpp:476:37: error: no matching function for call to ‘statement::statement(astree*&)’
+  476 |   statement *ac = new statement(expr);
+      |                                     ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_unop(astree*, statement_table*)’:
+3AC_emitter.cpp:504:36: error: no matching function for call to ‘statement::statement(astree*&)’
+  504 |   statement *ac =new statement(expr);
+      |                                    ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_static_val(astree*, statement_table*)’:
+3AC_emitter.cpp:539:37: error: no matching function for call to ‘statement::statement(astree*&)’
+  539 |   statement *ac = new statement(expr);
+      |                                     ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_call(astree*, statement_table*, std::string*)’:
+3AC_emitter.cpp:550:38: error: no matching function for call to ‘statement::statement(astree*&)’
+  550 |   statement *bot = new statement(expr);
+      |                                      ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_field(astree*, statement_table*)’:
+3AC_emitter.cpp:581:38: error: no matching function for call to ‘statement::statement(astree*&)’
+  581 |   statement *bot = new statement(expr);
+      |                                      ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_loop_condition_relop(std::string*, std::string*, astree*, statement_table*)’:
+3AC_emitter.cpp:621:38: error: no matching function for call to ‘statement::statement(astree*&)’
+  621 |   statement *ret = new statement(expr);
+      |                                      ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_loop_condition(std::string*, astree*, statement_table*)’:
+3AC_emitter.cpp:648:28: error: no matching function for call to ‘statement::statement(astree*&)’
+  648 |    ret = new statement(expr);
+      |                            ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp:657:31: error: no matching function for call to ‘statement::statement(astree*&)’
+  657 |       ret = new statement(expr);
+      |                               ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp:666:29: error: no matching function for call to ‘statement::statement(astree*&)’
+  666 |     ret = new statement(expr);
+      |                             ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_if(astree*, statement_table*, std::string*)’:
+3AC_emitter.cpp:686:48: error: no matching function for call to ‘statement::statement(astree*&)’
+  686 |     statement *encapsulate = new statement(expr);
+      |                                                ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp:720:58: error: no matching function for call to ‘statement::statement(astree*&)’
+  720 |     statement *if_true = new statement (expr->children[1]);
+      |                                                          ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘__gnu_cxx::__alloc_traits<std::allocator<astree*>, astree*>::value_type’ {aka ‘astree*’} to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘__gnu_cxx::__alloc_traits<std::allocator<astree*>, astree*>::value_type’ {aka ‘astree*’} to ‘statement&&’
+3AC_emitter.cpp:731:47: error: no matching function for call to ‘statement::statement(astree*&)’
+  731 |   statement *closing_stmt = new statement(expr);
+      |                                               ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_while(astree*, statement_table*, std::string*)’:
+3AC_emitter.cpp:749:48: error: no matching function for call to ‘statement::statement(astree*&)’
+  749 |     statement *encapsulate = new statement(expr);
+      |                                                ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp:778:45: error: no matching function for call to ‘statement::statement(astree*&)’
+  778 |   statement *loop_stmt = new statement (stmt);
+      |                                             ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp:784:47: error: no matching function for call to ‘statement::statement(astree*&)’
+  784 |   statement *closing_stmt = new statement(expr);
+      |                                               ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_equals(astree*, statement_table*)’:
+3AC_emitter.cpp:793:37: error: no matching function for call to ‘statement::statement(astree*&)’
+  793 |   statement *ac = new statement(expr);
+      |                                     ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘void p_block(astree*, statement_table*, std::string*)’:
+3AC_emitter.cpp:855:52: error: no matching function for call to ‘statement::statement(astree*&)’
+  855 |       statement *vacuous_block = new statement(expr);
+      |                                                    ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_return(astree*, statement_table*, std::string*)’:
+3AC_emitter.cpp:868:29: error: no matching function for call to ‘statement::statement(astree*&)’
+  868 |     bot = new statement(expr);
+      |                             ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp:887:29: error: no matching function for call to ‘statement::statement(astree*&)’
+  887 |     bot = new statement(expr);
+      |                             ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_index(astree*, statement_table*)’:
+3AC_emitter.cpp:896:38: error: no matching function for call to ‘statement::statement(astree*&)’
+  896 |   statement *bot = new statement(expr);
+      |                                      ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_semicolon(astree*, statement_table*, std::string*)’:
+3AC_emitter.cpp:912:37: error: no matching function for call to ‘statement::statement(astree*&)’
+  912 |   statement *ac = new statement(expr);
+      |                                     ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp:915:48: error: no matching function for call to ‘statement::statement(astree*&)’
+  915 |     statement *encapsulate = new statement(expr);
+      |                                                ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+3AC_emitter.cpp: In function ‘statement* p_expression(astree*, statement_table*, std::string*)’:
+3AC_emitter.cpp:988:52: error: no matching function for call to ‘statement::statement(astree*&)’
+  988 |         statement *encapsulate = new statement(expr);
+      |                                                    ^
+In file included from 3AC_emitter.h:6,
+                 from 3AC_emitter.cpp:3:
+statement_table.h:33:8: note: candidate: ‘statement::statement()’
+   33 | struct statement {
+      |        ^~~~~~~~~
+statement_table.h:33:8: note:   candidate expects 0 arguments, 1 provided
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(const statement&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘const statement&’
+statement_table.h:33:8: note: candidate: ‘constexpr statement::statement(statement&&)’
+statement_table.h:33:8: note:   no known conversion for argument 1 from ‘astree*’ to ‘statement&&’
+make: *** [Makefile:55: 3AC_emitter.o] Error 1

@@ -9,19 +9,10 @@ using namespace std;
 int reg_count, while_count, if_count, err_count = 0;
 
 namespace three_address_code {
-  unordered_map <symbol_table*, ac3_table*> *table_lookup = nullptr;
-  ac3_table *all_globals = nullptr; 
+  unordered_map <symbol_table*, statement_table*> *table_lookup = nullptr;
+  statement_table *all_globals = nullptr; 
   vector<const string*> *all_strings = nullptr;
-  vector<pair<const string*,ac3_table*>> *all_functions = nullptr;
-}
-
-ac3::~ac3(){
-  delete label;
-  delete condition;
-  delete t0;
-  delete op;
-  delete t1;
-  delete t2;
+  vector<pair<const string*,statement_table*>> *all_functions = nullptr;
 }
 
 void free_3ac(){
@@ -42,16 +33,6 @@ void free_3ac(){
   delete three_address_code::all_globals;
   delete three_address_code::all_functions;
   delete three_address_code::all_strings;
-}
-
-ac3::ac3 (astree *expr_,reg *t0_ ){
-  expr = expr_;
-  t0 = t0_;
-  condition = nullptr;
-  label = nullptr;
-  op = nullptr;
-  t1 = nullptr;
-  t2 = nullptr;
 }
 
 // parse types of either symbol or astree
@@ -79,10 +60,10 @@ template <class Type> string parse_typesize(const Type &o){
   return st;
 }
 
-ac3 *p_expr(astree *expr, ac3_table *current);
+statement *p_expr(astree *expr, statement_table *current);
 // parse expression, and return a register that it is stored in
-reg *expr_reg (astree *expr, ac3_table *current){
-  ac3 *parsed_expr  = p_expr(expr,current);
+reg *expr_reg (astree *expr, statement_table *current){
+  statement *parsed_expr  = p_expr(expr,current);
   if (parsed_expr && parsed_expr->t0){
     return parsed_expr->t0->deep_copy(); 
   }
@@ -137,7 +118,7 @@ template <class Type> string *astree_stride_symbol(const Type &current){
 }
 
 // parse an astree expression for a expr stride
-string *astree_stride(ac3_table *current,astree *expr){
+string *astree_stride(statement_table *current,astree *expr){
   symbol *parse = nullptr;
   switch (expr->symbol){
     case TOK_CHARCON:
@@ -183,7 +164,7 @@ string *astree_stride(ac3_table *current,astree *expr){
   return nullptr;
 }
 
-reg *parse_variable(astree *expr, ac3_table *current){
+reg *parse_variable(astree *expr, statement_table *current){
   reg *selection = nullptr;
   if (expr->children.size()){
     if (expr->symbol == TOK_ARROW){
@@ -207,9 +188,9 @@ reg *parse_variable(astree *expr, ac3_table *current){
 }
 
 // assign int to ident
-ac3 *asg_int(astree *expr, ac3_table *current, string *label){
+statement *asg_int(astree *expr, statement_table *current, string *label){
   // bot of statements
-  ac3 *bot;
+  statement *bot;
   // get index of top of statements
   size_t top = current->size();
 
@@ -217,7 +198,7 @@ ac3 *asg_int(astree *expr, ac3_table *current, string *label){
   astree *parse = expr->symbol == TOK_TYPE_ID ? expr->children[2] : expr->children[1];
 
   if (parse->children.size()){  
-    bot = new ac3(expr);
+    bot = new statement(expr);
     reg *bot_reg = expr_reg(parse,current);
     if (bot_reg){
       bot->t0 = parse_variable(ident,current);
@@ -233,7 +214,7 @@ ac3 *asg_int(astree *expr, ac3_table *current, string *label){
     }
   }
   else {
-    bot = new ac3(expr);
+    bot = new statement(expr);
     bot->t0 = parse_variable(ident,current);
     bot->t1 = new reg_ident(parse->lexinfo);
     bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
@@ -263,9 +244,9 @@ string *alloc_array_typesize(astree *expr){
   return ret;
 }
 
-ac3 *alloc_array(astree *expr,ac3_table *current, reg *init){
-  ac3 *bot = new ac3(expr);
-  ac3 *parsed_sz = new ac3(expr);
+statement *alloc_array(astree *expr,statement_table *current, reg *init){
+  statement *bot = new statement(expr);
+  statement *parsed_sz = new statement(expr);
   astree *alloc_sz = expr->children[1];
   /* the size to malloc (stored in a reg)  */
   reg *ret = new reg_temp(astree_stride(current,expr),reg_count);
@@ -289,8 +270,8 @@ ac3 *alloc_array(astree *expr,ac3_table *current, reg *init){
   return bot;
 }
 
-ac3 *alloc_struct(astree *expr,ac3_table *current, reg *init){
-  ac3 *bot = new ac3(expr);
+statement *alloc_struct(astree *expr,statement_table *current, reg *init){
+  statement *bot = new statement(expr);
   vector <reg*> *malloc_params = new vector<reg*>();
   string *struct_name = new string("struct " + *(expr->children[0]->lexinfo));
   reg *malloc_typesz = new reg_typesize(struct_name); 
@@ -303,8 +284,8 @@ ac3 *alloc_struct(astree *expr,ac3_table *current, reg *init){
   return bot;
 }
 
-ac3 *alloc_string(astree *expr,ac3_table *current, reg *init){
-  ac3 *bot = new ac3(expr);
+statement *alloc_string(astree *expr,statement_table *current, reg *init){
+  statement *bot = new statement(expr);
   astree *alloc_sz = expr->children[1];
   vector <reg*> *malloc_params = new vector<reg*>();
   // if number is an expression, parse it, otherwise just assign the single number.
@@ -317,8 +298,8 @@ ac3 *alloc_string(astree *expr,ac3_table *current, reg *init){
   return bot;
 }
 
-ac3 *asg_array(astree *expr, ac3_table *current, string *label){
-  ac3 *bot;
+statement *asg_array(astree *expr, statement_table *current, string *label){
+  statement *bot;
   size_t top = current->size();
 
   astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
@@ -332,7 +313,7 @@ ac3 *asg_array(astree *expr, ac3_table *current, string *label){
     }
     else {
       reg *ret_reg = expr_reg(parse,current);
-      bot = new ac3(expr);
+      bot = new statement(expr);
       bot->t0 = parse_variable(ident,current);
       bot->t1 = ret_reg;
       bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
@@ -341,7 +322,7 @@ ac3 *asg_array(astree *expr, ac3_table *current, string *label){
     }
   }
   else {
-    bot = new ac3(expr);
+    bot = new statement(expr);
     bot->t0 = parse_variable(ident,current);
     bot->t1 = new reg_ident(parse->lexinfo);
     bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
@@ -351,8 +332,8 @@ ac3 *asg_array(astree *expr, ac3_table *current, string *label){
   return bot;
 }
 
-ac3 *asg_struct(astree *expr, ac3_table *current, string *label){
-  ac3 *bot;
+statement *asg_struct(astree *expr, statement_table *current, string *label){
+  statement *bot;
   size_t top = current->size();
 
   astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
@@ -366,7 +347,7 @@ ac3 *asg_struct(astree *expr, ac3_table *current, string *label){
     }
     else {
       reg *ret_reg = expr_reg(parse,current);
-      bot = new ac3(expr);
+      bot = new statement(expr);
       bot->t0 = parse_variable(ident,current);
       bot->t1 = ret_reg;
       bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
@@ -375,7 +356,7 @@ ac3 *asg_struct(astree *expr, ac3_table *current, string *label){
     }
   }
   else {
-    bot = new ac3(expr);
+    bot = new statement(expr);
     bot->t0 = parse_variable(ident,current);
     bot->t1 = new reg_ident(parse->lexinfo);
     bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
@@ -399,8 +380,8 @@ reg *p_string_reg(astree *expr){
   return t1;
 }
 
-ac3 *p_string (astree *expr, ac3_table *current, reg *init){
-  ac3 *bot = new ac3(expr);
+statement *p_string (astree *expr, statement_table *current, reg *init){
+  statement *bot = new statement(expr);
   bot->t0 = init;
   bot->t1 = p_string_reg(expr);
   bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
@@ -408,8 +389,8 @@ ac3 *p_string (astree *expr, ac3_table *current, reg *init){
   return bot;
 }
 
-ac3 *asg_string(astree *expr, ac3_table *current, string *label){
-  ac3 *bot;
+statement *asg_string(astree *expr, statement_table *current, string *label){
+  statement *bot;
   size_t top = current->size();
 
   astree *ident = expr->symbol == TOK_TYPE_ID ? expr->children[1] : expr->children[0];
@@ -423,7 +404,7 @@ ac3 *asg_string(astree *expr, ac3_table *current, string *label){
     }
     else {
       reg *ret_reg = expr_reg(parse,current);
-      bot = new ac3(expr);
+      bot = new statement(expr);
       bot->t0 = parse_variable(ident,current);
       bot->t1 = ret_reg;
       bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
@@ -438,7 +419,7 @@ ac3 *asg_string(astree *expr, ac3_table *current, string *label){
       current->at(top)->label = label;
     }
     else {
-      bot = new ac3(expr);
+      bot = new statement(expr);
       bot->t0 = parse_variable(ident,current);
       bot->t1 = new reg_ident(parse->lexinfo);
       bot->itype.set(static_cast<int>(instruction::ASSIGNMENT));
@@ -450,7 +431,7 @@ ac3 *asg_string(astree *expr, ac3_table *current, string *label){
 }
 
 // check type, and call approriate parsing function
-ac3 *asg_check_type(astree *expr, ac3_table *current, string *label){
+statement *asg_check_type(astree *expr, statement_table *current, string *label){
   attr_bitset a = expr->attributes;
   if (a[static_cast<int>(attr::ARRAY)]){
     return asg_array(expr,current,label);
@@ -471,8 +452,8 @@ ac3 *asg_check_type(astree *expr, ac3_table *current, string *label){
 
 // if 'tok_type_id'  it's an variable declaration
 // else if '=' it's an assignment
-ac3 *p_assignment(astree *expr, ac3_table *current, string *label){
-  ac3 *ret = nullptr;
+statement *p_assignment(astree *expr, statement_table *current, string *label){
+  statement *ret = nullptr;
   if (expr->children.size() > (expr->symbol == TOK_TYPE_ID ? 2 : 1)){
     ret = asg_check_type(expr,current,label);
     return ret;
@@ -483,7 +464,7 @@ ac3 *p_assignment(astree *expr, ac3_table *current, string *label){
   else {
     astree *ident;
     expr->symbol == TOK_TYPE_ID ? ident = expr->children[1] : ident = expr->children[0]; 
-    ac3 *ac =new ac3(expr);
+    statement *ac =new statement(expr);
     ac->t0 = new reg_ident(ident->lexinfo);
     ac->itype.set(static_cast<int>(instruction::ASSIGNMENT));
     current->push_back(ac);
@@ -491,8 +472,8 @@ ac3 *p_assignment(astree *expr, ac3_table *current, string *label){
   return nullptr;
 }
 
-ac3 *p_binop(astree *expr, ac3_table *current){
-  ac3 *ac = new ac3(expr); 
+statement *p_binop(astree *expr, statement_table *current){
+  statement *ac = new statement(expr); 
   ac->op = new string(*(expr->lexinfo));
   ac->t0 = new reg_temp(astree_stride(current,expr),reg_count);
   ++reg_count;
@@ -519,8 +500,8 @@ ac3 *p_binop(astree *expr, ac3_table *current){
   return ac;
 }
 
-ac3 *p_unop(astree *expr, ac3_table *current){
-  ac3 *ac =new ac3(expr);
+statement *p_unop(astree *expr, statement_table *current){
+  statement *ac =new statement(expr);
   ac->t0 = new reg_temp(astree_stride(current,expr),reg_count);
   ++reg_count;
 
@@ -541,7 +522,7 @@ ac3 *p_unop(astree *expr, ac3_table *current){
   return ac;
 }
 
-ac3 *p_polymorphic(astree *expr, ac3_table *current){
+statement *p_polymorphic(astree *expr, statement_table *current){
   if (expr->children.size() > 1){
     return p_binop(expr,current);
   }
@@ -554,8 +535,8 @@ ac3 *p_polymorphic(astree *expr, ac3_table *current){
   return nullptr;
 }
 
-ac3 *p_static_val(astree *expr, ac3_table *current){
-  ac3 *ac = new ac3(expr); 
+statement *p_static_val(astree *expr, statement_table *current){
+  statement *ac = new statement(expr); 
   ac->t0 = new reg_temp(astree_stride(current,expr),reg_count);
   ++reg_count;
   ac->t1 = new reg_ident(expr->lexinfo);  
@@ -564,9 +545,9 @@ ac3 *p_static_val(astree *expr, ac3_table *current){
   return ac;
 }
 
-ac3 *p_call(astree *expr, ac3_table *current, string *label){
+statement *p_call(astree *expr, statement_table *current, string *label){
   size_t index = current->size();
-  ac3 *bot = new ac3(expr);
+  statement *bot = new statement(expr);
   vector <reg*> *args = new vector <reg*>();
   if (expr->children.size() > 1){
     for (size_t i = 1; i < expr->children.size(); i++){
@@ -596,8 +577,8 @@ ac3 *p_call(astree *expr, ac3_table *current, string *label){
   return bot;
 }
 
-ac3 *p_field(astree *expr, ac3_table *current){
-  ac3 *bot = new ac3(expr);
+statement *p_field(astree *expr, statement_table *current){
+  statement *bot = new statement(expr);
   astree *ident = expr->children[0];
   astree *field = expr->children[1];
   bot->t0 = new reg_temp(astree_stride(current,expr),reg_count);
@@ -611,20 +592,20 @@ ac3 *p_field(astree *expr, ac3_table *current){
 }
 
 // extra arguments for string as an expression
-ac3 *p_string_expr (astree *expr, ac3_table *current){
+statement *p_string_expr (astree *expr, statement_table *current){
   // store function call in register
   reg *ret = new reg_temp(astree_stride(current,expr),reg_count);
   ++reg_count;
-  ac3 *str = p_string(expr,current,ret);  
+  statement *str = p_string(expr,current,ret);  
   return str;
 }
 
 // extra arguments for function call as an expression
-ac3 *p_call_expr (astree *expr, ac3_table *current){
+statement *p_call_expr (astree *expr, statement_table *current){
   // store function call in register
   reg *ret = new reg_temp(astree_stride(current,expr),reg_count);
   ++reg_count;
-  ac3 *call = p_call(expr,current,nullptr);  
+  statement *call = p_call(expr,current,nullptr);  
   if (call)
     call->t0 = ret;
   else{
@@ -634,10 +615,10 @@ ac3 *p_call_expr (astree *expr, ac3_table *current){
   return call;
 }
 
-ac3 *p_loop_condition_relop(string *relop, string *goto_label, astree *expr, ac3_table *current){
+statement *p_loop_condition_relop(string *relop, string *goto_label, astree *expr, statement_table *current){
   astree *left = expr->children[0];
   astree *right = expr->children[1];
-  ac3 *ret = new ac3(expr);
+  statement *ret = new statement(expr);
   ret->condition = goto_label;
   left->children.size() ? ret->t1 = expr_reg(left,current) : ret->t1 = new reg_ident(left->lexinfo); 
   ret->op = relop;
@@ -646,8 +627,8 @@ ac3 *p_loop_condition_relop(string *relop, string *goto_label, astree *expr, ac3
   return ret;
 }
 
-ac3 *p_loop_condition(string *goto_label, astree *expr, ac3_table *current){
-  ac3 *ret = nullptr;
+statement *p_loop_condition(string *goto_label, astree *expr, statement_table *current){
+  statement *ret = nullptr;
   if (expr->children.size()){
     if (expr->children.size() > 1){
       switch (expr->symbol){
@@ -664,7 +645,7 @@ ac3 *p_loop_condition(string *goto_label, astree *expr, ac3_table *current){
 	case TOK_GE:          
 	  return p_loop_condition_relop(new string ("<="),goto_label,expr,current);
 	default:
-	  ret = new ac3(expr);
+	  ret = new statement(expr);
 	  reg *parse = expr_reg(expr,current);
 	  parse->set_unop(new string ("not"));
           ret->condition = goto_label;
@@ -673,7 +654,7 @@ ac3 *p_loop_condition(string *goto_label, astree *expr, ac3_table *current){
       }
     } 
     else {
-      ret = new ac3(expr);
+      ret = new statement(expr);
       reg *parse = expr_reg(expr,current);
       parse->set_unop(new string ("not"));
       ret->condition = goto_label;
@@ -682,7 +663,7 @@ ac3 *p_loop_condition(string *goto_label, astree *expr, ac3_table *current){
     }
   }
   else {
-    ret = new ac3(expr);
+    ret = new statement(expr);
     ret->condition = goto_label;
     ret->t1 = new reg_ident(expr->lexinfo);
     ret->t1->set_unop(new string("not"));
@@ -691,9 +672,9 @@ ac3 *p_loop_condition(string *goto_label, astree *expr, ac3_table *current){
   return ret;
 }
 
-void p_stmt(astree *expr, ac3_table *current, string *label);
+void p_stmt(astree *expr, statement_table *current, string *label);
 
-ac3 *p_if(astree *expr, ac3_table *current, string *label){ 
+statement *p_if(astree *expr, statement_table *current, string *label){ 
   astree *condition = expr->children[0];
   astree *if_statement = expr->children[1];
   int orig_if = if_count;
@@ -702,7 +683,7 @@ ac3 *p_if(astree *expr, ac3_table *current, string *label){
   // if label exists, this if statement is enclosed within
   // another if or while statement. emit the label to encapsulate this if.
   if (label){
-    ac3 *encapsulate = new ac3(expr);
+    statement *encapsulate = new statement(expr);
     encapsulate->label = label;
     encapsulate->itype.set(static_cast<int>(instruction::LABEL_ONLY));
     current->push_back(encapsulate);
@@ -717,7 +698,7 @@ ac3 *p_if(astree *expr, ac3_table *current, string *label){
   string goto_label = selection + to_string(orig_if);
 
   /* goto statement */
-  ac3 *parsed = p_loop_condition(new string(goto_label),condition,current);
+  statement *parsed = p_loop_condition(new string(goto_label),condition,current);
   if (parsed){
     current->push_back(parsed);
     current->at(top)->label = new string(if_header);
@@ -736,7 +717,7 @@ ac3 *p_if(astree *expr, ac3_table *current, string *label){
   // if there is an else block
   if (expr->children.size() > 2){
     // emit the goto for the case that the if statement is true
-    ac3 *if_true = new ac3 (expr->children[1]);
+    statement *if_true = new statement (expr->children[1]);
     if_true->condition = new string(exit_label);
     if_true->itype.set(static_cast<int>(instruction::GOTO));
     current->push_back(if_true);
@@ -747,7 +728,7 @@ ac3 *p_if(astree *expr, ac3_table *current, string *label){
   }
 
   /* emit ending label */
-  ac3 *closing_stmt = new ac3(expr);
+  statement *closing_stmt = new statement(expr);
   closing_stmt->label = new string(exit_label + ":");
   closing_stmt->itype.set(static_cast<int>(instruction::LABEL_ONLY));
   current->push_back(closing_stmt);
@@ -756,16 +737,16 @@ ac3 *p_if(astree *expr, ac3_table *current, string *label){
 }
 
 
-ac3 *p_while(astree *expr, ac3_table *current, string *label){ 
+statement *p_while(astree *expr, statement_table *current, string *label){ 
   astree *condition = expr->children[0];
-  astree *statement = expr->children[1];
+  astree *stmt = expr->children[1];
   int orig_while = while_count;
   ++while_count;
 
   // if label exists, this while statement is enclosed within
   // another if or while statement. emit the label to encapsulate this while.
   if (label){
-    ac3 *encapsulate = new ac3(expr);
+    statement *encapsulate = new statement(expr);
     encapsulate->label = label;
     encapsulate->itype.set(static_cast<int>(instruction::LABEL_ONLY));
     current->push_back(encapsulate);
@@ -779,7 +760,7 @@ ac3 *p_while(astree *expr, ac3_table *current, string *label){
   size_t top = current->size();
 
   /* goto statement */
-  ac3 *parsed = p_loop_condition(new string(goto_label),condition,current);
+  statement *parsed = p_loop_condition(new string(goto_label),condition,current);
   if (parsed){
     current->push_back(parsed);
     current->at(top)->label = new string(while_header + ":");
@@ -791,16 +772,16 @@ ac3 *p_while(astree *expr, ac3_table *current, string *label){
 
   /* first statement */
   string *first_label = new string(".do" + to_string(orig_while) + ":");
-  p_stmt(statement,current,first_label); 
+  p_stmt(stmt,current,first_label); 
 
   /* loop statment */
-  ac3 *loop_stmt = new ac3 (statement);
+  statement *loop_stmt = new statement (stmt);
   loop_stmt->condition = new string(while_header);
   loop_stmt->itype.set(static_cast<int>(instruction::GOTO));
   current->push_back(loop_stmt);
 
   /* while end label */
-  ac3 *closing_stmt = new ac3(expr);
+  statement *closing_stmt = new statement(expr);
   closing_stmt->label = new string(goto_label + ":");
   closing_stmt->itype.set(static_cast<int>(instruction::LABEL_ONLY));
   current->push_back(closing_stmt);
@@ -808,8 +789,8 @@ ac3 *p_while(astree *expr, ac3_table *current, string *label){
 }
 
 // equals in the context of an expr
-ac3 *p_equals(astree *expr, ac3_table *current){
-  ac3 *ac = new ac3(expr);
+statement *p_equals(astree *expr, statement_table *current){
+  statement *ac = new statement(expr);
   astree *left = expr->children[0];
   ac->t0 = parse_variable(left,current);
   astree *right = expr->children[1];
@@ -845,7 +826,7 @@ ac3 *p_equals(astree *expr, ac3_table *current){
 }
 
 // helper function for p_alloc (for cases where alloc is part of an expression)
-ac3 *p_alloc(astree *expr, ac3_table *current){
+statement *p_alloc(astree *expr, statement_table *current){
   reg *ret = new reg_temp (astree_stride(current,expr),reg_count);
   ++reg_count;
   switch (expr->children[0]->symbol){
@@ -861,7 +842,7 @@ ac3 *p_alloc(astree *expr, ac3_table *current){
   return nullptr;
 }
 
-void p_block(astree *expr, ac3_table *current, string *label){
+void p_block(astree *expr, statement_table *current, string *label){
   if (expr->children.size()){
     p_stmt(expr->children[0],current,label); 
     // parse the rest of the statements
@@ -871,7 +852,7 @@ void p_block(astree *expr, ac3_table *current, string *label){
   }
   else{
     if (label){
-      ac3 *vacuous_block = new ac3(expr);
+      statement *vacuous_block = new statement(expr);
       vacuous_block->label = label;
       vacuous_block->itype.set(static_cast<int>(instruction::LABEL_ONLY));
       current->push_back(vacuous_block);
@@ -879,12 +860,12 @@ void p_block(astree *expr, ac3_table *current, string *label){
   }
 }
 
-ac3 *p_return(astree *expr, ac3_table *current, string *label){
+statement *p_return(astree *expr, statement_table *current, string *label){
   size_t top = current->size();
-  ac3 *bot;
+  statement *bot;
   if (expr->children.size()){
     astree *assignment = expr->children[0];
-    bot = new ac3(expr);
+    bot = new statement(expr);
     if (assignment->children.size()){
       reg *stored = expr_reg(assignment,current);
       if (stored)
@@ -903,7 +884,7 @@ ac3 *p_return(astree *expr, ac3_table *current, string *label){
     current->at(top)->label = label;
   } 
   else {
-    bot = new ac3(expr);
+    bot = new statement(expr);
     bot->itype.set(static_cast<int>(instruction::RETURN));
     current->push_back(bot);
     current->at(top)->label = label;
@@ -911,8 +892,8 @@ ac3 *p_return(astree *expr, ac3_table *current, string *label){
   return bot;
 }
 
-ac3 *p_index(astree *expr, ac3_table *current){
-  ac3 *bot = new ac3(expr);
+statement *p_index(astree *expr, statement_table *current){
+  statement *bot = new statement(expr);
   astree *ident = expr->children[0];
   astree *index = expr->children[1];
   bot->t0 = new reg_temp(astree_stride(current,expr),reg_count);
@@ -927,11 +908,11 @@ ac3 *p_index(astree *expr, ac3_table *current){
   return bot;
 }
 
-ac3 *p_semicolon(astree *expr, ac3_table *current,string *label){
-  ac3 *ac = new ac3(expr);
+statement *p_semicolon(astree *expr, statement_table *current,string *label){
+  statement *ac = new statement(expr);
   current->push_back(ac);
   if (label){
-    ac3 *encapsulate = new ac3(expr);
+    statement *encapsulate = new statement(expr);
     encapsulate->label = label;
     encapsulate->itype.set(static_cast<int>(instruction::LABEL_ONLY));
     current->push_back(encapsulate);
@@ -941,7 +922,7 @@ ac3 *p_semicolon(astree *expr, ac3_table *current,string *label){
 }
 
 // large switch statement for expressions
-ac3 *p_expr(astree *expr, ac3_table *current){
+statement *p_expr(astree *expr, statement_table *current){
   switch (expr->symbol){
     case '=':
       return p_equals(expr,current);
@@ -996,15 +977,15 @@ ac3 *p_expr(astree *expr, ac3_table *current){
 }
 
 //helper function for p_expr (for cases where expressions are parsed without assignment)
-ac3 *p_expression(astree *expr, ac3_table *current, string *label){
+statement *p_expression(astree *expr, statement_table *current, string *label){
   size_t index = current->size();
-  ac3 *ac = p_expr(expr,current);
+  statement *ac = p_expr(expr,current);
   if(ac){
     if (expr->symbol != ';'){
       current->at(index)->label = label;
     } else {
       if (label){
-        ac3 *encapsulate = new ac3(expr);
+        statement *encapsulate = new statement(expr);
         encapsulate->label = label;
         encapsulate->itype.set(static_cast<int>(instruction::LABEL_ONLY));
         current->push_back(encapsulate);
@@ -1017,8 +998,8 @@ ac3 *p_expression(astree *expr, ac3_table *current, string *label){
 }
 
 // parse a statement
-void p_stmt(astree *expr, ac3_table *current, string *label){
-  ac3 *ac = nullptr;
+void p_stmt(astree *expr, statement_table *current, string *label){
+  statement *ac = nullptr;
   switch (expr->symbol){
     case TOK_BLOCK:
       p_block(expr,current,label);
@@ -1171,11 +1152,11 @@ void emit_functions(FILE *out){
       }
     }
     // fetch statements associated with function
-    ac3_table *found;
+    statement_table *found;
     if (three_address_code::table_lookup->count(block))
       found = three_address_code::table_lookup->find(block)->second;
     else{
-      errprintf ("3ac: ac3 table not found for function %s\n",fname.c_str());
+      errprintf ("3ac: statement table not found for function %s\n",fname.c_str());
       ++err_count;
       continue;
     }
@@ -1242,7 +1223,7 @@ void ac_traverse(astree *s){
         ++err_count;
         return;
       }
-      ac3_table *new_function = new ac3_table;
+      statement_table *new_function = new statement_table;
       three_address_code::table_lookup->emplace(found,new_function);
       three_address_code::all_functions->push_back(make_pair(name->lexinfo,new_function));
       reg_count = 0;
@@ -1264,10 +1245,10 @@ int generate_3ac(){
     ++err_count;
     return 1;
   }
-  three_address_code::table_lookup = new unordered_map<symbol_table*, ac3_table*>;
+  three_address_code::table_lookup = new unordered_map<symbol_table*, statement_table*>;
   three_address_code::all_strings  = new vector <const string*>();
-  three_address_code::all_globals  = new ac3_table; 
-  three_address_code::all_functions = new vector<pair<const string*,ac3_table*>>();
+  three_address_code::all_globals  = new statement_table; 
+  three_address_code::all_functions = new vector<pair<const string*,statement_table*>>();
   // link global symbol table with global statement table
   three_address_code::table_lookup->emplace(symtable::global,three_address_code::all_globals);
   ac_traverse(parser::root);
