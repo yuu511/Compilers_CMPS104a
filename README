@@ -6,7 +6,7 @@ Each module of the compiler emits an output file.
 2. scanner.l: Scanner : .tok
 3. parser.y / astree.cpp: Parser (Abstract Syntax Tree) : .ast
 4. symbol_table.cpp : Symbol table and type checker : .sym
-5. 3ac.cpp : Three Adress Code : .oil
+5. 3AC_emitter.cpp : Three Adress Code : .oil
 
 Check out the ./test/ folder.
 tests 9* are designed to throw errors 
