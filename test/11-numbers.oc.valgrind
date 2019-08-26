@@ -1,14 +1,14 @@
-==24929== Memcheck, a memory error detector
-==24929== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==24929== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==24929== Command: ../oc 11-numbers.oc
-==24929== 
-==24929== 
-==24929== HEAP SUMMARY:
-==24929==     in use at exit: 0 bytes in 0 blocks
-==24929==   total heap usage: 450 allocs, 450 frees, 143,254 bytes allocated
-==24929== 
-==24929== All heap blocks were freed -- no leaks are possible
-==24929== 
-==24929== For counts of detected and suppressed errors, rerun with: -v
-==24929== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==10921== Memcheck, a memory error detector
+==10921== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==10921== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==10921== Command: ../oc 11-numbers.oc
+==10921== 
+==10921== 
+==10921== HEAP SUMMARY:
+==10921==     in use at exit: 0 bytes in 0 blocks
+==10921==   total heap usage: 450 allocs, 450 frees, 142,918 bytes allocated
+==10921== 
+==10921== All heap blocks were freed -- no leaks are possible
+==10921== 
+==10921== For counts of detected and suppressed errors, rerun with: -v
+==10921== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

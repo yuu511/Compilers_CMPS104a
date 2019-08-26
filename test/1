@@ -1,0 +1,56 @@
+/* structure tests */
+
+// struct test{};
+// struct onearg{int trivial;};
+// struct allofem { int one;
+//                  string two;
+//                  ptr <struct none > homura; 
+//                  array <int> sayaka;
+// 	           };
+// 
+// struct homura { 
+//   int h_mp5;
+//   int h_RL;
+//   int h_glock;
+// };
+// 
+struct mami {
+  ptr <struct homura> m_homura;
+  array <ptr <struct mami> > m_mami_array;
+  int muskets;
+};
+// 
+// int return_5(){
+//   return 5;
+// }
+// 
+// int main(int param){
+// 
+//   // function call / operator precedenmce parsing
+//   int parsed = return_5() + 0xDEAD * (69 + 5) *3;
+// 
+//   // field / struct parsing
+//   ptr <struct homura> homura_instance = alloc <struct homura>();
+//   ptr <struct mami> mami_instance = alloc <struct mami>();
+//   array <ptr <struct mami>> mami_array = alloc<array<ptr<struct mami>>>(5); 
+//   // array / field parsing
+//   homura_instance->h_mp5 = 0xDEAD + 0xBEEF;
+//   mami_array[4]->m_mami_array[2]->m_homura->h_mp5 = homura_instance->h_mp5;
+// 
+//   // add the complicated expressions together
+//   int x = mami_array[4]->m_mami_array[2]->m_homura->h_mp5 + parsed;
+// }
+
+int test (int x, int y){
+
+}
+
+int main(){
+  string test;
+  string mami = "STTTTTTTTTTTTTTRING";
+  int x = 123213 + 5 + 3 + test(3,4);
+  test = mami;
+  ptr <struct mami> mami_instance = alloc <struct mami>();
+  // array <ptr <struct mami>> mami_array = alloc<array<ptr<struct mami>>>(5); 
+  // mami_array[2] = mami_array[3] = nullptr;
+}

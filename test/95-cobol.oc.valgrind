@@ -1,8 +1,8 @@
-==25049== Memcheck, a memory error detector
-==25049== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==25049== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==25049== Command: ../oc 95-cobol.oc
-==25049== 
+==11050== Memcheck, a memory error detector
+==11050== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==11050== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==11050== Command: ../oc 95-cobol.oc
+==11050== 
 ÀqÚ:3.1: invalid token (000100)
 ÀqÚ:3.8: syntax error, unexpected TOK_IDENT
 ÀqÚ:3.31: invalid source character (.)
@@ -36,12 +36,12 @@
 ÀqÚ:22.23: invalid source character (.)
 ÀqÚ:23.12: invalid source character (.)
 parse failed (1)
-==25049== 
-==25049== HEAP SUMMARY:
-==25049==     in use at exit: 0 bytes in 0 blocks
-==25049==   total heap usage: 136 allocs, 136 frees, 111,428 bytes allocated
-==25049== 
-==25049== All heap blocks were freed -- no leaks are possible
-==25049== 
-==25049== For counts of detected and suppressed errors, rerun with: -v
-==25049== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==11050== 
+==11050== HEAP SUMMARY:
+==11050==     in use at exit: 0 bytes in 0 blocks
+==11050==   total heap usage: 136 allocs, 136 frees, 111,428 bytes allocated
+==11050== 
+==11050== All heap blocks were freed -- no leaks are possible
+==11050== 
+==11050== For counts of detected and suppressed errors, rerun with: -v
+==11050== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

@@ -8,9 +8,9 @@ main:      .function int
            call putchr('[')  
            call putint(10)  
            call putstr("] compiled ")  
-           call putstr("Jul 28 2019")  
+           call putstr("Aug 26 2019")  
            call putstr(" ")  
-           call putstr("14:54:19")  
+           call putstr("01:48:22")  
            call putstr("\n")  
            return 0
            return

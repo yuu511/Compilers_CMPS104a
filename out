@@ -1,26 +1,59 @@
-g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c symbol_table.cpp
-symbol_table.cpp: In function ‘void gen_table(astree*)’:
-symbol_table.cpp:1418:7: error: ‘table_ptrs’ was not declared in this scope; did you mean ‘symtable::table_ptrs’?
- 1418 |       table_ptrs = new all_tables(struct_t,global,master);
-      |       ^~~~~~~~~~
-      |       symtable::table_ptrs
-symbol_table.cpp:19:33: note: ‘symtable::table_ptrs’ declared here
-   19 | namespace symtable{ all_tables *table_ptrs; }
-      |                                 ^~~~~~~~~~
-symbol_table.cpp: In function ‘void free_symbol()’:
-symbol_table.cpp:1472:10: error: ‘table_ptrs’ was not declared in this scope; did you mean ‘symtable::table_ptrs’?
- 1472 |   delete table_ptrs;
-      |          ^~~~~~~~~~
-      |          symtable::table_ptrs
-symbol_table.cpp:19:33: note: ‘symtable::table_ptrs’ declared here
-   19 | namespace symtable{ all_tables *table_ptrs; }
-      |                                 ^~~~~~~~~~
-symbol_table.cpp: In function ‘all_tables* get_tables()’:
-symbol_table.cpp:1483:10: error: ‘table_ptrs’ was not declared in this scope; did you mean ‘symtable::table_ptrs’?
- 1483 |   return table_ptrs;
-      |          ^~~~~~~~~~
-      |          symtable::table_ptrs
-symbol_table.cpp:19:33: note: ‘symtable::table_ptrs’ declared here
-   19 | namespace symtable{ all_tables *table_ptrs; }
-      |                                 ^~~~~~~~~~
-make: *** [Makefile:55: symbol_table.o] Error 1
+g++ -std=gnu++17 -g -O0 -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast -fdiagnostics-color=never -c reg.cpp
+reg.cpp: In copy constructor ‘reg_ident::reg_ident(const reg_ident&)’:
+reg.cpp:52:15: error: no match for ‘operator=’ (operand types are ‘const string’ {aka ‘const std::__cxx11::basic_string<char>’} and ‘const string’ {aka ‘const std::__cxx11::basic_string<char>’})
+   52 |   *ident = *r.ident;
+      |               ^~~~~
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from reg.h:4,
+                 from reg.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:665:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’ <near match>
+  665 |       operator=(const basic_string& __str)
+      |       ^~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:665:7: note:   passing ‘const string*’ {aka ‘const std::__cxx11::basic_string<char>*’} as ‘this’ argument discards qualifiers
+/usr/include/c++/9.1.0/bits/basic_string.h:732:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’ <near match>
+  732 |       operator=(basic_string&& __str)
+      |       ^~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:732:7: note:   conversion of argument 1 would be ill-formed:
+reg.cpp:52:12: error: cannot bind rvalue reference of type ‘std::__cxx11::basic_string<char>&&’ to lvalue of type ‘const string’ {aka ‘const std::__cxx11::basic_string<char>’}
+   52 |   *ident = *r.ident;
+      |            ^~~~~~~~
+In file included from /usr/include/c++/9.1.0/string:55,
+                 from reg.h:4,
+                 from reg.cpp:1:
+/usr/include/c++/9.1.0/bits/basic_string.h:704:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const _CharT*) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  704 |       operator=(const _CharT* __s)
+      |       ^~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:704:31: note:   no known conversion for argument 1 from ‘const string’ {aka ‘const std::__cxx11::basic_string<char>’} to ‘const char*’
+  704 |       operator=(const _CharT* __s)
+      |                 ~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:715:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(_CharT) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  715 |       operator=(_CharT __c)
+      |       ^~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:715:24: note:   no known conversion for argument 1 from ‘const string’ {aka ‘const std::__cxx11::basic_string<char>’} to ‘char’
+  715 |       operator=(_CharT __c)
+      |                 ~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:795:7: note: candidate: ‘std::__cxx11::basic_string<_CharT, _Traits, _Alloc>& std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(std::initializer_list<_Tp>) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  795 |       operator=(initializer_list<_CharT> __l)
+      |       ^~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:795:42: note:   no known conversion for argument 1 from ‘const string’ {aka ‘const std::__cxx11::basic_string<char>’} to ‘std::initializer_list<char>’
+  795 |       operator=(initializer_list<_CharT> __l)
+      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/9.1.0/bits/basic_string.h:809:8: note: candidate: ‘template<class _Tp> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::_If_sv<_Tp, std::__cxx11::basic_string<_CharT, _Traits, _Alloc>&> std::__cxx11::basic_string<_CharT, _Traits, _Alloc>::operator=(const _Tp&) [with _Tp = _Tp; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+  809 |        operator=(const _Tp& __svt)
+      |        ^~~~~~~~
+/usr/include/c++/9.1.0/bits/basic_string.h:809:8: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/9.1.0/bits/move.h:55,
+                 from /usr/include/c++/9.1.0/bits/stl_pair.h:59,
+                 from /usr/include/c++/9.1.0/bits/stl_algobase.h:64,
+                 from /usr/include/c++/9.1.0/bits/char_traits.h:39,
+                 from /usr/include/c++/9.1.0/string:40,
+                 from reg.h:4,
+                 from reg.cpp:1:
+/usr/include/c++/9.1.0/type_traits: In substitution of ‘template<bool _Cond, class _Tp> using enable_if_t = typename std::enable_if::type [with bool _Cond = std::integral_constant<bool, false>::value; _Tp = std::__cxx11::basic_string<char>&]’:
+/usr/include/c++/9.1.0/bits/basic_string.h:117:8:   required by substitution of ‘template<class _CharT, class _Traits, class _Alloc> template<class _Tp, class _Res> using _If_sv = std::enable_if_t<std::__and_<std::is_convertible<const _Tp&, std::basic_string_view<_CharT, _Traits> >, std::__not_<std::is_convertible<const _Tp*, const std::__cxx11::basic_string<_CharT, _Traits, _Alloc>*> >, std::__not_<std::is_convertible<const _Tp&, const _CharT*> > >::value, _Res> [with _Tp = std::__cxx11::basic_string<char>; _Res = std::__cxx11::basic_string<char>&; _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]’
+/usr/include/c++/9.1.0/bits/basic_string.h:809:8:   required by substitution of ‘template<class _Tp> std::__cxx11::basic_string<char>::_If_sv<_Tp, std::__cxx11::basic_string<char>&> std::__cxx11::basic_string<char>::operator=<_Tp>(const _Tp&) [with _Tp = std::__cxx11::basic_string<char>]’
+reg.cpp:52:15:   required from here
+/usr/include/c++/9.1.0/type_traits:2426:11: error: no type named ‘type’ in ‘struct std::enable_if<false, std::__cxx11::basic_string<char>&>’
+ 2426 |     using enable_if_t = typename enable_if<_Cond, _Tp>::type;
+      |           ^~~~~~~~~~~
+make: *** [Makefile:55: reg.o] Error 1

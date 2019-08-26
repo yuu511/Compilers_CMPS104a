@@ -1,14 +1,14 @@
-==24989== Memcheck, a memory error detector
-==24989== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==24989== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==24989== Command: ../oc 40-arraystack.oc
-==24989== 
-==24989== 
-==24989== HEAP SUMMARY:
-==24989==     in use at exit: 0 bytes in 0 blocks
-==24989==   total heap usage: 1,447 allocs, 1,447 frees, 202,542 bytes allocated
-==24989== 
-==24989== All heap blocks were freed -- no leaks are possible
-==24989== 
-==24989== For counts of detected and suppressed errors, rerun with: -v
-==24989== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==10982== Memcheck, a memory error detector
+==10982== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==10982== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==10982== Command: ../oc 40-arraystack.oc
+==10982== 
+==10982== 
+==10982== HEAP SUMMARY:
+==10982==     in use at exit: 0 bytes in 0 blocks
+==10982==   total heap usage: 1,447 allocs, 1,447 frees, 200,334 bytes allocated
+==10982== 
+==10982== All heap blocks were freed -- no leaks are possible
+==10982== 
+==10982== For counts of detected and suppressed errors, rerun with: -v
+==10982== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

@@ -1,16 +1,16 @@
-==25046== Memcheck, a memory error detector
-==25046== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==25046== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
-==25046== Command: ../oc 94-syntax.oc
-==25046== 
+==11040== Memcheck, a memory error detector
+==11040== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==11040== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==11040== Command: ../oc 94-syntax.oc
+==11040== 
 ÀqÚ:4.9: syntax error, unexpected ';'
 ÀqÚ:7.10: invalid source character (.)
-==25046== 
-==25046== HEAP SUMMARY:
-==25046==     in use at exit: 0 bytes in 0 blocks
-==25046==   total heap usage: 85 allocs, 85 frees, 114,476 bytes allocated
-==25046== 
-==25046== All heap blocks were freed -- no leaks are possible
-==25046== 
-==25046== For counts of detected and suppressed errors, rerun with: -v
-==25046== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==11040== 
+==11040== HEAP SUMMARY:
+==11040==     in use at exit: 0 bytes in 0 blocks
+==11040==   total heap usage: 85 allocs, 85 frees, 114,476 bytes allocated
+==11040== 
+==11040== All heap blocks were freed -- no leaks are possible
+==11040== 
+==11040== For counts of detected and suppressed errors, rerun with: -v
+==11040== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
