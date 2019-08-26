@@ -23,7 +23,7 @@ using namespace std;
 #include "lyutils.h"
 #include "astree.h"
 #include "symbol_table.h"
-#include "3ac.h"
+#include "3AC_emitter.h"
 
 const string CPP = "/usr/bin/cpp -nostdinc";
 string command = CPP;

@@ -1,5 +1,5 @@
-#ifndef __3AC_H_
-#define __3AC_H_
+#ifndef __3AC_EMITTER_H_
+#define __3AC_EMITTER_H_
 
 #include "symbol_table.h"
 #include "astree.h"

@@ -22,13 +22,14 @@ using namespace std;
 
 struct reg { // parent struct
   string *unop;
-  reg(); // constructor
+
+  reg(); 
   reg(const reg& r);
-  virtual ~reg(); // destructor
-  void set_unop(string *unop);// functions
-  // virtual functions
-  virtual reg *deep_copy(); //deep copy register
-  virtual string str(); // stringify register
+  virtual ~reg(); 
+
+  void set_unop(string *unop); 
+  virtual reg *deep_copy(); // calls approriate copy ctor
+  virtual string str(); // calls appropriate stringify method
 };
 
 struct reg_ident : reg { //1

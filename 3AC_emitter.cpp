@@ -1,9 +1,8 @@
-#include "3ac.h"
-#include "symbol_table.h"
-#include "astree.h"
+#include <algorithm>
+
+#include "3AC_emitter.h"
 #include "lyutils.h"
 #include "auxlib.h"
-#include <algorithm>
 
 using namespace std;
 
